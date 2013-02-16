@@ -1,0 +1,7 @@
+I'll save here my configuration file eg
+zsh/ vim git ...
+
+I use oh-my-zsh base script for zsh
+I use janus base script for vim
+
+in .janus folder their is a vim script : 'tabularize'
