@@ -1,0 +1,108 @@
+if has('mouse')
+    set mouse=a
+endif
+" when go to left at a start of line, it goes to the end of previous
+set whichwrap+=<,>,h,l,[,]
+"trim white space at end of line
+autocmd FileType c,cpp,java,php,ruby,yaml,html,eruby,slim,css,javascript,haml,coffee,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
+"Add rails Rfabricator
+autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
+""Add rails Rdecorator
+autocmd User Rails Rnavcommand decorator app/decorators -suffix=_decorator.rb -default=model()
+"POWER FOLD
+"add setlocal at the second command because the word 'ruby' cause bad parsing
+"of vimconfig (it's strange)
+autocmd Syntax c,cpp,vim,xml,html,xhtml,ruby setlocal foldmethod=syntax | setlocal foldlevel=1
+autocmd Syntax ruby                          setlocal foldmethod=syntax | setlocal foldlevel=4
+autocmd Syntax slim,haml,coffee              setlocal foldmethod=indent | setlocal foldlevel=5
+autocmd Syntax yaml                          setlocal foldmethod=indent | setlocal foldlevel=1
+"stop new line at 72 char for .md file
+autocmd Syntax markdown                      setlocal textwidth=0
+"show three line before up and down => MAGIC
+set scrolloff=3
+set cursorcolumn
+" Copy to 'clipboard registry'
+vmap <C-c> "*y
+" Select all text <- update, non needed, because of vim skill improved \o/ and
+" <S-a> go in insert mode at end of line. More usefull
+" nmap <S-a> ggvG
+
+"Display &nbsp and trailing space :
+set listchars=nbsp:•,trail:¬
+"to see current listchars(replace specified char whith other)
+"just type :set listchars
+"To display endline and tab , type:
+":set listchars=eol:¶,tab:>-
+"Add ttymouse because after an upgrade of vim
+"When installing vim with standard mac ruby (V 1.8) seems no problem,
+"but when use nerdtree -> problem
+set ttymouse=xterm2
+
+" Spell Check, used to togle between no spell and language. To add a language
+" juste download a language from here : http://ftp.vim.org/vim/runtime/spell/
+" , and copy paste in ~/.vim/spell/
+let b:myLang=0
+let g:myLangList=["nospell","fr","en"]
+function! ToggleSpell()
+  let b:myLang=b:myLang+1
+  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+  if b:myLang==0
+    setlocal nospell
+  else
+    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+  endif
+  echo "spell checking language:" g:myLangList[b:myLang]
+endfunction
+
+nmap <F7> :call ToggleSpell()<CR>
+
+" Yank the word on which i am
+nmap <Leader>y yiw
+" Yank the word on which i am and put it in the clipboard
+nmap <Leader>Y "*yiw
+" Remove the word under the cursor and go in insert mode
+nmap <Leader>r ciw
+" when on a word, change 'word' do '#{word}' (usefull for ruby)
+" Leader a , with a like accolade
+nmap <Leader>a diWi#{<ESC>pli}<ESC>
+"If the target buffer is already displayed in a window in one of the tabs,
+"that window will be displayed.
+"from http://vim.wikia.com/wiki/Using_tab_pages
+set switchbuf=usetab
+"Move screen to the left or to the right
+map <C-L> zl
+map <C-H> zh
+
+"when use x, do not send to test register <""> but send to black hole
+"register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
+nmap x "_dl
+
+"when i paste on visual mode on another word i wouldn't this other word is
+"saved, but it s not working
+"vmap p "_p not working
+"vmap P "_P
+
+"when press <Leader>s it search and replace word under cursor
+"yiw yank the word under cursor
+"<C-r>0 paste the last yanked word
+" need a lot of improvment like when wanted to change http://test/to the "/"
+" is bad...
+nmap <Leader>sr yiw:%s/<C-r>0/<C-r>0/gc<Left><Left><Left>
+" remove white space to the next char
+" NEED HELP
+
+"""""""""""""""
+" TIP & TRICK "
+"""""""""""""""
+"To search with case sensitive,   tap :set ic
+"To search with case insensitive, tap :set noic
+"Be carefull because with janus, if search as ONE upper case it search case
+"sensitive
+"finally it s a goo things
+set noic
+
+"to answer to a stack exchange question :
+"http://superuser.com/questions/514615/does-vim-have-something-like-c-w-in-insert-mode-which-deletes-back-a-word/550109#550109
+"delete backward a word on insert mode
+"imap <C-w> <ESC>lciW
+"
