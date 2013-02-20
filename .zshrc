@@ -1,10 +1,8 @@
-# #############
-# Good things to know :
+##################
+# TIPS AND TRICKS
 # grepall finded_text file_extension
 # on big command line press : CTRL-X-E (hold ctrl) and you can edit it on vim
 #
-
-
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -134,3 +132,6 @@ alias ber='noglob bundle exec rspec'
 # rbenv global ree-1.8.7-2012.02
 # brew update vim
 # rbenv global 1.9.3
+#
+# To sync my picture folder :
+# rsync -av -e ssh Pictures hettomei@192.168.0.27:backup_mac

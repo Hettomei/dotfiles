@@ -1,1 +1,4 @@
+"Because it assign ,rt and I use ,r to delete and wirte on the word
+"and i do not use tagbar
+call janus#disable_plugin('tagbar')
 let mapleader=","
