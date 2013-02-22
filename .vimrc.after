@@ -99,6 +99,13 @@ set noic
 "http://superuser.com/questions/514615/does-vim-have-something-like-c-w-in-insert-mode-which-deletes-back-a-word/550109#550109
 "delete backward a word on insert mode
 "imap <C-w> <ESC>lciW
+
+"Write output of a shell command in vim file :
+"here display all file
+"!!ls -al
+
+"Abbreviation (awesome !!)
+":ab mail my_long_long_mail@looooooong_provider.org
 """""""""""""""
 "/TIP & TRICK "
 """""""""""""""
