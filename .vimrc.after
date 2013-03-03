@@ -124,3 +124,9 @@ function! SearchAndReplace()
   execute "%s/".word_to_search."/".word_to_replace."/gc"
 endfunction
 nmap <Leader>sr :call SearchAndReplace()<CR>
+
+"can remove this
+ab cq customer_quote
+ab CQ CustomerQuote
+ab ob online_booking
+ab OB OnlineBooking

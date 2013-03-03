@@ -66,12 +66,15 @@ rbenv() {
 #export IN=$INPULSE
 #PATH=$PATH:/Users/tim/programmes/pulse_sdk/arm-2010q1/bin
 
+##### Android
+PATH=$PATH:/Users/tim/programmes/android/sdk/tools
+PATH=$PATH:/Users/tim/programmes/android/sdk/platform-tools
+
 ###JAVA
 #export M2_HOME=/usr/local/apache-maven/apache-maven-3.0.4
 #export M2=$M2_HOME/bin
 export JAVA_HOME=/Library/Java/Home
 PATH=$PATH:$JAVA_HOME
-#PATH=$PATH:$M2
 
 ###############################
 #            ALIAS            #
