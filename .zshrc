@@ -46,7 +46,7 @@ export VISUAL="vim"
 export EDITOR="vim"
 
 export PATH=$HOME/.rbenv/shims:/usr/local/sbin:$PATH
-source "/usr/local/Cellar/rbenv/0.3.0/libexec/../completions/rbenv.zsh"
+source "/usr/local/Cellar/rbenv/0.4.0/libexec/../completions/rbenv.zsh"
 rbenv rehash 2>/dev/null
 rbenv() {
   command="$1"
