@@ -95,6 +95,9 @@ devinette=/Users/tim/programmes/Ruby/devinette
 alias g='git'
 #affiche tout l'historique des modifs d'un fichier
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+#taken here :  http://alias.sh/compact-colorized-git-log
+alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gl2='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 # -n display line, -I ignore binary files
 alias ggrep='git grep -nI'
 alias v='vim'
@@ -103,7 +106,7 @@ alias e='echo'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
-alias pwdc='pwd | pbcopy && e "copy to clipboard: `pbpaste`"'
+alias pwdc='pwd | pbcopy; echo "copy to clipboard: `pbpaste`"'
 
 ##find text 'test' il all '.txt' file recursively from current dir
 #example: grepall test txt

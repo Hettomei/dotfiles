@@ -76,6 +76,9 @@ map <C-H> zh
 "when use x, do not send to test register <""> but send to black hole
 "register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
 nmap x "_dl
+vmap x "_dl
+""_diw -> select word and delete it in black hole, then paste
+nmap <Leader>p "_diwP
 
 "when i paste on visual mode on another word i wouldn't this other word is
 "saved, but it s not working
@@ -130,3 +133,5 @@ ab cq customer_quote
 ab CQ CustomerQuote
 ab ob online_booking
 ab OB OnlineBooking
+ab cci customer_commercial_info
+ab CCI CustomerCommercialInfo
