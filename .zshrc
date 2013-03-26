@@ -141,3 +141,6 @@ alias ber='noglob bundle exec rspec'
 #
 # To sync my picture folder :
 # rsync -av -e ssh Pictures hettomei@192.168.0.27:backup_mac
+#
+# How to view file by pressing space in mac for given extension :
+# find . -name '*.rabl' -exec /Developer/Tools/SetFile -t TEXT {} \;

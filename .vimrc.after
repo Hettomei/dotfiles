@@ -127,6 +127,8 @@ function! SearchAndReplace()
   execute "%s/".word_to_search."/".word_to_replace."/gc"
 endfunction
 nmap <Leader>sr :call SearchAndReplace()<CR>
+"Stop search at end of the file
+set nowrapscan
 
 "can remove this
 ab cq customer_quote
