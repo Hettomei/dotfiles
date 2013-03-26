@@ -106,7 +106,7 @@ alias e='echo'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
-alias pwdc='pwd | pbcopy; echo "copy to clipboard: `pbpaste`"'
+alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 
 ##find text 'test' il all '.txt' file recursively from current dir
 #example: grepall test txt
