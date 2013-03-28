@@ -137,3 +137,6 @@ ab ob online_booking
 ab OB OnlineBooking
 ab cci customer_commercial_info
 ab CCI CustomerCommercialInfo
+ab mb my_bookings
+ab br boat_request
+ab BR BoatRequest

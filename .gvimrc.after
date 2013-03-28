@@ -1,3 +1,4 @@
 "set font for macvim
 set guifont=Monaco:h12
 set guioptions+=b
+colorscheme darkBlue
