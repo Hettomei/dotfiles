@@ -104,7 +104,7 @@ alias v='vim'
 alias e='echo'
 #alias grep='grep -i'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
-alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/pause.rb'
+alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 

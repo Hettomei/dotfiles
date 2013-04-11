@@ -9,6 +9,8 @@ autocmd FileType c,cpp,java,php,ruby,yaml,html,eruby,slim,css,javascript,haml,co
 autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
 ""Add rails Rdecorator
 autocmd User Rails Rnavcommand decorator app/decorators -suffix=_decorator.rb -default=model()
+"Add rails Rrepository
+autocmd User Rails Rnavcommand repository app/repository -suffix=_repository.rb -default=model()
 "POWER FOLD
 "add setlocal at the second command because the word 'ruby' cause bad parsing
 "of vimconfig (it's strange)
@@ -140,3 +142,5 @@ ab CCI CustomerCommercialInfo
 ab mb my_bookings
 ab br boat_request
 ab BR BoatRequest
+ab sr sailing_resume
+ab SR SailingResume
