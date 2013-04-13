@@ -144,3 +144,7 @@ alias ber='noglob bundle exec rspec'
 #
 # How to view file by pressing space in mac for given extension :
 # find . -name '*.rabl' -exec /Developer/Tools/SetFile -t TEXT {} \;
+
+#open all rb file with vim. taken here : http://grml.org/zsh/zsh-lovers.html
+alias -s rb=vim
+alias -s yml=vim
