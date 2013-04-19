@@ -1,5 +1,6 @@
-"Because it assign ,rt and I use ,r to delete and wirte on the word
+"Because it assign ,rt and I use ,r to delete and write on the word
 "and i do not use tagbar
+call janus#disable_plugin('nerdtree')
 call janus#disable_plugin('tagbar')
 call janus#disable_plugin('unimpaired')
 let mapleader=","

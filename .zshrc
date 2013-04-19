@@ -82,14 +82,14 @@ PATH=$PATH:$JAVA_HOME
 ###############################
 # Special FOLDER #
 #Alias pour aller directement vers ces paths
-front=/Users/tim/BeMyBoat/bmb_front
-crm=/Users/tim/BeMyBoat/bemyboat/webapp
-tabarlus=/Users/tim/BeMyBoat/tabarlus
-tabarlusapi=/Users/tim/BeMyBoat/tabarlus_api
-apitabarlus=/Users/tim/BeMyBoat/tabarlus_api
-business=/Users/tim/BeMyBoat/bmb_business
-mmk=/Users/tim/BeMyBoat/mmk
-devinette=/Users/tim/programmes/Ruby/devinette
+alias front='cd /Users/tim/BeMyBoat/bmb_front'
+alias crm='cd /Users/tim/BeMyBoat/bemyboat/webapp'
+alias tabarlus='cd /Users/tim/BeMyBoat/tabarlus'
+alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
+alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api'
+alias business='cd /Users/tim/BeMyBoat/bmb_business'
+alias mmk='cd /Users/tim/BeMyBoat/mmk'
+alias devinette='cd /Users/tim/programmes/Ruby/devinette'
 
 # unix alias #
 alias g='git'

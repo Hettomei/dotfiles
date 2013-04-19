@@ -5,12 +5,6 @@ endif
 set whichwrap+=<,>,h,l,[,]
 "trim white space at end of line
 autocmd FileType c,cpp,java,php,ruby,yaml,html,eruby,slim,css,javascript,haml,coffee,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
-"Add rails Rfabricator
-autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
-""Add rails Rdecorator
-autocmd User Rails Rnavcommand decorator app/decorators -suffix=_decorator.rb -default=model()
-"Add rails Rrepository
-autocmd User Rails Rnavcommand repository app/repository -suffix=_repository.rb -default=model()
 "POWER FOLD
 "add setlocal at the second command because the word 'ruby' cause bad parsing
 "of vimconfig (it's strange)
@@ -158,3 +152,45 @@ ab SR SailingResume
 "<change the values on the hex side>
 "[esc] :%!xxd -r
 "[esc] :wq!
+
+
+"For vim-rails
+"replace :
+"autocmd User Rails Rnavcommand fabricator spec/fabricators -suffix=_fabricator.rb -default=model()
+"with:
+"help -> :help rails-projection
+let g:rails_projections = {
+      \ "app/decorators/*_decorator.rb": {
+      \   "command": "decorator",
+      \   "template":
+      \     "class %SDecorator < ApplicationDecorator\nend",
+      \   "test": [
+      \     "spec/decorators/%s_decorator_spec.rb"
+      \   ],
+      \   "alternate": 'app/models/%s.rb'
+      \ },
+      \ "spec/fabricators/*_fabricator.rb": {
+      \   "command": "fabricator",
+      \   "template":
+      \     "Fabricate(:%S)\nend",
+      \   "test": [
+      \     "spec/models/%s_spec.rb"
+      \   ],
+      \ },
+      \ "app/repository/*_repository.rb": {
+      \   "command": "repository",
+      \   "template":
+      \     "class %SRepository\nend",
+      \   "test": [
+      \     "spec/repository/%s_repository_spec.rb"
+      \   ],
+      \ },
+      \ "app/assets/stylesheets/*css": {
+      \   "command": "css",
+      \ },
+      \ "app/assets/javascripts/*js": {
+      \   "command": "javascript",
+      \ },
+      \ "features/support/*.rb": {"command": "support"},
+      \ "features/support/env.rb": {"command": "support"}
+      \}
