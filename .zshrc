@@ -128,7 +128,7 @@ setopt no_share_history
 #Alias special pour les projets rails : ouvre les 2 fichiers de langue
 alias vlang='v -O config/locales/fr.yml config/locales/en.yml'
 #need a file 'Procfile'
-alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,web=0' #sidekiq=1,
+alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0' #sidekiq=1,
 alias fsw='foreman start web'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
