@@ -1,5 +1,5 @@
 if has('mouse')
-    set mouse=a
+  set mouse=a
 endif
 " when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
