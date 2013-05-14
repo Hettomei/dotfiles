@@ -1,38 +1,167 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+let mapleader = ","
 if has('mouse')
   set mouse=a
 endif
-" when go to left at a start of line, it goes to the end of previous
-set whichwrap+=<,>,h,l,[,]
-"trim white space at end of line
-autocmd FileType c,cpp,java,php,ruby,yaml,html,eruby,slim,css,javascript,haml,coffee,vim autocmd BufWritePre <buffer> :%s/\s\+$//e
-"POWER FOLD
-"add setlocal at the second command because the word 'ruby' cause bad parsing
-"of vimconfig (it's strange)
-autocmd Syntax c,cpp,vim,xml,html,xhtml,ruby setlocal foldmethod=syntax | setlocal foldlevel=1
-autocmd Syntax ruby                          setlocal foldmethod=syntax | setlocal foldlevel=4
-autocmd Syntax slim,haml,coffee              setlocal foldmethod=indent | setlocal foldlevel=5
-autocmd Syntax yaml                          setlocal foldmethod=indent | setlocal foldlevel=1
-"stop new line at 72 char for .md file
-autocmd Syntax markdown                      setlocal textwidth=0
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'pangloss/vim-javascript'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+Bundle 'godlygeek/tabular'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'scrooloose/syntastic'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'ervandew/supertab'
+
+set number
+syntax on
+set autoread " Automatically reload changes if detected
+set ruler
+set encoding=utf8
+
+" Whitespace stuff
+set nowrap
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Tab completion
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+
+" Status bar
+set laststatus=2
+
+" NERDTree configuration
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+map <Leader>n :NERDTreeToggle<CR>
+
+" Remember last location in file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal g'\"" | endif
+endif
+
+
+" CTags
+"map <Leader>rt :!/usr/local/bin/ctags --extra=+f -R *<CR><CR>
+"map <C-\> :tnext<CR>
+
+function s:setupWrapping()
+  set wrap
+  set wrapmargin=2
+  set textwidth=72
+endfunction
+
+" make uses real tabs
+au FileType make set noexpandtab
+
+" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile}    set ft=ruby
+
+" md, markdown, and mk are markdown and define buffer-local preview
+au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupWrapping()
+
+" add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=javascript
+au BufRead,BufNewFile *.txt call s:setupWrapping()
+
+" Yaml Configuration
+au BufRead,BufNewFile *.{yml,yaml} set foldmethod=indent
+
+" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" load the plugin and indent settings for the detected filetype
+filetype plugin indent on
+
+" gist-vim defaults
+if has("mac")
+  let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+  let g:gist_clip_command = 'xclip -selection clipboard'
+endif
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
+" Enable syntastic syntax checking
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
+
+" Use modeline overrides
+set modeline
+set modelines=10
+
+set cursorline
+
+" Default color scheme
+color desert
+
+" Show (partial) command in the status line
+set showcmd
+" Turn off jslint errors by default
+let g:JSLintHighlightErrorLine = 0
+
+" MacVIM shift+arrow-keys behavior (required in .vimrc)
+let macvim_hig_shift_movement = 1
+
+" Patter ignore when use the completion in search file
+set wig=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3
+
+" No save backup by .swp
+set nowb
+set noswapfile
+set noar
+
+" Delete all whitespace in end of line
+autocmd BufWritePre * :%s/\s\+$//e
+
+set foldmethod=syntax
+
+let g:Powerline_symbols = 'fancy'
+set t_Co=256
+
+let Tlist_Auto_Update = 'true'
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+
+"spell check when writing commit logs
+autocmd filetype svn,*commit* set spell
+
+let g:ctrlp_custom_ignore = {
+\ 'dir':  '\.git$\|\.hg$\|\.svn$\',
+  \ 'file': '\.exe$\|\.so$\|\.dll$',
+  \ 'link': 'some_bad_symbolic_links',
+\ }
+
 "show three line before up and down => MAGIC
 set scrolloff=3
-set cursorcolumn
+" when go to left at a start of line, it goes to the end of previous
+set whichwrap+=<,>,h,l,[,]
 " Copy to 'clipboard registry'
 vmap <C-c> "*y
-" Select all text <- update, non needed, because of vim skill improved \o/ and
-" <S-a> go in insert mode at end of line. More usefull
-" nmap <S-a> ggvG
-
 "Display &nbsp and trailing space :
-set listchars=nbsp:•,trail:¬
-"to see current listchars(replace specified char whith other)
-"just type :set listchars
-"To display endline and tab , type:
-":set listchars=eol:¶,tab:>-
-"Add ttymouse because after an upgrade of vim
-"When installing vim with standard mac ruby (V 1.8) seems no problem,
-"but when use nerdtree -> problem
-set ttymouse=xterm2
+set list listchars=nbsp:•,trail:¬
 
 " Spell Check, used to togle between no spell and language. To add a language
 " juste download a language from here : http://ftp.vim.org/vim/runtime/spell/
@@ -58,31 +187,19 @@ nmap <Leader>y yiw
 nmap <Leader>Y "*yiw
 " Remove the word under the cursor and go in insert mode
 nmap <Leader>r ciw
-" when on a word, change 'word' do '#{word}' (usefull for ruby)
+" when on a word, change 'word' to '#{word}' (usefull for ruby)
 " Leader a , with a like accolade
-nmap <Leader>a diwi#{<ESC>pli}<ESC>
-"If the target buffer is already displayed in a window in one of the tabs,
-"that window will be displayed.
-"from http://vim.wikia.com/wiki/Using_tab_pages
-set switchbuf=usetab
+nmap <Leader>a diWi#{<ESC>pli}<ESC>
 "Move screen to the left or to the right
 map <C-L> zl
 map <C-H> zh
-
 "when use x, do not send to test register <""> but send to black hole
 "register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
 nmap x "_dl
 vmap x "_dl
 ""_diw -> select word and delete it in black hole, then paste
 nmap <Leader>p "_diwP
-
-"when i paste on visual mode on another word i wouldn't this other word is
-"saved, but it s not working
-"vmap p "_p not working
-"vmap P "_P
-
-" [FUTURE] remove white space to the next char
-" NEED HELP
+nmap <Leader>P "_diwp
 
 """""""""""""""
 " TIP & TRICK "
@@ -93,19 +210,6 @@ nmap <Leader>p "_diwP
 "sensitive
 "finally it s a good things
 set noic
-
-"to answer to a stack exchange question :
-"http://superuser.com/questions/514615/does-vim-have-something-like-c-w-in-insert-mode-which-deletes-back-a-word/550109#550109
-"delete backward a word on insert mode
-"imap <C-w> <ESC>lciW
-
-"Write output of a shell command in vim file :
-"here display all file
-"!!ls -al
-
-"""""""""""""""
-"/TIP & TRICK "
-"""""""""""""""
 
 "when press <Leader>sr it search and replace word under cursor
 "yiw yank the word under cursor
@@ -123,6 +227,17 @@ endfunction
 nmap <Leader>sr :call SearchAndReplace()<CR>
 "Stop search at end of the file
 set nowrapscan
+
+"taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
+nmap <F4> :set invpaste<CR>:set paste?<CR>
+" format the entire file
+nmap <leader>fef ggVG=
+
+" Map the arrow keys to be based on display lines, not physical lines
+map <Down> gj
+map <Up> gk
+
+"""""""""" Rails :
 
 "can remove this
 ab cq customer_quote
