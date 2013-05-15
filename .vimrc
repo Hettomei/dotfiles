@@ -22,6 +22,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
+Bundle 'jeetsukumaran/vim-buffergator'
 
 set number
 syntax on
