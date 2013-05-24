@@ -23,7 +23,7 @@ ZSH_THEME="alanpeabody"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="false"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -89,30 +89,30 @@ alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
 alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api'
 alias business='cd /Users/tim/BeMyBoat/bmb_business'
 alias mmk='cd /Users/tim/BeMyBoat/mmk'
+alias sedna='cd /Users/tim/BeMyBoat/sedna'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
 
 # unix alias #
 alias g='git'
 #affiche tout l'historique des modifs d'un fichier
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
-#taken here :  http://alias.sh/compact-colorized-git-log
-alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias gl2='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
+#good website :  http://alias.sh/compact-colorized-git-log
 # -n display line, -I ignore binary files
 alias ggrep='git grep -nI'
 alias v='vim'
 alias e='echo'
 #alias grep='grep -i'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
-alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
+#alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
+alias pause='ruby /Users/tim/programmes/job_break/start_pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 
 ##find text 'test' il all '.txt' file recursively from current dir
 #example: grepall test txt
-function grepall() { 
-  echo "find text '$1'"; 
-  echo "In files << $2 >>"; 
+function grepall() {
+  echo "find text '$1'";
+  echo "In files << $2 >>";
   grep -ni "$1" **/*.$2
 }
 
@@ -128,7 +128,7 @@ setopt no_share_history
 #Alias special pour les projets rails : ouvre les 2 fichiers de langue
 alias vlang='v -O config/locales/fr.yml config/locales/en.yml'
 #need a file 'Procfile'
-alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0' #sidekiq=1,
+alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=1'
 alias fsw='foreman start web'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'

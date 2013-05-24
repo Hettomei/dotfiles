@@ -13,16 +13,17 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdtree'
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'godlygeek/tabular'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
 Bundle 'jeetsukumaran/vim-buffergator'
+Bundle 'gudleik/vim-slim'
 
 set number
 syntax on
@@ -139,6 +140,7 @@ set noar
 autocmd BufWritePre * :%s/\s\+$//e
 
 set foldmethod=syntax
+set foldlevel=3
 
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
@@ -159,8 +161,9 @@ let g:ctrlp_custom_ignore = {
 set scrolloff=3
 " when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
-" Copy to 'clipboard registry'
-vmap <C-c> "*y
+" "*y Copy to 'clipboard registry'
+" Work like 'y' but copy in OS clipboard (géniaaaal !!)
+map Y "*y
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
 
