@@ -4,6 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Copy file into" $DIR
 cp -v \
   $HOME/.vimrc \
+  $HOME/.gvimrc \
   $HOME/.gitconfig \
   $HOME/.zshrc \
   $DIR

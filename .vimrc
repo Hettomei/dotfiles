@@ -118,7 +118,7 @@ set modelines=10
 set cursorline
 
 " Default color scheme
-color desert
+color default
 
 " Show (partial) command in the status line
 set showcmd
