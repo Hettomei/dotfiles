@@ -7,6 +7,7 @@ cp -v \
   $HOME/.gvimrc \
   $HOME/.gitconfig \
   $HOME/.zshrc \
+  $HOME/.irbrc \
   $DIR
 cd $DIR
 git add -p
