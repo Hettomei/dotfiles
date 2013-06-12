@@ -89,7 +89,7 @@ alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
 alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
 alias business='cd /Users/tim/BeMyBoat/bmb_business'
 alias mmk='cd /Users/tim/BeMyBoat/mmk'
-alias sedna='cd /Users/tim/BeMyBoat/sedna'
+alias sedna='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
 alias pushall="git push origin master && git push upstream master && git push upstream production && git push origin production"
 

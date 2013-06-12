@@ -24,6 +24,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
 Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'gudleik/vim-slim'
+Bundle 'tpope/gem-ctags'
 
 set number
 syntax on
@@ -163,7 +164,10 @@ set scrolloff=3
 set whichwrap+=<,>,h,l,[,]
 " "*y Copy to 'clipboard registry'
 " Work like 'y' but copy in OS clipboard (géniaaaal !!)
+" Dont use nmap because we need in vmap
+" Don't use noremap because it not understand << Y$ >>
 map Y "*y
+nmap YY ^"*y$
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
 
@@ -202,8 +206,10 @@ map <C-H> zh
 nmap x "_dl
 vmap x "_dl
 ""_diw -> select word and delete it in black hole, then paste
-nmap <Leader>p "_diwP
-nmap <Leader>P "_diwp
+nnoremap <Leader>p "_diwP
+nnoremap <Leader>P "_diwp
+nnoremap ZA :set foldlevel=10<CR>
+nnoremap ZB :set foldlevel=1<CR>
 
 """""""""""""""
 " TIP & TRICK "
@@ -228,14 +234,15 @@ function! SearchAndReplace()
   let word_to_replace = input("Replace with : ", word_to_search)
   execute "%s/".word_to_search."/".word_to_replace."/gc"
 endfunction
-nmap <Leader>sr :call SearchAndReplace()<CR>
+nnoremap <Leader>sr :call SearchAndReplace()<CR>
 "Stop search at end of the file
 set nowrapscan
 
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
-nmap <F4> :set invpaste<CR>:set paste?<CR>
+nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " format the entire file
-nmap <leader>fef ggVG=
+nnoremap <leader>fef ggVG=
+nnoremap <C-$> <C-]>
 
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
@@ -255,6 +262,7 @@ ab br boat_request
 ab BR BoatRequest
 ab sr sailing_resume
 ab SR SailingResume
+nnoremap ,vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
 
 "Use vim spell:
 " zg Add word under the cursor as a good word_to_search
