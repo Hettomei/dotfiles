@@ -248,6 +248,10 @@ nnoremap <C-$> <C-]>
 map <Down> gj
 map <Up> gk
 
+" taken inside the demo video https://www.destroyallsoftware.com/screencasts
+" it run the current ruby file and display result
+map ,t :w\|:!ruby %<CR>
+
 """""""""" Rails :
 
 "can remove this
