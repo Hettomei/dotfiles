@@ -250,7 +250,10 @@ map <Up> gk
 
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
-map ,t :w\|:!ruby %<CR>
+map <leader>l :w\|:!ruby %<CR>
+" insert newline
+map <Enter> o<ESC>
+map <S-Enter> O<ESC>
 
 """""""""" Rails :
 
