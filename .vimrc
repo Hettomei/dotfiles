@@ -251,6 +251,7 @@ map <Up> gk
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
 map <leader>l :w\|:!ruby %<CR>
+nmap ,col :set invcursorcolumn<CR>
 " insert newline
 map <CR> o<ESC>
 map <S-CR> O<ESC>
@@ -281,6 +282,8 @@ ab br boat_request
 ab BR BoatRequest
 ab sr sailing_resume
 ab SR SailingResume
+ab sp special_offer
+ab SP SpecialOffer
 nnoremap ,vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
 
 "Use vim spell:
