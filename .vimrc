@@ -252,8 +252,20 @@ map <Up> gk
 " it run the current ruby file and display result
 map <leader>l :w\|:!ruby %<CR>
 " insert newline
-map <Enter> o<ESC>
-map <S-Enter> O<ESC>
+map <CR> o<ESC>
+map <S-CR> O<ESC>
+
+ab ### <CR># Public: Duplicate some text an arbitrary number of times.
+\<CR>#
+\<CR># text  - The String to be duplicated.
+\<CR># count - The Integer number of times to duplicate the text.
+\<CR>#
+\<CR># Examples
+\<CR>#
+\<CR>#   multiplex("Tom", 4)
+\<CR>#   # => "TomTomTomTom"
+\<CR>#
+\<CR># Returns the duplicated String.
 
 """""""""" Rails :
 
