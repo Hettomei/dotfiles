@@ -221,8 +221,9 @@ nnoremap ZB :set foldlevel=1<CR>
 "finally it s a good things
 set noic
 
-" Load current user .zshrc
-set shellcmdflag=-ic
+" Load current user .zshrc to get all alias
+" It fails when run BundleInstall!
+"set shellcmdflag=-ic
 
 "when press <Leader>sr it search and replace word under cursor
 "yiw yank the word under cursor
