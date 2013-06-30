@@ -27,7 +27,7 @@ Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
 
 set number
-syntax on
+syntax on "It doesn t work with java !?
 set autoread " Automatically reload changes if detected
 set ruler
 set encoding=utf8
@@ -220,6 +220,9 @@ nnoremap ZB :set foldlevel=1<CR>
 "sensitive
 "finally it s a good things
 set noic
+
+" Load current user .zshrc
+set shellcmdflag=-ic
 
 "when press <Leader>sr it search and replace word under cursor
 "yiw yank the word under cursor
