@@ -27,7 +27,7 @@ Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
 
 set number
-syntax on "It doesn t work with java !?
+syntax on
 set autoread " Automatically reload changes if detected
 set ruler
 set encoding=utf8
@@ -88,7 +88,7 @@ au BufNewFile,BufRead *.json set ft=javascript
 au BufRead,BufNewFile *.txt call s:setupWrapping()
 
 " Yaml Configuration
-au BufRead,BufNewFile *.{yml,yaml} set foldmethod=indent
+au BufRead,BufNewFile *.{yml,yaml,slim} set foldmethod=indent
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
@@ -98,6 +98,14 @@ set backspace=indent,eol,start
 
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
+
+"open the same directory as the current buffer !
+map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+"add ? and ! when selecting a word
+"It's not simple to use because of ? and ! for generated method... it's
+"confusing and i loose some words
+"set iskeyword +=?,!
+
 
 " gist-vim defaults
 if has("mac")
@@ -206,8 +214,12 @@ map <C-H> zh
 nmap x "_dl
 vmap x "_dl
 ""_diw -> select word and delete it in black hole, then paste
-nnoremap <Leader>p "_diwP
-nnoremap <Leader>P "_diwp
+" <<c p>> like clear and paste
+" I don't like to have cp and cP so I use supeuser.com
+"nnoremap cp "_diwP
+"nnoremap cP "_diwp
+" from http://superuser.com/questions/610404/in-vim-how-to-delete-last-word-and-replace-with-another-with-a-map/612453?iemail=1&noredirect=1#612453
+nnoremap <leader>p "_yiwPl"_de
 nnoremap ZA :set foldlevel=10<CR>
 nnoremap ZB :set foldlevel=1<CR>
 
@@ -288,6 +300,8 @@ ab sr sailing_resume
 ab SR SailingResume
 ab sp special_offer
 ab SP SpecialOffer
+ab bh boarding_harbor
+ab lh landing_harbor
 nnoremap ,vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
 
 "Use vim spell:

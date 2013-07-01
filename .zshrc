@@ -43,6 +43,10 @@ plugins=()
 
 source $ZSH/oh-my-zsh.sh
 
+unsetopt correct_all
+#export PAGER=''
+export LESS='-R -X'
+
 # Customize to your needs...
 export VISUAL="vim"
 export EDITOR="vim"
@@ -87,13 +91,16 @@ PATH=$PATH:$JAVA_HOME
 alias front='cd /Users/tim/BeMyBoat/bmb_front'
 alias crm='cd /Users/tim/BeMyBoat/bemyboat/webapp'
 alias tabarlus='cd /Users/tim/BeMyBoat/tabarlus'
-alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
-alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
+alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api'
+alias apitabarluss='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
 alias business='cd /Users/tim/BeMyBoat/bmb_business'
 alias mmk='cd /Users/tim/BeMyBoat/mmk'
-alias sedna='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
+alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
+alias sedna='cd /Users/tim/BeMyBoat/sedna'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
-alias pushall="git push origin master && git push upstream master && git push upstream production && git push origin production"
+alias pushmaster="git push origin master && git push upstream master"
+alias pushprod="git push origin production && git push upstream production"
+alias pushall="pushmaster && pushprod"
 
 # unix alias #
 alias g='git'
