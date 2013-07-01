@@ -268,9 +268,6 @@ map <Up> gk
 " it run the current ruby file and display result
 map <leader>l :w\|:!ruby %<CR>
 nmap ,col :set invcursorcolumn<CR>
-" insert newline
-map <CR> o<ESC>
-map <S-CR> O<ESC>
 
 ab ### <CR># Public: Duplicate some text an arbitrary number of times.
 \<CR>#
