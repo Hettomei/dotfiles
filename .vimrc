@@ -37,6 +37,7 @@ syntax on
 set autoread " Automatically reload changes if detected
 set ruler
 set encoding=utf8
+set history=1000
 
 " Whitespace stuff
 set nowrap
@@ -174,6 +175,9 @@ let g:ctrlp_custom_ignore = {
 
 "show three line before up and down => MAGIC
 set scrolloff=3
+"show 15 char before and after cursor => MAGIC
+set sidescrolloff=15
+set sidescroll=1
 " when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
 " "*y Copy to 'clipboard registry'
@@ -217,8 +221,10 @@ map <C-L> zl
 map <C-H> zh
 "when use x, do not send to test register <""> but send to black hole
 "register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
-nmap x "_dl
-vmap x "_dl
+nnoremap x "_x
+nnoremap X "_X
+vnoremap x "_x
+vnoremap X "_X
 ""_diw -> select word and delete it in black hole, then paste
 " <<c p>> like clear and paste
 " I don't like to have cp and cP so I use supeuser.com
@@ -263,7 +269,7 @@ set nowrapscan
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " format the entire file
-nnoremap <leader>fef ggVG=
+nnoremap <leader>fef gg=G
 nnoremap <C-$> <C-]>
 
 " Map the arrow keys to be based on display lines, not physical lines
@@ -273,19 +279,19 @@ map <Up> gk
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
 map <leader>l :w\|:!ruby %<CR>
-nmap ,col :set invcursorcolumn<CR>
+nmap <leader>col :set invcursorcolumn<CR>
 
-ab ### <CR># Public: Duplicate some text an arbitrary number of times.
-\<CR>#
-\<CR># text  - The String to be duplicated.
-\<CR># count - The Integer number of times to duplicate the text.
-\<CR>#
-\<CR># Examples
-\<CR>#
-\<CR>#   multiplex("Tom", 4)
-\<CR>#   # => "TomTomTomTom"
-\<CR>#
-\<CR># Returns the duplicated String.
+iab ### <CR># Public: Duplicate some text an arbitrary number of times.
+\<CR>
+\<CR> text  - The String to be duplicated.
+\<CR> count - The Integer number of times to duplicate the text.
+\<CR>
+\<CR> Examples
+\<CR>
+\<CR>   multiplex("Tom", 4)
+\<CR>   # => "TomTomTomTom"
+\<CR>
+\<CR> Returns the duplicated String.
 
 """""""""" Rails :
 
@@ -364,3 +370,17 @@ let g:rails_projections = {
       \ "features/support/*.rb": {"command": "support"},
       \ "features/support/env.rb": {"command": "support"}
       \}
+
+" If you visually select something and hit paste
+" that thing gets yanked into your buffer. This
+" generally is annoying when you're copying one item
+" and repeatedly pasting it. This changes the paste
+" command in visual mode so that it doesn't overwrite
+" whatever is in your paste buffer.
+vnoremap p "_dP
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+"silent !mkdir ~/.vim/backups > /dev/null 2>&1
+"set undodir=~/.vim/backups
+"set undofile
