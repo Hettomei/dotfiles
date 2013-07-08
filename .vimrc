@@ -35,9 +35,13 @@ Bundle 'tpope/gem-ctags'
 set number
 syntax on
 set autoread " Automatically reload changes if detected
-set ruler
+set ruler    " cursor position
 set encoding=utf8
 set history=1000
+" No save backup like .swp
+set nowb
+set noswapfile
+"
 
 " Whitespace stuff
 set nowrap
@@ -51,18 +55,16 @@ set expandtab
 """""""""""""
 set hlsearch
 set incsearch
-"when searching without upper case, it search case insensitive. With an
-"uppercase, it search the exact. Not usefull.
-"set smartcase
-"To search with case sensitive,   tap :set ic
-"To search with case insensitive, tap :set noic
 set noignorecase
 "Stop search at end of the file
 set nowrapscan
 
 " Tab completion
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+
+" Patter ignore when use the completion in search file
+set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3
+set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
 " Status bar
@@ -72,16 +74,23 @@ set laststatus=2
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 map <Leader>n :NERDTreeToggle<CR>
 
-" Remember last location in file
 if has("autocmd")
+  " Remember last location in file
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal g'\"" | endif
+
+  " Delete all whitespace in end of line
+  autocmd BufWritePre * :%s/\s\+$//e
+
+  "spell check when writing commit logs
+  autocmd filetype svn,*commit* set spell
 endif
 
 
 " CTags
-"map <Leader>rt :!/usr/local/bin/ctags --extra=+f -R *<CR><CR>
-"map <C-\> :tnext<CR>
+" Reload tag
+map <Leader>rt :!/usr/local/bin/ctags --extra=+f -R *<CR><CR>
+nnoremap <C-$> :tnext<CR>
 
 function s:setupWrapping()
   set wrap
@@ -116,11 +125,6 @@ filetype plugin indent on
 
 "open the same directory as the current buffer !
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-"add ? and ! when selecting a word
-"It's not simple to use because of ? and ! for generated method... it's
-"confusing and i loose some words
-"set iskeyword +=?,!
-
 
 " gist-vim defaults
 if has("mac")
@@ -152,17 +156,6 @@ let g:JSLintHighlightErrorLine = 0
 " MacVIM shift+arrow-keys behavior (required in .vimrc)
 let macvim_hig_shift_movement = 1
 
-" Patter ignore when use the completion in search file
-set wig=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3
-
-" No save backup by .swp
-set nowb
-set noswapfile
-set noar
-
-" Delete all whitespace in end of line
-autocmd BufWritePre * :%s/\s\+$//e
-
 set foldmethod=syntax
 set foldlevel=6
 
@@ -171,9 +164,6 @@ set t_Co=256
 
 let Tlist_Auto_Update = 'true'
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-
-"spell check when writing commit logs
-autocmd filetype svn,*commit* set spell
 
 let g:ctrlp_custom_ignore = {
 \ 'dir':  '\.git$\|\.hg$\|\.svn$\',
@@ -223,47 +213,39 @@ nmap <Leader>Y "*yiw
 nmap <Leader>r ciw
 " when on a word, change 'word' to '#{word}' (usefull for ruby)
 " Leader a , with a like accolade
-nmap <Leader>a diWi#{<ESC>pli}<ESC>
+nmap <Leader>a diwi#{<C-r>"}<ESC>
+nmap <Leader>A diWi#{<C-r>"}<ESC>
 "Move screen to the left or to the right
 map <C-L> zl
 map <C-H> zh
+
+" If you visually select something and hit paste
+" that thing gets yanked into your buffer. This
+" generally is annoying when you're copying one item
+" and repeatedly pasting it. This changes the paste
+" command in visual mode so that it doesn't overwrite
+" whatever is in your paste buffer.
+" taken here
+" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
+vnoremap p "_dp
+vnoremap P "_dP
+nnoremap <leader>p "_ciw<C-r>"<esc>
 "when use x, do not send to test register <""> but send to black hole
 "register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
 nnoremap x "_x
 nnoremap X "_X
 vnoremap x "_x
 vnoremap X "_X
-""_diw -> select word and delete it in black hole, then paste
-" <<c p>> like clear and paste
-" I don't like to have cp and cP so I use supeuser.com
-"nnoremap cp "_diwP
-"nnoremap cP "_diwp
-" from http://superuser.com/questions/610404/in-vim-how-to-delete-last-word-and-replace-with-another-with-a-map/612453?iemail=1&noredirect=1#612453
-nnoremap <leader>p "_yiwPl"_de
 "folding
 nnoremap ZA :set foldlevel=10<CR>
 nnoremap ZB :set foldlevel=1<CR>
 nnoremap ZBB :set foldlevel=2<CR>
 nnoremap ZBBB :set foldlevel=3<CR>
 
-" Load current user .zshrc to get all alias
-" It fails when run BundleInstall!
-"set shellcmdflag=-ic
-
-"when press <Leader>sr it search and replace word under cursor
-"yiw yank the word under cursor
-"<C-r>0 paste the last yanked word
-" need a lot of improvment like when wanted to change http://test/to the "/"
-" is bad...
 "nmap <Leader>sr yiw:%s/<C-r>0/<C-r>0/gc<Left><Left><Left>
-"Change as function -SearchAndReplace- BETTER
-function! SearchAndReplace()
-  " expand("<cword>") -> word under cursor
-  let word_to_search = expand("<cword>")
-  let word_to_replace = input("Replace with : ", word_to_search)
-  execute "%s/".word_to_search."/".word_to_replace."/gc"
-endfunction
-nnoremap <Leader>sr :call SearchAndReplace()<CR>
+nmap <Leader>sr yiw:%s/<C-r>"//gc<Left><Left><Left>
+nmap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
+
 "When pressing * it search only for the \<word\>
 "Now with ¨* (trema asterisk) it search the word
 nmap ¨* yiw/<C-r>0<cr>
@@ -272,7 +254,6 @@ nmap ¨* yiw/<C-r>0<cr>
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " format the entire file
 nnoremap <leader>fef gg=G
-nnoremap <C-$> <C-]>
 
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
@@ -288,15 +269,15 @@ nmap <leader>col :set invcursorcolumn<CR>
 
 iab ### <CR># Public: Duplicate some text an arbitrary number of times.
 \<CR>
-\<CR> text  - The String to be duplicated.
-\<CR> count - The Integer number of times to duplicate the text.
+\<CR>text  - The String to be duplicated.
+\<CR>count - The Integer number of times to duplicate the text.
 \<CR>
-\<CR> Examples
+\<CR>Examples
 \<CR>
-\<CR>   multiplex("Tom", 4)
-\<CR>   # => "TomTomTomTom"
+\<CR>  multiplex("Tom", 4)
+\<CR>  # => "TomTomTomTom"
 \<CR>
-\<CR> Returns the duplicated String.
+\<CR>Returns the duplicated String.
 
 """""""""" Rails :
 
@@ -375,13 +356,3 @@ let g:rails_projections = {
       \ "features/support/*.rb": {"command": "support"},
       \ "features/support/env.rb": {"command": "support"}
       \}
-
-" If you visually select something and hit paste
-" that thing gets yanked into your buffer. This
-" generally is annoying when you're copying one item
-" and repeatedly pasting it. This changes the paste
-" command in visual mode so that it doesn't overwrite
-" whatever is in your paste buffer.
-" taken here
-" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
-vnoremap p "_dP
