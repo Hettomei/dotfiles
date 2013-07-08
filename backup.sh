@@ -11,6 +11,7 @@ cp -v \
   $DIR
 cd $DIR
 git add -p
+git commit
 
 #add input then "git commit -m $input
 #http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_08_02.html
