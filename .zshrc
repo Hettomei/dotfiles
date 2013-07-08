@@ -98,6 +98,9 @@ alias mmk='cd /Users/tim/BeMyBoat/mmk'
 alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
 alias sedna='cd /Users/tim/BeMyBoat/sedna'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
+# rails
+alias sp='spin push'
+# git
 alias pushmaster="git push origin master && git push upstream master"
 alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"

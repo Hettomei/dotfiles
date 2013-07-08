@@ -46,11 +46,19 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
-" Searching
+"""""""""""""
+" Searching "
+"""""""""""""
 set hlsearch
 set incsearch
-set ignorecase
-set smartcase
+"when searching without upper case, it search case insensitive. With an
+"uppercase, it search the exact. Not usefull.
+"set smartcase
+"To search with case sensitive,   tap :set ic
+"To search with case insensitive, tap :set noic
+set noignorecase
+"Stop search at end of the file
+set nowrapscan
 
 " Tab completion
 set wildmode=list:longest,list:full
@@ -156,7 +164,7 @@ set noar
 autocmd BufWritePre * :%s/\s\+$//e
 
 set foldmethod=syntax
-set foldlevel=3
+set foldlevel=6
 
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
@@ -232,18 +240,11 @@ vnoremap X "_X
 "nnoremap cP "_diwp
 " from http://superuser.com/questions/610404/in-vim-how-to-delete-last-word-and-replace-with-another-with-a-map/612453?iemail=1&noredirect=1#612453
 nnoremap <leader>p "_yiwPl"_de
+"folding
 nnoremap ZA :set foldlevel=10<CR>
 nnoremap ZB :set foldlevel=1<CR>
-
-"""""""""""""""
-" TIP & TRICK "
-"""""""""""""""
-"To search with case sensitive,   tap :set ic
-"To search with case insensitive, tap :set noic
-"Be carefull because with janus, if search as ONE upper case it search case
-"sensitive
-"finally it s a good things
-set noic
+nnoremap ZBB :set foldlevel=2<CR>
+nnoremap ZBBB :set foldlevel=3<CR>
 
 " Load current user .zshrc to get all alias
 " It fails when run BundleInstall!
@@ -263,8 +264,9 @@ function! SearchAndReplace()
   execute "%s/".word_to_search."/".word_to_replace."/gc"
 endfunction
 nnoremap <Leader>sr :call SearchAndReplace()<CR>
-"Stop search at end of the file
-set nowrapscan
+"When pressing * it search only for the \<word\>
+"Now with ¨* (trema asterisk) it search the word
+nmap ¨* yiw/<C-r>0<cr>
 
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
@@ -275,6 +277,9 @@ nnoremap <C-$> <C-]>
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
 map <Up> gk
+" Switch directly to the new splitted window
+nnoremap <C-w>v <C-w>v<C-w>l
+nnoremap <C-w>s <C-w>s<C-w>j
 
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
@@ -377,10 +382,6 @@ let g:rails_projections = {
 " and repeatedly pasting it. This changes the paste
 " command in visual mode so that it doesn't overwrite
 " whatever is in your paste buffer.
+" taken here
+" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
 vnoremap p "_dP
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-"silent !mkdir ~/.vim/backups > /dev/null 2>&1
-"set undodir=~/.vim/backups
-"set undofile
