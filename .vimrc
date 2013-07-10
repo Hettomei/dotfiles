@@ -246,10 +246,6 @@ nnoremap ZBBB :set foldlevel=3<CR>
 nmap <Leader>sr yiw:%s/<C-r>"//gc<Left><Left><Left>
 nmap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
 
-"When pressing * it search only for the \<word\>
-"Now with ¨* (trema asterisk) it search the word
-nmap ¨* yiw/<C-r>0<cr>
-
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " format the entire file
