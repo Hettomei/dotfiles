@@ -89,7 +89,7 @@ endif
 
 " CTags
 " Reload tag
-map <Leader>rt :!/usr/local/bin/ctags --extra=+f -R *<CR><CR>
+command Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
 nnoremap <C-$> :tnext<CR>
 
 function s:setupWrapping()
@@ -297,7 +297,7 @@ ab sp special_offer
 ab SP SpecialOffer
 ab bh boarding_harbor
 ab lh landing_harbor
-nnoremap ,vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
+nnoremap <Leader>vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
 
 "Use vim spell:
 " zg Add word under the cursor as a good word_to_search
