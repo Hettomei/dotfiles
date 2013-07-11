@@ -293,7 +293,7 @@ ab sp special_offer
 ab SP SpecialOffer
 ab bh boarding_harbor
 ab lh landing_harbor
-nnoremap <Leader>vlang :tabnew config/locales/en.yml<CR>:vsplit config/locales/fr.yml<CR>
+command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
 
 "Use vim spell:
 " zg Add word under the cursor as a good word_to_search
