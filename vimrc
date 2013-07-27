@@ -2,15 +2,6 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 let mapleader = ","
-if has('mouse')
-  set mouse=a
-endif
-"Fix bug : mouse before cannot go to 220 char to the right
-"This fix it
-"https://code.google.com/p/iterm2/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary&groupby=&sort=&id=1830
-if has('mouse_sgr')
-  set ttymouse=sgr
-endif
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -38,17 +29,6 @@ set autoread " Automatically reload changes if detected
 set ruler    " cursor position
 set encoding=utf8
 set history=1000
-" No save backup like .swp
-set nowb
-set noswapfile
-"
-
-" Whitespace stuff
-set nowrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
 
 """""""""""""
 " Searching "
@@ -275,43 +255,8 @@ iab ### <CR># Public: Duplicate some text an arbitrary number of times.
 \<CR>
 \<CR>Returns the duplicated String.
 
-"""""""""" Rails :
-
-"can remove this
-ab cq customer_quote
-ab CQ CustomerQuote
-ab ob online_booking
-ab OB OnlineBooking
-ab cci customer_commercial_info
-ab CCI CustomerCommercialInfo
-ab mb my_bookings
-ab br boat_request
-ab BR BoatRequest
-ab sr sailing_resume
-ab SR SailingResume
-ab sp special_offer
-ab SP SpecialOffer
-ab bh boarding_harbor
-ab lh landing_harbor
 command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
 command Vimrc tabnew $MYVIMRC
-
-"Use vim spell:
-" zg Add word under the cursor as a good word_to_search
-" zw Mark the word as a wrong (bad) word.wrong
-" z= For the word under/after the cursor suggest correctly
-" spelled words.
-"
-
-"Use vim as HEXA editor :
-"open your file as usual
-"[esc] :%!xxd
-"<now editing mycat in hex>
-"<find some innocuous string or rcsid>
-"<change the values on the hex side>
-"[esc] :%!xxd -r
-"[esc] :wq!
-
 
 "For vim-rails
 "replace :
