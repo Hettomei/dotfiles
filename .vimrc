@@ -255,8 +255,8 @@ nnoremap <leader>fef gg=G
 map <Down> gj
 map <Up> gk
 " Switch directly to the new splitted window
-nnoremap <C-w>v <C-w>v<C-w>l
-nnoremap <C-w>s <C-w>s<C-w>j
+nnoremap <C-w>v :rightbelow vsplit<CR>
+nnoremap <C-w>s :botright split<CR>
 
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
@@ -294,6 +294,7 @@ ab SP SpecialOffer
 ab bh boarding_harbor
 ab lh landing_harbor
 command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
+command Vimrc tabnew $MYVIMRC
 
 "Use vim spell:
 " zg Add word under the cursor as a good word_to_search
