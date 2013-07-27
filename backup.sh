@@ -1,17 +1,15 @@
 #! /bin/bash
 #get the dir where this script is launched
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Copy file into" $DIR
-cp -v \
-  $HOME/.vimrc \
-  $HOME/.gvimrc \
-  $HOME/.gitconfig \
-  $HOME/.zshrc \
-  $HOME/.irbrc \
-  $DIR
+
+for file_name in 'vimrc' 'gvimrc' 'gitconfig' 'zshrc' 'irbrc'
+do
+  cp -v $HOME/.$file_name $DIR/$file_name
+done
+
 cd $DIR
+
 git add -p
 git commit
-
-#add input then "git commit -m $input
-#http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_08_02.html
