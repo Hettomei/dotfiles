@@ -23,7 +23,6 @@ Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
 
-set number
 syntax on
 set autoread " Automatically reload changes if detected
 set ruler    " cursor position
