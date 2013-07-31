@@ -90,7 +90,6 @@ let g:JSLintHighlightErrorLine = 0
 let macvim_hig_shift_movement = 1
 
 let g:Powerline_symbols = 'fancy'
-set t_Co=256
 
 let Tlist_Auto_Update = 'true'
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
