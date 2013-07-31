@@ -115,3 +115,4 @@ nnoremap <leader>fef gg=G
 nmap <leader>col :set invcursorcolumn<CR>
 
 command Vimrc tabnew $MYVIMRC
+set iskeyword-=:
