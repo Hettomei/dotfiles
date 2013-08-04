@@ -97,7 +97,7 @@ let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
 
-nmap <Leader>c ciw
+nmap <Leader>r ciw
 "Move screen to the left or to the right
 map <C-L> zl
 map <C-H> zh
