@@ -39,7 +39,7 @@ DISABLE_CORRECTION="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=()
+plugins=(colored-man)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,8 +99,6 @@ alias mmks='cd /Users/tim/BeMyBoat/mmk/lib/mmk'
 alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
 alias sedna='cd /Users/tim/BeMyBoat/sedna'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
-# rails
-alias sp='spin push'
 # git
 alias pushmaster="git push origin master && git push upstream master"
 alias pushprod="git push origin production && git push upstream production"
@@ -121,6 +119,8 @@ alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pause='ruby /Users/tim/programmes/job_break/start_pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
+#load perl
+source /Users/tim/perl5/perlbrew/etc/bashrc
 
 ##find text 'test' il all '.txt' file recursively from current dir
 #example: grepall test txt
@@ -139,13 +139,12 @@ setopt no_share_history
 
 #obligé sinon il ne comprend pas rake de rails......
 #alias rake='noglob rake'
-#Alias special pour les projets rails : ouvre les 2 fichiers de langue
-alias vlang='v -O config/locales/fr.yml config/locales/en.yml'
 #need a file 'Procfile'
 alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=1'
 alias fsw='foreman start web'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
+alias sp='spin push'
 
 ## How to upgrade vim :
 # faire :
