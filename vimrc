@@ -22,6 +22,7 @@ Bundle 'ervandew/supertab'
 Bundle 'jeetsukumaran/vim-buffergator'
 Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
+Bundle 'mileszs/ack.vim'
 
 syntax on
 set autoread " Automatically reload changes if detected

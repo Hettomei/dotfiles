@@ -1,4 +1,10 @@
+--pager=less
+
 --type-set=haml=.haml
 --type-set=sass=.sass
 --type-set=scss=.scss
 --type-set=erb=.erb
+
+#ignore file
+--type-set=log=.log
+--nolog
