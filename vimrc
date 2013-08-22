@@ -92,7 +92,6 @@ let macvim_hig_shift_movement = 1
 let g:Powerline_symbols = 'fancy'
 
 let Tlist_Auto_Update = 'true'
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
