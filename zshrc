@@ -164,3 +164,6 @@ alias -s yml=vim
 
 #convert wma into mp3
 #for i in *.wma; do ffmpeg -i "$i" -ab 96k "${i%wma}mp3"; done
+#
+#From brew insrall zsh-completions
+fpath=(/usr/local/share/zsh-completions $fpath)
