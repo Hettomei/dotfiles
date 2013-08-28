@@ -7,29 +7,15 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 #ZSH_THEME="aussiegeek"
 #ZSH_THEME="rkj"
 ZSH_THEME="alanpeabody"
-#comme son nom l'indique :
 #ZSH_THEME="random"
 #theme de base :
 #ZSH_THEME="robbyrussell"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="false"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -68,17 +54,12 @@ rbenv() {
   esac
 }
 
-#export INPULSE=00:50:C2:E6:E0:0D
-#export IN=$INPULSE
-#PATH=$PATH:/Users/tim/programmes/pulse_sdk/arm-2010q1/bin
+#export INPULSE_WATCH=00:50:C2:E6:E0:0D
 
 ##### Android
 PATH=$PATH:/Users/tim/programmes/android/sdk/tools
 PATH=$PATH:/Users/tim/programmes/android/sdk/platform-tools
 
-###JAVA
-#export M2_HOME=/usr/local/apache-maven/apache-maven-3.0.4
-#export M2=$M2_HOME/bin
 export JAVA_HOME=/Library/Java/Home
 PATH=$PATH:$JAVA_HOME
 
@@ -119,8 +100,6 @@ alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pause='ruby /Users/tim/programmes/job_break/start_pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
-#load perl
-source /Users/tim/perl5/perlbrew/etc/bashrc
 
 ##find text 'test' il all '.txt' file recursively from current dir
 #example: grepall test txt
