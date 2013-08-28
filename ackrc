@@ -1,10 +1,16 @@
 --pager=less
 
+--type-set=coffee=.coffee
+--type-set=minifiedjs=.min.js
 --type-set=haml=.haml
 --type-set=sass=.sass
 --type-set=scss=.scss
 --type-set=erb=.erb
+--type-set=log=.log
+
+#ignore file type
+--nolog
+--nominifiedjs
 
 #ignore file
---type-set=log=.log
---nolog
+--ignore-file=match:/^tags$/

@@ -6,6 +6,7 @@ let mapleader = ","
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'pangloss/vim-javascript'
@@ -111,3 +112,11 @@ nmap <leader>col :set invcursorcolumn<CR>
 
 command Vimrc tabnew $MYVIMRC
 set iskeyword-=:
+
+" fast terminal for smoother redrawing
+set ttyfast
+"search for highlighted text, without regex !
+vmap // y/\V<C-R>"<CR>
+" keep block highlighted when indenting
+vmap >> >gv
+vmap << <gv

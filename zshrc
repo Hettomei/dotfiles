@@ -141,6 +141,7 @@ setopt no_share_history
 #alias rake='noglob rake'
 #need a file 'Procfile'
 alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=1'
+alias fsas='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=0'
 alias fsw='foreman start web'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
@@ -162,5 +163,7 @@ alias sp='spin push'
 alias -s rb=vim
 alias -s yml=vim
 
+alias httpserv="python -m SimpleHTTPServer"
+alias ps_grep_importer="while true; do ; date; sudo ps aux | grep importer; echo ''; sleep 10; done;"
 #convert wma into mp3
 #for i in *.wma; do ffmpeg -i "$i" -ab 96k "${i%wma}mp3"; done
