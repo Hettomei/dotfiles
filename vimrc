@@ -45,8 +45,7 @@ endif
 
 function s:setupWrapping()
   set wrap
-  set wrapmargin=2
-  set textwidth=72
+  set textwidth=0
 endfunction
 
 " make uses real tabs
@@ -64,6 +63,8 @@ au BufRead,BufNewFile *.txt call s:setupWrapping()
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -118,6 +119,3 @@ set iskeyword-=:
 set ttyfast
 "search for highlighted text, without regex !
 vmap // y/\V<C-R>"<CR>
-" keep block highlighted when indenting
-vmap >> >gv
-vmap << <gv
