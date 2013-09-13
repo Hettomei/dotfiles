@@ -65,6 +65,7 @@ au BufRead,BufNewFile *.txt call s:setupWrapping()
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
 autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
+autocmd BufRead,BufNewFile *.coffee setlocal foldmethod=indent
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

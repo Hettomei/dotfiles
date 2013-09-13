@@ -9,6 +9,26 @@
 #
 # convert wma into mp3
 # for i in *.wma; do ffmpeg -i "$i" -ab 96k "${i%wma}mp3"; done
+#
+# Change every occurence into some files
+# perl -i -p -e's/foo/bar/g' $(ack -l foo)
+# ack -l foo <- display only file which contains foo
+# Without previous ACK search :
+# perl -i -p -e's/foo/bar/g' $(ack -f)
+# or
+# perl -i -p -e's/foo/bar/g' $(ack -f --ruby)
+#
+# do some operation on files
+# find . -type f -name "*.erb" -exec git rm {} \;
+#
+# Rename multiple file : (here it removes .erb extension)
+#
+# for file in `find . -type f -name "*.haml"`
+# do
+# mv $file `echo $file | sed 's/\.erb//g'`
+# done
+#
+#
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
