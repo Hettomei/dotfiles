@@ -9,4 +9,8 @@ vnoremap X "_X
 nmap <Leader>d diw
 " Yank the word on which i am and put it in the clipboard
 nmap <Leader>D "*diw
-" Remove the word under the cursor and go in insert mode
+
+" Remove the word under the cursor
+" Do not save the word in any register
+" and go in insert mode
+nmap <Leader>r "_ciw
