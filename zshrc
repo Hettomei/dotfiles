@@ -31,6 +31,8 @@
 # To sync my picture folder :
 # rsync -av -e ssh Pictures hettomei@192.168.0.27:backup_mac
 #
+# To download a video from youtube and convert direct in mp3 (need youtube-dl + ffmpeg)
+# youtube-dl "http://www.youtube.com/watch?v=4yRpysQxRxE&noredirect=1" --extract-audio --audio-format mp3
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
