@@ -9,6 +9,7 @@ do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
+rm $DIR/vim/plugin/settings/*
 cp -v -R $HOME/.vim/plugin/settings $DIR/vim/plugin/
 
 cd $DIR
