@@ -50,6 +50,7 @@ au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
 
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
+au BufNewFile,BufRead *.hbs set ft=html
 
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
