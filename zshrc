@@ -138,6 +138,30 @@ function grepall() {
   grep -ni "$1" **/*.$2
 }
 
+function sms() {
+  adb shell am start -a android.intent.action.SENDTO -d sms:$1 --es sms_body "$2" --ez exit_on_sent true
+
+  if [[ $3 = "edit" ]];then
+    echo "edit mode, check your phone"
+    # commands....
+  else
+    echo "send mode"
+    sleep 1
+    adb shell input keyevent 22
+    sleep 1
+    adb shell input keyevent 66
+    echo "sent"
+  fi
+}
+
+function editsms() {
+  sms $1 $2 edit
+}
+
+function smsangie() {
+  sms +33652013403 $1 $2
+}
+
 export GOPATH=$HOME/programmes/go
 
 #################
