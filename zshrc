@@ -123,15 +123,17 @@ alias ggrep='git grep -nI'
 # -n display line, -I ignore binary files
 alias v='vim'
 alias e='echo'
+alias a='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 #alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
 alias pause='ruby /Users/tim/programmes/job_break/start_pause.rb'
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 
-##find text 'test' il all '.txt' file recursively from current dir
-#maybe ack do this like "cd to/the/dir ; ack --text test"
-#example: grepall test txt
+##
+# find text 'test' il all '.txt' file recursively from current dir
+# maybe ack do this like "cd to/the/dir ; ack --text test"
+# example: grepall test txt
 function grepall() {
   echo "find text '$1'";
   echo "In files << $2 >>";
