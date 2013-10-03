@@ -10,4 +10,3 @@ nmap <leader>9c :%s/\<nine\>/large-9/gc<CR>
 nmap <leader>10c :%s/\<ten\>/large-10/gc<CR>
 nmap <leader>11c :%s/\<eleven\>/large-11/gc<CR>
 nmap <leader>12c :%s/\<twelve\>/large-12/gc<CR>
-nmap <leader>pr :%s/\<panel\>/panel.radius/gc<CR>
