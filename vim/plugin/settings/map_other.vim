@@ -11,3 +11,6 @@ nnoremap <leader>fef gg=G
 
 "display cursor column
 nmap <leader>col :set invcursorcolumn<CR>
+
+"display omni-completion
+inoremap <C-Space> <C-x><C-o>
