@@ -25,6 +25,7 @@ Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-matchit'
+Bundle 'mattn/calendar-vim'
 
 syntax on
 set autoread " Automatically reload changes if detected
