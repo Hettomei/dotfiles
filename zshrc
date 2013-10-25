@@ -88,11 +88,12 @@ rbenv() {
   esac
 }
 
-##### Android
-PATH=$PATH:/Users/tim/programmes/android/sdk/tools
-PATH=$PATH:/Users/tim/programmes/android/sdk/platform-tools
-
 export JAVA_HOME=/Library/Java/Home
+export GOPATH=$HOME/programmes/go
+##### Android
+PATH=$PATH:$HOME/programmes/android/sdk/tools
+PATH=$PATH:$HOME/programmes/android/sdk/platform-tools
+
 PATH=$PATH:$JAVA_HOME
 
 ###############################
@@ -126,7 +127,7 @@ alias e='echo'
 alias a='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 #alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
-alias pause='ruby /Users/tim/programmes/job_break/start_pause.rb'
+alias pause=job_break
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 
@@ -164,8 +165,6 @@ function smsangie() {
   sms +33652013403 $1 $2
 }
 
-export GOPATH=$HOME/programmes/go
-
 #################
 # Special Rails #
 #################
@@ -181,4 +180,3 @@ alias ber='noglob bundle exec rspec'
 alias sp='spin push'
 
 alias httpserv="python -m SimpleHTTPServer"
-alias bd=". /usr/local/Cellar/bd/1/bd -s"
