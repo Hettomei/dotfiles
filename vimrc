@@ -26,8 +26,13 @@ Bundle 'tpope/gem-ctags'
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'mattn/calendar-vim'
+Bundle 'altercation/vim-colors-solarized'
 
-syntax on
+syntax enable
+
+set background=dark
+colorscheme solarized
+
 set autoread " Automatically reload changes if detected
 set encoding=utf8
 set history=1000
@@ -80,6 +85,7 @@ let g:Powerline_symbols = 'fancy'
 let Tlist_Auto_Update = 'true'
 
 command Vimrc tabnew $MYVIMRC
+command Gvimrc tabnew $MYGVIMRC
 
 " fast terminal for smoother redrawing
 set ttyfast

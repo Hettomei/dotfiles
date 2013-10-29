@@ -1,4 +1,7 @@
 "set font for macvim
 set guifont=Monaco:h13
 set guioptions+=b
-colorscheme darkblue
+
+"need to duplicate from .vimrc. I don't know why
+set background=dark
+colorscheme solarized
