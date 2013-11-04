@@ -1,2 +1,3 @@
 " Default color scheme
-color default
+set background=dark
+colorscheme solarized

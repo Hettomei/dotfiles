@@ -30,9 +30,6 @@ Bundle 'altercation/vim-colors-solarized'
 
 syntax enable
 
-set background=dark
-colorscheme solarized
-
 set autoread " Automatically reload changes if detected
 set encoding=utf8
 set history=1000

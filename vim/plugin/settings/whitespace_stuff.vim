@@ -9,4 +9,3 @@ set expandtab
 if has("autocmd")
   autocmd BufWritePre * :%s/\s\+$//e
 endif
-
