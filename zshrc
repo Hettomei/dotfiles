@@ -142,6 +142,9 @@ function grepall() {
 }
 
 function sms() {
+  #$1 -> the phone number
+  #$2 -> the message
+  #$2 -> optional, could be "edit"
   adb shell am start -a android.intent.action.SENDTO -d sms:$1 --es sms_body "$2" --ez exit_on_sent true
 
   if [[ $3 = "edit" ]];then
@@ -158,10 +161,14 @@ function sms() {
 }
 
 function editsms() {
+  #$1 -> the phone number
+  #$2 -> the message
   sms $1 $2 edit
 }
 
 function smsangie() {
+  #$1 -> the messages
+  #$2 -> optional, could be "edit"
   sms +33652013403 $1 $2
 }
 
