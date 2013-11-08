@@ -130,6 +130,8 @@ alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pause=job_break
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
+#because bc as the "scale" init to 0 if run without argument
+alias bc='bc -l -q'
 
 ##
 # find text 'test' il all '.txt' file recursively from current dir
