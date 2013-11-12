@@ -1,6 +1,10 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+" be iMproved
+set nocompatible
+" required!
+filetype off
 
+"don't loose this key :)
+nnoremap \ ,
 let mapleader = ","
 
 set rtp+=~/.vim/bundle/vundle/
@@ -9,25 +13,30 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'pangloss/vim-javascript'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
 Bundle 'godlygeek/tabular'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'gudleik/vim-slim'
 Bundle 'tpope/gem-ctags'
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'mattn/calendar-vim'
 Bundle 'altercation/vim-colors-solarized'
+
+" language specific
+Bundle 'tpope/vim-haml'
+Bundle 'gudleik/vim-slim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'ap/vim-css-color'
+
+" for opening file
+Bundle 'scrooloose/nerdtree'
+Bundle 'jeetsukumaran/vim-buffergator'
+Bundle 'kien/ctrlp.vim'
 
 syntax enable
 
@@ -35,13 +44,24 @@ set autoread " Automatically reload changes if detected
 set encoding=utf8
 set history=1000
 
-" Tab completion
-set wildmode=list:longest,list:full
+" taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
+"           +--Disable hlsearch while loading viminfo
+"           | +--Remember marks for last 50 files
+"           | |   +--Remember up to 10000 lines in each register
+"           | |   |      +--Remember up to 1MB in each register
+"           | |   |      |     +--Remember last 1000 search patterns
+"           | |   |      |     |     +---Remember last 1000 commands
+"           | |   |      |     |     |
+"           v v   v      v     v     v
+set viminfo=h,'50,<10000,s1000,/1000,:1000
 
-function s:setupWrapping()
-  set wrap
-  set textwidth=0
-endfunction
+" Tab completion
+set wildmode=list:longest,full
+
+" act like browsers do
+nnoremap <Space> 40j
+" not working on iterm
+nnoremap <S-Space> 40k
 
 " make uses real tabs
 au FileType make set noexpandtab
@@ -51,6 +71,10 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile
 
 " md, markdown, and mk are markdown and define buffer-local preview
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
+function s:setupWrapping()
+  set wrap
+  set textwidth=0
+endfunction
 
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
@@ -74,9 +98,6 @@ let g:syntastic_quiet_warnings=1
 
 " Turn off jslint errors by default
 let g:JSLintHighlightErrorLine = 0
-
-" MacVIM shift+arrow-keys behavior (required in .vimrc)
-let macvim_hig_shift_movement = 1
 
 let g:Powerline_symbols = 'fancy'
 
