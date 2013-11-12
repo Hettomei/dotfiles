@@ -55,14 +55,6 @@ set history=1000
 "           v v   v      v     v     v
 set viminfo=h,'50,<10000,s1000,/1000,:1000
 
-" Tab completion
-"set wildmode=longest:full
-
-" act like browsers do
-nnoremap <Space> 40j
-" not working on iterm
-nnoremap <S-Space> 40k
-
 " make uses real tabs
 au FileType make set noexpandtab
 
@@ -109,5 +101,5 @@ command Gvimrc tabnew $MYGVIMRC
 " fast terminal for smoother redrawing
 set ttyfast
 
-" Complete like bash
+" Tab completion like bash
 set completeopt+=longest
