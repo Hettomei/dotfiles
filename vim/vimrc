@@ -56,7 +56,7 @@ set history=1000
 set viminfo=h,'50,<10000,s1000,/1000,:1000
 
 " Tab completion
-set wildmode=list:longest,full
+"set wildmode=longest:full
 
 " act like browsers do
 nnoremap <Space> 40j
@@ -108,3 +108,6 @@ command Gvimrc tabnew $MYGVIMRC
 
 " fast terminal for smoother redrawing
 set ttyfast
+
+" Complete like bash
+set completeopt+=longest
