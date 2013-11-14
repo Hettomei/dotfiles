@@ -100,6 +100,7 @@ command Gvimrc tabnew $MYGVIMRC
 
 " fast terminal for smoother redrawing
 set ttyfast
-
 " Tab completion like bash
 set completeopt+=longest
+"tab completion for files
+set wildmode=list:longest,full
