@@ -11,7 +11,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
+"Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'godlygeek/tabular'
 Bundle 'scrooloose/syntastic'
@@ -101,6 +101,6 @@ command Gvimrc tabnew $MYGVIMRC
 " fast terminal for smoother redrawing
 set ttyfast
 " Tab completion like bash
-set completeopt+=longest
+"set completeopt+=longest
 "tab completion for files
 set wildmode=list:longest,full

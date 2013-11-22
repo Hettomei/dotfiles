@@ -5,6 +5,7 @@ nmap <C-h> :wincmd h<CR>
 nmap <C-l> :wincmd l<CR>
 
 " act like browsers do
-nnoremap <Space> 40j
-" not working on iterm
-nnoremap <S-Space> 40k
+nnoremap <Space> <c-d>
+" not working on iterm, because shift space doesn t exist
+" Add a key map on ITERM :) now it works
+nnoremap <S-Space> <c-u>

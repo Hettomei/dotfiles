@@ -1,4 +1,6 @@
 command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
+command RlangProfile execute "tabnew config/locales/my_profile.en.yml | vsplit config/locales/my_profile.fr.yml"
+command RlangDevise execute "tabnew config/locales/devise.en.yml | vsplit config/locales/devise.fr.yml"
 
 "For vim-rails
 "help -> :help rails-projection
