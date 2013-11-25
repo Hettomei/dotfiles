@@ -109,8 +109,10 @@ alias apitabarluss='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
 alias business='cd /Users/tim/BeMyBoat/bmb_business'
 alias mmk='cd /Users/tim/BeMyBoat/mmk'
 alias mmks='cd /Users/tim/BeMyBoat/mmk/lib/mmk'
-alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
 alias sedna='cd /Users/tim/BeMyBoat/sedna'
+alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
+alias mister='cd /Users/tim/BeMyBoat/mister_booking'
+alias misters='cd /Users/tim/BeMyBoat/mister_booking/lib/mister_b'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
 
 # git
