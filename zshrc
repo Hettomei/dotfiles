@@ -191,3 +191,4 @@ alias ber='noglob bundle exec rspec'
 alias sp='spin push'
 
 alias httpserv="python -m SimpleHTTPServer"
+source ./.zshrc_not_on_github
