@@ -1,6 +1,7 @@
 ##################
 # TIPS AND TRICKS
 # grepall finded_text file_extension
+#
 # on big command line press : CTRL-X-E (hold ctrl) and you can edit it on vim
 #
 # On os X, when press "space" to show preview, to convert file to text preview file :
@@ -12,7 +13,9 @@
 #
 # Change every occurence into some files
 # perl -i -p -e's/foo/bar/g' $(ack -l foo)
-# ack -l foo <- display only file which contains foo
+#
+# display only file which contains foo
+# ack -l foo
 # Without previous ACK search :
 # perl -i -p -e's/foo/bar/g' $(ack -f)
 # or
@@ -22,11 +25,14 @@
 # find . -type f -name "*.erb" -exec git rm {} \;
 #
 # Rename multiple file : (here it removes .erb extension)
-#
 # for file in `find . -type f -name "*.haml"`
 # do
 # mv $file `echo $file | sed 's/\.erb//g'`
 # done
+# or
+# for f in *2012*; do mv "$f" "2012-$f";done
+# or with the utility 'rename' :
+# rename 's/^foo/super_bat/' *test.rb
 #
 # To sync my picture folder :
 # rsync -av -e ssh Pictures hettomei@192.168.0.27:backup_mac
@@ -111,8 +117,8 @@ alias mmk='cd /Users/tim/BeMyBoat/mmk'
 alias mmks='cd /Users/tim/BeMyBoat/mmk/lib/mmk'
 alias sedna='cd /Users/tim/BeMyBoat/sedna'
 alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
-alias mister='cd /Users/tim/BeMyBoat/mister_booking'
-alias misters='cd /Users/tim/BeMyBoat/mister_booking/lib/mister_b'
+alias mister_b='cd /Users/tim/BeMyBoat/mister_booking'
+alias mister_bs='cd /Users/tim/BeMyBoat/mister_booking/lib/mister_b'
 alias devinette='cd /Users/tim/programmes/Ruby/devinette'
 
 # git
