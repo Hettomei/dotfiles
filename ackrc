@@ -7,9 +7,11 @@
 --type-set=scss=.scss
 --type-set=erb=.erb
 --type-set=log=.log
+--type-set=svg=.svg
 
 #ignore file type
 --nolog
+--nosvg
 --nominifiedjs
 
 #ignore file

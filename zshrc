@@ -39,6 +39,11 @@
 #
 # To download a video from youtube and convert direct in mp3 (need youtube-dl + ffmpeg)
 # youtube-dl "http://www.youtube.com/watch?v=4yRpysQxRxE&noredirect=1" --extract-audio --audio-format mp3
+#
+# How to use exuberant ctags ?
+# go to the project
+# ctags -R *
+# then it works in vim
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
