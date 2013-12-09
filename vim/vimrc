@@ -104,3 +104,4 @@ set ttyfast
 "set completeopt+=longest
 "tab completion for files
 set wildmode=list:longest,full
+set cryptmethod=blowfish
