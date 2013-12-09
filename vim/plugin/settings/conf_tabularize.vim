@@ -1,0 +1,2 @@
+AddTabularPattern comma /,
+AddTabularPattern arrow /=>
