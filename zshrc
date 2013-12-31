@@ -155,6 +155,14 @@ function grepall() {
   grep -ni "$1" **/*.$2
 }
 
+function tn(){
+  sleep $1 && terminal-notifier -message $2
+}
+
+function tnm(){
+  tn $(($1*60)) $2
+}
+
 function sms() {
   #$1 -> the phone number
   #$2 -> the message
