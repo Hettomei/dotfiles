@@ -133,7 +133,6 @@ alias pushall="pushmaster && pushprod"
 alias ggrep='git grep -nI'
 
 #good website :  http://alias.sh/compact-colorized-git-log
-# -n display line, -I ignore binary files
 alias v='vim'
 alias e='echo'
 alias a='ack'
@@ -144,6 +143,11 @@ alias pause=job_break
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 #because bc as the "scale" init to 0 if run without argument
 alias bc='bc -l -q'
+alias -s rb=vim
+alias -s txt=vim
+alias -s log=vim
+alias -s slim=vim
+alias -s haml=vim
 
 ##
 # find text 'test' il all '.txt' file recursively from current dir
