@@ -9,7 +9,7 @@ do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
-for file_name in 'vimrc' 'gvimrc'
+for file_name in 'vimrc' 'gvimrc' 'vimpagerrc'
 do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
