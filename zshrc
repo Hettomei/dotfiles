@@ -74,7 +74,7 @@ unsetopt correct_all
 #ne partage pas l'historique entre les session zsh. supprimer la ligne si je veux de nouveau les partager
 setopt no_share_history
 
-#export PAGER=''
+export PAGER=vimpager
 export LESS='-R -X'
 
 # Customize to your needs...
