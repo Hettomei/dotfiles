@@ -1,19 +1,26 @@
-##################
-# TIPS AND TRICKS
+###################
+# TIPS AND TRICKS #
+###################
+#
 # grepall finded_text file_extension
 #
+###
 # on big command line press : CTRL-X-E (hold ctrl) and you can edit it on vim
 #
+###
 # On os X, when press "space" to show preview, to convert file to text preview file :
 # example to convert .scss file
 # find . -name '*.scss' -exec SetFile -t TEXT {} \;
 #
+###
 # convert wma into mp3
 # for i in *.wma; do ffmpeg -i "$i" -ab 96k "${i%wma}mp3"; done
 #
+###
 # Change every occurence into some files
 # perl -i -p -e's/foo/bar/g' $(ack -l foo)
 #
+###
 # display only file which contains foo
 # ack -l foo
 # Without previous ACK search :
@@ -21,9 +28,11 @@
 # or
 # perl -i -p -e's/foo/bar/g' $(ack -f --ruby)
 #
+###
 # do some operation on files
 # find . -type f -name "*.erb" -exec git rm {} \;
 #
+###
 # Rename multiple file : (here it removes .erb extension)
 # for file in `find . -type f -name "*.haml"`
 # do
@@ -34,16 +43,22 @@
 # or with the utility 'rename' :
 # rename 's/^foo/super_bat/' *test.rb
 #
+###
 # To sync my picture folder :
 # rsync -av -e ssh Pictures hettomei@192.168.0.27:backup_mac
 #
+###
 # To download a video from youtube and convert direct in mp3 (need youtube-dl + ffmpeg)
 # youtube-dl "http://www.youtube.com/watch?v=4yRpysQxRxE&noredirect=1" --extract-audio --audio-format mp3
 #
+###
 # How to use exuberant ctags ?
 # go to the project
 # ctags -R *
 # then it works in vim
+###################
+# TIPS AND TRICKS #
+###################
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
