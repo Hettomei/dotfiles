@@ -18,7 +18,7 @@ rm $DIR/vim/plugin/settings/*
 cp -v -R $HOME/.vim/plugin/settings $DIR/vim/plugin/
 
 rm $DIR/vim/my_snippets/*
-cp -v -R $HOME/.vim/my_snippets $DIR/vim/my_snippets/
+cp -v -R $HOME/.vim/my_snippets $DIR/vim/
 
 cd $DIR
 
