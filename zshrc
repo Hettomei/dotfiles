@@ -128,8 +128,8 @@ PATH=$PATH:$JAVA_HOME
 alias front='cd /Users/tim/BeMyBoat/bmb_front'
 alias crm='cd /Users/tim/BeMyBoat/bemyboat/webapp'
 alias tabarlus='cd /Users/tim/BeMyBoat/tabarlus'
-alias apitabarlus='cd /Users/tim/BeMyBoat/tabarlus_api'
-alias apitabarluss='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
+alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
+alias tabarlusapis='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
 alias business='cd /Users/tim/BeMyBoat/bmb_business'
 alias mmk='cd /Users/tim/BeMyBoat/mmk'
 alias mmks='cd /Users/tim/BeMyBoat/mmk/lib/mmk'
@@ -219,8 +219,11 @@ function smsangie() {
 #obligé sinon il ne comprend pas rake de rails......
 #alias rake='noglob rake'
 #need a file 'Procfile'
-alias fsa='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=1'
-alias fsas='foreman start -c mysql=1,mongodb=1,redis=1,db=1,beanstalkd=1,backburner=1,web=0,sidekiq=0'
+function fsa() {
+  display='foreman start -c mysql=1,mongodb=1,redis=1,beanstalkd=1,backburner=1,sidekiq=1'
+  echo -n $display | pbcopy
+  echo $display
+}
 alias fsw='foreman start web'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
