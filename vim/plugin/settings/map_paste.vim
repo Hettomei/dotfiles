@@ -9,3 +9,5 @@
 vnoremap p "_dp
 vnoremap P "_dP
 nnoremap <leader>p "_ciw<C-r>"<esc>
+"http://vim.wikia.com/wiki/Selecting_your_pasted_text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
