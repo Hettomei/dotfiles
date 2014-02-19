@@ -19,7 +19,6 @@ Bundle 'ervandew/supertab'
 Bundle 'tpope/gem-ctags'
 Bundle 'mileszs/ack.vim'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'mattn/calendar-vim'
 Bundle 'altercation/vim-colors-solarized'
 
 " language specific
@@ -31,6 +30,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'ap/vim-css-color'
+Bundle 'wting/rust.vim'
 
 " for opening file
 Bundle 'scrooloose/nerdtree'

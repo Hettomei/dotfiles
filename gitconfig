@@ -4,7 +4,7 @@
   email = itsumo.sibyllin@gmail.com
 [core]
   editor = vim
-  excludesfile = /Users/tim/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [color]
   ui = auto
 [color "branch"]
