@@ -46,7 +46,7 @@ syntax enable
 
 set autoread " Automatically reload changes if detected
 set encoding=utf8
-set history=1000
+set history=300
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 "           +--Disable hlsearch while loading viminfo
@@ -57,7 +57,7 @@ set history=1000
 "           | |   |      |     |     +---Remember last 1000 commands
 "           | |   |      |     |     |
 "           v v   v      v     v     v
-set viminfo=h,'50,<10000,s1000,/1000,:1000
+set viminfo=h,'50,<1000,s1000,/500,:1000
 
 " make uses real tabs
 au FileType make set noexpandtab
@@ -91,12 +91,7 @@ filetype plugin indent on
 " Enable syntastic syntax checking
 let g:syntastic_enable_signs=1
 
-" Turn off jslint errors by default
-let g:JSLintHighlightErrorLine = 0
-
-let g:Powerline_symbols = 'fancy'
-
-let Tlist_Auto_Update = 'true'
+let Tlist_Auto_Update=1
 
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
