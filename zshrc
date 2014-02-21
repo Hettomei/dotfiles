@@ -156,7 +156,7 @@ alias pause=job_break
 #Copy current path to clipboard. #works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 #because bc as the "scale" init to 0 if run without argument
-alias bc='bc -l -q'
+alias bc='bc -l'
 alias -s rb=vim
 alias -s txt=vim
 alias -s log=vim
