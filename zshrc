@@ -95,7 +95,7 @@ export LESS='-R -X -F'
 export VISUAL="vim"
 export EDITOR="vim"
 
-export PATH=$HOME/.rbenv/shims:/usr/local/bin:/usr/local/heroku/bin:$PATH
+export PATH=$HOME/.rbenv/shims:/usr/local/bin:/usr/local/heroku/bin:$HOME/programmes/JAVA/play-2.2.2:$PATH
 source "/usr/local/Cellar/rbenv/0.4.0/libexec/../completions/rbenv.zsh"
 rbenv rehash 2>/dev/null
 rbenv() {
@@ -148,6 +148,7 @@ alias ggrep='git grep -nI'
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias v='vim'
+alias nv='$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
