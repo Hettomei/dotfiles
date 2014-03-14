@@ -56,6 +56,12 @@
 # go to the project
 # ctags -R *
 # then it works in vim
+#
+###
+# Convert file type to unix utf-8
+# ex some_file "+set ff=unix fileencoding=utf-8" "+x"
+#
+# ex -> enter in vim ex mode :D
 ###################
 # TIPS AND TRICKS #
 ###################
@@ -221,7 +227,7 @@ function smsangie() {
 #alias rake='noglob rake'
 #need a file 'Procfile'
 function fsa() {
-  display='foreman start -c mysql=1,mongodb=1,redis=1,beanstalkd=1,backburner=1,sidekiq=1'
+  display='foreman start -c mysql=1,redis=1,mongodb=1,sidekiq=1,beanstalkd=1,backburner=1'
   echo -n $display | pbcopy
   echo $display
 }

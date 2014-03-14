@@ -18,7 +18,8 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/gem-ctags'
 Bundle 'mileszs/ack.vim'
-Bundle 'tsaleh/vim-matchit'
+"Bundle 'tsaleh/vim-matchit'
+Bundle 'edsono/vim-matchit'
 Bundle 'altercation/vim-colors-solarized'
 
 " language specific
