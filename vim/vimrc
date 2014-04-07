@@ -10,38 +10,38 @@ let mapleader = ","
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-fugitive'
-Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'ervandew/supertab'
-Bundle 'tpope/gem-ctags'
-Bundle 'mileszs/ack.vim'
-"Bundle 'tsaleh/vim-matchit'
-Bundle 'edsono/vim-matchit'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-fugitive'
+Plugin 'godlygeek/tabular'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'ervandew/supertab'
+Plugin 'tpope/gem-ctags'
+Plugin 'mileszs/ack.vim'
+"Plugin 'tsaleh/vim-matchit'
+Plugin 'edsono/vim-matchit'
+Plugin 'altercation/vim-colors-solarized'
 
 " language specific
-Bundle 'tpope/vim-haml'
-Bundle 'gudleik/vim-slim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'ap/vim-css-color'
-Bundle 'wting/rust.vim'
+Plugin 'tpope/vim-haml'
+Plugin 'gudleik/vim-slim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-markdown'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'ap/vim-css-color'
+Plugin 'wting/rust.vim'
 
 " for opening file
-Bundle 'scrooloose/nerdtree'
-Bundle 'jeetsukumaran/vim-buffergator'
-Bundle 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'kien/ctrlp.vim'
 
 " other
-Bundle 'wakatime/vim-wakatime'
-Bundle 'jayflo/vim-skip'
-Bundle 'msanders/snipmate.vim'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'jayflo/vim-skip'
+Plugin 'msanders/snipmate.vim'
 
 syntax enable
 
