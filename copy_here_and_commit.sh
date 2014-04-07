@@ -14,8 +14,8 @@ do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
 
-rm $DIR/vim/plugin/settings/*
-cp -v -R $HOME/.vim/plugin/settings $DIR/vim/plugin/
+rm $DIR/vim/after/plugin/*
+cp -v -R $HOME/.vim/after/plugin $DIR/vim/after/plugin/
 
 rm $DIR/vim/my_snippets/*
 cp -v -R $HOME/.vim/my_snippets $DIR/vim/

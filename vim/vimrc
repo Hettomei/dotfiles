@@ -280,7 +280,7 @@ let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
 " }
 
 " tabularize {
-"AddTabularPattern arrow /=>
+" see .vim/after/plugin/my_tabular.vim
 " }
 
 " wildignore {
