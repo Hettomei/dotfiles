@@ -1,18 +1,14 @@
 " Modeline and Notes {
- " vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
- "
- "   This is the personal .vimrc file of Steve Francia.
- "   While much of it is beneficial for general use, I would
- "   recommend picking out the parts you want and understand.
- "
- "   You can find me at http://spf13.com
- " }
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" }
 
-"abbrev.vim
-"autocmd FileType javascript :iabbrev <buffer> cl console.log();<left><left>
+" Tips and tricks {
+" ## To add an abbrev for a specifiq filetype :
+" autocmd FileType javascript :iabbrev <buffer> cl console.log();<left><left>
+" }
 
-"abbrev_rails.vim
-" theise abbrev are more for rails
+" abbrev rails {
+" theise abbrev are for rails
 " TODO : add a autocommand for filetype .rb for these abbrev
 
 ab cq customer_quote
@@ -38,36 +34,40 @@ ab SP SpecialOffer
 ab bh boarding_harbor
 
 ab lh landing_harbor
+" }
 
-"backup_swap.vim
+" backup swap {
 " No save backup like .swp
+" TODO understand difference beetween backup and swap
 set nowritebackup
 set noswapfile
+" }
 
-"conf_color.vim
-" Default color scheme
+" colors {
 set background=dark
 colorscheme solarized
+" }
 
-"conf_ctags.vim
-" CTags
-
+" CTags ctags {
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 " Reload tag
 command Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
 nnoremap <C-$> :tnext<CR>
+" }
 
-"conf_ctrlp.vim
+" ctrlp {
 "https://github.com/kien/ctrlp.vim
 "let g:ctrlp_map = '<c-p>'
 nnoremap <C-m> :CtrlPBuffer<CR>
 let g:ctrlp_custom_ignore = {
-\ 'dir':  '\.git$\|\.hg$\|\.svn$\',
-  \ 'file': '\.exe$\|\.so$\|\.dll$',
-  \ 'link': 'some_bad_symbolic_links',
-\ }
+      \ 'dir':  '\.git$\|\.hg$\|\.svn$\',
+      \ 'file': '\.exe$\|\.so$\|\.dll$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+" }
 
-"conf_display.vim
+" configure display {
+
 " cursor position
 set ruler
 
@@ -78,19 +78,22 @@ set cursorline
 
 " Show (partial) command in the status line
 set showcmd
+
 "Suppress mode change messages
 set noshowmode
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
+" }
 
-"conf_fold.vim
+" configure folding {
 set foldmethod=syntax
 set foldlevel=6
 
 au BufRead,BufNewFile *.{yml,yaml,slim,haml} set foldmethod=indent
+" }
 
-"conf_large_files.vim
+" configure when open large_files {
 " http://vim.wikia.com/wiki/Faster_loading_of_large_files
 " Protect large files from sourcing and other overhead.
 " Files become read only
@@ -107,25 +110,28 @@ if !exists("auto_load_large_file")
   let g:LargeFile = 1024 * 1024 * 2
   augroup LargeFile
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
-  augroup END
-endif
+    augroup END
+  endif
+  " }
 
-"conf_line_number.vim
+" line number {
 set number
 set numberwidth=1
+" }
 
-"conf_nerdtree.vim
-" NERDTree configuration
+" NERDTree nerdtree {
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 map <Leader>n :NERDTreeToggle<CR>
+" }
 
-"conf_rails.vim
+" custom rails mapping {
 command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
 command RlangProfile execute "tabnew config/locales/my_profile.en.yml | vsplit config/locales/my_profile.fr.yml"
 command RlangDevise execute "tabnew config/locales/devise.en.yml | vsplit config/locales/devise.fr.yml"
+" }
 
-"For vim-rails
-"help -> :help rails-projection
+" For vim-rails {
+" help -> :help rails-projection
 let g:rails_projections = {
       \ "app/decorators/*_decorator.rb": {
       \   "command": "decorator",
@@ -161,22 +167,25 @@ let g:rails_projections = {
       \ "features/support/*.rb": {"command": "support"},
       \ "features/support/env.rb": {"command": "support"}
       \}
+" }
 
-"conf_snipmate.vim
- let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
+" snipmate {
+let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
+" }
 
-"conf_tabularize.vim
+" tabularize {
 AddTabularPattern arrow /=>
+" }
 
-"conf_wildignore.vim
+" wildignore {
 " Patter ignore when use the completion in search file
 set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3
 set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.exe
+" }
 
-"gist.vim
-" gist-vim defaults
+" gist-vim defaults {
 if has("mac")
   let g:gist_clip_command = 'pbcopy'
 elseif has("unix")
@@ -184,13 +193,14 @@ elseif has("unix")
 endif
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+" }
 
 "last_location.vim
 " Remember last location in file
 
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal g'\"" | endif
+        \| exe "normal g'\"" | endif
 endif
 
 "map_del.vim
