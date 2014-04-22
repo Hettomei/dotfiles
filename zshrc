@@ -120,10 +120,6 @@ rbenv() {
 
 export JAVA_HOME=/Library/Java/Home
 export GOPATH=$HOME/programmes/go
-##### Android
-PATH=$PATH:$HOME/programmes/android/sdk/tools
-PATH=$PATH:$HOME/programmes/android/sdk/platform-tools
-
 PATH=$PATH:$JAVA_HOME
 
 ###############################
@@ -150,7 +146,6 @@ alias g='git'
 alias pushmaster="git push origin master && git push upstream master"
 alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"
-alias ggrep='git grep -nI'
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias v='vim'
@@ -158,9 +153,10 @@ alias nv='$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
-#alias pause='ruby /Users/tim/programmes/Ruby/calcul_pause/start_pause.rb'
+alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
 alias pause=job_break
-#Copy current path to clipboard. #works on mac OS X maybe not linux
+#Copy current path to clipboard.
+#works on mac OS X maybe not linux
 alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
 #because bc as the "scale" init to 0 if run without argument
 alias bc='bc -l'
