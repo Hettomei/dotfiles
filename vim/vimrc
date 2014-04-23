@@ -569,3 +569,6 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
+
+" map ctrl a (go at start in terminal) for command line
+cnoremap <C-a> <Home>
