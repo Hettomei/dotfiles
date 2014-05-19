@@ -228,6 +228,9 @@ function fsa() {
   echo $display
 }
 alias fsw='foreman start web'
+alias fsmyr='foreman start -c mysql=1,redis=1'
+alias fsmor='foreman start -c mongodb=1,redis=1'
+alias fssbb='foreman start -c sidekiq=1,beanstalkd=1,backburner=1'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
 alias sp='spin push'
