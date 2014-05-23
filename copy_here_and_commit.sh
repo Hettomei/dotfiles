@@ -15,7 +15,7 @@ do
 done
 
 rm $DIR/vim/after/plugin/*
-cp -v -R $HOME/.vim/after/plugin $DIR/vim/after/plugin/
+cp -v -R $HOME/.vim/after/plugin $DIR/vim/after/
 
 rm $DIR/vim/my_snippets/*
 cp -v -R $HOME/.vim/my_snippets $DIR/vim/
