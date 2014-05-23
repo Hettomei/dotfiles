@@ -16,7 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 
-" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
 Plugin 'tpope/vim-surround'
@@ -46,7 +46,6 @@ Plugin 'wting/rust.vim'
 " for opening file
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/gitignore'
 
 " other
 Plugin 'wakatime/vim-wakatime'
@@ -581,5 +580,3 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
-
-nmap q: :q
