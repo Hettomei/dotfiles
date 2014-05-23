@@ -1,4 +1,4 @@
-" Modeline and Notes {
+" Modeline {
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
 " }
 
@@ -8,32 +8,36 @@ set nocompatible
 " required!
 filetype off
 
-"don't loose this key :)
-nnoremap \ ,
-let mapleader = ","
-
 " Vundle {
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Plugin 'gmarik/vundle'
-Plugin 'tpope/vim-fugitive'
-Plugin 'godlygeek/tabular'
+Plugin 'gmarik/Vundle.vim'
+Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'ervandew/supertab'
+
+" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary' " use gcc
+Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
 Plugin 'tpope/gem-ctags'
+Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
+Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
+Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-characterize' " Add more display when press gA on a char
+
+Plugin 'jayflo/vim-skip'
 Plugin 'mileszs/ack.vim'
-"Plugin 'tsaleh/vim-matchit'
-Plugin 'edsono/vim-matchit'
+Plugin 'edsono/vim-matchit' "Improve math for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
 
 " language specific
-Plugin 'tpope/vim-haml'
 Plugin 'gudleik/vim-slim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'ap/vim-css-color'
@@ -41,20 +45,26 @@ Plugin 'wting/rust.vim'
 
 " for opening file
 Plugin 'scrooloose/nerdtree'
-Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'kien/ctrlp.vim'
+Plugin 'vim-scripts/gitignore'
 
 " other
 Plugin 'wakatime/vim-wakatime'
-Plugin 'jayflo/vim-skip'
 Plugin 'msanders/snipmate.vim'
+
+call vundle#end()            " required
+" load the plugin and indent settings for the detected filetype
+filetype plugin indent on    " required
 " }
+
+let mapleader = "\<Space>"
 
 syntax enable
 
 set autoread " Automatically reload changes if detected
 set encoding=utf8
 set history=300
+set complete-=i " Tim pop says no. So no
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 "           +--Disable hlsearch while loading viminfo
@@ -93,25 +103,16 @@ autocmd BufRead,BufNewFile *.coffee setlocal foldmethod=indent
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" load the plugin and indent settings for the detected filetype
-filetype plugin indent on
-
 " Enable syntastic syntax checking
 let g:syntastic_enable_signs=1
-
-let Tlist_Auto_Update=1
 
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
 
 " fast terminal for smoother redrawing
 set ttyfast
-" Tab completion like bash
-"set completeopt+=longest
-"tab completion for files
-set wildmode=list:longest,full
 set cryptmethod=blowfish
-set iskeyword+=-
+set iskeyword-=- iskeyword+=-
 
 " abbrev rails {
 " theise abbrev are for rails
@@ -155,6 +156,7 @@ colorscheme solarized
 " }
 
 " CTags ctags {
+let Tlist_Auto_Update=1
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 " Reload tag
 command Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
@@ -163,13 +165,7 @@ nnoremap <C-$> :tnext<CR>
 
 " ctrlp {
 "https://github.com/kien/ctrlp.vim
-"let g:ctrlp_map = '<c-p>'
-nnoremap <C-m> :CtrlPBuffer<CR>
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$\',
-      \ 'file': '\.exe$\|\.so$\|\.dll$',
-      \ 'link': 'some_bad_symbolic_links',
-      \ }
+nnoremap <leader>b :CtrlPBuffer<CR>
 " }
 
 " configure display {
@@ -284,11 +280,23 @@ let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
 " }
 
 " wildignore {
+" vim-scripts/gitignore update the list too
 " Patter ignore when use the completion in search file
-set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3
+set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3,*.ico
 set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.exe
+" }
+
+" Completion {
+" Completion like bash
+" menuone is to always display menu
+set completeopt+=longest,menuone
+"tab completion for files
+set wildmode=list:longest,full
+set dictionary=/Users/tim/.vim/dictionary/francais.txt
+" Add dictionnary to <Ctrl-N> " will see if usefull in futur
+"set complete-=k complete+=k
 " }
 
 " gist-vim defaults {
@@ -335,6 +343,10 @@ vnoremap // y/\V<C-R>"<CR>
 
 "open the same directory as the current buffer !
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+"display the same directory as the current buffer !
+cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+" because j rarely used in insert
+inoremap j% <C-R>=expand("%:p:h") . "/" <CR>
 
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
@@ -570,5 +582,4 @@ set lazyredraw          " redraw only when we need to.
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
 
-" map ctrl a (go at start in terminal) for command line
-cnoremap <C-a> <Home>
+nmap q: :q
