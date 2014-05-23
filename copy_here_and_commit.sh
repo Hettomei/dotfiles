@@ -14,11 +14,14 @@ do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
 
-rm $DIR/vim/after/plugin/*
-cp -v -R $HOME/.vim/after/plugin $DIR/vim/after/
+rm $DIR/vim/after/*
+cp -v -R $HOME/.vim/after $DIR/vim/
 
 rm $DIR/vim/my_snippets/*
 cp -v -R $HOME/.vim/my_snippets $DIR/vim/
+
+rm $DIR/vim/dictionary/*
+cp -v -R $HOME/.vim/dictionary $DIR/vim/
 
 cd $DIR
 
