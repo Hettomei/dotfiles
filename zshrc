@@ -62,6 +62,11 @@
 # ex some_file "+set ff=unix fileencoding=utf-8" "+x"
 #
 # ex -> enter in vim ex mode :D
+###
+# Installing homebrew
+# classical from website, and then add
+# brew tap homebrew/dupes
+# brew install homebrew/dupes/grep # For grep // installed with prefix g, so type ggrep
 ###################
 # TIPS AND TRICKS #
 ###################

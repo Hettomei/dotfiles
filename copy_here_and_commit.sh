@@ -9,19 +9,20 @@ do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
+
+#### VIM ####
+rm -r $DIR/vim
+mkdir $DIR/vim
+
 for file_name in 'vimrc' 'gvimrc'
 do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
 
-rm $DIR/vim/after/*
-cp -v -R $HOME/.vim/after $DIR/vim/
-
-rm $DIR/vim/my_snippets/*
-cp -v -R $HOME/.vim/my_snippets $DIR/vim/
-
-rm $DIR/vim/dictionary/*
-cp -v -R $HOME/.vim/dictionary $DIR/vim/
+for file_name in 'after' 'my_snippets' 'dictionary'
+do
+  cp -v -R $HOME/.vim/$file_name $DIR/vim/
+done
 
 cd $DIR
 

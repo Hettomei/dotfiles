@@ -111,7 +111,7 @@ command Gvimrc tabnew $MYGVIMRC
 " fast terminal for smoother redrawing
 set ttyfast
 set cryptmethod=blowfish
-set iskeyword-=- iskeyword+=-
+set iskeyword-=- iskeyword+=-,?
 
 " abbrev rails {
 " theise abbrev are for rails
@@ -164,7 +164,7 @@ nnoremap <C-$> :tnext<CR>
 
 " ctrlp {
 "https://github.com/kien/ctrlp.vim
-nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <C-b> :CtrlPBuffer<CR>
 " }
 
 " configure display {
@@ -580,3 +580,4 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
+nnoremap <leader>w :w<CR>
