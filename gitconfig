@@ -29,6 +29,8 @@
   l2 = log --graph --decorate --pretty=oneline --abbrev-commit --all
   l3 = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
   wc = whatchanged -p
+  pul = pull
+  pus = push
 [push]
   default = simple
 [diff]
