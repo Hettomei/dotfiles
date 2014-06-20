@@ -1,0 +1,1 @@
+AddTabularPattern arrow /=>
