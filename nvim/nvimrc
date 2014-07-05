@@ -40,7 +40,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'ap/vim-css-color'
+" Plugin 'ap/vim-css-color'
 Plugin 'wting/rust.vim'
 
 " for opening file
@@ -377,8 +377,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " map split.vim {
 " Switch directly to the new splitted window
-nnoremap <C-w>v :rightbelow vsplit<CR>
-nnoremap <C-w>s :split<CR> :wincmd j<CR>
+" nnoremap <C-w>v :rightbelow vsplit<CR>
+" nnoremap <C-w>s :split<CR> :wincmd j<CR>
 " }
 
 " map surround {
@@ -396,10 +396,10 @@ nnoremap <Leader>s" diWi"<C-r>""<ESC>
 " }
 
 " switch between windows {
-nmap <C-k> :wincmd k<CR>
-nmap <C-j> :wincmd j<CR>
-nmap <C-h> :wincmd h<CR>
-nmap <C-l> :wincmd l<CR>
+" nmap <C-k> :wincmd k<CR>
+" nmap <C-j> :wincmd j<CR>
+" nmap <C-h> :wincmd h<CR>
+" nmap <C-l> :wincmd l<CR>
 " }
 
 " map yank {
@@ -579,4 +579,28 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w <bar>! ./convert_notes_to_html.sh<CR><CR>
+" convert to markdown
+nnoremap <leader>md :w <bar>! ./convert_notes_to_html.sh<CR><CR>
+
+" ----------------------------------------------------------------------------
+" move to the window in the direction shown, or create a new split in that
+" direction
+" ----------------------------------------------------------------------------
+func! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key,'[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
+endfu
+
+nnoremap <silent> <C-h> :call WinMove('h')<cr>
+nnoremap <silent> <C-j> :call WinMove('j')<cr>
+nnoremap <silent> <C-k> :call WinMove('k')<cr>
+nnoremap <silent> <C-l> :call WinMove('l')<cr>
