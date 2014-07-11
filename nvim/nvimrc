@@ -50,6 +50,7 @@ Plugin 'kien/ctrlp.vim'
 " other
 Plugin 'wakatime/vim-wakatime'
 Plugin 'msanders/snipmate.vim'
+Plugin 'junegunn/goyo.vim' " to not be distracted
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -579,7 +580,7 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
-nnoremap <leader>w :w <bar>! ./convert_notes_to_html.sh<CR><CR>
+nnoremap <leader>w :w
 " convert to markdown
 nnoremap <leader>md :w <bar>! ./convert_notes_to_html.sh<CR><CR>
 
