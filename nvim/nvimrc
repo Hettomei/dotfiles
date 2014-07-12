@@ -40,7 +40,6 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-" Plugin 'ap/vim-css-color'
 Plugin 'wting/rust.vim'
 
 " for opening file

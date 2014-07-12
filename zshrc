@@ -71,80 +71,104 @@
 # TIPS AND TRICKS #
 ###################
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
-#ZSH_THEME="aussiegeek"
-#ZSH_THEME="rkj"
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+# ZSH_THEME="robbyrussell"
 ZSH_THEME="alanpeabody"
-#ZSH_THEME="random"
-#theme de base :
-#ZSH_THEME="robbyrussell"
 
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="false"
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-DISABLE_CORRECTION="true"
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-dd"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(colored-man)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(colored-man rbenv bundler brew osx)
 
 source $ZSH/oh-my-zsh.sh
 
+# remove Correct spelling of all arguments
 unsetopt correct_all
 #ne partage pas l'historique entre les session zsh. supprimer la ligne si je veux de nouveau les partager
 setopt no_share_history
 
 export LESS='-R -X -F'
-
-# Customize to your needs...
 export VISUAL="vim"
 export EDITOR="vim"
 
-export PATH=$HOME/.rbenv/shims:/usr/local/bin:/usr/local/heroku/bin:$HOME/programmes/JAVA/play-2.2.2:$PATH
-source "/usr/local/Cellar/rbenv/0.4.0/libexec/../completions/rbenv.zsh"
-rbenv rehash 2>/dev/null
-rbenv() {
-  command="$1"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
+# User configuration
 
-  case "$command" in
-  shell)
-    eval `rbenv "sh-$command" "$@"`;;
-  *)
-    command rbenv "$command" "$@";;
-  esac
-}
-
+export PATH=/usr/local/bin:$PATH
 export JAVA_HOME=/Library/Java/Home
 export GOPATH=$HOME/programmes/go
 PATH=$PATH:$JAVA_HOME
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# For a full list of active aliases, run `alias`.
 
 ###############################
 #            ALIAS            #
 # aka 'je suis une feignasse' #
 ###############################
 #Alias pour aller directement vers ces paths
-alias front='cd /Users/tim/BeMyBoat/bmb_front'
-alias crm='cd /Users/tim/BeMyBoat/bemyboat/webapp'
-alias tabarlus='cd /Users/tim/BeMyBoat/tabarlus'
-alias tabarlusapi='cd /Users/tim/BeMyBoat/tabarlus_api'
-alias tabarlusapis='cd /Users/tim/BeMyBoat/tabarlus_api/lib/tabarlus_api'
-alias business='cd /Users/tim/BeMyBoat/bmb_business'
-alias mmk='cd /Users/tim/BeMyBoat/mmk'
-alias mmks='cd /Users/tim/BeMyBoat/mmk/lib/mmk'
-alias sedna='cd /Users/tim/BeMyBoat/sedna'
-alias sednas='cd /Users/tim/BeMyBoat/sedna/lib/sedna'
-alias mister_b='cd /Users/tim/BeMyBoat/mister_booking'
-alias mister_bs='cd /Users/tim/BeMyBoat/mister_booking/lib/mister_b'
-alias devinette='cd /Users/tim/programmes/Ruby/devinette'
+alias front='cd ~/BeMyBoat/bmb_front'
+alias crm='cd ~/BeMyBoat/bemyboat/webapp'
+alias tabarlus='cd ~/BeMyBoat/tabarlus'
+alias tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
+alias tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
+alias business='cd ~/BeMyBoat/bmb_business'
+alias mmk='cd ~/BeMyBoat/mmk'
+alias mmks='cd ~/BeMyBoat/mmk/lib/mmk'
+alias sedna='cd ~/BeMyBoat/sedna'
+alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
+alias mister_b='cd ~/BeMyBoat/mister_booking'
+alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
+alias devinette='cd ~/programmes/Ruby/devinette'
 
 # git
 alias g='git'
@@ -172,53 +196,12 @@ alias -s log=vim
 alias -s slim=vim
 alias -s haml=vim
 
-##
-# find text 'test' il all '.txt' file recursively from current dir
-# maybe ack do this like "cd to/the/dir ; ack --text test"
-# example: grepall test txt
-function grepall() {
-  echo "find text '$1'";
-  echo "In files << $2 >>";
-  grep -ni "$1" **/*.$2
-}
-
 function tn(){
   sleep $1 && terminal-notifier -message $2
 }
 
 function tnm(){
   tn $(($1*60)) $2
-}
-
-function sms() {
-  #$1 -> the phone number
-  #$2 -> the message
-  #$2 -> optional, could be "edit"
-  adb shell am start -a android.intent.action.SENDTO -d sms:$1 --es sms_body "$2" --ez exit_on_sent true
-
-  if [[ $3 = "edit" ]];then
-    echo "edit mode, check your phone"
-    # commands....
-  else
-    echo "send mode"
-    sleep 1
-    adb shell input keyevent 22
-    sleep 1
-    adb shell input keyevent 66
-    echo "sent"
-  fi
-}
-
-function editsms() {
-  #$1 -> the phone number
-  #$2 -> the message
-  sms $1 $2 edit
-}
-
-function smsangie() {
-  #$1 -> the messages
-  #$2 -> optional, could be "edit"
-  sms +33652013403 $1 $2
 }
 
 #################
