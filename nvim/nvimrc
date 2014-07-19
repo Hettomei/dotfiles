@@ -604,3 +604,7 @@ nnoremap <silent> <C-h> :call WinMove('h')<cr>
 nnoremap <silent> <C-j> :call WinMove('j')<cr>
 nnoremap <silent> <C-k> :call WinMove('k')<cr>
 nnoremap <silent> <C-l> :call WinMove('l')<cr>
+
+" need to be removed in future: because currently fail when going on a
+" parenthesis in .zshrc by pressing A in normal
+let loaded_matchparen = 1
