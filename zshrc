@@ -168,6 +168,7 @@ alias sedna='cd ~/BeMyBoat/sedna'
 alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
 alias mister_b='cd ~/BeMyBoat/mister_booking'
 alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
+alias cherche='cd ~/BeMyBoat/cherche-avocat/webapp'
 alias devinette='cd ~/programmes/Ruby/devinette'
 
 # git
@@ -217,6 +218,7 @@ function fsa() {
   echo $display
 }
 alias fsw='foreman start web'
+alias fsmy='foreman start mysql'
 alias fsmyr='foreman start -c mysql=1,redis=1'
 alias fsmor='foreman start -c mongodb=1,redis=1'
 alias fssbb='foreman start -c sidekiq=1,beanstalkd=1,backburner=1'
