@@ -40,7 +40,6 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'ap/vim-css-color'
 Plugin 'wting/rust.vim'
 
 " for opening file
@@ -50,6 +49,7 @@ Plugin 'kien/ctrlp.vim'
 " other
 Plugin 'wakatime/vim-wakatime'
 Plugin 'msanders/snipmate.vim'
+Plugin 'junegunn/goyo.vim' " to not be distracted
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -210,7 +210,7 @@ if !exists("auto_load_large_file")
   " Large files are > 2M
   let g:LargeFile = 1024 * 1024 * 2
   augroup LargeFile
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
   endif
 " }
@@ -397,10 +397,10 @@ nnoremap <Leader>s" diWi"<C-r>""<ESC>
 " }
 
 " switch between windows {
-nmap <C-k> :wincmd k<CR>
-nmap <C-j> :wincmd j<CR>
-nmap <C-h> :wincmd h<CR>
-nmap <C-l> :wincmd l<CR>
+" nmap <C-k> :wincmd k<CR>
+" nmap <C-j> :wincmd j<CR>
+" nmap <C-h> :wincmd h<CR>
+" nmap <C-l> :wincmd l<CR>
 " }
 
 " map yank {
@@ -580,4 +580,32 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w
+" convert to markdown
+nnoremap <leader>md :w <bar>! ./convert_notes_to_html.sh<CR><CR>
+
+" ----------------------------------------------------------------------------
+" move to the window in the direction shown, or create a new split in that
+" direction
+" ----------------------------------------------------------------------------
+func! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key,'[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
+endfu
+
+nnoremap <silent> <C-h> :call WinMove('h')<cr>
+nnoremap <silent> <C-j> :call WinMove('j')<cr>
+nnoremap <silent> <C-k> :call WinMove('k')<cr>
+nnoremap <silent> <C-l> :call WinMove('l')<cr>
+
+" need to be removed in future: because currently fail when going on a
+" parenthesis in .zshrc by pressing A in normal
+let loaded_matchparen = 1

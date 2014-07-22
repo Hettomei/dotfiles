@@ -168,7 +168,7 @@ alias sedna='cd ~/BeMyBoat/sedna'
 alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
 alias mister_b='cd ~/BeMyBoat/mister_booking'
 alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
-alias cherche='cd ~/BeMyBoat/cherche-avocat/webapp'
+alias cherche='cd ~/BeMyBoat/cherche-avocat'
 alias devinette='cd ~/programmes/Ruby/devinette'
 
 # git
