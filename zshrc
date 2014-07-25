@@ -226,5 +226,8 @@ alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
 alias sp='spin push'
 
-alias httpserv="python -m SimpleHTTPServer"
+function simplehttp(){
+  echo "python -m SimpleHTTPServer 8000"
+  python -m SimpleHTTPServer 8000
+}
 source ./.zshrc_not_on_github
