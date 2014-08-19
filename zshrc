@@ -178,8 +178,8 @@ alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias vv='vim'
-alias v='$HOME/programmes/neovim/build/bin/nvim'
+alias v='vim'
+alias vv='$HOME/programmes/neovim/build/bin/nvim'
 alias nv='$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'

@@ -40,14 +40,14 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'wting/rust.vim'
+" Plugin 'wting/rust.vim'
 
 " for opening file
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 
 " other
-Plugin 'wakatime/vim-wakatime'
+" Plugin 'wakatime/vim-wakatime' "currently not accurate
 Plugin 'msanders/snipmate.vim'
 Plugin 'junegunn/goyo.vim' " to not be distracted
 
