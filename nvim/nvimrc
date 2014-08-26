@@ -1,5 +1,5 @@
 " Modeline {
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
 
 " be iMproved
@@ -16,7 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 
-Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
 Plugin 'tpope/vim-surround'
@@ -47,7 +47,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 
 " other
-Plugin 'wakatime/vim-wakatime'
 Plugin 'msanders/snipmate.vim'
 Plugin 'junegunn/goyo.vim' " to not be distracted
 
@@ -473,25 +472,25 @@ nnoremap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
 " Spell Check, used to togle between no spell and language. To add a language
 " juste download a language from here : http://ftp.vim.org/vim/runtime/spell/
 " , and copy paste in ~/.vim/spell/
-let b:myLang=0
-let g:myLangList=["nospell","fr","en"]
-function! ToggleSpell()
-  let b:myLang=b:myLang+1
-  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
-  if b:myLang==0
-    setlocal nospell
-  else
-    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
-  endif
-  echo "spell checking language:" g:myLangList[b:myLang]
-endfunction
+" let b:myLang=0
+" let g:myLangList=["nospell","fr","en"]
+" function! ToggleSpell()
+"   let b:myLang=b:myLang+1
+"   if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+"   if b:myLang==0
+"     setlocal nospell
+"   else
+    " execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+"   endif
+"   echo "spell checking language:" g:myLangList[b:myLang]
+" endfunction
 
-nmap <F7> :call ToggleSpell()<CR>
+" nmap <F7> :call ToggleSpell()<CR>
 
 "spell check when writing commit logs
-if has("autocmd")
-  autocmd filetype svn,*commit* set spell
-endif
+" if has("autocmd")
+"   autocmd filetype svn,*commit* set spell
+" endif
 " }
 
 " Tips and tricks {
@@ -607,4 +606,4 @@ nnoremap <silent> <C-l> :call WinMove('l')<cr>
 
 " need to be removed in future: because currently fail when going on a
 " parenthesis in .zshrc by pressing A in normal
-let loaded_matchparen = 1
+" let loaded_matchparen = 1

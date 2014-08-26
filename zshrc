@@ -179,8 +179,8 @@ alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias v='vim'
-alias vv='$HOME/programmes/neovim/build/bin/nvim'
-alias nv='$HOME/programmes/neovim/build/bin/nvim'
+alias vv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
+alias nv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'

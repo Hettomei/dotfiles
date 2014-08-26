@@ -608,4 +608,4 @@ nnoremap <silent> <C-l> :call WinMove('l')<cr>
 
 " need to be removed in future: because currently fail when going on a
 " parenthesis in .zshrc by pressing A in normal
-let loaded_matchparen = 1
+" let loaded_matchparen = 1
