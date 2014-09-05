@@ -1,0 +1,5 @@
+# this file is needed for how_to_rsync.sh
+neovim/
+vim/
+Xcode/
+toutes_les_photos/
