@@ -129,8 +129,8 @@ unsetopt correct_all
 setopt no_share_history
 
 export LESS='-R -X -F'
-export VISUAL="vim"
-export EDITOR="vim"
+export VISUAL="nvim"
+export EDITOR="nvim"
 
 # User configuration
 
@@ -170,6 +170,7 @@ alias mister_b='cd ~/BeMyBoat/mister_booking'
 alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
 alias cherche='cd ~/BeMyBoat/cherche-avocat'
 alias devinette='cd ~/programmes/Ruby/devinette'
+alias oyatis='cd ~/Oyatis'
 
 # git
 alias g='git'
@@ -178,8 +179,8 @@ alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias v='vim'
-alias vv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
+alias v='nvim'
+alias vv='vim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias nv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
@@ -188,7 +189,7 @@ alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
 alias pause=job_break
 #Copy current path to clipboard.
 #works on mac OS X maybe not linux
-alias pwdc='echo -n `pwd` | pbcopy; echo "copy to clipboard: `pbpaste`"'
+alias pwdc='echo -n $(pwd) | pbcopy; echo "copy to clipboard: $(pbpaste)"'
 #because bc as the "scale" init to 0 if run without argument
 alias bc='bc -l'
 alias -s rb=vim

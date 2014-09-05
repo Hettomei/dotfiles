@@ -2,6 +2,16 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
 
+" to had clipboard support from  {
+" https://github.com/neovim/neovim/wiki/Python-plugins,-clipboard-integration-and-other-service-providers-through-msgpack-RPC-channels
+if has('neovim')
+  let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
+  let &initpython = s:python_host_init
+  let &initclipboard = s:python_host_init
+  set unnamedclip " Automatically use clipboard as storage for the unnamed register
+endif
+" }
+
 " be iMproved
 set nocompatible
 
@@ -578,7 +588,7 @@ set lazyredraw          " redraw only when we need to.
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
-nnoremap <leader>w :w
+nnoremap <leader>w :w<CR>
 " convert to markdown
 nnoremap <leader>md :w <bar>! ./convert_notes_to_html.sh<CR><CR>
 
