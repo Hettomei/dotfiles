@@ -135,22 +135,14 @@ export EDITOR="nvim"
 # User configuration
 
 export PATH=/usr/local/bin:$PATH
-export JAVA_HOME=/Library/Java/Home
-export GOPATH=$HOME/programmes/go
-PATH=$PATH:$JAVA_HOME
-# export MANPATH="/usr/local/man:$MANPATH"
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export JAVA_HOME=/Library/Java/Home
+PATH=$PATH:$JAVA_HOME
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
 # For a full list of active aliases, run `alias`.
-
 ###############################
 #            ALIAS            #
 # aka 'je suis une feignasse' #
@@ -170,7 +162,7 @@ alias mister_b='cd ~/BeMyBoat/mister_booking'
 alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
 alias cherche='cd ~/BeMyBoat/cherche-avocat'
 alias devinette='cd ~/programmes/Ruby/devinette'
-alias oyatis='cd ~/Oyatis'
+alias oyatis='cd ~/oyatis/hospitality'
 
 # git
 alias g='git'
@@ -179,8 +171,8 @@ alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias v='nvim'
-alias vv='vim' #'$HOME/programmes/neovim/build/bin/nvim'
+alias vv='nvim'
+alias v='vim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias nv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
