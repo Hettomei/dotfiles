@@ -2,15 +2,15 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 " }
 
-" " to had clipboard support from  {
-" " https://github.com/neovim/neovim/wiki/Python-plugins,-clipboard-integration-and-other-service-providers-through-msgpack-RPC-channels
-" if has('neovim')
-"   let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
-"   let &initpython = s:python_host_init
-"   let &initclipboard = s:python_host_init
-"   set unnamedclip " Automatically use clipboard as storage for the unnamed register
-" endif
-" " }
+" to had clipboard support from  {
+" https://github.com/neovim/neovim/wiki/Python-plugins,-clipboard-integration-and-other-service-providers-through-msgpack-RPC-channels
+if has('neovim')
+  let s:python_host_init = 'python2 -c "import neovim; neovim.start_host()"'
+  let &initpython = s:python_host_init
+  let &initclipboard = s:python_host_init
+  set unnamedclip " Automatically use clipboard as storage for the unnamed register
+endif
+" }
 
 " be iMproved
 set nocompatible
