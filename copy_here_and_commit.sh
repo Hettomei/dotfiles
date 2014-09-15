@@ -31,7 +31,7 @@ mkdir $DIR/nvim
 
 cp -v $HOME/.nvim/nvimrc $DIR/nvim/nvimrc
 
-for file_name in 'after' 'my_snippets' 'dictionary'
+for file_name in 'after' 'my_snippets' 'dictionary' 'pythonx'
 do
   cp -v -R $HOME/.nvim/$file_name $DIR/nvim/
 done

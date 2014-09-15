@@ -4,12 +4,7 @@
 
 " to had clipboard support from  {
 " https://github.com/neovim/neovim/wiki/Python-plugins,-clipboard-integration-and-other-service-providers-through-msgpack-RPC-channels
-if has('neovim')
-  let s:python_host_init = 'python2 -c "import neovim; neovim.start_host()"'
-  let &initpython = s:python_host_init
-  let &initclipboard = s:python_host_init
-  " set unnamedclip " Automatically use clipboard as storage for the unnamed register
-endif
+runtime! plugin/python_setup.vim
 " }
 
 " be iMproved
@@ -325,29 +320,10 @@ if has("autocmd")
 endif
 " }
 
-" custom delete mapping {
-"when use x, do not send to test register <""> but send to black hole
-"register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
-nnoremap x "_x
-nnoremap X "_X
-vnoremap x "_x
-vnoremap X "_X
-
-" Yank the word on which i am
-nmap <Leader>d diw
-" Yank the word on which i am and put it in the clipboard
-nmap <Leader>D "*diw
-
-" Remove the word under the cursor
-" Do not save the word in any register
-" and go in insert mode
-nmap <Leader>r "_ciw
-" }
-
 " map other {
-" search for highlighted text, without regex !
+" search for highlighted text
 " TODO not working perfectly
-vnoremap // y/\V<C-R>"<CR>
+vnoremap // y/<C-R>"<CR>
 
 "open the same directory as the current buffer !
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -367,22 +343,6 @@ nnoremap <leader>fef mfgg=G'f
 
 "display cursor column
 nnoremap <leader>col :set invcursorcolumn<CR>
-" }
-
-"map custom paste {
-" If you visually select something and hit paste
-" that thing gets yanked into your buffer. This
-" generally is annoying when you're copying one item
-" and repeatedly pasting it. This changes the paste
-" command in visual mode so that it doesn't overwrite
-" whatever is in your paste buffer.
-" taken here
-" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
-vnoremap p "_dp
-vnoremap P "_dP
-nnoremap <leader>p "_ciw<C-r>"<esc>
-"http://vim.wikia.com/wiki/Selecting_your_pasted_text
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }
 
 " map split.vim {
@@ -412,7 +372,7 @@ nnoremap <Leader>s" diWi"<C-r>""<ESC>
 " nmap <C-l> :wincmd l<CR>
 " }
 
-" map yank {
+" yank copy mapping {
 
 " "*y Copy to 'clipboard registry'
 " Work like 'y' but copy in OS clipboard (géniaaaal !!)
@@ -431,6 +391,41 @@ nnoremap <Leader>Y "*yiw
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
 nmap Y y$
+" }
+
+" paste mapping {
+" If you visually select something and hit paste
+" that thing gets yanked into your buffer. This
+" generally is annoying when you're copying one item
+" and repeatedly pasting it. This changes the paste
+" command in visual mode so that it doesn't overwrite
+" whatever is in your paste buffer.
+" taken here
+" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
+vnoremap p "_dp
+vnoremap P "_dP
+nnoremap <leader>p "_ciw<C-r>"<esc>
+"http://vim.wikia.com/wiki/Selecting_your_pasted_text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" }
+
+" delete mapping {
+"when use x, do not send to test register <""> but send to black hole
+"register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
+nnoremap x "_x
+nnoremap X "_X
+vnoremap x "_x
+vnoremap X "_X
+
+" Yank the word on which i am
+nmap <Leader>d diw
+" Yank the word on which i am and put it in the clipboard
+nmap <Leader>D "*diw
+
+" Remove the word under the cursor
+" Do not save the word in any register
+" and go in insert mode
+nmap <Leader>r "_ciw
 " }
 
 " mouse {
