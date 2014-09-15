@@ -8,7 +8,7 @@ if has('neovim')
   let s:python_host_init = 'python2 -c "import neovim; neovim.start_host()"'
   let &initpython = s:python_host_init
   let &initclipboard = s:python_host_init
-  set unnamedclip " Automatically use clipboard as storage for the unnamed register
+  " set unnamedclip " Automatically use clipboard as storage for the unnamed register
 endif
 " }
 
@@ -24,12 +24,13 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
-Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!
+
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
 Plugin 'tpope/gem-ctags'
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project

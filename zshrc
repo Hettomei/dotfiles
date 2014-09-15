@@ -67,6 +67,10 @@
 # classical from website, and then add
 # brew tap homebrew/dupes
 # brew install homebrew/dupes/grep # For grep // installed with prefix g, so type ggrep
+###
+# resize big picture into little BE CAREFULL IT DELETE ALL PICTURE in the folder
+# cd my_folder
+# mogrify -resize 1200x1200 *.jpg
 ###################
 # TIPS AND TRICKS #
 ###################
@@ -163,6 +167,10 @@ alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
 alias cherche='cd ~/BeMyBoat/cherche-avocat'
 alias devinette='cd ~/programmes/Ruby/devinette'
 alias oyatis='cd ~/oyatis/hospitality'
+function oywifi(){
+  echo "9897835863" | pbcopy
+  cat ~/oyatis/infos/wifi.txt
+}
 
 # git
 alias g='git'

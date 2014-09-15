@@ -31,6 +31,8 @@
   wc = whatchanged -p
   pul = pull
   pus = push
+  # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
+  undo-commit = reset --soft HEAD^
 [push]
   default = simple
 [diff]
