@@ -24,7 +24,7 @@ Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
-Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!
+Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw{ . or visual mode then S(
 
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
 Plugin 'tpope/gem-ctags'
