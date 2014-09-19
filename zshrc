@@ -152,25 +152,7 @@ PATH=$PATH:$JAVA_HOME
 # aka 'je suis une feignasse' #
 ###############################
 #Alias pour aller directement vers ces paths
-alias front='cd ~/BeMyBoat/bmb_front'
-alias crm='cd ~/BeMyBoat/bemyboat/webapp'
-alias tabarlus='cd ~/BeMyBoat/tabarlus'
-alias tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
-alias tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
-alias business='cd ~/BeMyBoat/bmb_business'
-alias mmk='cd ~/BeMyBoat/mmk'
-alias mmks='cd ~/BeMyBoat/mmk/lib/mmk'
-alias sedna='cd ~/BeMyBoat/sedna'
-alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
-alias mister_b='cd ~/BeMyBoat/mister_booking'
-alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
-alias cherche='cd ~/BeMyBoat/cherche-avocat'
 alias devinette='cd ~/programmes/Ruby/devinette'
-alias oyatis='cd ~/oyatis/hospitality'
-function oywifi(){
-  echo "9897835863" | pbcopy
-  cat ~/oyatis/infos/wifi.txt
-}
 
 # git
 alias g='git'
@@ -179,8 +161,8 @@ alias pushprod="git push origin production && git push upstream production"
 alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias v='nvim'
-alias vv='vim' #'$HOME/programmes/neovim/build/bin/nvim'
+alias vv='nvim'
+alias v='vim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias nv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
 alias e='echo'
 alias a='ack'
@@ -232,3 +214,36 @@ function simplehttp(){
   python -m SimpleHTTPServer 8000
 }
 source ./.zshrc_not_on_github
+
+############
+# Bemyboat #
+############
+alias front='cd ~/BeMyBoat/bmb_front'
+alias crm='cd ~/BeMyBoat/bemyboat/webapp'
+alias tabarlus='cd ~/BeMyBoat/tabarlus'
+alias tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
+alias tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
+alias business='cd ~/BeMyBoat/bmb_business'
+alias mmk='cd ~/BeMyBoat/mmk'
+alias mmks='cd ~/BeMyBoat/mmk/lib/mmk'
+alias sedna='cd ~/BeMyBoat/sedna'
+alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
+alias mister_b='cd ~/BeMyBoat/mister_booking'
+alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
+alias cherche='cd ~/BeMyBoat/cherche-avocat'
+
+##########
+# Oyatis #
+##########
+alias oyatis='cd ~/oyatis/hospitality'
+function oywifi(){
+  login="9897835863"
+  pass="DfUkrdK7ThH2Wvu64Q"
+  echo $login
+  echo $login | pbcopy
+  echo $pass
+  sleep 3 && echo $pass | pbcopy
+  echo "done"
+}
+alias oyfspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
+alias oyfsw='foreman start web --procfile=ProcfileDevelopment'
