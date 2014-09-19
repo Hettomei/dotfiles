@@ -25,7 +25,6 @@ Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
 Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw{ . or visual mode then S(
-
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
 Plugin 'tpope/gem-ctags'
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
@@ -46,10 +45,10 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'wting/rust.vim'
+" Plugin 'wting/rust.vim'
 
 " for opening file
-Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree' " try without
 Plugin 'kien/ctrlp.vim'
 
 " other
@@ -59,6 +58,7 @@ Plugin 'junegunn/goyo.vim' " to not be distracted
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on    " required
+" }
 " }
 
 let mapleader = "\<Space>"
@@ -214,7 +214,7 @@ if !exists("auto_load_large_file")
   " Large files are > 2M
   let g:LargeFile = 1024 * 1024 * 2
   augroup LargeFile
-    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
+    autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
     augroup END
   endif
 " }
@@ -225,8 +225,8 @@ set numberwidth=1
 " }
 
 " NERDTree nerdtree {
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
+" let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+" map <Leader>n :NERDTreeToggle<CR>
 " }
 
 " custom rails mapping {
@@ -347,8 +347,8 @@ nnoremap <leader>col :set invcursorcolumn<CR>
 
 " map split.vim {
 " Switch directly to the new splitted window
-" nnoremap <C-w>v :rightbelow vsplit<CR>
-" nnoremap <C-w>s :split<CR> :wincmd j<CR>
+nnoremap <C-w>v :rightbelow vsplit<CR>
+nnoremap <C-w>s :split<CR> :wincmd j<CR>
 " }
 
 " map surround {
