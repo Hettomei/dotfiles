@@ -27,6 +27,7 @@ Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
 Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-characterize' " Add more display when press gA on a char
+Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 
 Plugin 'jayflo/vim-skip'
 Plugin 'mileszs/ack.vim'
@@ -113,35 +114,6 @@ set ttyfast
 set cryptmethod=blowfish
 set iskeyword-=- iskeyword+=-,?
 
-" abbrev rails {
-" theise abbrev are for rails
-" TODO : add a autocommand for filetype .rb for these abbrev
-
-ab cq customer_quote
-ab CQ CustomerQuote
-
-ab ob online_booking
-ab OB OnlineBooking
-
-ab cci customer_commercial_info
-ab CCI CustomerCommercialInfo
-
-ab mb my_bookings
-
-ab br boat_request
-ab BR BoatRequest
-
-ab sr sailing_resume
-ab SR SailingResume
-
-ab sp special_offer
-ab SP SpecialOffer
-
-ab bh boarding_harbor
-
-ab lh landing_harbor
-" }
-
 " backup swap {
 " No save backup like .swp
 " TODO understand difference beetween backup and swap
@@ -185,6 +157,10 @@ set noshowmode
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
+
+" line number
+set number
+set numberwidth=1
 " }
 
 " configure folding {
@@ -215,11 +191,6 @@ if !exists("auto_load_large_file")
   endif
 " }
 
-" line number {
-set number
-set numberwidth=1
-" }
-
 " NERDTree nerdtree {
 " let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
 " map <Leader>n :NERDTreeToggle<CR>
@@ -227,8 +198,15 @@ set numberwidth=1
 
 " custom rails mapping {
 command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
-command RlangProfile execute "tabnew config/locales/my_profile.en.yml | vsplit config/locales/my_profile.fr.yml"
-command RlangDevise execute "tabnew config/locales/devise.en.yml | vsplit config/locales/devise.fr.yml"
+" }
+
+" abbrev rails {
+" theise abbrev are for rails
+" TODO : add a autocommand for filetype .rb for these abbrev
+iab CEF CollectElectricityFrance
+iab cef collect_electricity_france
+iab CG CollectGeneric
+iab cg collect_generic
 " }
 
 " For vim-rails {
@@ -243,10 +221,10 @@ let g:rails_projections = {
       \   ],
       \   "alternate": 'app/models/%s.rb'
       \ },
-      \ "spec/fabricators/*_fabricator.rb": {
-      \   "command": "fabricator",
+      \ "spec/factories/*.rb": {
+      \   "command": "factory",
       \   "template":
-      \     "Fabricate(:%S)\nend",
+      \     "FactoryGirl.define do\nfactory :%s, class: %S do\nend\nend",
       \   "test": [
       \     "spec/models/%s_spec.rb"
       \   ],
@@ -258,12 +236,6 @@ let g:rails_projections = {
       \   "test": [
       \     "spec/repository/%s_repository_spec.rb"
       \   ],
-      \ },
-      \ "app/assets/stylesheets/*css": {
-      \   "command": "css",
-      \ },
-      \ "app/assets/javascripts/*js": {
-      \   "command": "javascript",
       \ },
       \ "features/support/*.rb": {"command": "support"},
       \ "features/support/env.rb": {"command": "support"}
@@ -380,9 +352,11 @@ vmap Y "*y
 nnoremap YY ^"*y$
 
 " Yank the word on which i am
-nnoremap <Leader>y yiw
+" i<esc> is used to go back after yank with `^
+nnoremap <Leader>y i<esc>yiw`^
 " Yank the word on which i am and put it in the clipboard
-nnoremap <Leader>Y "*yiw
+" i<esc> is used to go back after yank with `^
+nnoremap <Leader>Y i<esc>"*yiw`^
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
@@ -534,7 +508,7 @@ nnoremap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
 
 "help from here
 "http://stackoverflow.com/questions/10572996/passing-command-range-to-a-function
-command -range Under <line1>,<line2>call UnderscoreAll()
+command -range Underscore <line1>,<line2>call UnderscoreAll()
 
 " Idea of function taken here :
 " http://www.ibm.com/developerworks/linux/library/l-vim-script-2/

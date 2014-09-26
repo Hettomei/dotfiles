@@ -236,7 +236,7 @@ alias cherche='cd ~/BeMyBoat/cherche-avocat'
 # Oyatis #
 ##########
 alias oyatis='cd ~/oyatis/hospitality'
-function oywifi(){
+function owifi(){
   login="9897835863"
   pass="DfUkrdK7ThH2Wvu64Q"
   echo $login
@@ -245,5 +245,6 @@ function oywifi(){
   sleep 3 && echo $pass | pbcopy
   echo "done"
 }
-alias oyfspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
-alias oyfsw='foreman start web --procfile=ProcfileDevelopment'
+alias ofspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
+alias ofspgrw='foreman start -c db=1,redis=1,worker=1 --procfile=ProcfileDevelopment'
+alias ofsw='foreman start web --procfile=ProcfileDevelopment'
