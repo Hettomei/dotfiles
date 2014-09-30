@@ -356,7 +356,7 @@ nnoremap YY ^"*y$
 nnoremap <Leader>y i<esc>yiw`^
 " Yank the word on which i am and put it in the clipboard
 " i<esc> is used to go back after yank with `^
-nnoremap <Leader>Y i<esc>"*yiw`^
+nnoremap <Leader>Y i<esc>l"*yiw`^
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
@@ -435,6 +435,7 @@ set nowrapscan
 " when on a word, it search for this word
 " and replace with the specified value
 nnoremap <Leader>sr yiw:%s/<C-r>"//gc<Left><Left><Left>
+vnoremap <Leader>sr y:%s/<C-r>"//gc<Left><Left><Left>
 nnoremap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
 " }
 

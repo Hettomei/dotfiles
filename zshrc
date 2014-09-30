@@ -246,5 +246,5 @@ function owifi(){
   echo "done"
 }
 alias ofspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
-alias ofspgrw='foreman start -c db=1,redis=1,worker=1 --procfile=ProcfileDevelopment'
+alias ofspg='foreman start db --procfile=ProcfileDevelopment'
 alias ofsw='foreman start web --procfile=ProcfileDevelopment'
