@@ -4,7 +4,6 @@
 
 " to had clipboard support from  {
 " https://github.com/neovim/neovim/wiki/Python-plugins,-clipboard-integration-and-other-service-providers-through-msgpack-RPC-channels
-runtime! plugin/python_setup.vim
 " }
 
 " be iMproved
@@ -12,6 +11,10 @@ set nocompatible
 
 " required!
 filetype off
+
+if has('nvim')
+  runtime! plugin/python_setup.vim
+endif
 
 " Vundle {
 set rtp+=~/.nvim/bundle/Vundle.vim
