@@ -353,7 +353,7 @@ nnoremap YY ^"*y$
 
 " Yank the word on which i am
 " i<esc> is used to go back after yank with `^
-nnoremap <Leader>y i<esc>yiw`^
+nnoremap <Leader>y i<esc>lyiw`^
 " Yank the word on which i am and put it in the clipboard
 " i<esc> is used to go back after yank with `^
 nnoremap <Leader>Y i<esc>l"*yiw`^
