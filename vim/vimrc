@@ -15,6 +15,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
+Plugin 'gorkunov/smartpairs.vim'
 
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
@@ -28,6 +29,7 @@ Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative fil
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-characterize' " Add more display when press gA on a char
 Plugin 'tpope/vim-repeat' " Allow to repeat custom map
+Plugin 'tpope/vim-rbenv'
 
 Plugin 'jayflo/vim-skip'
 Plugin 'mileszs/ack.vim'
@@ -44,7 +46,6 @@ Plugin 'kchmck/vim-coffee-script'
 " Plugin 'wting/rust.vim'
 
 " for opening file
-" Plugin 'scrooloose/nerdtree' " try without
 Plugin 'kien/ctrlp.vim'
 
 " other
@@ -97,9 +98,6 @@ au BufNewFile,BufRead *.hbs set ft=html
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
-autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
-autocmd BufRead,BufNewFile *.coffee setlocal foldmethod=indent
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -112,7 +110,9 @@ command Gvimrc tabnew $MYGVIMRC
 " fast terminal for smoother redrawing
 set ttyfast
 set cryptmethod=blowfish
-set iskeyword-=- iskeyword+=-,?
+set iskeyword-=-,? iskeyword+=-,?
+" with @ as part of a word
+" set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 
 " backup swap {
 " No save backup like .swp
@@ -167,7 +167,10 @@ set numberwidth=1
 set foldmethod=syntax
 set foldlevel=6
 
-au BufRead,BufNewFile *.{yml,yaml,slim,haml} set foldmethod=indent
+autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
+autocmd BufRead,BufNewFile *.coffee setlocal foldmethod=indent
+autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml} set foldmethod=indent
+autocmd BufRead,BufNewFile *.rb set foldmethod=syntax
 " }
 
 " configure when open large_files {
@@ -191,9 +194,9 @@ if !exists("auto_load_large_file")
   endif
 " }
 
-" NERDTree nerdtree {
-" let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-" map <Leader>n :NERDTreeToggle<CR>
+" Explorer netrw {
+map <leader>n :Explore<cr>
+let g:netrw_liststyle=3
 " }
 
 " custom rails mapping {
@@ -550,7 +553,7 @@ endif
 " }
 
 " http://dougblack.io/words/a-good-vimrc.html
-set lazyredraw          " redraw only when we need to.
+" set lazyredraw          " redraw only when we need to., use :redraw to force it
 
 " save session
 " need to do vim -S to open it
