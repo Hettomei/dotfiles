@@ -5,6 +5,11 @@
 " be iMproved
 set nocompatible
 
+if has('nvim')
+  runtime! python_setup.vim
+  set unnamedclip
+endif
+
 " required!
 filetype off
 
@@ -32,7 +37,8 @@ Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
 
 Plugin 'jayflo/vim-skip'
-Plugin 'mileszs/ack.vim'
+" Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 Plugin 'edsono/vim-matchit' "Improve math for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
 
@@ -109,7 +115,9 @@ command Gvimrc tabnew $MYGVIMRC
 
 " fast terminal for smoother redrawing
 set ttyfast
-set cryptmethod=blowfish
+if !has('nvim')
+  set cryptmethod=blowfish
+endif
 set iskeyword-=-,? iskeyword+=-,?
 " with @ as part of a word
 " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
@@ -240,6 +248,14 @@ let g:rails_projections = {
       \     "spec/repository/%s_repository_spec.rb"
       \   ],
       \ },
+      \ "app/forms/*_form.rb": {
+      \   "command": "form",
+      \   "template":
+      \     "class %Form\nend",
+      \   "test": [
+      \     "spec/forms/%s_form_spec.rb"
+      \   ],
+      \ },
       \ "features/support/*.rb": {"command": "support"},
       \ "features/support/env.rb": {"command": "support"}
       \}
@@ -316,12 +332,6 @@ nnoremap <leader>fef mfgg=G'f
 nnoremap <leader>col :set invcursorcolumn<CR>
 " }
 
-" map split.vim {
-" Switch directly to the new splitted window
-nnoremap <C-w>v :rightbelow vsplit<CR>
-nnoremap <C-w>s :split<CR> :wincmd j<CR>
-" }
-
 " map surround {
 
 " when on a word, change 'word' to '#{word}' (usefull for ruby)
@@ -334,13 +344,6 @@ nnoremap <Leader>s' diWi'<C-r>"'<ESC>
 
 nnoremap <Leader>s" diwi"<C-r>""<ESC>
 nnoremap <Leader>s" diWi"<C-r>""<ESC>
-" }
-
-" switch between windows {
-" nmap <C-k> :wincmd k<CR>
-" nmap <C-j> :wincmd j<CR>
-" nmap <C-h> :wincmd h<CR>
-" nmap <C-l> :wincmd l<CR>
 " }
 
 " yank copy mapping {
@@ -440,6 +443,7 @@ set nowrapscan
 nnoremap <Leader>sr yiw:%s/<C-r>"//gc<Left><Left><Left>
 vnoremap <Leader>sr y:%s/<C-r>"//gc<Left><Left><Left>
 nnoremap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
+map <leader>a :AgFromSearch!<cr>
 " }
 
 " spell {
@@ -552,16 +556,12 @@ if has("autocmd")
 endif
 " }
 
-" http://dougblack.io/words/a-good-vimrc.html
-" set lazyredraw          " redraw only when we need to., use :redraw to force it
-
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
 nnoremap <leader>w :w<CR>
-" convert to markdown
-nnoremap <leader>md :w <bar>! ./convert_notes_to_html.sh<CR><CR>
 
+" monve in window stuff {
 " ----------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new split in that
 " direction
@@ -584,6 +584,8 @@ nnoremap <silent> <C-j> :call WinMove('j')<cr>
 nnoremap <silent> <C-k> :call WinMove('k')<cr>
 nnoremap <silent> <C-l> :call WinMove('l')<cr>
 
-" need to be removed in future: because currently fail when going on a
-" parenthesis in .zshrc by pressing A in normal
-" let loaded_matchparen = 1
+" Switch directly to the new splitted window
+nnoremap <C-w>v :rightbelow vsplit<CR>
+nnoremap <C-w>s :split<CR> :wincmd j<CR>
+
+" }

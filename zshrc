@@ -131,6 +131,8 @@ source $ZSH/oh-my-zsh.sh
 unsetopt correct_all
 #ne partage pas l'historique entre les session zsh. supprimer la ligne si je veux de nouveau les partager
 setopt no_share_history
+# dont save command that start with a space
+setopt HIST_IGNORE_SPACE
 
 export LESS='-R -X -F'
 export VISUAL="nvim"
@@ -162,10 +164,11 @@ alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias vv='nvim'
-alias v='vim' #'$HOME/programmes/neovim/build/bin/nvim'
-alias nv='nvim' #'$HOME/programmes/neovim/build/bin/nvim'
+alias v='nv'
+alias nv='nvim'
 alias e='echo'
-alias a='ack'
+alias a='ag --pager LESS -s'
+alias aa='ack'
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
 alias pause=job_break
@@ -218,19 +221,19 @@ source ./.zshrc_not_on_github
 ############
 # Bemyboat #
 ############
-alias front='cd ~/BeMyBoat/bmb_front'
-alias crm='cd ~/BeMyBoat/bemyboat/webapp'
-alias tabarlus='cd ~/BeMyBoat/tabarlus'
-alias tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
-alias tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
-alias business='cd ~/BeMyBoat/bmb_business'
-alias mmk='cd ~/BeMyBoat/mmk'
-alias mmks='cd ~/BeMyBoat/mmk/lib/mmk'
-alias sedna='cd ~/BeMyBoat/sedna'
-alias sednas='cd ~/BeMyBoat/sedna/lib/sedna'
-alias mister_b='cd ~/BeMyBoat/mister_booking'
-alias mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
-alias cherche='cd ~/BeMyBoat/cherche-avocat'
+alias bmb_front='cd ~/BeMyBoat/bmb_front'
+alias bmb_crm='cd ~/BeMyBoat/bemyboat/webapp'
+alias bmb_tabarlus='cd ~/BeMyBoat/tabarlus'
+alias bmb_tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
+alias bmb_tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
+alias bmb_business='cd ~/BeMyBoat/bmb_business'
+alias bmb_mmk='cd ~/BeMyBoat/mmk'
+alias bmb_mmks='cd ~/BeMyBoat/mmk/lib/mmk'
+alias bmb_sedna='cd ~/BeMyBoat/sedna'
+alias bmb_sednas='cd ~/BeMyBoat/sedna/lib/sedna'
+alias bmb_mister_b='cd ~/BeMyBoat/mister_booking'
+alias bmb_mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
+alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 
 ##########
 # Oyatis #
@@ -248,3 +251,5 @@ function owifi(){
 alias ofspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
 alias ofspg='foreman start db --procfile=ProcfileDevelopment'
 alias ofsw='foreman start web --procfile=ProcfileDevelopment'
+alias ocal='v /Users/tim/oyatis/docs/toutes_mes_infos.md'
+alias obdd='cd /Users/tim/oyatis/bdd_backups/'
