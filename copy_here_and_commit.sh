@@ -19,21 +19,9 @@ do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
 
-for file_name in 'after' 'my_snippets' 'dictionary'
-do
-  cp -v -R $HOME/.vim/$file_name $DIR/vim/
-done
-
-
-#### NEOVIM ####
-rm -r $DIR/nvim
-mkdir $DIR/nvim
-
-cp -v $HOME/.nvim/nvimrc $DIR/nvim/nvimrc
-
 for file_name in 'after' 'my_snippets' 'dictionary' 'pythonx'
 do
-  cp -v -R $HOME/.nvim/$file_name $DIR/nvim/
+  cp -v -R $HOME/.vim/$file_name $DIR/vim/
 done
 
 cd $DIR

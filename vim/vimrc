@@ -7,7 +7,6 @@ set nocompatible
 
 if has('nvim')
   runtime! python_setup.vim
-  set unnamedclip
 endif
 
 " required!
@@ -25,7 +24,7 @@ Plugin 'gorkunov/smartpairs.vim'
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
-Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw{ . or visual mode then S(
+Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
 Plugin 'tpope/gem-ctags'
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
@@ -62,7 +61,6 @@ call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on    " required
 " }
-" }
 
 let mapleader = "\<Space>"
 
@@ -71,24 +69,26 @@ syntax enable
 set autoread " Automatically reload changes if detected
 set encoding=utf8
 set history=300
-set complete-=i " Tim pop says no. So no
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 "           +--Disable hlsearch while loading viminfo
 "           | +--Remember marks for last 50 files
-"           | |   +--Remember up to 10000 lines in each register
+"           | |   +--Remember up to 1000 lines in each register
 "           | |   |      +--Remember up to 1MB in each register
-"           | |   |      |     +--Remember last 1000 search patterns
+"           | |   |      |     +--Remember last 500 search patterns
 "           | |   |      |     |     +---Remember last 1000 commands
 "           | |   |      |     |     |
 "           v v   v      v     v     v
 set viminfo=h,'50,<1000,s1000,/500,:1000
 
-" make uses real tabs
-au FileType make set noexpandtab
 
+" FileType {
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
+" add json syntax highlighting
+au BufNewFile,BufRead *.json set ft=javascript
+au BufNewFile,BufRead *.hbs set ft=html
+" }
 
 " md, markdown, and mk are markdown and define buffer-local preview
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
@@ -97,36 +97,24 @@ function s:setupWrapping()
   set textwidth=0
 endfunction
 
-" add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
-au BufNewFile,BufRead *.hbs set ft=html
-
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
 " Enable syntastic syntax checking
-let g:syntastic_enable_signs=1
+" let g:syntastic_enable_signs=1
 
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
 
-" fast terminal for smoother redrawing
-set ttyfast
-if !has('nvim')
+if has("cryptv")
   set cryptmethod=blowfish
 endif
-set iskeyword-=-,? iskeyword+=-,?
-" with @ as part of a word
-" set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 
 " backup swap {
-" No save backup like .swp
-" TODO understand difference beetween backup and swap
-set nowritebackup
-set noswapfile
+set nobackup "nobk: in this age of version control, who needs it
+set nowritebackup "nowb: don't make a backup before overwriting
+set noswapfile "noswf: don't litter swap files everywhere
+set directory=/tmp "dir: directory for temp files
 " }
 
 " colors {
@@ -160,11 +148,14 @@ set cursorline
 " Show (partial) command in the status line
 set showcmd
 
-"Suppress mode change messages
+" Suppress mode change messages
 set noshowmode
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
+set iskeyword-=-,? iskeyword+=-,?
+" with @ as part of a word
+" set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 
 " line number
 set number
@@ -285,26 +276,13 @@ set completeopt+=longest,menuone
 "tab completion for files
 set wildmode=list:longest,full
 set dictionary=/Users/tim/.vim/dictionary/francais.txt
+set complete-=i " Tim pop says no. So no
 " Add dictionnary to <Ctrl-N> " will see if usefull in futur
 "set complete-=k complete+=k
 " }
 
-" gist-vim defaults {
-if has("mac")
-  let g:gist_clip_command = 'pbcopy'
-elseif has("unix")
-  let g:gist_clip_command = 'xclip -selection clipboard'
-endif
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-" }
-
 " Remember last location in file {
-
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal g'\"" | endif
-endif
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 " }
 
 " map other {
@@ -387,15 +365,15 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " delete mapping {
 "when use x, do not send to test register <""> but send to black hole
-"register "_ (ie void, or /dev/null or divide by 0...), <dl> is = <x>
+"register "_ (ie void, or /dev/null or divide by 0...)
 nnoremap x "_x
 nnoremap X "_X
 vnoremap x "_x
 vnoremap X "_X
 
-" Yank the word on which i am
+" delete the word on which i am
 nmap <Leader>d diw
-" Yank the word on which i am and put it in the clipboard
+" delete the word on which i am and put it in the clipboard
 nmap <Leader>D "*diw
 
 " Remove the word under the cursor
@@ -432,11 +410,12 @@ set sidescroll=1
 " }
 
 " search {
-set hlsearch
-set incsearch
-set noignorecase
-"Stop search at end of the file
-set nowrapscan
+set incsearch "is: automatically begins searching as you type
+set noignorecase "ic: no ignores case
+set smartcase "scs: ignores ignorecase when pattern contains uppercase characters
+set hlsearch "hls: highlights search results; ctrl-n or :noh to unhighlight
+set gdefault "gd: Substitute all matches in a line by default no need s/a/b/g
+set nowrapscan "Stop search at end of the file
 
 " when on a word, it search for this word
 " and replace with the specified value
@@ -543,12 +522,19 @@ map <Down> gj
 map <Up> gk
 " }
 
-" Whitespace stuff {
+" Whitespace space tab stuff {
 set nowrap
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
+set tabstop=2 "ts: number of spaces that a tab renders as
+set shiftwidth=2 "sw: number of spaces to use for autoindent
+set softtabstop=2 "sts: number of spaces that tabs insert
+set smarttab "sta: helps with backspacing because of expandtab
+set expandtab "et: uses spaces instead of tab characters
+
+" make uses real tabs
+au FileType make set noexpandtab
+" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+
 
 " Delete all whitespace in end of line
 if has("autocmd")
@@ -559,6 +545,7 @@ endif
 " save session
 " need to do vim -S to open it
 nnoremap <leader>s :mksession<CR>
+
 nnoremap <leader>w :w<CR>
 
 " monve in window stuff {
@@ -589,3 +576,6 @@ nnoremap <C-w>v :rightbelow vsplit<CR>
 nnoremap <C-w>s :split<CR> :wincmd j<CR>
 
 " }
+"
+set ttyfast "tf: improves redrawing for newer computers
+set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
