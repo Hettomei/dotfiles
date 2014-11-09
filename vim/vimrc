@@ -1,7 +1,3 @@
-" Modeline {
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
-" }
-
 " be iMproved
 set nocompatible
 
@@ -20,7 +16,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 Plugin 'gorkunov/smartpairs.vim'
+Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
 
+" tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
@@ -163,12 +161,16 @@ set numberwidth=1
 " }
 
 " configure folding {
-set foldmethod=syntax
+if &diff
+  set foldmethod=diff
+else
+  set foldmethod=syntax
+endif
 set foldlevel=6
 
 autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
-autocmd BufRead,BufNewFile *.coffee setlocal foldmethod=indent
-autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml} set foldmethod=indent
+autocmd BufRead,BufNewFile *vimrc setlocal foldmethod=marker foldmarker={,} foldlevel=0
+autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} set foldmethod=indent
 autocmd BufRead,BufNewFile *.rb set foldmethod=syntax
 " }
 
