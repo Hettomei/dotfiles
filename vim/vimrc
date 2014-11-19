@@ -1,10 +1,6 @@
 " be iMproved
 set nocompatible
 
-if has('nvim')
-  runtime! python_setup.vim
-endif
-
 " required!
 filetype off
 
@@ -384,6 +380,11 @@ nmap <Leader>D "*diw
 nmap <Leader>r "_ciw
 " }
 
+" Move visual block {
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" }
+"
 " mouse {
 if has('mouse')
   set mouse=a
@@ -421,9 +422,9 @@ set nowrapscan "Stop search at end of the file
 
 " when on a word, it search for this word
 " and replace with the specified value
-nnoremap <Leader>sr yiw:%s/<C-r>"//gc<Left><Left><Left>
-vnoremap <Leader>sr y:%s/<C-r>"//gc<Left><Left><Left>
-nnoremap <Leader>SR yiW:%s/<C-r>"//gc<Left><Left><Left>
+nnoremap <Leader>sr yiw:%s/<C-r>"//c<Left><Left>
+vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
+nnoremap <Leader>SR yiW:%s/<C-r>"//c<Left><Left>
 map <leader>a :AgFromSearch!<cr>
 " }
 
@@ -537,7 +538,6 @@ au FileType make set noexpandtab
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 
-
 " Delete all whitespace in end of line
 if has("autocmd")
   autocmd BufWritePre * :%s/\s\+$//e
@@ -549,6 +549,8 @@ endif
 nnoremap <leader>s :mksession<CR>
 
 nnoremap <leader>w :w<CR>
+nnoremap <leader>o o<esc>
+nnoremap <leader>O O<esc>
 
 " monve in window stuff {
 " ----------------------------------------------------------------------------
