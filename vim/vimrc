@@ -549,8 +549,6 @@ endif
 nnoremap <leader>s :mksession<CR>
 
 nnoremap <leader>w :w<CR>
-nnoremap <leader>o o<esc>
-nnoremap <leader>O O<esc>
 
 " monve in window stuff {
 " ----------------------------------------------------------------------------
@@ -576,10 +574,14 @@ nnoremap <silent> <C-k> :call WinMove('k')<cr>
 nnoremap <silent> <C-l> :call WinMove('l')<cr>
 
 " Switch directly to the new splitted window
-nnoremap <C-w>v :rightbelow vsplit<CR>
-nnoremap <C-w>s :split<CR> :wincmd j<CR>
+nnoremap <C-w>v :vsplit<CR>
+nnoremap <C-w>s :split<CR>
 
 " }
 "
 set ttyfast "tf: improves redrawing for newer computers
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
+
+set virtualedit=block
+set splitbelow
+set splitright
