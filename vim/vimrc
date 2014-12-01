@@ -84,18 +84,8 @@ au BufNewFile,BufRead *.json set ft=javascript
 au BufNewFile,BufRead *.hbs set ft=html
 " }
 
-" md, markdown, and mk are markdown and define buffer-local preview
-au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
-function s:setupWrapping()
-  set wrap
-  set textwidth=0
-endfunction
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
-" Enable syntastic syntax checking
-" let g:syntastic_enable_signs=1
 
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
@@ -197,7 +187,7 @@ let g:netrw_liststyle=3
 " }
 
 " custom rails mapping {
-command Rlang execute "tabnew config/locales/en.yml | vsplit config/locales/fr.yml"
+command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml"
 " }
 
 " abbrev rails {
@@ -422,9 +412,9 @@ set nowrapscan "Stop search at end of the file
 
 " when on a word, it search for this word
 " and replace with the specified value
-nnoremap <Leader>sr yiw:%s/<C-r>"//c<Left><Left>
+nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
+nnoremap <Leader>sR yiw:%s/<C-r>"//c<Left><Left>
 vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
-nnoremap <Leader>SR yiW:%s/<C-r>"//c<Left><Left>
 map <leader>a :AgFromSearch!<cr>
 " }
 
@@ -578,10 +568,14 @@ nnoremap <C-w>v :vsplit<CR>
 nnoremap <C-w>s :split<CR>
 
 " }
-"
+
 set ttyfast "tf: improves redrawing for newer computers
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block
 set splitbelow
 set splitright
+
+" syntastic {
+let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+" }
