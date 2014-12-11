@@ -71,6 +71,10 @@
 # resize big picture into little BE CAREFULL IT DELETE ALL PICTURE in the folder
 # cd my_folder
 # mogrify -resize 1200x1200 *.jpg
+###
+# Shit in permission ?
+# find . -type f -exec chmod 644 {} +
+# find . -type d -exec chmod 755 {} +
 ###################
 # TIPS AND TRICKS #
 ###################
@@ -129,6 +133,8 @@ source $ZSH/oh-my-zsh.sh
 
 # remove Correct spelling of all arguments
 unsetopt correct_all
+# remove to always use noglob before command which need [] or * or others
+setopt noglob
 #ne partage pas l'historique entre les session zsh. supprimer la ligne si je veux de nouveau les partager
 setopt no_share_history
 # dont save command that start with a space
@@ -158,17 +164,16 @@ alias devinette='cd ~/programmes/Ruby/devinette'
 
 # git
 alias g='git'
-alias pushmaster="git push origin master && git push upstream master"
-alias pushprod="git push origin production && git push upstream production"
-alias pushall="pushmaster && pushprod"
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias vv='nvim'
-alias v='nv'
-alias nv='nvim'
+alias v='nvim'
 alias e='echo'
+# ag doesent use pager by default. -s means "case sensitive"
 alias a='ag --pager LESS -s'
+# find for file name. very usefull
+alias af="ag -g"
 alias aa='ack'
+alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
 alias pause=job_break
@@ -177,11 +182,6 @@ alias pause=job_break
 alias pwdc='echo -n $(pwd) | pbcopy; echo "copy to clipboard: $(pbpaste)"'
 #because bc as the "scale" init to 0 if run without argument
 alias bc='bc -l'
-alias -s rb=vim
-alias -s txt=vim
-alias -s log=vim
-alias -s slim=vim
-alias -s haml=vim
 
 function tn(){
   sleep $1 && terminal-notifier -message $2

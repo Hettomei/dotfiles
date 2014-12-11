@@ -187,7 +187,10 @@ let g:netrw_liststyle=3
 " }
 
 " custom rails mapping {
-command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml"
+command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml | wincmd h"
+command Rlanghotel execute "tabnew config/locales/hotel.fr.yml | vsplit config/locales/hotel.en.yml | wincmd h"
+command Rlangchain execute "tabnew config/locales/chain.fr.yml | vsplit config/locales/chain.en.yml | wincmd h"
+command Rlangwebapp execute "tabnew config/locales/webapp.fr.yml | vsplit config/locales/webapp.en.yml | wincmd h"
 " }
 
 " abbrev rails {
