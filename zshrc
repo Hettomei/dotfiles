@@ -171,7 +171,7 @@ alias e='echo'
 # ag doesent use pager by default. -s means "case sensitive"
 alias a='ag --pager LESS -s'
 # find for file name. very usefull
-alias af="ag -g"
+alias af="ag --unrestricted -g"
 alias aa='ack'
 alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
@@ -254,3 +254,11 @@ alias ofsw='foreman start web --procfile=ProcfileDevelopment'
 alias ocal='v /Users/tim/oyatis/docs/toutes_mes_infos.md'
 alias onote='v /Users/tim/oyatis/docs/note_a_faire.md'
 alias obdd='cd /Users/tim/oyatis/bdd_backups/'
+
+vman() {
+  vim -c "SuperMan $*"
+
+  if [ "$?" != "0" ]; then
+    echo "No manual entry for $*"
+  fi
+}

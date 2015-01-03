@@ -50,13 +50,14 @@ Plugin 'kien/ctrlp.vim'
 " other
 Plugin 'msanders/snipmate.vim'
 Plugin 'junegunn/goyo.vim' " to not be distracted
+Plugin 'Z1MM32M4N/vim-superman' " to read man
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on    " required
 " }
 
-let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 syntax enable
 
@@ -191,6 +192,7 @@ command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.y
 command Rlanghotel execute "tabnew config/locales/hotel.fr.yml | vsplit config/locales/hotel.en.yml | wincmd h"
 command Rlangchain execute "tabnew config/locales/chain.fr.yml | vsplit config/locales/chain.en.yml | wincmd h"
 command Rlangwebapp execute "tabnew config/locales/webapp.fr.yml | vsplit config/locales/webapp.en.yml | wincmd h"
+command Rlangdevise execute "tabnew config/locales/devise.fr.yml | vsplit config/locales/devise.en.yml | wincmd h"
 " }
 
 " abbrev rails {
@@ -299,6 +301,17 @@ nnoremap <leader>fef mfgg=G'f
 
 "display cursor column
 nnoremap <leader>col :set invcursorcolumn<CR>
+
+"Cut line where cursor is
+"Probleme when buffer is unmodifiable :/
+" nnoremap <ENTER> r<ENTER>
+
+
+" like gt (tab next) but with buffer
+nnoremap gb :bn<CR>
+nnoremap gB :bp<CR>
+" delete buffer and go next
+nnoremap gbx :bd<CR>:vsplit<CR>:bn<CR>
 " }
 
 " map surround {
