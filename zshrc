@@ -216,7 +216,14 @@ function simplehttp(){
   echo "python -m SimpleHTTPServer 8000"
   python -m SimpleHTTPServer 8000
 }
-source ./.zshrc_not_on_github
+
+vman() {
+  vim -c "SuperMan $*"
+
+  if [ "$?" != "0" ]; then
+    echo "No manual entry for $*"
+  fi
+}
 
 ############
 # Bemyboat #
@@ -235,30 +242,7 @@ alias bmb_mister_b='cd ~/BeMyBoat/mister_booking'
 alias bmb_mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
 alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 
-##########
-# Oyatis #
-##########
-alias oyatis='cd ~/oyatis/hospitality'
-function owifi(){
-  login="9897835863"
-  pass="DfUkrdK7ThH2Wvu64Q"
-  echo $login
-  echo $login | pbcopy
-  echo $pass
-  sleep 3 && echo $pass | pbcopy
-  echo "done"
-}
-alias ofspgr='foreman start -c db=1,redis=1 --procfile=ProcfileDevelopment'
-alias ofspg='foreman start db --procfile=ProcfileDevelopment'
-alias ofsw='foreman start web --procfile=ProcfileDevelopment'
-alias ocal='v /Users/tim/oyatis/docs/toutes_mes_infos.md'
-alias onote='v /Users/tim/oyatis/docs/note_a_faire.md'
-alias obdd='cd /Users/tim/oyatis/bdd_backups/'
+##############
+# Qos Energy #
+##############
 
-vman() {
-  vim -c "SuperMan $*"
-
-  if [ "$?" != "0" ]; then
-    echo "No manual entry for $*"
-  fi
-}
