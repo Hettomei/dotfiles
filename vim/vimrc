@@ -28,20 +28,21 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-characterize' " Add more display when press gA on a char
 Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
 
 Plugin 'jayflo/vim-skip'
-" Plugin 'mileszs/ack.vim'
 Plugin 'rking/ag.vim'
 Plugin 'edsono/vim-matchit' "Improve math for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'sickill/vim-monokai'
 
 " language specific
 Plugin 'gudleik/vim-slim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'mattn/emmet-vim'
 " Plugin 'wting/rust.vim'
 
 " for opening file
@@ -90,6 +91,7 @@ set backspace=indent,eol,start
 
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
+command Zshrc tabnew $HOME/.zshrc
 
 if has("cryptv")
   set cryptmethod=blowfish
@@ -104,7 +106,9 @@ set directory=/tmp "dir: directory for temp files
 
 " colors {
 set background=dark
+let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 colorscheme solarized
+" colorscheme monokai
 " }
 
 " CTags ctags {
@@ -189,19 +193,6 @@ let g:netrw_liststyle=3
 
 " custom rails mapping {
 command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml | wincmd h"
-command Rlanghotel execute "tabnew config/locales/hotel.fr.yml | vsplit config/locales/hotel.en.yml | wincmd h"
-command Rlangchain execute "tabnew config/locales/chain.fr.yml | vsplit config/locales/chain.en.yml | wincmd h"
-command Rlangwebapp execute "tabnew config/locales/webapp.fr.yml | vsplit config/locales/webapp.en.yml | wincmd h"
-command Rlangdevise execute "tabnew config/locales/devise.fr.yml | vsplit config/locales/devise.en.yml | wincmd h"
-" }
-
-" abbrev rails {
-" theise abbrev are for rails
-" TODO : add a autocommand for filetype .rb for these abbrev
-iab CEF CollectElectricityFrance
-iab cef collect_electricity_france
-iab CG CollectGeneric
-iab cg collect_generic
 " }
 
 " For vim-rails {
@@ -310,8 +301,6 @@ nnoremap <leader>col :set invcursorcolumn<CR>
 " like gt (tab next) but with buffer
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
-" delete buffer and go next
-nnoremap gbx :bd<CR>:vsplit<CR>:bn<CR>
 " }
 
 " map surround {
@@ -330,21 +319,21 @@ nnoremap <Leader>s" diWi"<C-r>""<ESC>
 
 " yank copy mapping {
 
-" "*y Copy to 'clipboard registry'
+" "+y Copy to 'clipboard registry'
 " Work like 'y' but copy in OS clipboard (géniaaaal !!)
 " Dont use nmap because we need in vmap
 " Don't use noremap because it not understand << Y$ >>
 " save in clipboard
-vmap Y "*y
+vmap Y "+y
 " save all line in clipboard
-nnoremap YY ^"*y$
+nnoremap YY ^"+y$
 
 " Yank the word on which i am
 " i<esc> is used to go back after yank with `^
 nnoremap <Leader>y i<esc>lyiw`^
 " Yank the word on which i am and put it in the clipboard
 " i<esc> is used to go back after yank with `^
-nnoremap <Leader>Y i<esc>l"*yiw`^
+nnoremap <Leader>Y i<esc>l"+yiw`^
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
@@ -378,7 +367,7 @@ vnoremap X "_X
 " delete the word on which i am
 nmap <Leader>d diw
 " delete the word on which i am and put it in the clipboard
-nmap <Leader>D "*diw
+nmap <Leader>D "+diw
 
 " Remove the word under the cursor
 " Do not save the word in any register
@@ -391,18 +380,19 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 " }
 "
-" mouse {
+" " mouse {
 if has('mouse')
   set mouse=a
+  set ttymouse=xterm2
 endif
 
-"Fix bug : mouse before cannot go to 220 char to the right
-"This fix it
-"https://code.google.com/p/iterm2/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary&groupby=&sort=&id=1830
-if has('mouse_sgr')
-  set ttymouse=sgr
-endif
-" }
+" "Fix bug : mouse before cannot go to 220 char to the right
+" "This fix it
+" "https://code.google.com/p/iterm2/issues/detail?can=2&start=0&num=100&q=&colspec=ID%20Type%20Status%20Priority%20Milestone%20Owner%20Summary&groupby=&sort=&id=1830
+" if has('mouse_sgr')
+"   set ttymouse=sgr
+" endif
+" " }
 
 " run ruby {
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
@@ -430,8 +420,9 @@ set nowrapscan "Stop search at end of the file
 " and replace with the specified value
 nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
 nnoremap <Leader>sR yiw:%s/<C-r>"//c<Left><Left>
-vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
-map <leader>a :AgFromSearch!<cr>
+vnoremap <Leader>sr y:%s/<C-r>//c<Left><Left>
+nnoremap <leader>a :AgFromSearch!<cr>
+vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 " }
 
 " spell {
@@ -544,7 +535,7 @@ au FileType make set noexpandtab
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 
-" Delete all whitespace in end of line
+" Delete all trailing whitespace in end of line
 if has("autocmd")
   autocmd BufWritePre * :%s/\s\+$//e
 endif
@@ -594,4 +585,14 @@ set splitright
 
 " syntastic {
 let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+" }
+
+" special qos energy {
+let s:uname = system("echo -n \"$(uname)\"")
+if !v:shell_error && s:uname == "Linux"
+  " all copy delete goes in clipboard, it is a temporary solution
+  " set clipboard+=unnamedplus
+  inoremap ² @
+  " vmap <leader>y y:echo system('echo -n "<C-r>"" \| xclip -selection clipboard')<CR>
+endif
 " }

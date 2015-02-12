@@ -75,6 +75,12 @@
 # Shit in permission ?
 # find . -type f -exec chmod 644 {} +
 # find . -type d -exec chmod 755 {} +
+###
+# Do an action on file change
+# while inotifywait -e close_write your_file.txt
+# do
+# ruby unit/ribbon_test.rb
+# done
 ###################
 # TIPS AND TRICKS #
 ###################
@@ -166,16 +172,25 @@ alias devinette='cd ~/programmes/Ruby/devinette'
 alias g='git'
 
 #good website :  http://alias.sh/compact-colorized-git-log
-alias v='nvim'
 alias e='echo'
 # ag doesent use pager by default. -s means "case sensitive"
-alias a='ag --pager LESS -s'
+alias a='ag --pager less -s -U' #-U to ignor .gitignore
 # find for file name. very usefull
 alias af="ag --unrestricted -g"
-alias aa='ack'
 alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
-alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
+
+if [[ "$(uname)" == "Mac" ]]; then
+  alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
+  alias v='nvim'
+else
+  PATH=$PATH:$HOME/cellar/neovim/bin
+  alias v='nvim'
+  alias pbcopy='xclip -selection clipboard'
+fi
+
+
+
 alias pause=job_break
 #Copy current path to clipboard.
 #works on mac OS X maybe not linux
@@ -220,7 +235,7 @@ function simplehttp(){
 vman() {
   vim -c "SuperMan $*"
 
-  if [ "$?" != "0" ]; then
+  if [[ "$?" != "0" ]]; then
     echo "No manual entry for $*"
   fi
 }
@@ -245,4 +260,3 @@ alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 ##############
 # Qos Energy #
 ##############
-
