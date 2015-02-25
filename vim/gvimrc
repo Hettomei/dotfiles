@@ -1,5 +1,12 @@
 "set font for macvim
-set guifont=Monaco:h13
 set guioptions+=b
 
 set bg=light
+
+" special qos energy {
+let s:uname = system("echo -n \"$(uname)\"")
+if !v:shell_error && s:uname == "Linux"
+else
+  set guifont=Monaco:h13
+endif
+" }

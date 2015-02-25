@@ -52,6 +52,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'msanders/snipmate.vim'
 Plugin 'junegunn/goyo.vim' " to not be distracted
 Plugin 'Z1MM32M4N/vim-superman' " to read man
+Plugin 'ashisha/image.vim' " just open an image and it will display
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -92,6 +93,10 @@ set backspace=indent,eol,start
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
 command Zshrc tabnew $HOME/.zshrc
+"
+command Whyvim tabnew $HOME/cours-vim.md
+command Shocked tabnew $HOME/code-qos-shocked.md
+command Todo tabnew $HOME/todo.md
 
 if has("cryptv")
   set cryptmethod=blowfish
@@ -192,7 +197,7 @@ let g:netrw_liststyle=3
 " }
 
 " custom rails mapping {
-command Rlang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml | wincmd h"
+command Elang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml | wincmd h"
 " }
 
 " For vim-rails {
@@ -576,7 +581,7 @@ nnoremap <C-w>s :split<CR>
 
 " }
 
-set ttyfast "tf: improves redrawing for newer computers
+" set ttyfast "tf: improves redrawing for newer computers
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block

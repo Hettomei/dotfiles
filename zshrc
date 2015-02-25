@@ -199,11 +199,11 @@ alias pwdc='echo -n $(pwd) | pbcopy; echo "copy to clipboard: $(pbpaste)"'
 alias bc='bc -l'
 
 function tn(){
-  sleep $1 && terminal-notifier -message $2
+sleep $1 && terminal-notifier -message $2
 }
 
 function tnm(){
-  tn $(($1*60)) $2
+tn $(($1*60)) $2
 }
 
 #################
@@ -214,9 +214,9 @@ function tnm(){
 #alias rake='noglob rake'
 #need a file 'Procfile'
 function fsa() {
-  display='foreman start -c mysql=1,redis=1,mongodb=1,sidekiq=1,beanstalkd=1,backburner=1'
-  echo -n $display | pbcopy
-  echo $display
+display='foreman start -c mysql=1,redis=1,mongodb=1,sidekiq=1,beanstalkd=1,backburner=1'
+echo -n $display | pbcopy
+echo $display
 }
 alias fsw='foreman start web'
 alias fsmy='foreman start mysql'
@@ -260,3 +260,6 @@ alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 ##############
 # Qos Energy #
 ##############
+function bdd_model(){
+  mysql -u root qosenergy_development -e "describe $1"
+}
