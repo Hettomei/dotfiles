@@ -179,17 +179,13 @@ alias a='ag --pager less -s -U' #-U to ignor .gitignore
 alias af="ag --unrestricted -g"
 alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
+alias v='nvim'
 
 if [[ "$(uname)" == "Mac" ]]; then
   alias grep='ggrep' #because of homebrew : "brew link grep" create a suffix g
-  alias v='nvim'
 else
-  PATH=$PATH:$HOME/cellar/neovim/bin
-  alias v='nvim'
   alias pbcopy='xclip -selection clipboard'
 fi
-
-
 
 alias pause=job_break
 #Copy current path to clipboard.
