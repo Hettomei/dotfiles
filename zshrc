@@ -259,3 +259,14 @@ alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 function bdd_model(){
   mysql -u root qosenergy_development -e "describe $1"
 }
+
+
+
+if [[ "$(uname)" == "Mac" ]]; then
+else
+  PERL_MB_OPT="--install_base \"/home/tgauthier/perl5\""; export PERL_MB_OPT;
+  PERL_MM_OPT="INSTALL_BASE=/home/tgauthier/perl5"; export PERL_MM_OPT;
+  #special QOS
+  # Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
+  alias aglarger=ag --path-to-agignore "./nothing.agignore"
+fi

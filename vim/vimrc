@@ -425,7 +425,7 @@ set nowrapscan "Stop search at end of the file
 " and replace with the specified value
 nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
 nnoremap <Leader>sR yiw:%s/<C-r>"//c<Left><Left>
-vnoremap <Leader>sr y:%s/<C-r>//c<Left><Left>
+vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
 vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 " }
@@ -600,4 +600,9 @@ if !v:shell_error && s:uname == "Linux"
   inoremap ² @
   " vmap <leader>y y:echo system('echo -n "<C-r>"" \| xclip -selection clipboard')<CR>
 endif
+
+" Convert new hash a: 4 to old hash :a => 4
+" oh is for old hash
+nnoremap <Leader>oh :s/\([a-z_]\+\):/:\1 =><CR>
+
 " }
