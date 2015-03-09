@@ -187,7 +187,6 @@ else
   alias pbcopy='xclip -selection clipboard'
 fi
 
-alias pause=job_break
 #Copy current path to clipboard.
 #works on mac OS X maybe not linux
 alias pwdc='echo -n $(pwd) | pbcopy; echo "copy to clipboard: $(pbpaste)"'
@@ -260,6 +259,9 @@ function bdd_model(){
   mysql -u root qosenergy_development -e "describe $1"
 }
 
+function pause(){
+  rbenv shell 2.1.5 && job_break $@ && rbenv shell --unset
+}
 
 
 if [[ "$(uname)" == "Mac" ]]; then
