@@ -606,3 +606,5 @@ endif
 nnoremap <Leader>oh :s/\([a-z_]\+\):/:\1 =><CR>
 
 " }
+
+set synmaxcol=1000
