@@ -19,7 +19,7 @@ do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
 
-for file_name in 'after' 'my_snippets' 'dictionary' 'pythonx'
+for file_name in 'my_snippets' 'dictionary'
 do
   cp -v -R $HOME/.vim/$file_name $DIR/vim/
 done
