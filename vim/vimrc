@@ -61,6 +61,9 @@ filetype plugin indent on    " required
 
 let g:mapleader = "\<Space>"
 
+" setup var to know wich enironnement is running
+let s:uname = system("echo -n \"$(uname)\"")
+
 syntax enable
 
 set autoread " Automatically reload changes if detected
@@ -90,17 +93,21 @@ au BufNewFile,BufRead *.hbs set ft=html
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+" QuickLink to various file {
 command Vimrc tabnew $MYVIMRC
 command Gvimrc tabnew $MYGVIMRC
 command Zshrc tabnew $HOME/.zshrc
-"
+
 command Whyvim tabnew $HOME/cours-vim.md
 command Shocked tabnew $HOME/code-qos-shocked.md
 command Todo tabnew $HOME/todo.md
+" }
 
+" crypt file {
 if has("cryptv")
   set cryptmethod=blowfish
 endif
+" }
 
 " backup swap {
 set nobackup "nobk: in this age of version control, who needs it
@@ -187,17 +194,13 @@ if !exists("auto_load_large_file")
   let g:LargeFile = 1024 * 1024 * 2
   augroup LargeFile
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
-    augroup END
-  endif
+  augroup END
+endif
 " }
 
 " Explorer netrw {
 map <leader>n :Explore<cr>
 let g:netrw_liststyle=3
-" }
-
-" custom rails mapping {
-command Elang execute "tabnew config/locales/fr.yml | vsplit config/locales/en.yml | wincmd h"
 " }
 
 " For vim-rails {
@@ -220,12 +223,20 @@ let g:rails_projections = {
       \     "spec/models/%s_spec.rb"
       \   ],
       \ },
-      \ "app/repository/*_repository.rb": {
+      \ "app/repositories/*_repository.rb": {
       \   "command": "repository",
       \   "template":
       \     "class %SRepository\nend",
       \   "test": [
-      \     "spec/repository/%s_repository_spec.rb"
+      \     "spec/repositories/%s_repository_spec.rb"
+      \   ],
+      \ },
+      \ "app/presenters/*_presenter.rb": {
+      \   "command": "presenter",
+      \   "template":
+      \     "class %SPresenter\nend",
+      \   "test": [
+      \     "spec/presenters/%s_presenter_spec.rb"
       \   ],
       \ },
       \ "app/forms/*_form.rb": {
@@ -275,9 +286,6 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'
 " }
 
 " map other {
-" search for highlighted text
-" TODO not working perfectly
-vnoremap // y/<C-R>"<CR>
 
 "open the same directory as the current buffer !
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -306,6 +314,9 @@ nnoremap <leader>col :set invcursorcolumn<CR>
 " like gt (tab next) but with buffer
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
+
+nnoremap <leader>w :w<CR>
+
 " }
 
 " map surround {
@@ -315,11 +326,8 @@ nnoremap gB :bp<CR>
 nnoremap <Leader>sa diwi#{<C-r>"}<ESC>
 nnoremap <Leader>sA diWi#{<C-r>"}<ESC>
 
-nnoremap <Leader>s' diwi'<C-r>"'<ESC>
-nnoremap <Leader>s' diWi'<C-r>"'<ESC>
-
-nnoremap <Leader>s" diwi"<C-r>""<ESC>
-nnoremap <Leader>s" diWi"<C-r>""<ESC>
+" Works only with vim-surround
+nnoremap <Leader>s" ysiw"
 " }
 
 " yank copy mapping {
@@ -356,6 +364,7 @@ nmap Y y$
 " http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
 vnoremap p "_dp
 vnoremap P "_dP
+" replace current word with paste and do not save deleted word to register
 nnoremap <leader>p "_ciw<C-r>"<esc>
 "http://vim.wikia.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -384,11 +393,11 @@ nmap <Leader>r "_ciw
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 " }
-"
-" " mouse {
+
+" mouse {
 if has('mouse')
   set mouse=a
-  set ttymouse=xterm2
+  " set ttymouse=xterm2
 endif
 
 " "Fix bug : mouse before cannot go to 220 char to the right
@@ -421,6 +430,11 @@ set hlsearch "hls: highlights search results; ctrl-n or :noh to unhighlight
 set gdefault "gd: Substitute all matches in a line by default no need s/a/b/g
 set nowrapscan "Stop search at end of the file
 
+" search for selected text
+" TODO not working perfectly
+vnoremap // y/\M<C-R>"<CR>
+
+
 " when on a word, it search for this word
 " and replace with the specified value
 nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
@@ -448,7 +462,7 @@ vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 "   if b:myLang==0
 "     setlocal nospell
 "   else
-    " execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+" execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
 "   endif
 "   echo "spell checking language:" g:myLangList[b:myLang]
 " endfunction
@@ -459,39 +473,6 @@ vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 " if has("autocmd")
 "   autocmd filetype svn,*commit* set spell
 " endif
-" }
-
-" Tips and tricks {
-
-"## g with norm
-"http://briancarper.net/blog/165/
-"example:
-":g/\d/norm o999
-
-"## Encoding
-"http://stackoverflow.com/questions/778069/how-can-i-change-a-files-encoding-with-vim
-"Notice that there is a difference between
-"set encoding
-"and
-"set fileencoding
-
-"Donc pour modifier un fichier, faire :
-"set fileencoding=utf-8
-":wq
-"
-" ## use hexa editor
-"Use vim as HEXA editor :
-"open your file as usual
-"[esc] :%!xxd
-"<now editing mycat in hex>
-"<find some innocuous string or rcsid>
-"<change the values on the hex side>
-"[esc] :%!xxd -r
-"[esc] :wq!
-"
-" ## To add an abbrev for a specifiq filetype :
-" autocmd FileType javascript :iabbrev <buffer> cl console.log();<left><left>
-
 " }
 
 "underscorize {
@@ -546,28 +527,22 @@ if has("autocmd")
 endif
 " }
 
-" save session
-" need to do vim -S to open it
-nnoremap <leader>s :mksession<CR>
-
-nnoremap <leader>w :w<CR>
-
 " monve in window stuff {
 " ----------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new split in that
 " direction
 " ----------------------------------------------------------------------------
 func! WinMove(key)
-    let t:curwin = winnr()
-    exec "wincmd ".a:key
-    if (t:curwin == winnr())
-        if (match(a:key,'[jk]'))
-            wincmd v
-        else
-            wincmd s
-        endif
-        exec "wincmd ".a:key
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+      wincmd s
     endif
+    exec "wincmd ".a:key
+  endif
 endfu
 
 nnoremap <silent> <C-h> :call WinMove('h')<cr>
@@ -579,26 +554,28 @@ nnoremap <silent> <C-l> :call WinMove('l')<cr>
 nnoremap <C-w>v :vsplit<CR>
 nnoremap <C-w>s :split<CR>
 
+" split under
+set splitbelow
+" split right
+set splitright
 " }
 
 " set ttyfast "tf: improves redrawing for newer computers
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block
-set splitbelow
-set splitright
 
 " syntastic {
-let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+if !v:shell_error && s:uname == "Linux"
+let g:syntastic_mode_map = { 'mode': 'passive' }
+else
+  let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+endif
 " }
 
 " special qos energy {
-let s:uname = system("echo -n \"$(uname)\"")
 if !v:shell_error && s:uname == "Linux"
-  " all copy delete goes in clipboard, it is a temporary solution
-  " set clipboard+=unnamedplus
   inoremap ² @
-  " vmap <leader>y y:echo system('echo -n "<C-r>"" \| xclip -selection clipboard')<CR>
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
@@ -608,3 +585,36 @@ nnoremap <Leader>oh :s/\([a-z_]\+\):/:\1 =><CR>
 " }
 
 set synmaxcol=1000
+"
+" Tips and tricks {
+
+"## g with norm
+"http://briancarper.net/blog/165/
+"example:
+":g/\d/norm o999
+
+"## Encoding
+"http://stackoverflow.com/questions/778069/how-can-i-change-a-files-encoding-with-vim
+"Notice that there is a difference between
+"set encoding
+"and
+"set fileencoding
+
+"Donc pour modifier un fichier, faire :
+"set fileencoding=utf-8
+":wq
+"
+" ## use hexa editor
+"Use vim as HEXA editor :
+"open your file as usual
+"[esc] :%!xxd
+"<now editing mycat in hex>
+"<find some innocuous string or rcsid>
+"<change the values on the hex side>
+"[esc] :%!xxd -r
+"[esc] :wq!
+"
+" ## To add an abbrev for a specifiq filetype :
+" autocmd FileType javascript :iabbrev <buffer> cl console.log();<left><left>
+
+" }
