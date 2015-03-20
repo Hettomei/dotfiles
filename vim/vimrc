@@ -84,10 +84,10 @@ set viminfo=h,'50,<1000,s1000,/500,:1000
 
 " FileType {
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
+autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
 " add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
-au BufNewFile,BufRead *.hbs set ft=html
+autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.hbs set ft=html
 " }
 
 " allow backspacing over everything in insert mode
@@ -282,7 +282,7 @@ set complete-=i " Tim pop says no. So no
 " }
 
 " Remember last location in file {
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 " }
 
 " map other {
@@ -517,14 +517,12 @@ set smarttab "sta: helps with backspacing because of expandtab
 set expandtab "et: uses spaces instead of tab characters
 
 " make uses real tabs
-au FileType make set noexpandtab
+autocmd FileType make set noexpandtab
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 
 " Delete all trailing whitespace in end of line
-if has("autocmd")
-  autocmd BufWritePre * :%s/\s\+$//e
-endif
+autocmd BufWritePre * :%s/\s\+$//e
 " }
 
 " monve in window stuff {
@@ -567,7 +565,7 @@ set virtualedit=block
 
 " syntastic {
 if !v:shell_error && s:uname == "Linux"
-let g:syntastic_mode_map = { 'mode': 'passive' }
+" let g:syntastic_mode_map = { 'mode': 'passive' }
 else
   let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
 endif

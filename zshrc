@@ -256,6 +256,7 @@ alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 # Qos Energy #
 ##############
 function bdd_model(){
+  echo "mysql -u root qosenergy_development -e \"describe $1\""
   mysql -u root qosenergy_development -e "describe $1"
 }
 
