@@ -200,7 +200,7 @@ endif
 " }
 
 " Explorer netrw {
-map <leader>n :Explore<cr>
+nnoremap <leader>n :Explore<cr>
 let g:netrw_liststyle=3
 " }
 
@@ -316,7 +316,7 @@ nnoremap <leader>col :set invcursorcolumn<CR>
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
 
-nnoremap <leader>w :w<CR>
+nnoremap <leader><leader> :w<CR>
 
 " }
 
@@ -338,7 +338,7 @@ nnoremap <Leader>s" ysiw"
 " Dont use nmap because we need in vmap
 " Don't use noremap because it not understand << Y$ >>
 " save in clipboard
-vmap Y "+y
+vnoremap Y "+y
 " save all line in clipboard
 nnoremap YY ^"+y$
 
@@ -351,7 +351,7 @@ nnoremap <Leader>Y i<esc>l"+yiw`^
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
-nmap Y y$
+nnoremap Y y$
 " }
 
 " paste mapping {
@@ -380,14 +380,14 @@ vnoremap x "_x
 vnoremap X "_X
 
 " delete the word on which i am
-nmap <Leader>d diw
+nnoremap <Leader>d diw
 " delete the word on which i am and put it in the clipboard
-nmap <Leader>D "+diw
+nnoremap <Leader>D "+diw
 
 " Remove the word under the cursor
 " Do not save the word in any register
 " and go in insert mode
-nmap <Leader>r "_ciw
+nnoremap <Leader>r "_ciw
 " }
 
 " Move visual block {
@@ -412,7 +412,7 @@ endif
 " run ruby {
 " taken inside the demo video https://www.destroyallsoftware.com/screencasts
 " it run the current ruby file and display result
-map <leader>l :w\|:!ruby %<CR>
+nnoremap <leader>l :w\|:!ruby %<CR>
 " }
 
 " scroll {
@@ -442,6 +442,7 @@ nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
 nnoremap <Leader>sR yiw:%s/<C-r>"//c<Left><Left>
 vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
+" k ensure that search is valid if last search of file
 vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 " }
 
@@ -468,7 +469,7 @@ vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 "   echo "spell checking language:" g:myLangList[b:myLang]
 " endfunction
 
-" nmap <F7> :call ToggleSpell()<CR>
+" nnoremap <F7> :call ToggleSpell()<CR>
 
 "spell check when writing commit logs
 " if has("autocmd")
@@ -505,8 +506,8 @@ endfunction
 set whichwrap+=<,>,h,l,[,]
 
 " Map the arrow keys to be based on display lines, not physical lines
-map <Down> gj
-map <Up> gk
+nnoremap <Down> gj
+nnoremap <Up> gk
 " }
 
 " Whitespace space tab stuff {
