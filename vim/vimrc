@@ -30,6 +30,7 @@ Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-vinegar'
 
 Plugin 'jayflo/vim-skip'
 Plugin 'rking/ag.vim'
