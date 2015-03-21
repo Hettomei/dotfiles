@@ -85,10 +85,13 @@ set viminfo=h,'50,<1000,s1000,/500,:1000
 
 " FileType {
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
-" add json syntax highlighting
-autocmd BufNewFile,BufRead *.json set ft=javascript
-autocmd BufNewFile,BufRead *.hbs set ft=html
+augroup change_file_type
+  autocmd!
+  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
+  " add json syntax highlighting
+  autocmd BufNewFile,BufRead *.json set ft=javascript
+  autocmd BufNewFile,BufRead *.hbs set ft=html
+augroup END
 " }
 
 " allow backspacing over everything in insert mode
@@ -172,10 +175,13 @@ else
 endif
 set foldlevel=6
 
-autocmd BufRead,BufNewFile *.scss,*.less setlocal foldmethod=marker foldmarker={,}
-autocmd BufRead,BufNewFile *vimrc setlocal foldmethod=marker foldmarker={,} foldlevel=0
-autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} set foldmethod=indent
-autocmd BufRead,BufNewFile *.rb set foldmethod=syntax
+augroup change_file_fold
+  autocmd!
+  autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=0
+  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,}
+  autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
+  autocmd BufRead,BufNewFile *.rb                          setlocal foldmethod=syntax
+augroup END
 " }
 
 " configure when open large_files {
@@ -194,6 +200,7 @@ if !exists("auto_load_large_file")
   " Large files are > 2M
   let g:LargeFile = 1024 * 1024 * 2
   augroup LargeFile
+    autocmd!
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
   augroup END
 endif
@@ -283,7 +290,10 @@ set complete-=i " Tim pop says no. So no
 " }
 
 " Remember last location in file {
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+augroup lastlocation
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+augroup END
 " }
 
 " map other {
@@ -472,9 +482,7 @@ vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
 " nnoremap <F7> :call ToggleSpell()<CR>
 
 "spell check when writing commit logs
-" if has("autocmd")
-"   autocmd filetype svn,*commit* set spell
-" endif
+"autocmd filetype svn,*commit* set spell
 " }
 
 "underscorize {
@@ -519,12 +527,15 @@ set smarttab "sta: helps with backspacing because of expandtab
 set expandtab "et: uses spaces instead of tab characters
 
 " make uses real tabs
-autocmd FileType make set noexpandtab
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+augroup tab_and_space
+  autocmd!
+  autocmd FileType make set noexpandtab
+  " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+  autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 
-" Delete all trailing whitespace in end of line
-autocmd BufWritePre * :%s/\s\+$//e
+  " Delete all trailing whitespace in end of line
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 " }
 
 " monve in window stuff {
@@ -616,5 +627,8 @@ set synmaxcol=1000
 "
 " ## To add an abbrev for a specifiq filetype :
 " autocmd FileType javascript :iabbrev <buffer> cl console.log();<left><left>
+"
+" Why I group autocmd ? (because to reload vimrc)
+" http://learnvimscriptthehardway.stevelosh.com/chapters/14.html<F37>
 
 " }
