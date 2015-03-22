@@ -398,6 +398,15 @@ nnoremap <Leader>D "+diw
 " Do not save the word in any register
 " and go in insert mode
 nnoremap <Leader>r "_ciw
+
+" }
+
+" movement mapping {
+" Delete yank or change until next Majuscule
+" o waits for you to enter a movement command : http://learnvimscriptthehardway.stevelosh.com/chapters/15.html
+" M is for Maj
+" :<c-u>execute -> special way to run multiple normal commande in a map : learnvimscriptthehardway.stevelosh.com/chapters/16.html
+onoremap M :<c-u>execute "normal! /[A-Z]\r:nohlsearch\r"<cr>
 " }
 
 " Move visual block {
@@ -596,7 +605,6 @@ nnoremap <Leader>oh :s/\([a-z_]\+\):/:\1 =><CR>
 " }
 
 set synmaxcol=1000
-"
 " Tips and tricks {
 
 "## g with norm
