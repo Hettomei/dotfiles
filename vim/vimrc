@@ -561,7 +561,7 @@ augroup tab_and_space
 augroup END
 " }
 
-" monve in window stuff {
+" move in window stuff {
 " ----------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new split in that
 " direction
@@ -614,7 +614,7 @@ endif
 
 " Convert new hash a: 4 to old hash :a => 4
 " oh is for old hash
-nnoremap <Leader>oh :s/\([a-z_]\+\):/:\1 =><CR>
+nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 
 " }
 
