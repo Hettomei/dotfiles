@@ -221,6 +221,7 @@ alias fssbb='foreman start -c sidekiq=1,beanstalkd=1,backburner=1'
 alias be='noglob bundle exec'
 alias ber='noglob bundle exec rspec'
 alias sp='spin push'
+alias rtest="ruby -I\"lib:test\""
 
 function simplehttp(){
   echo "python -m SimpleHTTPServer 8000"

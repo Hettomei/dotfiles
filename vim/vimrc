@@ -158,9 +158,6 @@ set noshowmode
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
-set iskeyword-=-,? iskeyword+=-,?
-" with @ as part of a word
-" set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 
 " line number
 set number
@@ -181,6 +178,23 @@ augroup change_file_fold
   autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,}
   autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
   autocmd BufRead,BufNewFile *.rb                          setlocal foldmethod=syntax
+augroup END
+" }
+
+" configure ruby{
+augroup config_ruby
+  autocmd!
+" Said it is a good practice to do -= then += but can't find link
+  autocmd FileType ruby setlocal iskeyword-=? iskeyword+=?
+" with @ as part of a word
+" set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
+augroup END
+" }
+
+" configure html/javascript{
+augroup config_html_js
+  autocmd!
+  autocmd FileType html,javascript setlocal iskeyword-=- iskeyword+=-
 augroup END
 " }
 
