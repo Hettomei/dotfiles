@@ -177,6 +177,8 @@ alias e='echo'
 alias a='ag --pager less -s -U' #-U to ignor .gitignore
 # find for file name. very usefull
 alias af="ag --unrestricted -g"
+# Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
+alias aglarger=ag --path-to-agignore "./nothing.agignore"
 alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias v='nvim'
@@ -268,9 +270,7 @@ function pause(){
 
 if [[ "$(uname)" == "Mac" ]]; then
 else
+  #special QOS
   PERL_MB_OPT="--install_base \"/home/tgauthier/perl5\""; export PERL_MB_OPT;
   PERL_MM_OPT="INSTALL_BASE=/home/tgauthier/perl5"; export PERL_MM_OPT;
-  #special QOS
-  # Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
-  alias aglarger=ag --path-to-agignore "./nothing.agignore"
 fi
