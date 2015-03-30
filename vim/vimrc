@@ -87,10 +87,10 @@ set viminfo=h,'50,<1000,s1000,/500,:1000
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 augroup change_file_type
   autocmd!
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set ft=ruby
+  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
   " add json syntax highlighting
-  autocmd BufNewFile,BufRead *.json set ft=javascript
-  autocmd BufNewFile,BufRead *.hbs set ft=html
+  autocmd BufNewFile,BufRead *.json set filetype=javascript
+  autocmd BufNewFile,BufRead *.hbs set filetype=html
 augroup END
 " }
 
@@ -306,7 +306,7 @@ set complete-=i " Tim pop says no. So no
 " Remember last location in file {
 augroup lastlocation
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 augroup END
 " }
 
@@ -618,7 +618,9 @@ nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 
 " }
 
+" stop syntax coloring after 1000 columns
 set synmaxcol=1000
+
 " Tips and tricks {
 
 "## g with norm
