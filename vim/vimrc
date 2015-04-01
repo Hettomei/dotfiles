@@ -459,24 +459,40 @@ set sidescroll=1
 " search {
 set incsearch "is: automatically begins searching as you type
 set noignorecase "ic: no ignores case
-set smartcase "scs: ignores ignorecase when pattern contains uppercase characters
 set hlsearch "hls: highlights search results; ctrl-n or :noh to unhighlight
 set gdefault "gd: Substitute all matches in a line by default no need s/a/b/g
 set nowrapscan "Stop search at end of the file
 
 " search for selected text
 " TODO not working perfectly
-vnoremap // y/\M<C-R>"<CR>
+vnoremap // y/\V<C-R>"<CR>
 
 
 " when on a word, it search for this word
 " and replace with the specified value
 nnoremap <Leader>sr yiw:%s/\<<C-r>"\>//c<Left><Left>
 nnoremap <Leader>sR yiw:%s/<C-r>"//c<Left><Left>
-vnoremap <Leader>sr y:%s/<C-r>"//c<Left><Left>
+vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
 " k ensure that search is valid if last search of file
 vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
+
+function! Del_word_delims()
+   let reg = getreg('/')
+   " After *  i^r/ will give me pattern instead of \<pattern\>
+   let res = substitute(reg, '^\\<\(.*\)\\>$', '\1', '' )
+   if res != reg
+      return res
+   endif
+   " After * on a selection i^r/ will give me pattern instead of \Vpattern
+   let res = substitute(reg, '^\\V'          , ''  , '' )
+   let res = substitute(res, '\\\\'          , '\\', 'g')
+   let res = substitute(res, '\\n'           , '\n', 'g')
+   return res
+endfunction
+inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<CR>
+cnoremap          <C-R>/ <C-R>=Del_word_delims()<CR>
+nnoremap          "/p "=Del_word_delims()<C-M>p
 " }
 
 " spell {
