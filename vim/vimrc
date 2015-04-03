@@ -475,7 +475,7 @@ nnoremap <Leader>sR :%s/<C-r>=expand("<cword>")//c<Left><Left>
 vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
 " k ensure that search is valid if last search of file
-vnoremap <Leader>a yk/<C-r>"/<cr>:AgFromSearch!<cr>
+vnoremap <Leader>a y:Ag -Q "<C-r>""<cr>
 
 function! Del_word_delims()
    let reg = getreg('/')
