@@ -467,17 +467,15 @@ set nowrapscan "Stop search at end of the file
 " TODO not working perfectly
 vnoremap // y/\V<C-R>"<CR>
 
-
 " when on a word, it search for this word
 " and replace with the specified value
 nnoremap <Leader>sr :%s/\<<C-r>=expand("<cword>")<cr>\>//c<Left><Left>
 nnoremap <Leader>sR :%s/<C-r>=expand("<cword>")//c<Left><Left>
 vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
-" k ensure that search is valid if last search of file
 vnoremap <Leader>a y:exe "Ag -Q " . shellescape("<C-r>0")<cr>
 
-
+" remove ugly char when pasted searched text
 function! Del_word_delims()
   let reg = getreg('/')
   " After *  i^r/ will give me pattern instead of \<pattern\>
