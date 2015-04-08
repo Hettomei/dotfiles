@@ -93,7 +93,10 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="alanpeabody"
+# ZSH_THEME="alanpeabody"
+ZSH_THEME="amuse"
+# ZSH_THEME="aussiegeek"
+# ZSH_THEME="crunch"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

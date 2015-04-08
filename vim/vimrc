@@ -36,14 +36,12 @@ Plugin 'jayflo/vim-skip'
 Plugin 'rking/ag.vim'
 Plugin 'edsono/vim-matchit' "Improve math for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'sickill/vim-monokai'
 
 " language specific
-Plugin 'gudleik/vim-slim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'mattn/emmet-vim'
+Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 " Plugin 'wting/rust.vim'
 
 " for opening file
@@ -51,8 +49,6 @@ Plugin 'kien/ctrlp.vim'
 
 " other
 Plugin 'msanders/snipmate.vim'
-Plugin 'junegunn/goyo.vim' " to not be distracted
-Plugin 'Z1MM32M4N/vim-superman' " to read man
 Plugin 'ashisha/image.vim' " just open an image and it will display
 
 call vundle#end()            " required
@@ -194,7 +190,7 @@ augroup END
 " configure html/javascript{
 augroup config_html_js
   autocmd!
-  autocmd FileType html,javascript setlocal iskeyword-=- iskeyword+=-
+  autocmd FileType html,javascript,eruby setlocal iskeyword-=- iskeyword+=-
 augroup END
 " }
 
@@ -473,7 +469,7 @@ nnoremap <Leader>sr :%s/\<<C-r>=expand("<cword>")<cr>\>//c<Left><Left>
 nnoremap <Leader>sR :%s/<C-r>=expand("<cword>")//c<Left><Left>
 vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
 nnoremap <leader>a :AgFromSearch!<cr>
-vnoremap <Leader>a y:exe "Ag -Q " . shellescape("<C-r>0")<cr>
+vnoremap <Leader>a y:exe "Ag! -Q " . shellescape("<C-r>0")<cr>
 
 " remove ugly char when pasted searched text
 function! Del_word_delims()
