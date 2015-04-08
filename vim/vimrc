@@ -188,9 +188,9 @@ augroup END
 " }
 
 " configure html/javascript{
-augroup config_html_js
+augroup config_html_css_js
   autocmd!
-  autocmd FileType html,javascript,eruby setlocal iskeyword-=- iskeyword+=-
+  autocmd FileType html,javascript,eruby,css,scss setlocal iskeyword-=- iskeyword+=-
 augroup END
 " }
 
