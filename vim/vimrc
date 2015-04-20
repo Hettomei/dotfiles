@@ -619,7 +619,6 @@ endif
 
 " special qos energy {
 if !v:shell_error && s:uname == "Linux"
-  inoremap ² @
 endif
 
 " Convert new hash a: 4 to old hash :a => 4

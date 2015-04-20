@@ -229,8 +229,8 @@ alias sp='spin push'
 alias rtest="ruby -I\"lib:test\""
 
 function simplehttp(){
-  echo "python -m SimpleHTTPServer 8000"
-  python -m SimpleHTTPServer 8000
+echo "python -m SimpleHTTPServer 8000"
+python -m SimpleHTTPServer 8000
 }
 
 vman() {
@@ -262,12 +262,12 @@ alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 # Qos Energy #
 ##############
 function bdd_model(){
-  echo "mysql -u root qosenergy_development -e \"describe $1\""
-  mysql -u root qosenergy_development -e "describe $1"
+echo "mysql -u root qosenergy_development -e \"describe $1\""
+mysql -u root qosenergy_development -e "describe $1"
 }
 
 function pause(){
-  rbenv shell 2.1.5 && job_break $@ && rbenv shell --unset
+rbenv shell 2.1.5 && job_break $@ && rbenv shell --unset
 }
 
 
@@ -276,4 +276,8 @@ else
   #special QOS
   PERL_MB_OPT="--install_base \"/home/tgauthier/perl5\""; export PERL_MB_OPT;
   PERL_MM_OPT="INSTALL_BASE=/home/tgauthier/perl5"; export PERL_MM_OPT;
+
+  function qantumcommit(){
+    xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
+  }
 fi
