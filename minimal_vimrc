@@ -1,0 +1,31 @@
+" This config is used to have a minimalist confortable vim : with no plugin
+" to send to distant serveur :
+" scp minimal_vimrc my.server.com:"~/.vimrc"
+" or scp minimal_vimrc tgauthier@my.server.com:"~/.vimrc"
+
+set nocompatible
+set number
+
+let g:mapleader = "\<Space>"
+
+syntax enable
+
+set encoding=utf8
+set viminfo=h,'50,<1000,s1000,/500,:1000
+set backspace=indent,eol,start
+
+set laststatus=2
+set showcmd
+set whichwrap+=<,>,h,l,[,]
+set incsearch
+
+" search
+set noignorecase
+set hlsearch
+set nowrapscan
+
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <leader><leader> :w<CR>
+
+command Vimrc tabnew $MYVIMRC
