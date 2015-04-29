@@ -38,6 +38,7 @@ Plugin 'altercation/vim-colors-solarized'
 
 " language specific
 Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx.git'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
@@ -597,6 +598,11 @@ nnoremap <silent> <C-l> :call WinMove('l')<cr>
 " Switch directly to the new splitted window
 nnoremap <C-w>v :vsplit<CR>
 nnoremap <C-w>s :split<CR>
+
+nnoremap <silent> <leader>j :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <leader>k :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <leader>h :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <leader>l :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
 " split under
 set splitbelow
