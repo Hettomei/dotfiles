@@ -177,7 +177,7 @@ alias g='git'
 #good website :  http://alias.sh/compact-colorized-git-log
 alias e='echo'
 # ag doesent use pager by default. -s means "case sensitive"
-alias a='ag --pager less -s -U' #-U to ignor .gitignore
+alias a='ag --pager less -s -U' #-U to ignore .gitignore
 # find for file name. very usefull
 alias af="ag --unrestricted -g"
 # Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
@@ -214,9 +214,9 @@ tn $(($1*60)) $2
 #alias rake='noglob rake'
 #need a file 'Procfile'
 function fsa() {
-display='foreman start -c mysql=1,redis=1,mongodb=1,sidekiq=1,beanstalkd=1,backburner=1'
-echo -n $display | pbcopy
-echo $display
+  display='foreman start -c mysql=1,redis=1,mongodb=1,sidekiq=1,beanstalkd=1,backburner=1'
+  echo -n $display | pbcopy
+  echo $display
 }
 alias fsw='foreman start web'
 alias fsmy='foreman start mysql'
@@ -229,45 +229,20 @@ alias sp='spin push'
 alias rtest="ruby -I\"lib:test\""
 
 function simplehttp(){
-echo "python -m SimpleHTTPServer 8000"
-python -m SimpleHTTPServer 8000
+  echo "python -m SimpleHTTPServer 8000"
+  python -m SimpleHTTPServer 8000
 }
-
-vman() {
-  vim -c "SuperMan $*"
-
-  if [[ "$?" != "0" ]]; then
-    echo "No manual entry for $*"
-  fi
-}
-
-############
-# Bemyboat #
-############
-alias bmb_front='cd ~/BeMyBoat/bmb_front'
-alias bmb_crm='cd ~/BeMyBoat/bemyboat/webapp'
-alias bmb_tabarlus='cd ~/BeMyBoat/tabarlus'
-alias bmb_tabarlusapi='cd ~/BeMyBoat/tabarlus_api'
-alias bmb_tabarlusapis='cd ~/BeMyBoat/tabarlus_api/lib/tabarlus_api'
-alias bmb_business='cd ~/BeMyBoat/bmb_business'
-alias bmb_mmk='cd ~/BeMyBoat/mmk'
-alias bmb_mmks='cd ~/BeMyBoat/mmk/lib/mmk'
-alias bmb_sedna='cd ~/BeMyBoat/sedna'
-alias bmb_sednas='cd ~/BeMyBoat/sedna/lib/sedna'
-alias bmb_mister_b='cd ~/BeMyBoat/mister_booking'
-alias bmb_mister_bs='cd ~/BeMyBoat/mister_booking/lib/mister_b'
-alias bmb_cherche='cd ~/BeMyBoat/cherche-avocat'
 
 ##############
 # Qos Energy #
 ##############
 function bdd_model(){
-echo "mysql -u root qosenergy_development -e \"describe $1\""
-mysql -u root qosenergy_development -e "describe $1"
+  echo "mysql -u root qosenergy_development -e \"describe $1\""
+  mysql -u root qosenergy_development -e "describe $1"
 }
 
 function pause(){
-rbenv shell 2.1.5 && job_break $@ && rbenv shell --unset
+  rbenv shell 2.1.5 && job_break $@ && rbenv shell --unset
 }
 
 
