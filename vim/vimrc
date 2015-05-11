@@ -625,6 +625,8 @@ endif
 
 " special qos energy {
 if !v:shell_error && s:uname == "Linux"
+  map <PageDown> <Nop>
+  map <PageUp> <Nop>
 endif
 
 " Convert new hash a: 4 to old hash :a => 4

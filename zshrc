@@ -176,10 +176,11 @@ alias g='git'
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias e='echo'
-# ag doesent use pager by default. -s means "case sensitive"
-alias a='ag --pager less -s -U' #-U to ignore .gitignore
+# ag doesent use pager by default
+alias a='ag --pager less --case-sensitive'
 # find for file name. very usefull
-alias af="ag --unrestricted -g"
+alias af="ag --pager less -g"
+alias aflarger="ag  --pager less --unrestricted -g" # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 # Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
 alias aglarger=ag --path-to-agignore "./nothing.agignore"
 alias f="find . -name"
@@ -256,3 +257,57 @@ else
     xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
   }
 fi
+
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###
