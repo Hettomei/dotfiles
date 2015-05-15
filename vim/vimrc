@@ -673,3 +673,6 @@ set synmaxcol=1000
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html<F37>
 
 " }
+"
+" need to ad a specifiq agignore, see .zshrc for details
+let g:agprg="ag --path-to-agignore .agignorecustom --column"

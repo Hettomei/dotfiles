@@ -176,13 +176,18 @@ alias g='git'
 
 #good website :  http://alias.sh/compact-colorized-git-log
 alias e='echo'
+
 # ag doesent use pager by default
-alias a='ag --pager less --case-sensitive'
+# I need to add a specific .agignorecustom because if I keep .agignore,
+# when I want to search with only .gitignore it is impossible because it combine .agignore with --path-to-agignore
+alias a='ag --pager less --case-sensitive --path-to-agignore ".agignorecustom"'
 # find for file name. very usefull
 alias af="ag --pager less -g"
-alias aflarger="ag  --pager less --unrestricted -g" # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
-# Sometimes I want to use only .gitignore file so, by specifiyng a fake agignore, it use only .gitignore
-alias aglarger=ag --path-to-agignore "./nothing.agignore"
+# Sometimes I want to use only .gitignore file
+alias aglarger="ag --page less"
+# --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
+alias aflarger="ag  --pager less --unrestricted -g"
+
 alias f="find . -name"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias v='nvim'
