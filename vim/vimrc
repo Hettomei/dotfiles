@@ -65,6 +65,8 @@ syntax enable
 
 set autoread " Automatically reload changes if detected
 set encoding=utf8
+set fileencoding=utf-8
+set fileencodings=utf-8
 set history=300
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
@@ -77,6 +79,7 @@ set history=300
 "           | |   |      |     |     |
 "           v v   v      v     v     v
 set viminfo=h,'50,<1000,s1000,/500,:1000
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 
 " FileType {
@@ -276,7 +279,7 @@ let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
 
 " wildignore {
 " vim-scripts/gitignore update the list too
-" Patter ignore when use the completion in search file
+" Pattern ignore when use the completion in search file
 set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3,*.ico
 set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -648,6 +651,14 @@ if !v:shell_error && s:uname == "Linux"
 else
   let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
 endif
+
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
 " }
 
 " special qos energy {
