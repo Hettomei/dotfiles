@@ -94,13 +94,14 @@ augroup END
 set backspace=indent,eol,start
 
 " QuickLink to various file {
-command Vimrc tabnew $MYVIMRC
-command Gvimrc tabnew $MYGVIMRC
-command Zshrc tabnew $HOME/.zshrc
+command! Vimrc tabnew $MYVIMRC
+command! VimrcSource source $MYVIMRC
+command! Gvimrc tabnew $MYGVIMRC
+command! Zshrc tabnew $HOME/.zshrc
 
-command Whyvim tabnew $HOME/cours-vim.md
-command Shocked tabnew $HOME/code-qos-shocked.md
-command Todo tabnew $HOME/todo.md
+command! Whyvim tabnew $HOME/cours-vim.md
+command! Shocked tabnew $HOME/code-qos-shocked.md
+command! Todo tabnew $HOME/todo.md
 " }
 
 " crypt file {
@@ -127,7 +128,7 @@ colorscheme solarized
 let Tlist_Auto_Update=1
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 " Reload tag
-command Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
+command! Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
 nnoremap <C-$> :tnext<CR>
 " }
 
@@ -495,6 +496,12 @@ nnoremap <silent> <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <silent> <Leader>a :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is selected on all repo
 vnoremap <silent> <Leader>a y:exe "grep! -Q " . shellescape("<C-r>0")<CR><CR>:cw<CR>
+
+" Always move quickfix at bottom for full width
+augroup specific-quickfix-window
+  autocmd!
+  autocmd FileType qf wincmd J|nnoremap <buffer> q :q<CR>
+augroup END
 " }
 
 " ctrlp {
@@ -545,11 +552,11 @@ endif
 
 "help from here
 "http://stackoverflow.com/questions/10572996/passing-command-range-to-a-function
-command -range Underscore <line1>,<line2>call UnderscoreAll()
+command! -range Underscore <line1>,<line2>call UnderscoreAll()
 
 " Idea of function taken here :
 " http://www.ibm.com/developerworks/linux/library/l-vim-script-2/
-function UnderscoreAll() range
+function! UnderscoreAll() range
   "Step through each line in the range...
   for linenum in range(a:firstline, a:lastline)
     let curr_line   = getline(linenum)
