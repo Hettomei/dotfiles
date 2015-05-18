@@ -63,10 +63,6 @@ let s:uname = system("echo -n \"$(uname)\"")
 
 syntax enable
 
-set autoread " Automatically reload changes if detected
-set encoding=utf8
-set fileencoding=utf-8
-set fileencodings=utf-8
 set history=300
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
@@ -95,6 +91,13 @@ augroup END
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+" file encoding {
+set autoread " Automatically reload changes if detected
+set encoding=utf8
+set fileencoding=utf-8
+set fileencodings=utf-8
+" }
+
 " QuickLink to various file {
 command! Vimrc tabnew $MYVIMRC
 command! VimrcSource source $MYVIMRC
@@ -121,9 +124,11 @@ set directory=/tmp "dir: directory for temp files
 
 " colors {
 set background=dark
-let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
+" let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 colorscheme solarized
-" colorscheme monokai
+
+" stop syntax coloring after 1000 columns
+set synmaxcol=1000
 " }
 
 " CTags ctags {
@@ -671,9 +676,6 @@ endif
 nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 
 " }
-
-" stop syntax coloring after 1000 columns
-set synmaxcol=1000
 
 " Tips and tricks {
 
