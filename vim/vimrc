@@ -79,7 +79,6 @@ set history=300
 "           | |   |      |     |     |
 "           v v   v      v     v     v
 set viminfo=h,'50,<1000,s1000,/500,:1000
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 
 " FileType {
@@ -137,8 +136,7 @@ nnoremap <C-$> :tnext<CR>
 
 " configure display {
 
-" cursor position
-set ruler
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 " Status bar
 set laststatus=2

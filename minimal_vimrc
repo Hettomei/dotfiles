@@ -17,13 +17,18 @@ set backspace=indent,eol,start
 
 set laststatus=2
 set showcmd
+"
+" when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
-set incsearch
+" Map the arrow keys to be based on display lines, not physical lines
+nnoremap <Down> gj
+nnoremap <Up> gk
 
 "Display &nbsp and trailing space :
 set list listchars=nbsp:•,trail:¬
 
 " search
+set incsearch
 set noignorecase
 set hlsearch
 set nowrapscan
