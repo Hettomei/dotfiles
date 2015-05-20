@@ -100,7 +100,7 @@ set fileencodings=utf-8
 
 " QuickLink to various file {
 command! Vimrc tabnew $MYVIMRC
-command! VimrcSource source $MYVIMRC
+command! SourceVimrc source $MYVIMRC
 command! Gvimrc tabnew $MYGVIMRC
 command! Zshrc tabnew $HOME/.zshrc
 
@@ -509,10 +509,11 @@ augroup specific-quickfix-window
   autocmd FileType qf wincmd J
   " Quit on q
   autocmd FileType qf nnoremap <buffer> q :q<CR>
-  autocmd FileType qf nnoremap <buffer> <C-h> <C-w><Enter><C-w>H
-  autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J
-  autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K
-  autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L
+  " Open new window and display quickfix window on bottom
+  autocmd FileType qf nnoremap <buffer> <C-h> <C-w><Enter><C-w>H:cclose<CR>:copen<CR>
+  autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J:cclose<CR>:copen<CR>
+  autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR>
+  autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR>
 augroup END
 " }
 
