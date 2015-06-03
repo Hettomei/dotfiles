@@ -261,6 +261,10 @@ else
   function qantumcommit(){
     xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
   }
+
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 fi
 
 ###-begin-npm-completion-###
@@ -316,3 +320,4 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+eval "$(rbenv init -)"
