@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 Plugin 'gorkunov/smartpairs.vim'
-Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
+" Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax // currently disabled because of javascript
 
 " tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
@@ -493,7 +493,7 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 if executable('ag')
   " Use ag over grep
   " need to ad a specifiq agignore, see .zshrc for details
-  set grepprg=ag\ --nogroup\ --nocolor\ --path-to-agignore\ .agignorecustom
+  set grepprg=ag\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-agignore\ .agignorecustom
 endif
 
 " Like * but on all repo :)
@@ -509,11 +509,13 @@ augroup specific-quickfix-window
   autocmd FileType qf wincmd J
   " Quit on q
   autocmd FileType qf nnoremap <buffer> q :q<CR>
-  " Open new window and display quickfix window on bottom
-  autocmd FileType qf nnoremap <buffer> <C-h> <C-w><Enter><C-w>H:cclose<CR>:copen<CR>
-  autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J:cclose<CR>:copen<CR>
-  autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR>
-  autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR>
+  " Open new window
+  " display quickfix window on bottom
+  " and return on the previous opened window
+  autocmd FileType qf nnoremap <buffer> <C-h> <C-w><Enter><C-w>H:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR><C-w>p
 augroup END
 " }
 
@@ -682,6 +684,11 @@ endif
 " oh is for old hash
 nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 
+" }
+
+" sudo {
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cabbrev w!! w !sudo tee > /dev/null %
 " }
 
 " Tips and tricks {

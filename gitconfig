@@ -3,7 +3,7 @@
   name = Hettomei
   email = itsumo.sibyllin@gmail.com
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.gitignore_global
 [color]
   ui = auto
@@ -24,7 +24,7 @@
   di = diff
   dic = diff --cached
   diw = diff --color-words
-  diwc = diff --cached --color-words
+  dicw = diff --cached --color-words
   l = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
   ll = log -5 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   lll = log -10 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -40,7 +40,7 @@
   default = simple
 [diff]
   algorithm = patience
-  tool = vimdiff
+  tool = nvim -d
 [merge]
   tool = fugitive
 [difftool]
