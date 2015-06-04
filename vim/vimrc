@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 Plugin 'gorkunov/smartpairs.vim'
-" Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax // currently disabled because of javascript
+Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax // currently disabled because of javascript
 
 " tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
@@ -30,6 +30,8 @@ Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
+                           " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 
 Plugin 'jayflo/vim-skip'
 " Plugin 'rking/ag.vim'
@@ -561,30 +563,6 @@ endif
 "autocmd filetype svn,*commit* set spell
 " }
 
-"underscorize {
-"This fonction convert any upper case to _letter
-"example : HiTheirLol -> hi_their_lol
-
-"help from here
-"http://stackoverflow.com/questions/10572996/passing-command-range-to-a-function
-command! -range Underscore <line1>,<line2>call UnderscoreAll()
-
-" Idea of function taken here :
-" http://www.ibm.com/developerworks/linux/library/l-vim-script-2/
-function! UnderscoreAll() range
-  "Step through each line in the range...
-  for linenum in range(a:firstline, a:lastline)
-    let curr_line   = getline(linenum)
-    " from ruby on rails
-    " http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-underscore
-    let replacement = substitute(curr_line  , '\([A-Z\d]+\)\([A-Z][a-z]\)', '\1_\2', 'g')
-    let replacement = substitute(replacement, '\([a-z\d]\)\([A-Z]\)'      , '\1_\2', 'g')
-    let replacement = tolower(replacement)
-    call setline(linenum, replacement)
-  endfor
-endfunction
-" }
-
 " up down movement {
 " when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
@@ -678,6 +656,8 @@ let g:syntastic_aggregate_errors = 1
 if !v:shell_error && s:uname == "Linux"
   map <PageDown> <Nop>
   map <PageUp> <Nop>
+  iabbrev DM DailyMesure
+  iabbrev dm daily_mesure
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
