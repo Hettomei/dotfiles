@@ -185,7 +185,7 @@ augroup END
 augroup config_ruby
   autocmd!
   " Said it is a good practice to do -= then += but can't find link
-  autocmd FileType ruby setlocal iskeyword-=? iskeyword+=?
+  autocmd FileType ruby setlocal iskeyword-=?,! iskeyword+=?,!
   " with @ as part of a word
   " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 augroup END
@@ -518,6 +518,8 @@ augroup specific-quickfix-window
   autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J:cclose<CR>:copen<CR><C-w>p
   autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR><C-w>p
   autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR><C-w>p
+  " Open in a new tab. ^ is to go to first char to apply "gf"
+  autocmd FileType qf nnoremap <buffer> <C-t> ^<C-w>gf:copen<CR>
 augroup END
 " }
 
