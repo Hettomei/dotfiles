@@ -20,7 +20,7 @@ Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
 Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
-Plugin 'tpope/gem-ctags'
+" Plugin 'tpope/gem-ctags'
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
 Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
 Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
@@ -34,8 +34,7 @@ Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easil
                            " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 
 Plugin 'jayflo/vim-skip'
-" Plugin 'rking/ag.vim'
-Plugin 'edsono/vim-matchit' "Improve math for if ... end when press %
+" Plugin 'edsono/vim-matchit' "Improve match for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
 
 " language specific
@@ -134,10 +133,11 @@ set synmaxcol=1000
 " }
 
 " CTags ctags {
-let Tlist_Auto_Update=1
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+" let Tlist_Auto_Update=1
+" let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 " Reload tag
-command! Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
+" command! Rtags execute "!/usr/local/bin/ctags --extra=+f -R *"
+" ctags -R --languages=ruby --exclude=.git --exclude=log .
 nnoremap <C-$> :tnext<CR>
 " }
 
@@ -519,7 +519,7 @@ augroup specific-quickfix-window
   autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR><C-w>p
   autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR><C-w>p
   " Open in a new tab. ^ is to go to first char to apply "gf"
-  autocmd FileType qf nnoremap <buffer> <C-t> ^<C-w>gf:copen<CR>
+  autocmd FileType qf nnoremap <buffer> <C-t> ^<C-w>gf:copen<CR><C-w>p
 augroup END
 " }
 
