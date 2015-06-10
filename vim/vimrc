@@ -658,8 +658,8 @@ let g:syntastic_aggregate_errors = 1
 if !v:shell_error && s:uname == "Linux"
   map <PageDown> <Nop>
   map <PageUp> <Nop>
-  iabbrev DM DailyMesure
-  iabbrev dm daily_mesure
+  abbrev DM DailyMesure
+  abbrev dm daily_mesure
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
