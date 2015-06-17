@@ -11,8 +11,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
-Plugin 'gorkunov/smartpairs.vim'
-Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax // currently disabled because of javascript
+Plugin 'gorkunov/smartpairs.vim' " make easy with vv
+Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
 
 " tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
@@ -108,12 +108,6 @@ command! Zshrc tabnew $HOME/.zshrc
 command! Whyvim tabnew $HOME/cours-vim.md
 command! Shocked tabnew $HOME/code-qos-shocked.md
 command! Todo tabnew $HOME/todo.md
-" }
-
-" crypt file {
-if has("cryptv")
-  set cryptmethod=blowfish
-endif
 " }
 
 " backup swap {
@@ -228,6 +222,9 @@ let g:netrw_liststyle=3
 " For vim-rails {
 " help -> :help rails-projection
 let g:rails_projections = {
+      \ "lib/import/*.rb": {
+      \   "command": "import"
+      \ },
       \ "app/decorators/*_decorator.rb": {
       \   "command": "decorator",
       \   "template":
@@ -495,15 +492,17 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 if executable('ag')
   " Use ag over grep
   " need to ad a specifiq agignore, see .zshrc for details
-  set grepprg=ag\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-agignore\ .agignorecustom
+  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-agignore\ .agignorecustom
 endif
 
 " Like * but on all repo :)
-nnoremap <silent> <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" call histadd("cmd", "e $MYVIMRC")
+"
+nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is inside register "/" but on all repo
 nnoremap <silent> <Leader>a :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is selected on all repo
-vnoremap <silent> <Leader>a y:exe "grep! -Q " . shellescape("<C-r>0")<CR><CR>:cw<CR>
+vnoremap <silent> <Leader>a y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
 
 augroup specific-quickfix-window
   autocmd!
@@ -530,9 +529,6 @@ nnoremap <C-b> :CtrlPBuffer<CR>
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor --path-to-agignore .agignorecustom -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching = 0
 endif
 " }
 
@@ -660,6 +656,10 @@ if !v:shell_error && s:uname == "Linux"
   map <PageUp> <Nop>
   abbrev DM DailyMesure
   abbrev dm daily_mesure
+  abbrev MM MonthlyMesure
+  abbrev mm monthly_mesure
+  abbrev MMS MonthlyMesures
+  abbrev mms monthly_mesures
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
@@ -670,6 +670,7 @@ nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
+" or :SudoEdit
 cabbrev w!! w !sudo tee > /dev/null %
 " }
 
