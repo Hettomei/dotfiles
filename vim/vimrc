@@ -32,6 +32,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
                            " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
+Plugin 'tpope/vim-vinegar'
 
 Plugin 'jayflo/vim-skip'
 " Plugin 'edsono/vim-matchit' "Improve match for if ... end when press %
@@ -673,6 +674,14 @@ nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
 " or :SudoEdit
 cabbrev w!! w !sudo tee > /dev/null %
 " }
+
+" tpope vinegar{
+" keep - the old way
+nmap <Leader>n <Plug>VinegarUp
+" avoid tpope map
+nnoremap - -
+" }
+
 
 " Tips and tricks {
 
