@@ -2,9 +2,6 @@
 # TIPS AND TRICKS #
 ###################
 #
-# grepall finded_text file_extension
-#
-###
 # on big command line press : CTRL-X-E (hold ctrl) and you can edit it on vim
 #
 ###
@@ -321,3 +318,9 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 eval "$(rbenv init -)"
+
+youtube-mp3() {
+cd ~/Desktop/
+youtube-dl "$1" --extract-audio --audio-format mp3
+cd -
+}
