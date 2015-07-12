@@ -24,6 +24,13 @@ do
   cp -v -R $HOME/.vim/$file_name $DIR/vim/
 done
 
+#### FISH ####
+rm -r $DIR/fish
+mkdir $DIR/fish
+
+cp -v $HOME/.config/fish/config.fish $DIR/fish/config.fish
+cp -v -R $HOME/.config/fish/functions $DIR/fish/
+
 cd $DIR
 
 git add -p
