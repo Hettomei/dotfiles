@@ -294,7 +294,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.exe
 " menuone is to always display menu
 set completeopt+=longest,menuone
 "tab completion for files
-set wildmode=list:longest,full
+set wildmode=list:longest
 set dictionary=/Users/tim/.vim/dictionary/francais.txt
 set complete-=i " Tim pop says no. So no
 " Add dictionnary to <Ctrl-N> " will see if usefull in futur
