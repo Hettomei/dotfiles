@@ -460,8 +460,8 @@ vnoremap // y/\V<C-R>"<CR>
 
 " when on a word, it search for this word
 " and replace with the specified value
-nnoremap <Leader>sr :%s/\<<C-r>=expand("<cword>")<cr>\>//c<Left><Left>
-nnoremap <Leader>sR :%s/<C-r>=expand("<cword>")//c<Left><Left>
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>//c<Left><Left>
+nnoremap <Leader>sR :%s/<C-r><C-w>//c<Left><Left>
 vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
 
 " remove ugly char when pasted searched text
@@ -676,6 +676,10 @@ nmap <Leader>n <Plug>VinegarUp
 nnoremap - -
 " }
 
+" from https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
+if &shell =~# 'fish$'
+  set shell=/bin/bash
+endif
 
 " Tips and tricks {
 

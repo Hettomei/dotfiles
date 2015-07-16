@@ -22,6 +22,8 @@ alias aflarger 'ag  --pager less --unrestricted -g'
 alias f 'find . -name'
 alias rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
+alias rtest "ruby -I\"lib:test\""
+
 
 switch (uname)
   case Linux
@@ -36,6 +38,7 @@ switch (uname)
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
 
+    alias pbcopy 'xclip -selection clipboard'
   case Mac
   case '*'
     echo You have an unknown uname (see .config/config.fish)
