@@ -45,6 +45,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper'
+Plugin 'dag/vim-fish'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
