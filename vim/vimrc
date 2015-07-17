@@ -139,7 +139,6 @@ nnoremap <C-$> :tnext<CR>
 " }
 
 " configure display {
-
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 " Status bar
@@ -159,6 +158,11 @@ set list listchars=nbsp:•,trail:¬
 " line number
 set number
 set numberwidth=1
+
+" set ttyfast "tf: improves redrawing for newer computers
+set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
+
+set virtualedit=block
 " }
 
 " configure folding {
@@ -215,11 +219,6 @@ if !exists("auto_load_large_file")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
   augroup END
 endif
-" }
-
-" Explorer netrw {
-nnoremap <Leader>n :Explore<cr>
-let g:netrw_liststyle=3
 " }
 
 " For vim-rails {
@@ -289,6 +288,8 @@ set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3,*.ico
 set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.exe
+" case-insensitive filename completion
+set wildignorecase
 " }
 
 " Completion {
@@ -623,11 +624,6 @@ set splitbelow
 set splitright
 " }
 
-" set ttyfast "tf: improves redrawing for newer computers
-set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
-
-set virtualedit=block
-
 " syntastic {
 if !v:shell_error && s:uname == "Linux"
 " let g:syntastic_mode_map = { 'mode': 'passive' }
@@ -655,6 +651,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev mm monthly_mesure
   abbrev MMS MonthlyMesures
   abbrev mms monthly_mesures
+  abbrev FP FreePeriod
+  abbrev FPS FreePeriodStore
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
@@ -670,16 +668,18 @@ cabbrev w!! w !sudo tee > /dev/null %
 " }
 
 " tpope vinegar{
-" keep - the old way
+let g:netrw_liststyle=3
 nmap <Leader>n <Plug>VinegarUp
-" avoid tpope map
+" keep - the old way because tpope remapped it
 nnoremap - -
 " }
 
+" fish config{
 " from https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
 if &shell =~# 'fish$'
   set shell=/bin/bash
 endif
+" }
 
 " Tips and tricks {
 
