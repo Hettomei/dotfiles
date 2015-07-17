@@ -1,8 +1,9 @@
 set fish_greeting
 
-set -Ux EDITOR nvim
-set -Ux VISUAL nvim
-set -Ux LESS '-R -X -F'
+set -x EDITOR nvim
+set -x VISUAL nvim
+set -x LESS '-R -X -F'
+set -x LANG en_GB.utf8
 
 alias v nvim
 alias g git
