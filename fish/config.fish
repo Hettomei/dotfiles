@@ -40,9 +40,9 @@ switch (uname)
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
 
     alias pbcopy 'xclip -selection clipboard'
-  case Mac
+  case Darwin
   case '*'
-    echo You have an unknown uname (see .config/config.fish)
+    echo 'You have an unknown uname (see .config/config.fish)' (uname)
 end
 
 . (rbenv init -)
