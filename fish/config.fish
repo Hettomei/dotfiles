@@ -3,7 +3,6 @@ set fish_greeting
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x LESS '-R -X -F'
-set -x LANG en_GB.utf8
 
 alias v nvim
 alias g git
@@ -32,6 +31,9 @@ switch (uname)
       xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$argv
     end
 
+    set -x LANG en_GB.utf8
+    set -x LC_ALL en_GB.utf8
+
     set PATH $HOME/.linuxbrew/bin $PATH
     set PATH $HOME/.rbenv/bin $PATH
     set PATH $HOME/.rbenv/shims $PATH
@@ -41,6 +43,8 @@ switch (uname)
 
     alias pbcopy 'xclip -selection clipboard'
   case Darwin
+    set PATH $HOME/.rbenv/bin $PATH
+    set PATH $HOME/.rbenv/shims $PATH
   case '*'
     echo 'You have an unknown uname (see .config/config.fish)' (uname)
 end
