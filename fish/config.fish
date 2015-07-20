@@ -33,7 +33,6 @@ switch (uname)
 
     set PATH $HOME/.linuxbrew/bin $PATH
     set PATH $HOME/.rbenv/bin $PATH
-    set PATH $HOME/.rbenv/shims $PATH
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
@@ -41,9 +40,8 @@ switch (uname)
     alias pbcopy 'xclip -selection clipboard'
   case Darwin
     set PATH $HOME/.rbenv/bin $PATH
-    set PATH $HOME/.rbenv/shims $PATH
   case '*'
     echo 'You have an unknown uname (see .config/config.fish)' (uname)
 end
 
-. (rbenv init -)
+rbenv init - | source -
