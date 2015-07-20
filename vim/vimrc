@@ -61,6 +61,13 @@ filetype plugin indent on    " required
 
 let g:mapleader = "\<Space>"
 
+" fish config{
+" from https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
+if &shell =~# 'fish$'
+  set shell=/bin/bash
+endif
+" }
+
 " setup var to know wich enironnement is running
 let s:uname = system("echo -n \"$(uname)\"")
 
@@ -672,13 +679,6 @@ let g:netrw_liststyle=3
 nmap <Leader>n <Plug>VinegarUp
 " keep - the old way because tpope remapped it
 nnoremap - -
-" }
-
-" fish config{
-" from https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
-if &shell =~# 'fish$'
-  set shell=/bin/bash
-endif
 " }
 
 " Tips and tricks {

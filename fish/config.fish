@@ -31,9 +31,6 @@ switch (uname)
       xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$argv
     end
 
-    set -x LANG en_GB.utf8
-    set -x LC_ALL en_GB.utf8
-
     set PATH $HOME/.linuxbrew/bin $PATH
     set PATH $HOME/.rbenv/bin $PATH
     set PATH $HOME/.rbenv/shims $PATH
