@@ -3,6 +3,7 @@ set fish_greeting
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x LESS '-R -X -F'
+set PATH $HOME/.rbenv/bin $PATH
 
 alias v nvim
 alias g git
@@ -32,14 +33,12 @@ switch (uname)
     end
 
     set PATH $HOME/.linuxbrew/bin $PATH
-    set PATH $HOME/.rbenv/bin $PATH
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
 
     alias pbcopy 'xclip -selection clipboard'
   case Darwin
-    set PATH $HOME/.rbenv/bin $PATH
   case '*'
     echo 'You have an unknown uname (see .config/config.fish)' (uname)
 end
