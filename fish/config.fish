@@ -23,8 +23,7 @@ alias aflarger 'ag  --pager less --unrestricted -g'
 alias f 'find . -name'
 alias rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
-alias rtest "ruby -I\"lib:test\""
-
+alias rtest 'ruby -I"lib:test"'
 
 switch (uname)
   case Linux
@@ -39,6 +38,8 @@ switch (uname)
 
     alias pbcopy 'xclip -selection clipboard'
   case Darwin
+    #because of homebrew : "brew link grep" create a suffix g
+    alias grep='ggrep'
   case '*'
     echo 'You have an unknown uname (see .config/config.fish)' (uname)
 end
