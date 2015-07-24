@@ -118,6 +118,7 @@ command! Fishconfig tabnew $HOME/.config/fish/config.fish
 command! Whyvim tabnew $HOME/cours-vim.md
 command! Shocked tabnew $HOME/code-qos-shocked.md
 command! Todo tabnew $HOME/todo.md
+command! Reunion tabnew $HOME/next_reunion.md
 " }
 
 " backup swap {
