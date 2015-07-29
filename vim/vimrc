@@ -350,6 +350,8 @@ nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
 
 nnoremap <Leader><Leader> :w<CR>
+nnoremap go o<esc>
+nnoremap gO O<esc>
 
 " }
 
