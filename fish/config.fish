@@ -15,11 +15,11 @@ alias bc "bc -l"
 # when I want to search with only .gitignore it is impossible because it combine .agignore with --path-to-agignore
 alias a 'ag --pager less --case-sensitive --path-to-agignore ".agignorecustom"'
 # find for file name. very usefull
-alias af 'ag --pager less -g'
+alias af 'ag --pager less -ig'
 # Sometimes I want to use only .gitignore file
 alias aglarger 'ag --page less'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
-alias aflarger 'ag  --pager less --unrestricted -g'
+alias aflarger 'ag  --pager less --unrestricted -ig'
 
 alias f 'find . -name'
 alias rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
