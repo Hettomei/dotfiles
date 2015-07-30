@@ -73,7 +73,7 @@ let s:uname = system("echo -n \"$(uname)\"")
 
 syntax enable
 
-set history=300
+set history=4000
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 "           +--Disable hlsearch while loading viminfo
