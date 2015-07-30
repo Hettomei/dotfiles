@@ -6,6 +6,7 @@ set -x LESS '-R -X -F'
 set PATH $HOME/.rbenv/bin $PATH
 
 alias v nvim
+alias vlarge "v -u ~/.vim/minimal_vimrc"
 alias g git
 alias bc "bc -l"
 
@@ -27,10 +28,6 @@ alias rtest 'ruby -I"lib:test"'
 
 switch (uname)
   case Linux
-    function qantumcommit
-      xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$argv
-    end
-
     set PATH $HOME/.linuxbrew/bin $PATH
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
