@@ -14,7 +14,7 @@ done
 rm -r $DIR/vim
 mkdir $DIR/vim
 
-for file_name in 'vimrc' 'gvimrc'
+for file_name in 'vimrc' 'gvimrc' 'minimal_vimrc'
 do
   cp -v $HOME/.vim/$file_name $DIR/vim/$file_name
 done
