@@ -6,9 +6,9 @@ set -x LESS '-R -X -F'
 set PATH $HOME/.rbenv/bin $PATH
 
 alias v nvim
-alias vlarge "v -u ~/.vim/minimal_vimrc"
-alias g git
-alias bc "bc -l"
+abbr -a vlarge "nvim -u ~/.vim/minimal_vimrc"
+abbr -a g git
+abbr -a bc "bc -l"
 
 # ag doesent use pager by default
 # I need to add a specific .agignorecustom because if I keep .agignore,
@@ -17,14 +17,13 @@ alias a 'ag --pager less --case-sensitive --path-to-agignore ".agignorecustom"'
 # find for file name. very usefull
 alias af 'ag --pager less -ig'
 # Sometimes I want to use only .gitignore file
-alias aglarger 'ag --page less'
+abbr -a aglarger 'ag --page less'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
-alias aflarger 'ag  --pager less --unrestricted -ig'
+abbr -a aflarger 'ag --pager less --unrestricted -ig'
 
-alias f 'find . -name'
-alias rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
+abbr -a rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
-alias rtest 'ruby -I"lib:test"'
+abbr -a rtest 'ruby -I"lib:test"'
 
 switch (uname)
   case Linux
