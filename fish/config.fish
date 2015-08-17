@@ -25,6 +25,8 @@ abbr -a rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
 abbr -a rtest 'ruby -I"lib:test"'
 
+abbr -a bdd_model 'mysql -u root qosenergy_development -e "describe'
+
 switch (uname)
   case Linux
     set PATH $HOME/.linuxbrew/bin $PATH

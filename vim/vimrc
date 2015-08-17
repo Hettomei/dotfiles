@@ -718,4 +718,11 @@ nnoremap - -
 " Why I group autocmd ? (because to reload vimrc)
 " http://learnvimscriptthehardway.stevelosh.com/chapters/14.html<F37>
 
+" To profile all
+" :profile start profile.log
+" :profile func *
+" :profile file *
+" :profile pause
+" :profile continue
+" :q
 " }

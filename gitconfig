@@ -33,8 +33,6 @@
   l3 = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
   whatrebase = log upstream/master..HEAD --oneline --reverse --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   wc = whatchanged -p
-  pul = pull
-  pus = push
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
   undo-commit = reset --soft HEAD^
