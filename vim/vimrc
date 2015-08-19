@@ -184,7 +184,7 @@ set foldlevel=6
 augroup change_file_fold
   autocmd!
   autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=0
-  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,}
+  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=3
   autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
   autocmd BufRead,BufNewFile *.rb                          setlocal foldmethod=syntax
 augroup END
