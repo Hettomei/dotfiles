@@ -147,7 +147,7 @@ nnoremap <C-$> :tnext<CR>
 " }
 
 " configure display {
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set statusline=%f%=%m%r%h%w%y\ %l\/%L\ \|\ %c
 
 " Status bar
 set laststatus=2
