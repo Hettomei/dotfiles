@@ -25,7 +25,9 @@ abbr -a rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
 abbr -a rtest 'ruby -I"lib:test"'
 
-abbr -a bdd_model 'mysql -u root qosenergy_development -e "describe'
+abbr -a describe 'mysql -u root qosenergy_development -e "describe'
+
+abbr -a be 'bundle exec'
 
 switch (uname)
   case Linux
@@ -33,8 +35,10 @@ switch (uname)
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
+    set -x BUNDLE_GEMFILE CustomGemfile
 
     alias pbcopy 'xclip -selection clipboard'
+    alias pbpaste 'xclip -o'
   case Darwin
     #because of homebrew : "brew link grep" create a suffix g
     alias grep='ggrep'

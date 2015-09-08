@@ -36,6 +36,9 @@
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
   undo-commit = reset --soft HEAD^
+  rh = !git reset HEAD . && git status
+  # edit config : open this file :)
+  ec = config --global -e
 [push]
   default = simple
 [diff]

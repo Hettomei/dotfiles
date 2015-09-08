@@ -651,8 +651,13 @@ let g:syntastic_aggregate_errors = 1
 
 " special qos energy {
 if !v:shell_error && s:uname == "Linux"
-  map <PageDown> <Nop>
-  map <PageUp> <Nop>
+  nnoremap <PageDown> <Nop>
+  inoremap <PageDown> <Nop>
+  nnoremap <PageUp> <Nop>
+  inoremap <PageUp> <Nop>
+
+  abbrev EF EnergyField
+  abbrev ef energy_field
   abbrev DM DailyMesure
   abbrev dm daily_mesure
   abbrev MM MonthlyMesure
