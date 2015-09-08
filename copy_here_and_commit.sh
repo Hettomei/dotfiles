@@ -35,6 +35,6 @@ cd $DIR
 
 git add -p
 git status
-echo -n "Tape entrée mec"
-read
+echo -n "Tape une touche mec"
+read -n 1
 git commit
