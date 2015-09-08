@@ -34,4 +34,7 @@ cp -v -R $HOME/.config/fish/functions $DIR/fish/
 cd $DIR
 
 git add -p
+git status
+echo -n "Tape entrée mec"
+read
 git commit
