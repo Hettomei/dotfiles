@@ -29,6 +29,7 @@ abbr -a rtest 'ruby -I"lib:test"'
 abbr -a describe 'mysql -u root qosenergy_development -e "describe'
 
 abbr -a be 'bundle exec'
+abbr -a pps 'ps aux | grep'
 
 switch (uname)
   case Linux
