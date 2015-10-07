@@ -25,34 +25,29 @@ Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
 Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
 Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
 Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-characterize' " Add more display when press gA on a char
+Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
 Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
-Plugin 'tpope/vim-haml'
+" Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
                            " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 Plugin 'tpope/vim-vinegar'
 
 Plugin 'jayflo/vim-skip'
-" Plugin 'edsono/vim-matchit' "Improve match for if ... end when press %
 Plugin 'altercation/vim-colors-solarized'
 
 " language specific
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx.git'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
-Plugin 'lmeijvogel/vim-yaml-helper'
+Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'dag/vim-fish'
+Plugin 'msanders/snipmate.vim'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
-
-" other
-Plugin 'msanders/snipmate.vim'
-Plugin 'ashisha/image.vim' " just open an image and it will display
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -665,6 +660,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev mms monthly_mesures
   abbrev FP FreePeriod
   abbrev FPS FreePeriodStore
+  abbrev SR SensorReference
+  abbrev sr sensor_reference
 endif
 
 " Convert new hash a: 4 to old hash :a => 4

@@ -33,12 +33,13 @@
   lg  = log     --abbrev-commit --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen%ci %C(bold blue)%an%Creset' --graph
   # Print all branch all graph
   lall = log --graph --decorate --pretty=oneline --abbrev-commit --all
-  whatrebase = log upstream/master..HEAD --oneline --reverse --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen%ci %C(bold blue)%an%Creset' --abbrev-commit
+  whatrebase = log upstream/master..HEAD --oneline --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen%ci %C(bold blue)%an%Creset' --abbrev-commit
   wc = whatchanged -p
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
   undo-commit = reset --soft HEAD^
-  rh = !git reset HEAD . && git status
+  rh = reset HEAD
+  rhall = !git reset HEAD . && git status
   # edit config : open this file :)
   ec = config --global -e
 [push]
