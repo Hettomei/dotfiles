@@ -31,6 +31,8 @@ mkdir $DIR/fish
 cp -v $HOME/.config/fish/config.fish $DIR/fish/config.fish
 cp -v -R $HOME/.config/fish/functions $DIR/fish/
 
+cp -v $HOME/.config/terminator/config $DIR/terminator_config
+
 cd $DIR
 
 git add -p
