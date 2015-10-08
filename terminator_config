@@ -1,0 +1,110 @@
+[global_config]
+  window_state = maximise
+  enabled_plugins = CustomCommandsMenu, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  always_split_with_profile = True
+  focus = system
+  title_transmit_bg_color = "#d30102"
+  inactive_color_offset = 1.0
+[keybindings]
+  cycle_prev = None
+  next_tab = <Primary>Right
+  split_horiz = <Primary><Shift>h
+  prev_tab = <Primary>Left
+  cycle_next = None
+  split_vert = <Primary><Shift>s
+  reset_clear = <Primary><Shift>k
+  toggle_scrollbar = None
+[profiles]
+  [[default]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    font = Monospace 15
+    background_image = None
+    word_chars = "-A-Za-z0-9./?%&#:_"
+    scrollback_lines = 8116
+    use_system_font = False
+    cursor_color = "#eee8d5"
+    foreground_color = "#eee8d5"
+    scroll_on_output = False
+    copy_on_selection = True
+    background_color = "#002b36"
+  [[solarized-dark]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    font = Monospace 12
+    background_image = None
+    word_chars = "-A-Za-z0-9./?%&#_"
+    scrollback_lines = 10000
+    use_system_font = False
+    cursor_color = "#eee8d5"
+    foreground_color = "#eee8d5"
+    scroll_on_output = False
+    copy_on_selection = True
+    background_color = "#002b36"
+  [[solarized-light]]
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    background_image = None
+    word_chars = "-A-Za-z0-9./?%&#:_"
+    scrollback_lines = 10000
+    use_system_font = False
+    cursor_color = "#002b36"
+    foreground_color = "#002b36"
+    scroll_on_output = False
+    font = Monospace 12
+    background_color = "#eee8d5"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = solarized-dark
+    [[[window0]]]
+      type = Window
+      parent = ""
+  [[qos]]
+    [[[child0]]]
+      position = 0:0
+      type = Window
+      order = 0
+      parent = ""
+      size = 1920, 1020
+    [[[child1]]]
+      labels = None, None, None, None, None
+      type = Notebook
+      order = 0
+      parent = child0
+    [[[child2]]]
+      position = 678
+      type = VPaned
+      order = 0
+      parent = child1
+    [[[terminal3]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 0
+      parent = child2
+    [[[terminal5]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 1
+      parent = child1
+    [[[terminal4]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 1
+      parent = child2
+    [[[terminal7]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 3
+      parent = child1
+    [[[terminal6]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 2
+      parent = child1
+      command = ""
+    [[[terminal8]]]
+      profile = solarized-dark
+      type = Terminal
+      order = 4
+      parent = child1
+[plugins]
