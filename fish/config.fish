@@ -7,6 +7,8 @@ set PATH $HOME/.rbenv/bin $PATH
 set -x HOMEBREW_GITHUB_API_TOKEN 5f44cd17a6efbf6a910ff77644129ef800c8ba4c
 
 alias v nvim
+alias tod "nvim +Todo"
+alias todo "nvim +Todo"
 abbr -a vlarge "nvim -u ~/.vim/minimal_vimrc"
 abbr -a g git
 abbr -a bc "bc -l"
@@ -30,6 +32,7 @@ abbr -a describe 'mysql -u root qosenergy_development -e "describe'
 
 abbr -a be 'bundle exec'
 abbr -a pps 'ps aux | grep'
+abbr -a test_all 'env PATTERN="test/{unit,helpers,functional,integration,decorators,presenters,repositories}/**/*_test.rb" bundle exec rake test:all'
 
 switch (uname)
   case Linux

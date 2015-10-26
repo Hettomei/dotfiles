@@ -1,65 +1,109 @@
 [global_config]
-  window_state = maximise
-  enabled_plugins = CustomCommandsMenu, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   always_split_with_profile = True
+  enabled_plugins = CustomCommandsMenu, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
-  title_transmit_bg_color = "#d30102"
   inactive_color_offset = 1.0
+  suppress_multiple_term_dialog = True
+  title_hide_sizetext = True
+  title_transmit_bg_color = "#d30102"
+  window_state = maximise
 [keybindings]
+  cycle_next = None
   cycle_prev = None
   next_tab = <Primary>Right
-  split_horiz = <Primary><Shift>h
   prev_tab = <Primary>Left
-  cycle_next = None
-  split_vert = <Primary><Shift>s
   reset_clear = <Primary><Shift>k
+  split_horiz = <Primary><Shift>h
+  split_vert = <Primary><Shift>s
   toggle_scrollbar = None
-[profiles]
-  [[default]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    font = Monospace 9
-    background_image = None
-    word_chars = "-A-Za-z0-9./?%&#_"
-    scrollback_lines = 8116
-    use_system_font = False
-    cursor_color = "#eee8d5"
-    foreground_color = "#eee8d5"
-    scroll_on_output = False
-    copy_on_selection = True
-    background_color = "#002b36"
-    mouse_autohide = False
-  [[solarized-dark]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    font = Monospace 9
-    background_image = None
-    word_chars = "-A-Za-z0-9./?%&#_"
-    scrollback_lines = 10000
-    use_system_font = False
-    cursor_color = "#eee8d5"
-    foreground_color = "#eee8d5"
-    scroll_on_output = False
-    copy_on_selection = True
-    background_color = "#002b36"
-    mouse_autohide = False
-  [[solarized-light]]
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    background_image = None
-    word_chars = "-A-Za-z0-9./?%&#_"
-    scrollback_lines = 10000
-    use_system_font = False
-    cursor_color = "#002b36"
-    foreground_color = "#002b36"
-    scroll_on_output = False
-    font = Monospace 12
-    background_color = "#eee8d5"
-    copy_on_selection = True
 [layouts]
   [[default]]
     [[[child1]]]
-      type = Terminal
       parent = window0
       profile = solarized-dark
+      type = Terminal
     [[[window0]]]
-      type = Window
       parent = ""
+      type = Window
+  [[qos_gros_ecran]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1020
+      title = fish  /home/tgauthier/qos/qantum
+      type = Window
+    [[[child1]]]
+      active_page = 0
+      labels = None, None, None, None
+      last_active_term = 5d4c5640-5311-4cfd-9d6f-f84fe3d66f55, 0323979e-6aec-41ea-92e7-3d8ef9182881, 3695ccc9-3e17-457c-97e3-81cf58964edb, 6ce7aa8a-9ac9-4f63-8c04-78350a118194
+      order = 0
+      parent = child0
+      type = Notebook
+    [[[terminal2]]]
+      order = 0
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 5d4c5640-5311-4cfd-9d6f-f84fe3d66f55
+    [[[terminal3]]]
+      order = 1
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 0323979e-6aec-41ea-92e7-3d8ef9182881
+    [[[terminal4]]]
+      order = 2
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 3695ccc9-3e17-457c-97e3-81cf58964edb
+    [[[terminal5]]]
+      order = 3
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 6ce7aa8a-9ac9-4f63-8c04-78350a118194
 [plugins]
+[profiles]
+  [[default]]
+    background_color = "#002b36"
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#eee8d5"
+    font = Monospace 9
+    foreground_color = "#eee8d5"
+    mouse_autohide = False
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scroll_on_output = False
+    scrollback_lines = 8116
+    use_system_font = False
+    word_chars = "-A-Za-z0-9./?%&#_"
+  [[solarized-dark]]
+    background_color = "#002b36"
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#eee8d5"
+    font = Monospace 9
+    foreground_color = "#eee8d5"
+    mouse_autohide = False
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scroll_on_output = False
+    scrollback_lines = 10000
+    use_system_font = False
+    word_chars = "-A-Za-z0-9./?%&#_"
+  [[solarized-light]]
+    background_color = "#eee8d5"
+    background_image = None
+    copy_on_selection = True
+    cursor_color = "#002b36"
+    font = Monospace 12
+    foreground_color = "#002b36"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scroll_on_output = False
+    scrollback_lines = 10000
+    use_system_font = False
+    word_chars = "-A-Za-z0-9./?%&#_"

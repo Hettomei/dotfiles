@@ -104,16 +104,24 @@ set fileencodings=utf-8
 " }
 
 " QuickLink to various file {
-command! Vimrc tabnew $MYVIMRC
-command! SourceVimrc source $MYVIMRC
-command! Gvimrc tabnew $MYGVIMRC
-command! Zshrc tabnew $HOME/.zshrc
-command! Fishconfig tabnew $HOME/.config/fish/config.fish
+function! OpenInBufferOrTab(file)
+  if line('$') == 1 && getline(1) == ''
+    exec 'e' a:file
+  else
+    exec 'tabnew' a:file
+  endif
+endfu
 
-command! Whyvim tabnew $HOME/cours-vim.md
-command! Shocked tabnew $HOME/code-qos-shocked.md
-command! Todo tabnew $HOME/todo.md
-command! Reunion tabnew $HOME/next_reunion.md
+command! Vimrc :call OpenInBufferOrTab("$MYVIMRC")
+command! SourceVimrc source $MYVIMRC
+command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
+command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
+command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
+
+command! Whyvim :call OpenInBufferOrTab("$HOME/cours-vim.md")
+command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
+command! Shocked :call OpenInBufferOrTab("$HOME/code-qos-shocked.md")
+command! Reunion :call OpenInBufferOrTab("$HOME/next_reunion.md")
 " }
 
 " backup swap {
@@ -187,7 +195,7 @@ augroup END
 augroup config_ruby
   autocmd!
   " Said it is a good practice to do -= then += but can't find link
-  autocmd FileType ruby setlocal iskeyword-=?,! iskeyword+=?,!
+  " autocmd FileType ruby setlocal iskeyword-=?,! iskeyword+=?,!
   " with @ as part of a word
   " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
 augroup END
@@ -532,6 +540,9 @@ endif
 
 " spell {
 " Use vim spell:
+" :set spelllang=fr
+" :set spell
+"
 " zg Add word under the cursor as a good word_to_search
 " zw Mark the word as a wrong (bad) word.wrong
 " z= For the word under/after the cursor suggest correctly
@@ -649,6 +660,7 @@ if !v:shell_error && s:uname == "Linux"
   inoremap <PageDown> <Nop>
   nnoremap <PageUp> <Nop>
   inoremap <PageUp> <Nop>
+  nnoremap <Del> <Nop>
 
   abbrev EF EnergyField
   abbrev ef energy_field
