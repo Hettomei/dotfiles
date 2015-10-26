@@ -24,6 +24,20 @@ do
   cp -v -R $HOME/.vim/$file_name $DIR/vim/
 done
 
+#### NVIM ####
+rm -r $DIR/nvim
+mkdir $DIR/nvim
+
+for file_name in 'init.vim'
+do
+  cp -v $HOME/.config/nvim/$file_name $DIR/nvim/$file_name
+done
+
+for file_name in 'my_snippets' 'dictionary'
+do
+  cp -v -R $HOME/.config/nvim/$file_name $DIR/nvim/
+done
+
 #### FISH ####
 rm -r $DIR/fish
 mkdir $DIR/fish
@@ -31,6 +45,7 @@ mkdir $DIR/fish
 cp -v $HOME/.config/fish/config.fish $DIR/fish/config.fish
 cp -v -R $HOME/.config/fish/functions $DIR/fish/
 
+### TERMINATOR ###
 cp -v $HOME/.config/terminator/config $DIR/terminator_config
 
 cd $DIR
