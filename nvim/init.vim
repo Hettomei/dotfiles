@@ -45,6 +45,7 @@ Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
+Plugin 'airblade/vim-gitgutter.git'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
@@ -180,13 +181,13 @@ set virtualedit=block
 if &diff
   set foldmethod=diff
 else
-  set foldmethod=syntax foldlevel=4
+  set foldmethod=syntax foldlevel=10
 endif
 
 augroup change_file_fold
   autocmd!
-  autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=0
-  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=3
+  autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=5
+  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=6
   autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
 augroup END
 " }
@@ -674,6 +675,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev FPS FreePeriodStore
   abbrev SR SensorReference
   abbrev sr sensor_reference
+  abbrev CL ComponentLabel
+  abbrev cl component_label
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
@@ -693,6 +696,10 @@ let g:netrw_liststyle=3
 nmap <Leader>n <Plug>VinegarUp
 " keep - the old way because tpope remapped it
 nnoremap - -
+" }
+"
+" terminal {
+tnoremap <Esc> <C-\><C-n>
 " }
 
 " Tips and tricks {

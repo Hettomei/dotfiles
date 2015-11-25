@@ -31,8 +31,11 @@ abbr -a rtest 'ruby -I"lib:test"'
 abbr -a describe 'mysql -u root qosenergy_development -e "describe'
 
 abbr -a be 'bundle exec'
+abbr -a bec 'bundle exec script/console'
+abbr -a bes 'bundle exec script/server'
+abbr -a bed 'bundle exec script/delayed_job run'
+abbr -a ber 'bundle exec rake test:without_imports'
 abbr -a pps 'ps aux | grep'
-abbr -a test_all 'env PATTERN="test/{unit,helpers,functional,integration,decorators,presenters,repositories}/**/*_test.rb" bundle exec rake test:all'
 
 switch (uname)
   case Linux
@@ -41,6 +44,7 @@ switch (uname)
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
     set -x BUNDLE_GEMFILE CustomGemfile
+    set -x RAILS_CONSOLE_STDOUT 1
 
     alias pbcopy 'xclip -selection clipboard'
     alias pbpaste 'xclip -o'
