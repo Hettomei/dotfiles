@@ -46,6 +46,7 @@ Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
 Plugin 'airblade/vim-gitgutter.git'
+Plugin 'kovisoft/slimv'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
@@ -700,6 +701,14 @@ nnoremap - -
 "
 " terminal {
 tnoremap <Esc> <C-\><C-n>
+" }
+
+" SLIME {
+" to run it, open a .lisp file then press ,e
+
+" Disable enclosing parenthesis
+" let g:paredit_mode=0
+let g:lisp_rainbow=1
 " }
 
 " Tips and tricks {
