@@ -45,7 +45,7 @@ Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
-Plugin 'airblade/vim-gitgutter.git'
+" Plugin 'airblade/vim-gitgutter.git'
 Plugin 'kovisoft/slimv'
 
 " for opening file
@@ -119,11 +119,12 @@ command! SourceVimrc source $MYVIMRC
 command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
 command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
 command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
-
-command! Whyvim :call OpenInBufferOrTab("$HOME/cours-vim.md")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
-command! Shocked :call OpenInBufferOrTab("$HOME/code-qos-shocked.md")
-command! Reunion :call OpenInBufferOrTab("$HOME/next_reunion.md")
+
+command! QosTodo :call OpenInBufferOrTab("$HOME/qos/about-qantum/todo.md")
+command! Shocked :call OpenInBufferOrTab("$HOME/qos/about-qantum/code-qos-shocked.md")
+command! Reunion :call OpenInBufferOrTab("$HOME/qos/about-qantum/next_reunion.md")
+command! Incidents :call OpenInBufferOrTab("$HOME/qos/about-qantum/incidents.md")
 " }
 
 " backup swap {
