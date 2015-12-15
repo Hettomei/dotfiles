@@ -121,7 +121,7 @@ command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
 command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
 
-command! QosTodo :call OpenInBufferOrTab("$HOME/qos/about-qantum/todo.md")
+command! TodoQos :call OpenInBufferOrTab("$HOME/qos/about-qantum/todo.md")
 command! Shocked :call OpenInBufferOrTab("$HOME/qos/about-qantum/code-qos-shocked.md")
 command! Reunion :call OpenInBufferOrTab("$HOME/qos/about-qantum/next_reunion.md")
 command! Incidents :call OpenInBufferOrTab("$HOME/qos/about-qantum/incidents.md")
@@ -546,9 +546,9 @@ endif
 " :set spelllang=fr
 " :set spell
 "
+" z= For the word under/after the cursor suggest correctly
 " zg Add word under the cursor as a good word_to_search
 " zw Mark the word as a wrong (bad) word.wrong
-" z= For the word under/after the cursor suggest correctly
 " spelled words.
 
 " Spell Check, used to togle between no spell and language. To add a language
@@ -570,7 +570,7 @@ endif
 " nnoremap <F7> :call ToggleSpell()<CR>
 
 "spell check when writing commit logs
-"autocmd filetype svn,*commit* set spell
+autocmd filetype svn,*commit* setlocal spell spelllang=en
 " }
 
 " up down movement {
@@ -679,6 +679,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev sr sensor_reference
   abbrev CL ComponentLabel
   abbrev cl component_label
+  abbrev CW CockpitWidget
+  abbrev cw cockpit_widget
 endif
 
 " Convert new hash a: 4 to old hash :a => 4

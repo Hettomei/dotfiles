@@ -25,7 +25,60 @@
     [[[window0]]]
       parent = ""
       type = Window
-  [[qos_gros_ecran]]
+  [[qos]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 0:0
+      size = 1920, 1026
+      title = fish  /home/tgauthier/qos/qantum
+      type = Window
+    [[[child1]]]
+      active_page = 4
+      labels = None, None, None, None, None
+      last_active_term = 6455f9ab-e7de-49ca-974e-4799a1584e28, e1452e13-6d19-42e6-a7fb-4a07dd71b1ed, 97ae05df-6e76-4066-ae54-e447b823a8dd, adcd023c-c7ba-4a68-960c-435ed062ac01, 89be45c4-99d1-45ad-a8bf-c7ee70454025
+      order = 0
+      parent = child0
+      type = Notebook
+    [[[terminal2]]]
+      directory = /home/tgauthier/qos/qantum
+      order = 0
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 6455f9ab-e7de-49ca-974e-4799a1584e28
+    [[[terminal3]]]
+      directory = /home/tgauthier/qos/qantum
+      order = 1
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = e1452e13-6d19-42e6-a7fb-4a07dd71b1ed
+    [[[terminal4]]]
+      directory = /home/tgauthier/qos/qantum
+      order = 2
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 97ae05df-6e76-4066-ae54-e447b823a8dd
+    [[[terminal5]]]
+      directory = /home/tgauthier/qos/qantum
+      order = 3
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = adcd023c-c7ba-4a68-960c-435ed062ac01
+    [[[terminal6]]]
+      directory = /home/tgauthier/qos/qantum
+      order = 4
+      parent = child1
+      profile = solarized-dark
+      type = Terminal
+      uuid = 89be45c4-99d1-45ad-a8bf-c7ee70454025
+  [[qos_gros]]
     [[[child0]]]
       fullscreen = False
       last_active_window = True
@@ -44,27 +97,31 @@
       parent = child0
       type = Notebook
     [[[terminal2]]]
+      directory = /home/tgauthier/qos/qantum
       order = 0
       parent = child1
-      profile = solarized-dark
+      profile = default
       type = Terminal
       uuid = 5d4c5640-5311-4cfd-9d6f-f84fe3d66f55
     [[[terminal3]]]
+      directory = /home/tgauthier/qos/qantum
       order = 1
       parent = child1
-      profile = solarized-dark
+      profile = default
       type = Terminal
       uuid = 0323979e-6aec-41ea-92e7-3d8ef9182881
     [[[terminal4]]]
+      directory = /home/tgauthier/qos/qantum
       order = 2
       parent = child1
-      profile = solarized-dark
+      profile = default
       type = Terminal
       uuid = 3695ccc9-3e17-457c-97e3-81cf58964edb
     [[[terminal5]]]
+      directory = /home/tgauthier/qos/qantum
       order = 3
       parent = child1
-      profile = solarized-dark
+      profile = default
       type = Terminal
       uuid = 6ce7aa8a-9ac9-4f63-8c04-78350a118194
 [plugins]
@@ -82,6 +139,8 @@
     scrollback_lines = 8116
     use_system_font = False
     word_chars = "-A-Za-z0-9./?%&#_"
+  [[qos_gros]]
+    background_image = None
   [[solarized-dark]]
     background_color = "#002b36"
     background_image = None

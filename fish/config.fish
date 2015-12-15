@@ -7,7 +7,7 @@ set PATH $HOME/.rbenv/bin $PATH
 set -x HOMEBREW_GITHUB_API_TOKEN 5f44cd17a6efbf6a910ff77644129ef800c8ba4c
 
 alias v nvim
-alias tod "nvim +QosTodo"
+alias tod "nvim +TodoQos"
 alias todo "nvim +Todo"
 abbr -a vlarge "nvim -u ~/.vim/minimal_vimrc"
 abbr -a g git
