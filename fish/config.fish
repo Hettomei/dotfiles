@@ -4,7 +4,6 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x LESS '-R -X -F'
 set PATH $HOME/.rbenv/bin $PATH
-set -x HOMEBREW_GITHUB_API_TOKEN 5f44cd17a6efbf6a910ff77644129ef800c8ba4c
 
 alias v nvim
 alias tod "nvim +TodoQos"
@@ -51,3 +50,5 @@ switch (uname)
 end
 
 rbenv init - | source -
+
+source ~/.config/fish/not_in_git.fish
