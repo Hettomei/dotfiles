@@ -636,6 +636,7 @@ let g:syntastic_style_warning_symbol = '⚠'
 " Always open loc list
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
+let g:syntastic_javascript_checkers = ['eslint']
 " }
 
 " special qos energy {
@@ -660,6 +661,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev sr sensor_reference
   abbrev CL ComponentLabel
   abbrev cl component_label
+  abbrev CLS ComponentLabelSensor
+  abbrev cls component_label_sensor
   abbrev CW CockpitWidget
   abbrev cw cockpit_widget
 endif
