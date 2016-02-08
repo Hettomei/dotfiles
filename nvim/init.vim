@@ -166,8 +166,11 @@ set showcmd
 " Suppress mode change messages
 set noshowmode
 
-"Display &nbsp and trailing space :
-set list listchars=nbsp:•,trail:¬
+" allow to display other char than tab or eol ... also it display tab as ^I.
+" To stop that : set invlist
+set list
+"Display &nbsp and trailing space : , works only when set list
+set listchars=nbsp:•,trail:¬,tab:→→
 
 " line number
 set number
@@ -574,9 +577,9 @@ set expandtab "et: uses spaces instead of tab characters
 " make uses real tabs
 augroup tab_and_space
   autocmd!
-  autocmd FileType make set noexpandtab
+  autocmd FileType make setlocal noexpandtab
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-  autocmd FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+  autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 
   " Delete all trailing whitespace in end of line
   autocmd BufWritePre * :%s/\s\+$//e
@@ -637,6 +640,9 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
+
+" Special qos libiec61850
+let g:syntastic_c_include_dirs = ['/home/tgauthier/qos/fetch-senvion/libiec61850-0.8.7.1/src/iec61850/inc/']
 " }
 
 " special qos energy {
