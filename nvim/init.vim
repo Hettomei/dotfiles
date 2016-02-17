@@ -50,6 +50,8 @@ Plugin 'kovisoft/slimv'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
+" Open Quick Fix in previous clicked buffer by pressing <leader> Enter
+Plugin 'yssl/QFEnter'
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -88,7 +90,7 @@ set viminfo=h,'50,<1000,s1000,/500,:1000
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 augroup change_file_type
   autocmd!
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
+  autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
   " add json syntax highlighting
   autocmd BufNewFile,BufRead *.json set filetype=javascript
   autocmd BufNewFile,BufRead *.hbs set filetype=html
@@ -706,6 +708,13 @@ let g:lisp_rainbow=1
 
 " open :help vertically {
 autocmd FileType help wincmd L
+" }
+
+" QFEnter {
+let g:qfenter_open_map = ['<Leader><CR>']
+let g:qfenter_vopen_map = ['<Nop>']
+let g:qfenter_hopen_map = ['<Nop>']
+let g:qfenter_topen_map = ['<Nop>']
 " }
 
 " Tips and tricks {

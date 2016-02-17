@@ -35,6 +35,7 @@
   lall = log --graph --decorate --pretty=oneline --abbrev-commit --all
   whatrebase = log upstream/master..HEAD --oneline --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s' --abbrev-commit
   wc = whatchanged -p
+  wcw = whatchanged -p --color-words
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
   undo-commit = reset --soft HEAD^
@@ -42,6 +43,7 @@
   rhall = !git reset HEAD . && git status
   # edit config : open this file :)
   ec = config --global -e
+  branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai %ar by %an\" $branch | head -n 1` \t$branch; done | sort -r"
 [push]
   default = simple
 [diff]
