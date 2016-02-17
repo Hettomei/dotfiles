@@ -43,6 +43,7 @@ rm -r $DIR/fish
 mkdir $DIR/fish
 
 cp -v $HOME/.config/fish/config.fish $DIR/fish/config.fish
+cp -v $HOME/.config/fish/not_in_git.fish $DIR/fish/not_in_git.fish
 cp -v -R $HOME/.config/fish/functions $DIR/fish/
 
 ### TERMINATOR ###
