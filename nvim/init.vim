@@ -102,7 +102,9 @@ set backspace=indent,eol,start
 
 " file encoding {
 set autoread " Automatically reload changes if detected
-set encoding=utf8
+" The encoding displayed.
+set encoding=utf-8
+" The encoding written to file.
 set fileencoding=utf-8
 set fileencodings=utf-8
 " }
@@ -142,7 +144,7 @@ set background=dark
 colorscheme solarized
 
 " stop syntax coloring after 1000 columns
-set synmaxcol=1000
+set synmaxcol=400
 " }
 
 " CTags ctags {
