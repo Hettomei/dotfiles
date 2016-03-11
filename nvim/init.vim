@@ -335,6 +335,8 @@ nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "display the same directory as the current buffer !
 cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
 cnoremap %f <C-R>=expand("%:t") <CR>
+nnoremap <F2> a<C-R>=expand("%:p:h") . "/" <CR><esc>
+nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
 
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
@@ -557,6 +559,9 @@ endif
 
 "spell check when writing commit logs
 autocmd filetype svn,*commit* setlocal spell spelllang=en
+
+" go on top of file on commit
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 " }
 
 " up down movement {
@@ -715,6 +720,10 @@ let g:qfenter_open_map = ['<Leader><CR>']
 let g:qfenter_vopen_map = ['<Nop>']
 let g:qfenter_hopen_map = ['<Nop>']
 let g:qfenter_topen_map = ['<Nop>']
+" }
+
+" when in diff mode, no color {
+au FilterWritePre * if &diff | set syntax=off | endif
 " }
 
 " Tips and tricks {
