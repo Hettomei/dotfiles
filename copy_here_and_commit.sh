@@ -4,11 +4,17 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Copy file into" $DIR
 
+# File that start with a '.'
 for file_name in 'gitconfig' 'zshrc' 'irbrc' 'ackrc'
 do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
+# Files
+for file_name in 'notify.sh'
+do
+  cp -v $HOME/$file_name $DIR/$file_name
+done
 
 #### VIM ####
 rm -r $DIR/vim
