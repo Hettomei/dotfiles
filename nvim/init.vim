@@ -304,7 +304,7 @@ let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
 set wildignore+=*.o,*.obj,*~,#*#,*.pyc,*.tar*,*.avi,*.ogg,*.mp3,*.ico
 set wildignore+=.git,*.rbc,*.class,.svn,vendor/gems/*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.exe
+set wildignore+=*.tmp,*.so,*.swp,*.zip,*.exe
 " case-insensitive filename completion
 set wildignorecase
 " }
@@ -647,6 +647,7 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 
 " Special qos libiec61850
 let g:syntastic_c_include_dirs = ['/home/tgauthier/qos/fetch-senvion/libiec61850-0.8.7.1/src/iec61850/inc/']
