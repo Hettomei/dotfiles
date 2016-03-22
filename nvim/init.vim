@@ -31,7 +31,7 @@ Plugin 'tpope/vim-rbenv'
 " Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
-                           " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
+" to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 Plugin 'tpope/vim-vinegar'
 
 Plugin 'jayflo/vim-skip'
@@ -45,8 +45,11 @@ Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
-" Plugin 'airblade/vim-gitgutter.git'
-Plugin 'kovisoft/slimv'
+" Lisp :
+" Plugin 'kovisoft/slimv'
+Plugin 'guns/vim-clojure-static'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'tpope/vim-fireplace'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
