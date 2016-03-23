@@ -274,12 +274,20 @@ let g:rails_projections = {
       \     "spec/repositories/%s_repository_spec.rb"
       \   ],
       \ },
-      \ "app/presenters/*_presenter.rb": {
+      \ "app/presenter/*.rb": {
       \   "command": "presenter",
       \   "template":
-      \     "class %SPresenter\nend",
+      \     "class %S\nend",
       \   "test": [
-      \     "spec/presenters/%s_presenter_spec.rb"
+      \     "spec/presenter/%s_spec.rb"
+      \   ],
+      \ },
+      \ "app/runner/*.rb": {
+      \   "command": "runner",
+      \   "template":
+      \     "class %S\nend",
+      \   "test": [
+      \     "spec/runner/%s_spec.rb"
       \   ],
       \ },
       \ "app/forms/*_form.rb": {

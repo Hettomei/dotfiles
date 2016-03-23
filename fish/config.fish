@@ -25,7 +25,7 @@ abbr -a aflarger 'ag --pager less --unrestricted -ig'
 
 abbr -a rmDS 'find . -name ".DS_Store" -depth -exec rm {} \;'
 
-abbr -a rtest 'bin/bundle exec ruby -I"lib:test"'
+abbr -a rtest 'bin/ruby -I"lib:test"'
 
 abbr -a describe 'mysql -u root qosenergy_development -e "describe'
 
