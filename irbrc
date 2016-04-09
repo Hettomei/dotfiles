@@ -6,6 +6,8 @@ IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-history"
 
 require 'irb/completion'
 
+require 'pp'
+
 
 # class File
 #   def File.method_added(name)

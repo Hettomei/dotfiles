@@ -29,6 +29,6 @@ sleep $1
 while :
 do
   echo "$2"
-  notify-send PART "$2"
+  notify-send PART "$2, jobs : $$"
   sleep 6
 done

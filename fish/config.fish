@@ -35,6 +35,8 @@ abbr -a pps 'ps aux | grep'
 switch (uname)
   case Linux
     set PATH $HOME/.linuxbrew/bin $PATH
+    set PATH /usr/local/go/bin $PATH
+    set -x GOPATH $HOME/qos_go
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
@@ -42,6 +44,7 @@ switch (uname)
 
     alias pbcopy 'xclip -selection clipboard'
     alias pbpaste 'xclip -o'
+    alias n nautilus
   case Darwin
     #because of homebrew : "brew link grep" create a suffix g
     alias grep='ggrep'
