@@ -36,11 +36,13 @@ switch (uname)
   case Linux
     set PATH $HOME/.linuxbrew/bin $PATH
     set PATH /usr/local/go/bin $PATH
+    set PATH /opt/java/jdk1.8.0_77/bin $PATH
     set -x GOPATH $HOME/qos_go
 
     set MANPATH $HOME/.linuxbrew/share/man $MANPATH
     set INFOPATH $HOME/.linuxbrew/share/info $INFOPATH
     set -x RAILS_CONSOLE_STDOUT 1
+    set -x SSH_CONFIG_REPO "/home/tgauthier/qos/ssh_config_file"
 
     alias pbcopy 'xclip -selection clipboard'
     alias pbpaste 'xclip -o'
