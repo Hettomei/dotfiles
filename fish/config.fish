@@ -8,6 +8,7 @@ set PATH $HOME/.rbenv/bin $PATH
 alias v nvim
 alias tod "nvim +TodoQos"
 alias todo "nvim +Todo"
+
 abbr -a vlarge "nvim -u ~/.vim/minimal_vimrc"
 abbr -a g git
 abbr -a bc "bc -l"
