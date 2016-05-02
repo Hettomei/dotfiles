@@ -11,7 +11,7 @@ do
 done
 
 # Files
-for file_name in 'notify.sh'
+for file_name in 'notify.sh' 'notify2.sh'
 do
   cp -v $HOME/$file_name $DIR/$file_name
 done
