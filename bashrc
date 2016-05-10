@@ -202,6 +202,9 @@ PS1='\[\e[34m\]\w \[\e[33m\]$(rbenv_ps1) \[\e[31m\]$(parse_git_branch)\[\e[33m\]
 
 set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
 set -o notify # notify when jobs running in background terminate
+
 shopt -s extglob                # necessary for bash completion (programmable completion)
 # shopt -s histappend                # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
+
+source $HOME/.bashrc_not_in_git
