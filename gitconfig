@@ -24,7 +24,6 @@
   c  = commit
   cm = commit -m
   ca = commit --amend
-  di = diff
   dic = diff --cached
   diw = diff --color-words
   dicw = diff --cached --color-words

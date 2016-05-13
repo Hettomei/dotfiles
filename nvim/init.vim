@@ -187,6 +187,8 @@ set numberwidth=1
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block
+
+set title
 " }
 
 " configure folding {

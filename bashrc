@@ -10,14 +10,15 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth
+# in memory per session
+export HISTSIZE=10000
+# entry in file
+export HISTFILESIZE=200000
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -115,7 +116,12 @@ fi
 ################################## ADDED BY TIM
 
 alias v=nvim
+source $HOME/git-completion.bash
 alias g=git
+__git_complete g _git
+
+# complete -o default -o nospace -F __git_main g # because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
+
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias rtest='bin/ruby -I"lib:test"'
@@ -199,12 +205,18 @@ rbenv_ps1 ()
 }
 
 PS1='\[\e[34m\]\w \[\e[33m\]$(rbenv_ps1) \[\e[31m\]$(parse_git_branch)\[\e[33m\]\t\n\[\e[0m\]\$ '
+# display in title
+PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
 
 set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
 set -o notify # notify when jobs running in background terminate
 
-shopt -s extglob                # necessary for bash completion (programmable completion)
 # shopt -s histappend                # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 
 source $HOME/.bashrc_not_in_git
+
+set -o vi
+bind 'set completion-ignore-case on'
+bind '"\C-a": beginning-of-line' # ctrl-a in insert mode
+bind '"\C-e": end-of-line' # ctrl-e in insert mode
