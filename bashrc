@@ -124,7 +124,6 @@ __git_complete g _git
 
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
-alias rtest='bin/ruby -I"lib:test"'
 alias pps='ps aux | grep'
 
 # alias for ag
@@ -220,3 +219,19 @@ set -o vi
 bind 'set completion-ignore-case on'
 bind '"\C-a": beginning-of-line' # ctrl-a in insert mode
 bind '"\C-e": end-of-line' # ctrl-e in insert mode
+bind '"\e[A": history-search-backward' # search only previous string on key up
+bind '"\e[B": history-search-forward' # search only next string on key down
+
+qantumcommit(){
+  xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
+}
+
+simplehttp(){
+  echo "python -m SimpleHTTPServer 8000"
+  python -m SimpleHTTPServer 8000
+}
+
+rtest(){
+  echo 'bin/ruby -I"lib:test"'
+  bin/ruby -I"lib:test" $1
+}
