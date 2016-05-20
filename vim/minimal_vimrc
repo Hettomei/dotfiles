@@ -52,16 +52,11 @@ set sidescroll=1
 set completeopt+=longest,menuone
 "tab completion for files
 set wildmode=list:longest,full
-set dictionary=/Users/tim/.vim/dictionary/francais.txt
 set complete-=i " Tim pop says no. So no
-" Add dictionnary to <Ctrl-N> " will see if usefull in futur
-"set complete-=k complete+=k
-"
+
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <leader><leader> :w<CR>
-
-command Vimrc tabnew $MYVIMRC
 
 augroup tab_and_space
   autocmd!
