@@ -116,6 +116,7 @@ fi
 ################################## ADDED BY TIM
 
 alias v=nvim
+# https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 source $HOME/git-completion.bash
 alias g=git
 __git_complete g _git
