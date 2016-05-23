@@ -43,13 +43,13 @@ Plugin 'mxw/vim-jsx.git'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
-Plugin 'dag/vim-fish'
+" Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
 " Lisp :
 " Plugin 'kovisoft/slimv'
 Plugin 'guns/vim-clojure-static'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-fireplace' " clojure repl , with leiningen
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
@@ -126,6 +126,7 @@ command! SourceVimrc source $MYVIMRC
 command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
 command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
 command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
+command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
 
 command! TodoQos :call OpenInBufferOrTab("$HOME/qos/about-qantum/todo.md")
@@ -204,6 +205,14 @@ augroup change_file_fold
   autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=6
   autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
 augroup END
+
+" If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
+let g:fastfold_savehook = 0
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:ruby_fold_enabled=1
+let g:javascript_fold_enabled=1
 " }
 
 " configure ruby{

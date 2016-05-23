@@ -222,17 +222,31 @@ bind '"\C-a": beginning-of-line' # ctrl-a in insert mode
 bind '"\C-e": end-of-line' # ctrl-e in insert mode
 bind '"\e[A": history-search-backward' # search only previous string on key up
 bind '"\e[B": history-search-forward' # search only next string on key down
+# This next 2 commands allow me to erase word on ctrl-w
+# found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
+stty werase undef
+bind '\C-w:unix-filename-rubout'
 
 qantumcommit(){
-  xdg-open http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
+  local url=http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
+  echo $url
+  xdg-open $url
 }
 
 simplehttp(){
-  echo "python -m SimpleHTTPServer 8000"
-  python -m SimpleHTTPServer 8000
+  local command="python -m SimpleHTTPServer 8000"
+  echo $command
+  $command
 }
 
 rtest(){
-  echo 'bin/ruby -I"lib:test"'
-  bin/ruby -I"lib:test" $1
+  echo "ls $1 | entr bin/ruby -I\"lib:test\" $1"
+  echo
+  ls $1 | entr bin/ruby -I"lib:test" $1
+}
+
+npmtest(){
+  echo "ls $1 | entr npm test $1"
+  echo
+  ls $1 | entr npm test $1
 }
