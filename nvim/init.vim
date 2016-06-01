@@ -369,7 +369,7 @@ nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " mf   -> mark line inside f,
 " gg=G -> reindent,
 " 'f   -> go to current line
-nnoremap <Leader>fef mfgg=G'f
+nnoremap <Leader>f mfgg=G'f
 
 "display cursor column
 nnoremap <Leader>col :set invcursorcolumn<CR>
@@ -383,10 +383,8 @@ nnoremap <Leader>col :set invcursorcolumn<CR>
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
 
-nnoremap <Leader><Leader> :w<CR>
-nnoremap go o<esc>
-nnoremap gO O<esc>
-
+" save and go back where I was
+nnoremap <Leader><Leader> mw:w<CR>'w
 " }
 
 " map surround {
@@ -394,9 +392,6 @@ nnoremap gO O<esc>
 " when on a word, change 'word' to '#{word}' (usefull for ruby)
 nnoremap <Leader>sa diwi#{<C-r>"}<ESC>
 nnoremap <Leader>sA diWi#{<C-r>"}<ESC>
-
-" Works only with vim-surround
-nnoremap <Leader>s" ysiw"
 " }
 
 " yank copy mapping {
@@ -464,7 +459,8 @@ nnoremap <Leader>r "_ciw
 " o waits for you to enter a movement command : http://learnvimscriptthehardway.stevelosh.com/chapters/15.html
 " M is for Maj
 " :<c-u>execute -> special way to run multiple normal commande in a map : learnvimscriptthehardway.stevelosh.com/chapters/16.html
-onoremap M :<c-u>execute "normal! /[A-Z]\r:nohlsearch\r"<cr>
+" onoremap M :<c-u>execute "normal! /[A-Z]\r:nohlsearch\r"<cr>
+onoremap M :<c-u>execute "normal! /[A-Z]\r"<cr>
 " }
 
 " Move visual block {
@@ -657,7 +653,7 @@ set splitright
 
 " syntastic {
 if !v:shell_error && s:uname == "Linux"
-" let g:syntastic_mode_map = { 'mode': 'passive' }
+  " let g:syntastic_mode_map = { 'mode': 'passive' }
 else
   let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
 endif
@@ -707,7 +703,7 @@ endif
 
 " Convert new hash a: 4 to old hash :a => 4
 " oh is for old hash
-nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 =><CR>
+nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 => <CR>
 
 " }
 
@@ -792,4 +788,7 @@ au FilterWritePre * if &diff | set syntax=off | endif
 " :profile pause
 " :profile continue
 " :q
+"
+" search count
+" :%s/pattern//gn
 " }
