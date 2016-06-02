@@ -53,7 +53,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
-" Open Quick Fix in previous clicked buffer by pressing <leader> Enter
+" Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plugin 'yssl/QFEnter'
 
 call vundle#end()            " required
@@ -536,9 +536,9 @@ endif
 "
 nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is inside register "/" but on all repo
-nnoremap <silent> <Leader>a :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
+nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is selected on all repo
-vnoremap <silent> <Leader>a y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
+vnoremap <silent> <Leader>/ y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
 
 augroup specific-quickfix-window
   autocmd!
@@ -699,6 +699,8 @@ if !v:shell_error && s:uname == "Linux"
   abbrev cls component_label_sensor
   abbrev CW CockpitWidget
   abbrev cw cockpit_widget
+  abbrev AL AnalysisLibrary
+  abbrev al analysis_library
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
