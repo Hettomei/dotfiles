@@ -143,8 +143,8 @@ set directory=/tmp "dir: directory for temp files
 " }
 
 " colors {
+let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 set background=dark
-" let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 colorscheme solarized
 
 " stop syntax coloring after 1000 columns
@@ -534,6 +534,7 @@ endif
 " Like * but on all repo :)
 " call histadd("cmd", "e $MYVIMRC")
 "
+" Search what is inside register "/" only words
 nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is inside register "/" but on all repo
 nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
