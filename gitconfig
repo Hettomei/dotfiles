@@ -27,6 +27,7 @@
   dic = diff --cached
   diw = diff --color-words
   dicw = diff --cached --color-words
+  f = fetch --all --prune
   l   = log     --abbrev-commit --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   ll  = log -5  --abbrev-commit --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   lll = log -15 --abbrev-commit --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
@@ -44,7 +45,7 @@
   rhall = !git reset HEAD . && git status
   # edit config : open this file :)
   ec = config --global -e
-  branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai %ar by %an\" $branch | head -n 1` \t$branch; done | sort -r"
+  branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"
 [push]
   default = simple
 [diff]
