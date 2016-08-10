@@ -136,9 +136,11 @@ alias aflarger='ag --pager less --unrestricted -ig'
 
 alias tod="nvim +TodoQos"
 alias todo="nvim +Todo"
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -o'
-alias n=nautilus
+if [ "$(uname)" == "Linux" ]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -o'
+  alias n=nautilus
+fi
 
 export VISUAL=nvim
 export EDITOR=nvim
