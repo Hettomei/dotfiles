@@ -599,7 +599,8 @@ set nowrap
 set tabstop=2 "ts: number of spaces that a tab renders as
 set shiftwidth=2 "sw: number of spaces to use for autoindent
 set softtabstop=2 "sts: number of spaces that tabs insert
-set smarttab "sta: helps with backspacing because of expandtab
+" set smarttab "sta: helps with backspacing because of expandtab, A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
+set nosmarttab
 set expandtab "et: uses spaces instead of tab characters
 
 " make uses real tabs
