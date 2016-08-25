@@ -242,9 +242,9 @@ simplehttp(){
 }
 
 rtest(){
-  echo "ls $1 | entr bin/ruby -I\"lib:test\" $1"
+  echo "ls $1 | entr bash -c \"date; bin/ruby -I\"lib:test\" $1\""
   echo
-  ls $1 | entr bin/ruby -I"lib:test" $1
+  ls $1 | entr bash -c "date; bin/ruby -I\"lib:test\" $1"
 }
 
 npmtest(){
