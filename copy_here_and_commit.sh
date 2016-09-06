@@ -59,6 +59,3 @@ cd $DIR
 
 git add -p
 git status
-echo -n "Tape une touche mec"
-read -n 1
-git commit

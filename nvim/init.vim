@@ -216,13 +216,23 @@ let g:javascript_fold_enabled=1
 " }
 
 " configure ruby{
-augroup config_ruby
-  autocmd!
+" augroup config_ruby
+"   autocmd!
   " Said it is a good practice to do -= then += but can't find link
   " autocmd FileType ruby setlocal iskeyword-=?,! iskeyword+=?,!
   " with @ as part of a word
   " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
-augroup END
+" augroup END
+" }
+
+" configure ruby{
+" augroup config_clojure
+"   autocmd!
+  " Said it is a good practice to do -= then += but can't find link
+  " autocmd FileType clojure setlocal iskeyword-=:
+  " with @ as part of a word
+  " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
+" augroup END
 " }
 
 " configure html/javascript{
