@@ -415,12 +415,17 @@ vnoremap Y "+y
 " save all line in clipboard
 nnoremap YY ^"+y$
 
-" Yank the word on which i am
-" i<esc> is used to go back after yank with `^
-nnoremap <Leader>y i<esc>lyiw`^
-" Yank the word on which i am and put it in the clipboard
-" i<esc> is used to go back after yank with `^
-nnoremap <Leader>Y i<esc>l"+yiw`^
+" all this function just to ensure cursor didn't move
+" before I used : i<esc>l`^ , but on readonly file it failed because 'i' is forbidden
+function! SavePosAndDo(str)
+   let save_pos = getpos(".")
+   execute "normal! " . a:str
+   call setpos(".", save_pos)
+endfu
+" put in os clipboard
+nnoremap <Leader>Y :call SavePosAndDo('"+yiw')<cr>
+" put word in clipboard and go back to previous pos
+nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
