@@ -8,6 +8,7 @@
   title_transmit_bg_color = "#d30102"
   window_state = maximise
 [keybindings]
+  close_term = None
   cycle_next = None
   cycle_prev = None
   next_tab = <Primary>Right

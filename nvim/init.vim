@@ -412,8 +412,6 @@ nnoremap <Leader>sA diWi#{<C-r>"}<ESC>
 " Don't use noremap because it not understand << Y$ >>
 " save in clipboard
 vnoremap Y "+y
-" save all line in clipboard
-nnoremap YY ^"+y$
 
 " all this function just to ensure cursor didn't move
 " before I used : i<esc>l`^ , but on readonly file it failed because 'i' is forbidden
@@ -426,6 +424,9 @@ endfu
 nnoremap <Leader>Y :call SavePosAndDo('"+yiw')<cr>
 " put word in clipboard and go back to previous pos
 nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
+
+" save all line in clipboard
+nnoremap YY :call SavePosAndDo('^"+y$')<cr>
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
