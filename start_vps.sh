@@ -1,9 +1,13 @@
+# To use it, need to do this first :
+# git clone https://github.com/Hettomei/my_computer_conf.git
+# ./my_computer_conf/start_vps.sh
+
 set -ex
 
 sudo su
-cd
 
 ## neovim
+cd
 apt update
 apt install --yes libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 alias g=git
@@ -13,10 +17,7 @@ make && make install
 alias v=nvim
 
 # conf nvim
-cd
-g clone https://github.com/Hettomei/my_computer_conf.git
-cd my_computer_conf
-echo "run ./save_nvim.sh"
+echo "run ./my_computer_conf/save_nvim.sh"
 
 # java 8
 cd
@@ -36,4 +37,3 @@ apt install --yes linux-image-extra-$(uname -r) linux-image-extra-virtual
 apt install --yes docker-engine
 service docker start
 docker run clojure
-
