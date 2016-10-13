@@ -144,7 +144,7 @@ fi
 
 export VISUAL=nvim
 export EDITOR=nvim
-export LESS='-R -X -F'
+export LESS='-R -X -F --chop-long-lines'
 
 export GOPATH=$HOME/qos_go
 export RAILS_CONSOLE_STDOUT=1
