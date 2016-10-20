@@ -5,7 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Copy file into" $DIR
 
 # File that start with a '.'
-for file_name in 'gitconfig' 'zshrc' 'irbrc' 'ackrc' 'bashrc'
+for file_name in 'gitconfig' 'zshrc' 'irbrc' 'gemrc' 'ackrc' 'bashrc'
 do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
