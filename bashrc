@@ -116,12 +116,7 @@ fi
 ################################## ADDED BY TIM
 
 alias v=nvim
-# https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-source $HOME/git-completion.bash
 alias g=git
-__git_complete g _git
-
-# complete -o default -o nospace -F __git_main g # because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
 
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
@@ -159,7 +154,14 @@ MANPATH=$HOME/.linuxbrew/share/man:$MANPATH
 INFOPATH=$HOME/.linuxbrew/share/info:$INFOPATH
 
 eval "$(rbenv init -)"
-source ~/.rbenv/completions/rbenv.bash
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
+# complete -o default -o nospace -F __git_main g
+# because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
+__git_complete g _git
 
 OS=$(uname) # Linux
 
