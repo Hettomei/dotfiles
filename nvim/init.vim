@@ -47,9 +47,13 @@ Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'msanders/snipmate.vim'
 " Lisp :
 " Plugin 'kovisoft/slimv'
+
+" Clojure
 Plugin 'guns/vim-clojure-static'
-Plugin 'kien/rainbow_parentheses.vim'
-" Plugin 'tpope/vim-fireplace' " clojure repl , with leiningen
+Plugin 'tpope/vim-salve'
+" Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fireplace'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'
