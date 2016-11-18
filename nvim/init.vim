@@ -520,6 +520,8 @@ vnoremap // y/\V<C-R>"<CR>
 nnoremap <Leader>sr :%s/\<<C-r><C-w>\>//c<Left><Left>
 nnoremap <Leader>sR :%s/<C-r><C-w>//c<Left><Left>
 vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
+" Show effects of the command as you type. (:s only for now)
+set inccommand=split
 
 " remove ugly char when pasted searched text
 function! Del_word_delims()
