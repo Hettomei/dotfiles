@@ -49,11 +49,11 @@ Plugin 'msanders/snipmate.vim'
 " Plugin 'kovisoft/slimv'
 
 " Clojure
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-salve'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'tpope/vim-salve'
 " Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fireplace'
+" Plugin 'tpope/vim-dispatch'
+" Plugin 'tpope/vim-fireplace'
 
 " for opening file
 Plugin 'kien/ctrlp.vim'

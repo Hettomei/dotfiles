@@ -248,3 +248,6 @@ rtest(){
   echo
   ls $1 | entr bash -c "date; bin/ruby -I\"lib:test\" $1"
 }
+
+# Tips
+# youtube-dl --extract-audio --audio-format mp3 $file
