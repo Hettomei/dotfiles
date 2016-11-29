@@ -123,7 +123,7 @@ alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pps='ps aux | grep'
 
 # alias for ag
-alias a='ag --pager less --case-sensitive --path-to-agignore ".agignorecustom"'
+alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
 alias af='ag --pager less -ig'
 alias aglarger='ag --page less'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)

@@ -550,7 +550,7 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 if executable('ag')
   " Use ag over grep
   " need to ad a specifiq agignore, see .zshrc for details
-  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-agignore\ .agignorecustom
+  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ .agignorecustom
 endif
 
 " Like * but on all repo :)
@@ -587,7 +587,7 @@ nnoremap <C-b> :CtrlPBuffer<CR>
 
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor --path-to-agignore .agignorecustom -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --path-to-ignore .agignorecustom -g ""'
 endif
 " }
 
