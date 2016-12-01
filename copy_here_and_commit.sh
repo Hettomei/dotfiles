@@ -10,12 +10,6 @@ do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
-# Files
-for file_name in 'notify.sh' 'notify2.sh'
-do
-  cp -v $HOME/$file_name $DIR/$file_name
-done
-
 #### NVIM ####
 rm -r $DIR/nvim
 mkdir $DIR/nvim
