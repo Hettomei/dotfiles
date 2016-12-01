@@ -161,6 +161,7 @@ fi
 
 # complete -o default -o nospace -F __git_main g
 # because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
+# need to `brew install bash-completion`
 __git_complete g _git
 
 OS=$(uname) # Linux
