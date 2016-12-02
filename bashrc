@@ -129,7 +129,6 @@ alias aglarger='ag --page less'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
 
-alias tod="nvim +TodoQos"
 alias todo="nvim +Todo"
 if [ "$(uname)" == "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
@@ -140,10 +139,6 @@ fi
 export VISUAL=nvim
 export EDITOR=nvim
 export LESS='-R -X -F --chop-long-lines'
-
-export GOPATH=$HOME/qos_go
-export RAILS_CONSOLE_STDOUT=1
-export SSH_CONFIG_REPO="/home/tgauthier/qos/ssh_config_file"
 
 PATH=/opt/java/jdk1.8.0_77/bin:$PATH
 PATH=/usr/local/go/bin:$PATH
@@ -232,8 +227,14 @@ bind '"\e[B": history-search-forward' # search only next string on key down
 stty werase undef
 bind '\C-w:unix-filename-rubout'
 
-qantumcommit(){
-  local url=http://gitlab.qosenergy.com/qosenergy/qantum/commit/$1
+# Sepcial teezily
+dkr(){
+echo "docker-compose run --rm web "$@""
+docker-compose run --rm web "$@"
+}
+
+teezilycommit(){
+  local url=https://github.com/teezily/teezily/commit/$1
   echo $url
   xdg-open $url
 }

@@ -2,7 +2,7 @@
 set nocompatible
 
 " required!
-filetype off
+" filetype off
 
 " Vundle {
 set rtp+=~/.config/nvim/bundle/Vundle.vim
@@ -62,7 +62,7 @@ Plugin 'yssl/QFEnter'
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
-filetype plugin indent on    " required
+" filetype plugin indent on    " required
 " }
 
 let g:mapleader = "\<Space>"
@@ -77,7 +77,7 @@ endif
 " setup var to know wich enironnement is running
 let s:uname = system("echo -n \"$(uname)\"")
 
-syntax enable
+" syntax enable
 
 set history=4000
 
@@ -132,11 +132,6 @@ command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
 command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
 command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
-
-command! TodoQos :call OpenInBufferOrTab("$HOME/qos/about-qantum/todo.md")
-command! Shocked :call OpenInBufferOrTab("$HOME/qos/about-qantum/code-qos-shocked.md")
-command! Reunion :call OpenInBufferOrTab("$HOME/qos/about-qantum/next_reunion.md")
-command! Incidents :call OpenInBufferOrTab("$HOME/qos/about-qantum/incidents.md")
 " }
 
 " backup swap {
@@ -147,9 +142,10 @@ set directory=/tmp "dir: directory for temp files
 " }
 
 " colors {
-let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
-set background=dark
-colorscheme solarized
+" let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
+" let g:solarized_termcolors=256
+" set background=dark
+" colorscheme solarized
 
 " stop syntax coloring after 1000 columns
 set synmaxcol=400
@@ -692,12 +688,9 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-
-" Special qos libiec61850
-let g:syntastic_c_include_dirs = ['/home/tgauthier/qos/fetch-senvion/libiec61850-0.8.7.1/src/iec61850/inc/']
 " }
 
-" special qos energy {
+" special teezily {
 if !v:shell_error && s:uname == "Linux"
   nnoremap <PageDown> <Nop>
   inoremap <PageDown> <Nop>
@@ -705,26 +698,7 @@ if !v:shell_error && s:uname == "Linux"
   inoremap <PageUp> <Nop>
   nnoremap <Del> <Nop>
 
-  abbrev EF EnergyField
-  abbrev ef energy_field
-  abbrev DM DailyMesure
-  abbrev dm daily_mesure
-  abbrev MM MonthlyMesure
-  abbrev mm monthly_mesure
-  abbrev MMS MonthlyMesures
-  abbrev mms monthly_mesures
   abbrev FP FreePeriod
-  abbrev FPS FreePeriodStore
-  abbrev SR SensorReference
-  abbrev sr sensor_reference
-  abbrev CL ComponentLabel
-  abbrev cl component_label
-  abbrev CLS ComponentLabelSensor
-  abbrev cls component_label_sensor
-  abbrev CW CockpitWidget
-  abbrev cw cockpit_widget
-  abbrev AL AnalysisLibrary
-  abbrev al analysis_library
 endif
 
 " Convert new hash a: 4 to old hash :a => 4
