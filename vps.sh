@@ -2,6 +2,12 @@
 # git clone https://github.com/Hettomei/my_computer_conf.git
 # ./my_computer_conf/start_vps.sh
 
+# Si y a un pb avec sudo serveur not found serveur-1
+# faire
+# sudo vim /etc/hosts
+# et ajouter
+# 127.0.0.1 serveur-1
+
 set -ex
 
 sudo su
@@ -15,6 +21,9 @@ g clone https://github.com/neovim/neovim
 cd neovim
 make && make install
 alias v=nvim
+
+brew install ag
+brew install diff-so-fancy
 
 # conf nvim
 echo "run ./my_computer_conf/save_nvim.sh"
