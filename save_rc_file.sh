@@ -7,6 +7,7 @@ cp -v $DIR/irbrc $HOME/.irbrc
 cp -v $DIR/gemrc $HOME/.gemrc
 cp -v $DIR/bashrc $HOME/.bashrc
 cp -v $DIR/gitconfig $HOME/.gitconfig
+cp -v $DIR/tmux.conf $HOME/.tmux.conf
 
 echo touch $HOME/.bashrc_not_in_git
 touch $HOME/.bashrc_not_in_git
