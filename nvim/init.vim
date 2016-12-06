@@ -144,8 +144,8 @@ set directory=/tmp "dir: directory for temp files
 " colors {
 " let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 " let g:solarized_termcolors=256
-" set background=dark
-" colorscheme solarized
+set background=dark
+colorscheme solarized
 
 " stop syntax coloring after 1000 columns
 set synmaxcol=400
