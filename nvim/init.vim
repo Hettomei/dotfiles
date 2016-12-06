@@ -28,7 +28,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
 Plugin 'tpope/vim-repeat' " Allow to repeat custom map
 Plugin 'tpope/vim-rbenv'
-" Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
 " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
