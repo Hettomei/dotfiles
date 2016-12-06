@@ -12,7 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 Plugin 'gorkunov/smartpairs.vim' " make easy with vv
-Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
+" Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
 
 " tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
@@ -27,24 +27,24 @@ Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative fil
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
 Plugin 'tpope/vim-repeat' " Allow to repeat custom map
-Plugin 'tpope/vim-rbenv'
+" Plugin 'tpope/vim-rbenv'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
 " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
-Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish#coercion easily convert to snake_Case to CamelCase ... \o/ ;
+Plugin 'tpope/vim-vinegar' " better explorer :e ..
 
-Plugin 'jayflo/vim-skip'
+Plugin 'jayflo/vim-skip' " press s and go in midle of line
 Plugin 'altercation/vim-colors-solarized'
 
 " language specific
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx.git'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
+" Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
-" Plugin 'dag/vim-fish'
 Plugin 'msanders/snipmate.vim'
+
 " Lisp :
 " Plugin 'kovisoft/slimv'
 
@@ -55,7 +55,7 @@ Plugin 'msanders/snipmate.vim'
 " Plugin 'tpope/vim-dispatch'
 " Plugin 'tpope/vim-fireplace'
 
-" for opening file
+" for opening file using ... ctrl p
 Plugin 'kien/ctrlp.vim'
 " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plugin 'yssl/QFEnter'
@@ -67,17 +67,10 @@ call vundle#end()            " required
 
 let g:mapleader = "\<Space>"
 
-" fish config{
-" from https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
-if &shell =~# 'fish$'
-  set shell=/bin/bash
-endif
-" }
-
 " setup var to know wich enironnement is running
 let s:uname = system("echo -n \"$(uname)\"")
 
-" syntax enable
+syntax enable
 
 set history=4000
 
@@ -90,7 +83,7 @@ set history=4000
 "           | |   |      |     |     +---Remember last 1000 commands
 "           | |   |      |     |     |
 "           v v   v      v     v     v
-set viminfo=h,'50,<1000,s1000,/500,:1000
+set viminfo=h,'50,<1000,s1000,/500,:2000
 
 
 " FileType {
