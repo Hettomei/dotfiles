@@ -2,7 +2,7 @@
 set nocompatible
 
 " required!
-" filetype off
+filetype off
 
 " Vundle {
 set rtp+=~/.config/nvim/bundle/Vundle.vim
@@ -62,15 +62,13 @@ Plugin 'yssl/QFEnter'
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
-" filetype plugin indent on    " required
+filetype plugin indent on    " required
 " }
 
 let g:mapleader = "\<Space>"
 
 " setup var to know wich enironnement is running
 let s:uname = system("echo -n \"$(uname)\"")
-
-syntax enable
 
 set history=4000
 
@@ -137,6 +135,7 @@ set directory=/tmp "dir: directory for temp files
 " colors {
 " let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 " let g:solarized_termcolors=256
+syntax enable
 set background=dark
 colorscheme solarized
 
@@ -739,7 +738,7 @@ let g:qfenter_topen_map = ['<Nop>']
 " when in diff mode, no color {
 au FilterWritePre * if &diff | set syntax=off | endif
 " }
-
+"
 " Tips and tricks {
 
 "## g with norm
