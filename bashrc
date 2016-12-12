@@ -123,13 +123,16 @@ alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pps='ps aux | grep'
 
 # alias for ag
-alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
+# keep to know how to ignore more than juste .gitignore
+# alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
+alias a='ag --pager less --case-sensitive'
 alias af='ag --pager less -ig'
 alias aglarger='ag --page less'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
 
 alias todo="nvim +Todo"
+alias tod="nvim +Todo"
 if [ "$(uname)" == "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -o'

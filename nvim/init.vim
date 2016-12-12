@@ -537,8 +537,9 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 " thanks to https://robots.thoughtbot.com/faster-grepping-in-vim
 if executable('ag')
   " Use ag over grep
-  " need to ad a specifiq agignore, see .zshrc for details
-  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ .agignorecustom
+  " keep to know how to ignore more than juste .gitignore
+  " set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ .agignorecustom
+  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive
 endif
 
 " Like * but on all repo :)
