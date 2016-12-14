@@ -51,7 +51,6 @@ Plugin 'msanders/snipmate.vim'
 " Clojure
 " Plugin 'guns/vim-clojure-static'
 " Plugin 'tpope/vim-salve'
-" Plugin 'tpope/vim-projectionist'
 " Plugin 'tpope/vim-dispatch'
 " Plugin 'tpope/vim-fireplace'
 
@@ -259,9 +258,6 @@ endif
 " For vim-rails {
 " help -> :help rails-projection
 let g:rails_projections = {
-      \ "lib/import/*.rb": {
-      \   "command": "import"
-      \ },
       \ "app/decorators/*_decorator.rb": {
       \   "command": "decorator",
       \   "template":
