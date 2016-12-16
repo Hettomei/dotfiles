@@ -36,6 +36,7 @@
   # Print all branch all graph
   lall = log --graph --decorate --pretty=oneline --abbrev-commit --all
   whatrebase = log upstream/master..HEAD --oneline --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s' --abbrev-commit
+  tzwhatrebase = log origin/staging..HEAD --oneline --pretty=format:'%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s' --abbrev-commit
   wc = whatchanged -m -p
   wcw = whatchanged -m -p --color-words
   ap = add -p
