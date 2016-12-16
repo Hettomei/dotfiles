@@ -1,3 +1,24 @@
+#################################
+#
+# POUR INSTALLER RUBY AVEC RBENV : SURTOUT NE PAS INSTALLER BREW
+#
+# CA FAOIT TOUT DECONNER AVEC OPENSSL PUIS READLINE & CO
+#
+# DONC EN 1 INSTALLER RBENV VIA GITHUB
+#
+# 2 INSTALLER DES RUBY
+#
+# 3 INSTALLER BREW
+#
+# 4 SI CA FAIL POUR INSTALLER DE NOUVEAU RUBY, PRENEZ VOTRE BASH RC
+#
+# DESACTIVEZ TOUS LES PATHS VERS BREW
+#
+# ENJOY
+#
+###################################
+
+
 # To use it, need to do this first :
 # git clone https://github.com/Hettomei/my_computer_conf.git
 # ./my_computer_conf/start_vps.sh
