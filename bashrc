@@ -133,7 +133,9 @@ alias aflarger='ag --pager less --unrestricted -ig'
 
 alias todo="nvim +Todo"
 alias tod="nvim +Todo"
-if [ "$(uname)" == "Linux" ]; then
+
+OS=$(uname) # Linux , Darwin for mac
+if [ "$OS" == "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -o'
   alias n=nautilus
@@ -141,10 +143,11 @@ fi
 
 export VISUAL=nvim
 export EDITOR=nvim
-# -R -> display ansi color (not well understand)
+# -R -> display ansi color
 # -X -> sometimes help to not clear the screen
 # -F -> quit if one string
-export LESS='-R -X -F --chop-long-lines'
+# --chop-long-lines -> do not wrap to next line # Sometimes usefull
+export LESS='-R -X -F'
 
 PATH=/opt/java/jdk1.8.0_77/bin:$PATH
 PATH=/usr/local/go/bin:$PATH
@@ -164,8 +167,6 @@ fi
 # because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
 # need to `brew install bash-completion`
 __git_complete g _git
-
-OS=$(uname) # Linux
 
 txtblk='\e[0;30m' # Black - Regular
 txtred='\e[0;31m' # Red
