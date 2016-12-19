@@ -381,8 +381,6 @@ nnoremap <Leader>col :set invcursorcolumn<CR>
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
 
-" save and go back where I was
-nnoremap <Leader><Leader> mw:w<CR>'w
 " }
 
 " map surround {
@@ -415,6 +413,13 @@ nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
 
 " save all line in clipboard
 nnoremap YY :call SavePosAndDo('^"+y$')<cr>
+
+function! SavePosAndSave()
+   let save_pos = getpos(".")
+   write
+   call setpos(".", save_pos)
+endfu
+nnoremap <Leader><Leader> :call SavePosAndSave()<cr>
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible

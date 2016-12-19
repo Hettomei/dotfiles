@@ -141,6 +141,9 @@ fi
 
 export VISUAL=nvim
 export EDITOR=nvim
+# -R -> display ansi color (not well understand)
+# -X -> sometimes help to not clear the screen
+# -F -> quit if one string
 export LESS='-R -X -F --chop-long-lines'
 
 PATH=/opt/java/jdk1.8.0_77/bin:$PATH
