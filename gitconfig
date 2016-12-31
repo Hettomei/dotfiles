@@ -1,7 +1,7 @@
 [gui]
 [user]
-  name = Timothée Gauthier
-  email = timothee@teezily.com
+  name = Hettomei
+  email = itsumo.sibyllin@gmail.com
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global

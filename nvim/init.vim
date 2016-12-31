@@ -20,7 +20,6 @@ Plugin 'tpope/vim-commentary' " use gcc
 Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
 Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
 Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
-" Plugin 'tpope/gem-ctags'
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
 Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
 Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
@@ -39,9 +38,7 @@ Plugin 'altercation/vim-colors-solarized'
 
 " language specific
 Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx.git'
 Plugin 'vim-ruby/vim-ruby'
-" Plugin 'mattn/emmet-vim' " to write fast html when pressing <C-y>,
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'msanders/snipmate.vim'
 
