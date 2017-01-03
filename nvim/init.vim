@@ -115,10 +115,9 @@ endfu
 command! Vimrc :call OpenInBufferOrTab("$MYVIMRC")
 command! SourceVimrc source $MYVIMRC
 command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
-command! Zshrc :call OpenInBufferOrTab("$HOME/.zshrc")
-command! Fishconfig :call OpenInBufferOrTab("$HOME/.config/fish/config.fish")
 command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
+command! Tmux :call OpenInBufferOrTab("$HOME/.tmux.conf")
 " }
 
 " backup swap {

@@ -232,6 +232,7 @@ bind '"\e[B": history-search-forward' # search only next string on key down
 # found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
 stty werase undef
 bind '\C-w:unix-filename-rubout'
+bind '\C-l:clear-screen'
 
 # Sepcial teezily
 dkr(){
@@ -239,10 +240,14 @@ echo "docker-compose run --rm web "$@""
 docker-compose run --rm web "$@"
 }
 
-teezilycommit(){
-  local url=https://github.com/teezily/teezily/commit/$1
-  echo $url
-  xdg-open $url
+hi(){
+  hub browse -- issues/$1
+}
+hc(){
+  hub browse -- commit/$1
+}
+hp(){
+  hub browse -- pull/$1
 }
 
 simplehttp(){
