@@ -18,4 +18,4 @@ done
 
 echo 'to install vim vundle :'
 echo "git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.config/nvim/bundle/Vundle.vim"
-echo 'nvim +PluginInstall +qAll'
+echo 'nvim +PluginInstall +qa'

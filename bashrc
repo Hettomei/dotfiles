@@ -125,7 +125,8 @@ alias pps='ps aux | grep'
 # alias for ag
 # keep to know how to ignore more than juste .gitignore
 # alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
-alias a='ag --pager less --case-sensitive'
+alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
+alias aglarger="ag --pager less --case-sensitive"
 alias af='ag --pager less -ig'
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
