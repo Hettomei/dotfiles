@@ -506,9 +506,9 @@ vnoremap // y/\V<C-R>"<CR>
 
 " when on a word, it search for this word
 " and replace with the specified value
-nnoremap <Leader>sr :%s/\<<C-r><C-w>\>//c<Left><Left>
-nnoremap <Leader>sR :%s/<C-r><C-w>//c<Left><Left>
-vnoremap <Leader>sr y:%s/\V<C-r>"//c<Left><Left>
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>sR :%s/<C-r><C-w>/
+vnoremap <Leader>sr y:%s/\V<C-r>"/
 " Show effects of the command as you type. (:s only for now)
 set inccommand=split
 

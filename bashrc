@@ -251,6 +251,9 @@ hc(){
 hp(){
   hub browse -- pull/$1
 }
+hw(){
+  hub browse -- wiki
+}
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
