@@ -23,6 +23,7 @@ done
 while :
 do
   echo "$2"
-  notify-send MESSAGE "\n$2 \njobs : $$"
+  notify-send --urgency=critical MESSAGE "\n$2 \njobs : $$"
+
   sleep 7
 done
