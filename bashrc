@@ -133,6 +133,7 @@ alias aflarger='ag --pager less --unrestricted -ig'
 
 alias todo="nvim +Todo"
 alias tod="nvim +Todo"
+alias fait="nvim +Fait"
 
 OS=$(uname) # Linux , Darwin for mac
 if [ "$OS" == "Linux" ]; then

@@ -117,6 +117,7 @@ command! SourceVimrc source $MYVIMRC
 command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
 command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
+command! Fait :call OpenInBufferOrTab("$HOME/fait.md")
 command! Tmux :call OpenInBufferOrTab("$HOME/.tmux.conf")
 " }
 
