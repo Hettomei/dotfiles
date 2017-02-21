@@ -12,7 +12,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular' " Make multiple things aligned
 Plugin 'scrooloose/syntastic'
 Plugin 'gorkunov/smartpairs.vim' " make easy with vv
-" Plugin 'Konfekt/FastFold' " Fix very slow vim because of foldmethod=syntax
 
 " tpope
 Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
@@ -41,6 +40,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'msanders/snipmate.vim'
+Plugin 'kchmck/vim-coffee-script'
 
 " Lisp :
 " Plugin 'kovisoft/slimv'
@@ -118,6 +118,7 @@ command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
 command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
 command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
 command! Fait :call OpenInBufferOrTab("$HOME/fait.md")
+command! Notes :call OpenInBufferOrTab("$HOME/notes.md")
 command! Tmux :call OpenInBufferOrTab("$HOME/.tmux.conf")
 " }
 
