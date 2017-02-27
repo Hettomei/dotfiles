@@ -52,7 +52,7 @@
 [push]
   default = simple
 [diff]
-  algorithm = patience
+  ; algorithm = patience
   tool = nvim -d
 [merge]
   tool = fugitive
