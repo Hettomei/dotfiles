@@ -1,6 +1,0 @@
-I'll save here my configuration file eg
-zsh/ vim git ...
-
-I use oh-my-zsh base script for zsh
-
-I know I live dangerously
