@@ -54,8 +54,8 @@ set completeopt+=longest,menuone
 set wildmode=list:longest,full
 set complete-=i " Tim pop says no. So no
 
-nnoremap <leader>e :e <C-R>=expand("%:p:h") . "\" <CR>
-cnoremap %% <C-R>=expand("%:p:h") . "\" <CR>
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "\\" <CR>
+cnoremap %% <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <leader><leader> :w<CR>
 
 augroup tab_and_space
