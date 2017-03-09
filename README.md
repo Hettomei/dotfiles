@@ -15,3 +15,4 @@ install tout avec brew
 
 brew install neovim/neovim/neovim
 brew install git tmux xclip
+brew install diff-so-fancy
