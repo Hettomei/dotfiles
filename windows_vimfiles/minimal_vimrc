@@ -1,0 +1,65 @@
+" This config is used to have a minimalist confortable vim : with no plugin
+" to send to distant serveur :
+" scp minimal_vimrc my.server.com:"~/.vimrc"
+" or scp minimal_vimrc tgauthier@my.server.com:"~/.vimrc"
+
+set nocompatible
+set number
+
+let g:mapleader = "\<Space>"
+
+syntax enable
+
+set encoding=utf8
+set history=300
+set viminfo=h,'50,<1000,s1000,/500,:1000
+set backspace=indent,eol,start
+
+set laststatus=2
+set showcmd
+"
+" when go to left at a start of line, it goes to the end of previous
+set whichwrap+=<,>,h,l,[,]
+" Map the arrow keys to be based on display lines, not physical lines
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+"Display &nbsp and trailing space :
+set list listchars=nbsp:•,trail:¬
+
+" search
+set incsearch
+set noignorecase
+set hlsearch
+set nowrapscan
+
+" whitespace
+set nowrap
+set tabstop=2 "ts: number of spaces that a tab renders as
+set shiftwidth=2 "sw: number of spaces to use for autoindent
+set softtabstop=2 "sts: number of spaces that tabs insert
+set smarttab "sta: helps with backspacing because of expandtab
+set expandtab "et: uses spaces instead of tab characters
+
+"show three line before up and down => MAGIC
+set scrolloff=3
+"show 15 char before and after cursor => MAGIC
+set sidescrolloff=15
+set sidescroll=1
+
+" Completion like bash
+" menuone is to always display menu
+set completeopt+=longest,menuone
+"tab completion for files
+set wildmode=list:longest,full
+set complete-=i " Tim pop says no. So no
+
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "\" <CR>
+cnoremap %% <C-R>=expand("%:p:h") . "\" <CR>
+nnoremap <leader><leader> :w<CR>
+
+augroup tab_and_space
+  autocmd!
+  " Delete all trailing whitespace in end of line
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
