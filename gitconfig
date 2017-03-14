@@ -24,6 +24,8 @@
   c  = commit
   cm = commit -m
   ca = commit --amend
+  d = diff
+  dc = diff --cached
   dic = diff --cached
   diw = diff --color-words
   dicw = diff --cached --color-words
@@ -49,6 +51,8 @@
   # edit config : open this file :)
   ec = config --global -e
   branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"
+  spull = svn rebase
+  spush = svn dcommit
 [push]
   default = simple
 [diff]
