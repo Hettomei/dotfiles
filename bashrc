@@ -225,6 +225,7 @@ set -o notify # notify when jobs running in background terminate
 # shopt -s histappend                # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 
+source $HOME/.bashrc_special_conf
 source $HOME/.bashrc_not_in_git
 
 set -o vi

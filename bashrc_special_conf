@@ -1,0 +1,2 @@
+PATH=$PATH:$HOME/horo/proteus/node_modules/.bin
+alias n=thunar
