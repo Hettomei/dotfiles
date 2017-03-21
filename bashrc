@@ -135,7 +135,6 @@ alias todo="nvim +Todo"
 alias tod="nvim +Todo"
 alias fait="nvim +Fait"
 alias notes="nvim +Notes"
-alias chrono="job_break"
 
 OS=$(uname) # Linux , Darwin for mac
 if [ "$OS" == "Linux" ]; then
