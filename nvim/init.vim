@@ -89,6 +89,26 @@ augroup change_file_type
   autocmd BufNewFile,BufRead *.json set filetype=javascript
   autocmd BufNewFile,BufRead *.hbs set filetype=html
 augroup END
+
+augroup change_txt_behavior
+  autocmd!
+  autocmd BufNewFile,BufRead {*.txt,*.md} setlocal wrap ignorecase
+augroup END
+
+" thanks to http://stackoverflow.com/questions/33093491/vim-gf-with-file-extension-based-on-current-filetype
+" it allow 'gf' to work with .jsx files
+augroup suffixes
+    autocmd!
+
+    let associations = [
+                \["javascript", ".js,.javascript,.json,.jsx"],
+                \["python", ".py,.pyw"]
+                \]
+
+    for ft in associations
+        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    endfor
+augroup END
 " }
 
 " allow backspacing over everything in insert mode
@@ -590,7 +610,7 @@ endif
 autocmd filetype svn,*commit* setlocal spell spelllang=en
 
 " go on top of file on commit
-au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 " }
 
 " up down movement {
@@ -678,7 +698,10 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-" let g:syntastic_javascript_eslint_args = ['--fix']
+"
+" -> to reload file after eslint do his work
+" http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
+let g:syntastic_javascript_eslint_args = ['--fix']
 " }
 
 " special teezily {
@@ -735,7 +758,7 @@ let g:qfenter_topen_map = ['<Nop>']
 " }
 
 " when in diff mode, no color {
-au FilterWritePre * if &diff | set syntax=off | endif
+autocmd FilterWritePre * if &diff | set syntax=off | endif
 " }
 "
 " Tips and tricks {
