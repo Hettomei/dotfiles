@@ -17,3 +17,16 @@ Quoi tester ?
 
 Exemple avec Samuel, sont reducer sur eppsettings
 type: 'FETCH_SUCCESS' payload => avec ? sans ? null ? undefined ?
+
+
+Quoi tester :
+
+Une fonction compliqué
+Le comportement d'un component
+La mémoization d'un selecteur
+
+
+Effet de bord : 
+Meilleur design des fonctions
+Pas peur de refactor
+Montre aux débutant - sur le projet - comment sont utilisé les differents composant
