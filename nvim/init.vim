@@ -701,7 +701,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 "
 " -> to reload file after eslint do his work
 " http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
-let g:syntastic_javascript_eslint_args = ['--fix']
+" let g:syntastic_javascript_eslint_args = ['--fix']
 " }
 
 " special teezily {
