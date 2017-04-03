@@ -30,3 +30,10 @@ Effet de bord :
 Meilleur design des fonctions
 Pas peur de refactor
 Montre aux débutant - sur le projet - comment sont utilisé les differents composant
+
+
+Liste des fichiers intéressant :
+
+
+
+Exercice ? (faire un coding dojo ? en js ? bowling ?)
