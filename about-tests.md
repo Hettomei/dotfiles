@@ -43,30 +43,27 @@ Ceux sur lesquels se concentrer :
 + test de non régression :
   on corrige une ano, on ajoute le tests pour ne pas que cette ano se reproduise
 
-Quoi tester ?
+# Quoi tester ?
 
 Exemple avec Samuel, son reducer sur eppsettings
 type: 'FETCH_SUCCESS' payload => avec ? sans ? null ? undefined ?
 
-
-Quoi tester :
-
-Une fonction compliquée -> toute ses branches
+Une fonction compliquée -> toutes ses branches
 Le comportement d'un component
-La mémoization d'un selecteur
-
+ex : La mémoization d'un selecteur
 
 Effet de bord :
 Meilleur design des fonctions
 Pas peur de refactor
-Montre aux débutant - sur le projet - comment sont utilisé les differents composant
+Pas peur de mettre en prod
+Montre aux débutants - sur le projet - comment sont utilisés les differents composants
 
+On test le chemin idéal,
+on montre comment la fonction doit etre utilisé
 
-Liste des fichiers intéressant :
-
-
-Exercice ? (faire un coding dojo ? en js ? bowling ?)
-
+function add(x, y){
+  return x + y
+}
 
 # Détail des libs
 Mocha -> test framework -> describe it context, reporting, retry ....
@@ -87,14 +84,52 @@ expect(wrapper.find('span className="btn btn-file btn-sm btn-foo"')).to.be.ok
 // tests réellement
 expect(wrapper.find('span className="btn btn-file btn-sm btn-foo"').exists()).to.be.ok
 
+// Autre piege
 // toujour vrai, exists() (de enzyme) renvoie un bool, exist (de Chai) renvoi 'true' si valeur est autre que null ou undefined, false 'existe' donc le test passe toujours
 expect(wrapper.find('span className="btn btn-file btn-sm btn-foo"').exists()).to.exist
 ```
 
 Si on avait d'abord vérifié que le test ne passe pas on aurait prouvé que le code change le test.
 
+# Les tests ralentissent !
+
+Au début, lorsqu'il n'y à aucun tests, en effet c'est long : trouver les outils / les compromis.
+Une fois qu'une base existe : copier coller, adapter : ca reste plus rapide  que de rafraichir la page :
+
+Exemple on veut s'assurer que :
+'on veut que la case soit active si la date est un week end sur une semaine impaire'
+
+Sans les tests :
+code - compile - rechargement du navigateur - si Date.now() est une semaine pair, il faut cliquer pour aller sur une impaire, voir avec l'inspecteur (si le CSS n'est pas encore fait)
+
+Avec les tests
+la classe 'is-active' est appliqué sur le div lorsque la props
+
+```
+// With odd week
+const wrapper = shallow(<Case date={'2017-04-13'}/>)
+expect(wrapper.prop('className')).to.equal('is-active')
+
+// With even week
+const wrapper = shallow(<Case date={'2017-04-22'}/>)
+expect(wrapper.prop('className')).to.be.null
+```
+
+demain la spec évolue : 'les semaines sont active en rouge si durant la derniere semaine du mois'
+...
+
 # trucs et astuces
 
 console.log(wrapper.debug());
 
 Plein de facon de tester une meme chose : du moment que c'est lisible.
+
+le wiki http://10.1.10.209:8080/wiki-etng/doku.php?id=etemptation-ng:proteus:testingreact
+
+des questions ?
+
+# résumé
+
+- les tests c'est pas évident
+- l'utilité des tests n'est pas evidente, il faut l'avoir experimenté
+- ne pas se prendre la tete : montrer comment se comporte votre fonction / votre lib et c'est déjà énorme.
