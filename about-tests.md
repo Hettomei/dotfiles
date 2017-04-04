@@ -106,6 +106,7 @@ Avec les tests
 la classe 'is-active' est appliqué sur le div lorsque la props
 
 ```
+// ex : src/js/test/app/planning/PlanningTeamLineBackground.spec.js
 // With odd week
 const wrapper = shallow(<Case date={'2017-04-13'}/>)
 expect(wrapper.prop('className')).to.equal('is-active')
@@ -115,8 +116,21 @@ const wrapper = shallow(<Case date={'2017-04-22'}/>)
 expect(wrapper.prop('className')).to.be.null
 ```
 
-demain la spec évolue : 'les semaines sont active en rouge si durant la derniere semaine du mois'
-...
+demain la spec évolue : 'les semaines sont active en rouge si durant la derniere semaine du mois' ...
+
+Cas concret : InputFile, anthony à fait un simple refactor : surpimer des const self = this (car self === window)
+InputFile à cassé, avec les tests on l'aurait vu. Je l'ai vu en voulant ajouter ma photo.
+
+commit 0f4ee35fd374ce57b3ef2cdff9e769bc18eccca5
+    $BT0 fix bug forms/InputFile : this.props doesnt exist in this context
+
+    git-svn-id: http://10.11.4.106:18888/svn/repos/proteus/trunk@33750 43709e11-6b1d-0410-be10-800000000000
+
+commit 26a647adc7f270e2e93b337848514bfd10883aed
+    $BT0 completely test forms/InputFile
+
+    git-svn-id: http://10.11.4.106:18888/svn/repos/proteus/trunk@33749 43709e11-6b1d-0410-be10-800000000000
+
 
 # trucs et astuces
 
