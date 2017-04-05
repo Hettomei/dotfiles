@@ -1,4 +1,4 @@
-PATH=$PATH:$HOME/horo/proteus/node_modules/.bin
+PATH=$PATH:$HOME/proteus/node_modules/.bin
 alias n=thunar
 
 

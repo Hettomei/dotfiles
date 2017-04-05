@@ -10,7 +10,7 @@ Sondage : qui en a fait ? Est ce que j'ai besoin de convaincre de l'utilité ?
 + Proteus sera gros. Impossible de repasser partout à chaque fois
 + Proteus est compliqué : on gère des dates, des droits
 + Plusieurs devs sur un même écran, si chacun fait son test, au moment du merge/conflit, il suffit de faire en sorte que tout passe
-+ L équipe grossit
++ L'équipe grossit
 + 'Rapid feedback' -> la suite de tests prend 256 ms pour 74 tests // 300 pour 100 // 3s pour 1000 // 30s pour 10 000
 + Les tests servent de documentations (ex : app/planning/PlanningTeamLineBackground.spec.js)
 

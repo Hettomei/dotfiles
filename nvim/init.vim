@@ -558,7 +558,8 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 " thanks to https://robots.thoughtbot.com/faster-grepping-in-vim
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ $HOME/.agignorecustom
+  " set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ $HOME/.agignorecustom
+  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive
 endif
 
 " Like * but on all repo :)
@@ -591,8 +592,6 @@ augroup END
 
 " ctrlp {
 "https://github.com/kien/ctrlp.vim
-nnoremap <C-b> :CtrlPBuffer<CR>
-
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
