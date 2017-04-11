@@ -10,8 +10,8 @@ snippet clt
 snippet /// Add TomDoc comment
 	// Public: ${1:Explain what the method do}
 	//
-	// ${2:var1}  - ${3:Explain what the var done}
-	// ${4:var2}  - ${5:Explain what the var done}
+	// ${2:var1}  - ${3:Explain what the var do}
+	// ${4:var2}  - ${5:Explain what the var do}
 	//
 	// Examples
 	//
@@ -19,3 +19,17 @@ snippet /// Add TomDoc comment
 	//   # => "TomTomTomTom"
 	//
 	// Returns ${6:Explain what it return}
+snippet /** Add java comment
+	/**
+	 * ${1:Explain what the method do}
+	 *
+	 * @param ${2:value \: String} ${3:Explain what the var do}
+	 *
+	 * @return ${2:value or null}
+	 *
+	 * Examples
+	 *
+	 *  valueAt({foo: { bar: '4' }}, 'foo.bar')
+	 *
+	 *  # => '4'
+	 */

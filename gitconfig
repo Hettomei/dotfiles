@@ -51,8 +51,6 @@
   # edit config : open this file :)
   ec = config --global -e
   branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"
-  spull = svn rebase
-  spush = svn dcommit
   dpull = svn rebase
   dpush = svn dcommit
 [push]
@@ -62,6 +60,7 @@
   tool = nvim -d
 [merge]
   tool = fugitive
+  conflictstyle = diff3
 [difftool]
   prompt = false
 [pager]
@@ -69,3 +68,5 @@
   diff = diff-so-fancy | less --tabs=4 -RFX
   show = diff-so-fancy | less --tabs=4 -RFX
   whatchanged = diff-so-fancy | less --tabs=4 -RFX
+[status]
+  showUntrackedFiles = all
