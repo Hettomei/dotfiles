@@ -121,7 +121,7 @@ set autoread " Automatically reload changes if detected
 set encoding=utf-8
 " The encoding written to file.
 set fileencoding=utf-8
-" iso-8859-1  is latin1
+" iso-8859-1 is latin1
 set fileencodings=utf-8,iso-8859-1
 " }
 

@@ -4,20 +4,19 @@
 " or scp minimal_vimrc tgauthier@my.server.com:"~/.vimrc"
 
 set nocompatible
-set number
 
 let g:mapleader = "\<Space>"
 
 syntax enable
 
 set encoding=utf8
+set fileencoding=utf-8
+" iso-8859-1 is latin1
+set fileencodings=utf-8,iso-8859-1
 set history=300
 set viminfo=h,'50,<1000,s1000,/500,:1000
 set backspace=indent,eol,start
 
-set laststatus=2
-set showcmd
-"
 " when go to left at a start of line, it goes to the end of previous
 set whichwrap+=<,>,h,l,[,]
 " Map the arrow keys to be based on display lines, not physical lines
@@ -54,12 +53,201 @@ set completeopt+=longest,menuone
 set wildmode=list:longest,full
 set complete-=i " Tim pop says no. So no
 
-nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <leader><leader> :w<CR>
-
 augroup tab_and_space
   autocmd!
   " Delete all trailing whitespace in end of line
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
+
+" Remove the word under the cursor
+" Do not save the word in any register
+" and go in insert mode
+nnoremap <Leader>r "_ciw
+
+augroup change_txt_behavior
+  autocmd!
+  " linebreak is to not cut a word in 2 piece
+  autocmd BufNewFile,BufRead {*.txt,*.md} setlocal wrap linebreak ignorecase
+augroup END
+
+" backup swap {
+set nobackup "nobk: in this age of version control, who needs it
+set nowritebackup "nowb: don't make a backup before overwriting
+set noswapfile "noswf: don't litter swap files everywhere
+" }
+" stop syntax coloring after 1000 columns
+set synmaxcol=400
+
+" configure display {
+set statusline=%y%f%=%m%r%h%w\ %l\/%L\ \|\ %c
+
+" Status bar
+set laststatus=2
+
+" Show (partial) command in the status line
+set showcmd
+
+" Suppress mode change messages
+set noshowmode
+
+" line number
+set number
+set numberwidth=1
+
+set virtualedit=block
+
+set title
+" }
+"
+" Remember last location in file {
+augroup lastlocation
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+augroup END
+" }
+
+"open the same directory as the current buffer !
+nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+"display the same directory as the current buffer !
+cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+cnoremap %f <C-R>=expand("%:t") <CR>
+nnoremap <F2> a<C-R>=expand("%:p:h") . "/" <CR><esc>
+nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
+
+"taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
+nnoremap <F4> :set invpaste<CR>:set paste?<CR>
+
+" format the entire file,
+" mf   -> mark line inside f,
+" gg=G -> reindent,
+" 'f   -> go to current line
+nnoremap <Leader>f mfgg=G'f
+
+"display cursor column
+nnoremap <Leader>col :set invcursorcolumn<CR>
+
+" like gt (tab next) but with buffer
+nnoremap gb :bn<CR>
+nnoremap gB :bp<CR>
+
+vnoremap Y "+y
+
+" all this function just to ensure cursor didn't move
+" before I used : i<esc>l`^ , but on readonly file it failed because 'i' is forbidden
+function! SavePosAndDo(str)
+   let save_pos = getpos(".")
+   execute "normal! " . a:str
+   call setpos(".", save_pos)
+endfu
+" put in os clipboard
+nnoremap <Leader>Y :call SavePosAndDo('"+yiw')<cr>
+" put word in clipboard and go back to previous pos
+nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
+
+" save all line in clipboard
+nnoremap YY :call SavePosAndDo('^"+y$')<cr>
+
+nnoremap Y y$
+
+" paste mapping {
+" If you visually select something and hit paste
+" that thing gets yanked into your buffer. This
+" generally is annoying when you're copying one item
+" and repeatedly pasting it. This changes the paste
+" command in visual mode so that it doesn't overwrite
+" whatever is in your paste buffer.
+" taken here
+" http://yanpritzker.com/2012/01/20/the-cleanest-vimrc-youve-ever-seen/
+vnoremap p "_dp
+vnoremap P "_dP
+" replace current word with paste and do not save deleted word to register
+nnoremap <Leader>p "_ciw<C-r>"<esc>
+"http://vim.wikia.com/wiki/Selecting_your_pasted_text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" }
+
+" delete mapping {
+"when use x, do not send to test register <""> but send to black hole
+"register "_ (ie void, or /dev/null or divide by 0...)
+nnoremap x "_x
+nnoremap X "_X
+vnoremap x "_x
+vnoremap X "_X
+
+" delete the word on which i am
+nnoremap <Leader>d diw
+" delete the word on which i am and put it in the clipboard
+nnoremap <Leader>D "+diw
+
+" Remove the word under the cursor
+" Do not save the word in any register
+" and go in insert mode
+nnoremap <Leader>r "_ciw
+
+" }
+"
+if has('mouse')
+  set mouse=a
+endif
+
+" when on a word, it search for this word
+" and replace with the specified value
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>sR :%s/<C-r><C-w>/
+vnoremap <Leader>sr y:%s/\V<C-r>"/
+
+augroup specific-quickfix-window
+  autocmd!
+  " Always move quickfix at bottom for full width
+  autocmd FileType qf wincmd J
+  " Quit on q
+  autocmd FileType qf nnoremap <buffer> q :q<CR>
+  " Open new window
+  " display quickfix window on bottom
+  " and return on the previous opened window
+  autocmd FileType qf nnoremap <buffer> <C-h> <C-w><Enter><C-w>H:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-j> <C-w><Enter><C-w>J:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-k> <C-w><Enter><C-w>K:cclose<CR>:copen<CR><C-w>p
+  autocmd FileType qf nnoremap <buffer> <C-l> <C-w><Enter><C-w>L:cclose<CR>:copen<CR><C-w>p
+  " Open in a new tab. ^ is to go to first char to apply "gf"
+  autocmd FileType qf nnoremap <buffer> <C-t> ^<C-w>gf:copen<CR><C-w>p
+augroup END
+" }
+"
+" move in window stuff {
+" ----------------------------------------------------------------------------
+" move to the window in the direction shown, or create a new split in that
+" direction
+" ----------------------------------------------------------------------------
+func! WinMove(key)
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfu
+
+nnoremap <silent> <C-h> :call WinMove('h')<cr>
+nnoremap <silent> <C-j> :call WinMove('j')<cr>
+nnoremap <silent> <C-k> :call WinMove('k')<cr>
+nnoremap <silent> <C-l> :call WinMove('l')<cr>
+
+" Switch directly to the new splitted window
+nnoremap <C-w>v :vsplit<CR>
+nnoremap <C-w>s :split<CR>
+
+nnoremap <silent> <Leader>j :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>k :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>h :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+nnoremap <silent> <Leader>l :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+
+" split under
+set splitbelow
+" split right
+set splitright
+" }
