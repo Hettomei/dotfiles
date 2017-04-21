@@ -19,7 +19,7 @@ do
   cp -v $HOME/.config/nvim/$file_name $DIR/nvim/$file_name
 done
 
-for file_name in 'my_snippets' 'dictionary'
+for file_name in 'my_snippets'
 do
   cp -v -R $HOME/.config/nvim/$file_name $DIR/nvim/
 done

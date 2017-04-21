@@ -357,7 +357,6 @@ set wildignorecase
 set completeopt+=longest,menuone
 "tab completion for files
 set wildmode=list:longest
-set dictionary=/Users/tim/.vim/dictionary/francais.txt
 set complete-=i " Tim pop says no. So no
 " Add dictionnary to <Ctrl-N> " will see if usefull in futur
 "set complete-=k complete+=k
@@ -761,6 +760,10 @@ let g:qfenter_topen_map = ['<Nop>']
 " when in diff mode, no color {
 autocmd FilterWritePre * if &diff | set syntax=off | endif
 " }
+
+" do not use this feature
+set nomodeline
+
 "
 " Tips and tricks {
 

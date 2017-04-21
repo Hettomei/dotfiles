@@ -9,7 +9,7 @@ do
   cp -v $DIR/nvim/$file_name $HOME/.config/nvim/$file_name
 done
 
-for dir_name in 'my_snippets' 'dictionary'
+for dir_name in 'my_snippets'
   do
   mkdir -p $HOME/.config/nvim/$dir_name
   cp -v -R $DIR/nvim/$dir_name $HOME/.config/nvim/
