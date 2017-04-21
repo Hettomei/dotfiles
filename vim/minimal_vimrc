@@ -147,6 +147,13 @@ nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
 " save all line in clipboard
 nnoremap YY :call SavePosAndDo('^"+y$')<cr>
 
+function! SavePosAndSave()
+   let save_pos = getpos(".")
+   write
+   call setpos(".", save_pos)
+endfu
+nnoremap <Leader><Leader> :call SavePosAndSave()<cr>
+
 nnoremap Y y$
 
 " paste mapping {
