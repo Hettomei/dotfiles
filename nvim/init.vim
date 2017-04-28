@@ -55,6 +55,7 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plugin 'yssl/QFEnter'
+Plugin 'jdonaldson/vaxe'
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
