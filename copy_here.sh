@@ -25,7 +25,7 @@ do
 done
 
 ### TERMINATOR ###
-cp -v $HOME/.config/terminator/config $DIR/terminator_config
+cp -v $HOME/.config/terminator/config $DIR/old/terminator_config
 
 cd $DIR
 
