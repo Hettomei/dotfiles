@@ -37,6 +37,8 @@ Plugin 'altercation/vim-colors-solarized'
 
 " language specific
 Plugin 'pangloss/vim-javascript'
+" Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'mxw/vim-jsx'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'msanders/snipmate.vim'
