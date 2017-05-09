@@ -38,7 +38,8 @@ Plugin 'altercation/vim-colors-solarized'
 " language specific
 Plugin 'pangloss/vim-javascript'
 " Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'mxw/vim-jsx'
+Plugin 'mxw/vim-jsx'
+
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 Plugin 'msanders/snipmate.vim'
@@ -198,7 +199,6 @@ set listchars=nbsp:•,trail:¬,tab:→→
 set number
 set numberwidth=1
 
-" set ttyfast "tf: improves redrawing for newer computers
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block
@@ -221,12 +221,10 @@ augroup change_file_fold
 augroup END
 
 " If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
-let g:fastfold_savehook = 0
-let g:tex_fold_enabled=1
-let g:vimsyn_folding='af'
-let g:xml_syntax_folding = 1
-let g:ruby_fold_enabled=1
-let g:javascript_fold_enabled=1
+" let g:vimsyn_folding='af'
+" let g:xml_syntax_folding = 1
+" let g:ruby_fold_enabled=1
+" let g:javascript_fold_enabled=1
 " }
 
 " configure ruby{
@@ -239,7 +237,7 @@ let g:javascript_fold_enabled=1
 " augroup END
 " }
 
-" configure ruby{
+" configure clojure{
 " augroup config_clojure
 "   autocmd!
   " Said it is a good practice to do -= then += but can't find link
