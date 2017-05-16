@@ -250,7 +250,7 @@ augroup END
 " configure html/javascript{
 augroup config_html_css_js
   autocmd!
-  autocmd FileType html,javascript,eruby,css,scss setlocal iskeyword-=-,$ iskeyword+=-,$
+  autocmd FileType html,javascript,javascript.jsx,eruby,css,scss setlocal iskeyword-=-,$ iskeyword+=-,$
 augroup END
 " }
 
@@ -559,7 +559,8 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 if executable('ag')
   " Use ag over grep
   " set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ $HOME/.agignorecustom
-  set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive
+  set grepformat=%f:%l:%c:%m
+  set grepprg=ag\ --vimgrep\ --case-sensitive\ $*
 endif
 
 " Like * but on all repo :)
@@ -567,9 +568,9 @@ endif
 "
 " Search what is inside register "/" only words
 nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
-" Search what is inside register "/" but on all repo
+" Search what is inside register "/"
 nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
-" Search what is selected on all repo
+" Search what is selected
 vnoremap <silent> <Leader>/ y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
 
 augroup specific-quickfix-window
