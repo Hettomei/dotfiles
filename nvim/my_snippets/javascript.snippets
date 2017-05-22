@@ -19,7 +19,7 @@ snippet /// Add TomDoc comment
 	//   # => "TomTomTomTom"
 	//
 	// Returns ${6:Explain what it return}
-snippet /** Add java comment
+snippet /** Add big comment
 	/**
 	 * ${1:Explain what the method do}
 	 *
@@ -33,3 +33,11 @@ snippet /** Add java comment
 	 *
 	 *  # => '4'
 	 */
+snippet bmbm Do a quick benchmarck
+	const iterations = 1000
+	const t0 = performance.now()
+	for (let i = 0; i < iterations; i++) {
+		bigMethod()
+	}
+	const t1 = performance.now()
+	console.log('Took', (t1 - t0).toFixed(4))
