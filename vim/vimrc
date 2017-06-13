@@ -11,8 +11,7 @@ syntax enable
 
 set encoding=utf8
 set fileencoding=utf-8
-" iso-8859-1 is latin1
-set fileencodings=utf-8,iso-8859-1
+set fileencodings=utf-8
 set history=300
 set viminfo=h,'50,<1000,s1000,/500,:1000
 set backspace=indent,eol,start

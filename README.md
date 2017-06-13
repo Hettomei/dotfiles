@@ -1,4 +1,3 @@
-
 Pour une machine vierge :
 
 install git
