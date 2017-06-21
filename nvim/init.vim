@@ -36,7 +36,7 @@ Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <L
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+" Plugin 'mxw/vim-jsx'
 
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
@@ -93,7 +93,6 @@ augroup change_file_type
   autocmd!
   autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
   " add json syntax highlighting
-  autocmd BufNewFile,BufRead *.json set filetype=javascript
   autocmd BufNewFile,BufRead *.hbs set filetype=html
 augroup END
 
@@ -380,6 +379,8 @@ nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "display the same directory as the current buffer !
 cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
 cnoremap %f <C-R>=expand("%:t") <CR>
+inoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+inoremap %f <C-R>=expand("%:t") <CR>
 nnoremap <F2> a<C-R>=expand("%:p:h") . "/" <CR><esc>
 nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
 
@@ -408,9 +409,9 @@ nnoremap gB :bp<CR>
 
 " map surround {
 
-" when on a word, change 'word' to '#{word}' (usefull for ruby)
-nnoremap <Leader>sa diwi#{<C-r>"}<ESC>
-nnoremap <Leader>sA diWi#{<C-r>"}<ESC>
+" when on a word, change 'word' to '${word}' (usefull for js)
+nnoremap <Leader>sa diwi${<C-r>"}<ESC>
+nnoremap <Leader>sA diWi${<C-r>"}<ESC>
 " }
 
 " yank copy mapping {
@@ -646,8 +647,20 @@ augroup tab_and_space
   autocmd FileType make setlocal noexpandtab
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+augroup END
 
-  " Delete all trailing whitespace in end of line
+augroup for_wiztivi
+  autocmd!
+  "Don't forget the space after cchar!
+  " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
+  autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
+  autocmd FileType javascript setlocal path+=src
+  " set conceallevel=1
+  " call matchadd('Conceal', '\s\{'.&ts.'\}', 10, -1, {'conceal': '►'})
+augroup END
+
+augroup delete_trailing_space
+  autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 " }

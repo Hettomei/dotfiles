@@ -1,7 +1,1 @@
-PATH=$PATH:$HOME/proteus/node_modules/.bin
-alias n=thunar
-
-
-hcommit(){
-  xdg-open 'http://10.1.10.209:3001/hq/proteus/commit/'$1
-}
+PATH=$PATH:$HOME/onemw-js/node_modules/.bin

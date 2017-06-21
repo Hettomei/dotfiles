@@ -275,7 +275,6 @@ rappel(){
   then
     echo "Need to be run like this"
     echo "$FUNCNAME 09h03 'Va manger'"
-    echo "$FUNCNAME 11h43 'Va manger'"
     echo "$FUNCNAME 16h13 'Va manger'"
     return 1
   fi
@@ -285,10 +284,10 @@ rappel(){
 
   while :
   do
-    sleep 1
     if [ "$1" == "$(date "+%Hh%M")" ]; then
       break
     fi
+    sleep 30
   done
 
   while :
