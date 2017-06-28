@@ -108,7 +108,7 @@ augroup suffixes
     autocmd!
 
     let associations = [
-                \["javascript", ".js,.javascript,.json,.jsx"],
+                \["javascript", ".js,.javascript,.jsx"],
                 \["python", ".py,.pyw"]
                 \]
 

@@ -1,11 +1,12 @@
 windows:
   - name: BOX
     root: ~/
-    layout: main-vertical
+    layout: tiled
     focus: true
     panes:
       - v ~/todo.md
       - v ~/fait.md
+      - cd ~/remote
       - cd ~/onemw-js
   - name: onemw-js
     root: ~/onemw-js

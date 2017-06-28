@@ -45,7 +45,7 @@
   wcw = whatchanged -m -p --color-words
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
-  undo-commit = reset --soft HEAD^
+  undo-soft = reset --soft HEAD^
   rh = reset HEAD
   rhall = !git reset HEAD . && git status
   # edit config : open this file :)
