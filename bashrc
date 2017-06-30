@@ -290,13 +290,15 @@ rappel(){
     sleep 30
   done
 
-  while :
+  for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
   do
     echo "$2"
-    notify-send --urgency=critical MESSAGE "\n$2 \njobs : $$"
+    notify-send --expire-time=7000 --urgency=critical "$2" "\njobs : $$ - n: $i"
 
     sleep 7
   done
+
+  notify-send --urgency=critical "$2" "\nLast rappel"
 }
 
 # Tips

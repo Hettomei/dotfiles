@@ -4,8 +4,8 @@ windows:
     layout: tiled
     focus: true
     panes:
-      - v ~/todo.md
-      - v ~/fait.md
+      - v ~/todo.md ~/fait.md -o
+      - clear
       - cd ~/remote
       - cd ~/onemw-js
   - name: onemw-js
