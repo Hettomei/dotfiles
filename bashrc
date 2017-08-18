@@ -156,8 +156,8 @@ export EDITOR=nvim
 export LESS='-R -X -F'
 
 PATH=/opt/java/jdk1.8.0_77/bin:$PATH
-PATH=/usr/local/go/bin:$PATH
-PATH="$HOME/.cargo/bin:$PATH"
+# PATH=/usr/local/go/bin:$PATH
+# PATH="$HOME/.cargo/bin:$PATH"
 PATH=$HOME/.linuxbrew/bin:$PATH
 PATH=$HOME/.rbenv/bin:$PATH
 
