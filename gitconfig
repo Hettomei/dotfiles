@@ -25,6 +25,8 @@
   cm = commit -m
   ca = commit --amend
   d = diff
+  ; not possible as git run in sub shell
+  ; r = !cd $(git rev-parse --show-toplevel)
   dc = diff --cached
   dic = diff --cached
   diw = diff --color-words
@@ -60,7 +62,7 @@
   tool = nvim -d
 [merge]
   tool = fugitive
-  conflictstyle = diff3
+  ; conflictstyle = diff3
 [difftool]
   prompt = false
 [pager]

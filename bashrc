@@ -136,11 +136,15 @@ alias tod="nvim +Todo"
 alias fait="nvim +Fait"
 alias notes="nvim +Notes"
 
+# go to git root
+alias gr='cd $(git rev-parse --show-toplevel)'
+
 OS=$(uname) # Linux , Darwin for mac
 if [ "$OS" == "Linux" ]; then
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -o'
   alias n=nautilus
+  alias c=chrono_rb
 fi
 
 export VISUAL=nvim
@@ -276,6 +280,11 @@ rappel(){
     echo "Need to be run like this"
     echo "$FUNCNAME 09h03 'Va manger'"
     echo "$FUNCNAME 16h13 'Va manger'"
+    a="$FUNCNAME $(date "+%Hh%M") 'TEST'"
+    echo $a
+    echo
+    echo
+    $a
     return 1
   fi
 

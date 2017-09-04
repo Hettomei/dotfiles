@@ -52,10 +52,10 @@ Plugin 'vim-ruby/vim-ruby'
 " Plugin 'kovisoft/slimv'
 
 " Clojure
-Plugin 'guns/vim-clojure-static' " maybe code is in nvim plugin
-Plugin 'tpope/vim-salve' " need vim projectionist dispatch and fireplace
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fireplace'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'tpope/vim-salve'
+" Plugin 'tpope/vim-dispatch'
+" Plugin 'tpope/vim-fireplace'
 
 " Markdown
 Plugin 'tpope/vim-markdown'

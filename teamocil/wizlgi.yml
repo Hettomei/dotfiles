@@ -4,9 +4,9 @@ windows:
     layout: tiled
     focus: true
     panes:
-      - v ~/todo.md ~/fait.md -o
-      - clear
-      - cd ~/remote
+      - o_start_env
+      - cal && cd ~/onemw-js
+      - cd ~/
       - cd ~/onemw-js
   - name: onemw-js
     root: ~/onemw-js
