@@ -312,3 +312,8 @@ rappel(){
 
 # Tips
 # youtube-dl --extract-audio --audio-format mp3 $file
+
+# couper 30 sec de chanson à partir de la 5 ieme minute
+# ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
+# If you wish to REMOVE the first 30 seconds (and keep the remainder) then use this:
+# ffmpeg -ss 30 -i inputfile.mp3 -acodec copy outputfile.mp3

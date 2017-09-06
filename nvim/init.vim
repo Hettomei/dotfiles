@@ -249,12 +249,15 @@ augroup END
 " augroup END
 " }
 
-" configure html/javascript{
-augroup config_html_css_js
+augroup config_html_css_js_ruby
   autocmd!
   autocmd FileType html,javascript,javascript.jsx,eruby,css,scss setlocal iskeyword-=-,$ iskeyword+=-,$
 augroup END
-" }
+
+augroup config_clojure
+  autocmd!
+  autocmd FileType clojure setlocal iskeyword-=: iskeyword+=:
+augroup END
 
 " configure when open large_files {
 " http://vim.wikia.com/wiki/Faster_loading_of_large_files
