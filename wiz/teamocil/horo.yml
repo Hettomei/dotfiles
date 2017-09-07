@@ -1,0 +1,26 @@
+windows:
+  - name: gulp
+    root: ~/proteus
+    layout: even-horizontal
+    panes:
+      - gulp
+      - gulp test
+  - name: vim
+    root: ~/proteus
+    layout: even-horizontal
+    focus: true
+    panes:
+      - commands:
+        - git lll
+        - git status
+  - name: git
+    root: ~/proteus
+    layout: even-horizontal
+    panes:
+      - git status
+      - git status
+  - name: all
+    root: ~/
+    layout: even-horizontal
+    panes:
+      - echo 'HOME'
