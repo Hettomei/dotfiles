@@ -1,6 +1,22 @@
 #! /bin/bash
+
+if [ -z "$1" ]
+  then
+    echo "You need to supply a folder to copy."
+    echo "Example:"
+    echo $0 macbook
+    exit 2
+fi
+
 #get the dir where this script is launched
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$CURRENT_DIR/$1"
+
+echo "current dir is $CURRENT_DIR"
+
+echo "create dir $DIR"
+
+mkdir -p $DIR
 
 echo "Copy file into" $DIR
 
@@ -22,7 +38,7 @@ mkdir $DIR/teamocil
 cp -v $HOME/.teamocil/* $DIR/teamocil/
 
 
-cd $DIR
+cd $CURRENT_DIR
 
 git add -p
 git status
