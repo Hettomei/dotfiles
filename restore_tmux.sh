@@ -1,11 +1,21 @@
 #! /bin/bash
+
+if [ -z "$1" ]
+  then
+    echo "You need to supply a folder to copy."
+    echo "Example:"
+    echo $0 macbook
+    exit 2
+fi
+
 #get the dir where this script is launched
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIR="$CURRENT_DIR/$1"
 
 cp -v $DIR/tmux.conf $HOME/.tmux.conf
 
 mkdir $HOME/.teamocil
-cp -v  $DIR/teamocil/* $HOME/.teamocil/
+cp -v  $CURRENT_DIR/teamocil/* $HOME/.teamocil/
 
 cat <<-____HERE
 
