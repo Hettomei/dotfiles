@@ -34,8 +34,8 @@ cp -v $HOME/.config/nvim/init.vim $DIR/nvim/init.vim
 cp -v -R $HOME/.config/nvim/my_snippets $DIR/nvim/
 
 
-mkdir $DIR/teamocil
-cp -v $HOME/.teamocil/* $DIR/teamocil/
+mkdir $CURRENT_DIR/teamocil
+cp -v $HOME/.teamocil/* $CURRENT_DIR/teamocil/
 
 
 cd $CURRENT_DIR
