@@ -1,15 +1,9 @@
 #! /bin/bash
 
-if [ -z "$1" ]
-  then
-    echo "You need to supply a folder to copy."
-    echo "Example:"
-    echo $0 macbook
-    exit 2
-fi
-
 #get the dir where this script is launched
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $CURRENT_DIR/base.sh
+
 DIR="$CURRENT_DIR/$1"
 
 cp -v $DIR/tmux.conf $HOME/.tmux.conf
