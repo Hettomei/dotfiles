@@ -652,16 +652,6 @@ augroup tab_and_space
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 augroup END
 
-augroup for_wiztivi
-  autocmd!
-  "Don't forget the space after cchar!
-  " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
-  " autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
-  " autocmd FileType javascript setlocal path+=src
-  " set conceallevel=1
-  " call matchadd('Conceal', '\s\{'.&ts.'\}', 10, -1, {'conceal': '►'})
-augroup END
-
 augroup delete_trailing_space
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
