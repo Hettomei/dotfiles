@@ -243,12 +243,6 @@ stty werase undef
 bind '\C-w:unix-filename-rubout'
 bind '\C-l:clear-screen'
 
-# Sepcial teezily
-dkr(){
-echo "docker-compose run --rm web "$@""
-docker-compose run --rm web "$@"
-}
-
 hi(){
   hub browse -- issues/$1
 }
