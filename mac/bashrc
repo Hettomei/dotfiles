@@ -127,7 +127,14 @@ alias pps='ps aux | grep'
 # alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
 alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
 alias aglarger="ag --pager less --case-sensitive"
-alias af='ag --pager less -ig'
+
+af(){
+  result=$(sed -e "s/\(.\)/\1.*/g" <<< $1)
+  local command="ag --pager less -ig $result"
+  echo $command
+  $command
+# ag --pager less -ig "$result"
+}
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
 
@@ -302,6 +309,18 @@ rappel(){
   done
 
   notify-send --urgency=critical "$2" "\nLast rappel"
+}
+
+untilfail() {
+# run a command until it fail
+#
+# example :
+# untilfail npm run test:unit:simple
+
+$@
+while [ $? -eq 0 ]; do
+    $@
+done
 }
 
 # Tips
