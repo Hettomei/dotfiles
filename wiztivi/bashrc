@@ -250,9 +250,13 @@ untilfail() {
 # example :
 # untilfail npm run test:unit:simple
 
-$@
+i=0
+
 while [ $? -eq 0 ]; do
-    $@
+  i=$((i+1))
+  echo $i
+
+  $@
 done
 }
 
