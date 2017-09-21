@@ -317,14 +317,15 @@ untilfail() {
 # example :
 # untilfail npm run test:unit:simple
 
-i=0
+i=1
 
-while [ $? -eq 0 ]; do
+while "$@"; do
   i=$((i+1))
   echo $i
-
-  $@
 done
+
+echo
+echo "has fail at the : $i attempt"
 }
 
 # Tips
