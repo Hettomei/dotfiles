@@ -129,11 +129,14 @@ alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-l
 alias aglarger="ag --pager less --case-sensitive"
 
 af(){
+  ag --pager less -ig $@
+}
+
+fuzzy(){
   result=$(sed -e "s/\(.\)/\1.*/g" <<< $1)
   local command="ag --pager less -ig $result"
   echo $command
   $command
-# ag --pager less -ig "$result"
 }
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
@@ -233,7 +236,7 @@ rappel(){
     sleep 30
   done
 
-  for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+  for i in 1 2 3 4 5 6 7 8 9 10
   do
     echo "$2"
     notify-send --expire-time=7000 --urgency=critical "$2" "\njobs : $$ - n: $i"
@@ -263,3 +266,11 @@ echo "has fail at the : $i attempt"
 
 # Tips
 # youtube-dl --extract-audio --audio-format mp3 $file
+
+# Tips slowdown connection
+# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
+# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
+# 1 kbps
+# sudo tc qdisc add dev eth0 handle 1: root htb default 11
+# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
+# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps

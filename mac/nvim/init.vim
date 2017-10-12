@@ -183,7 +183,9 @@ set statusline=%y%f%=%m%r%h%w\ %l\/%L\ \|\ %c
 " Status bar
 set laststatus=2
 
-set cursorline
+" https://github.com/mhinz/vim-galore/blob/master/README.md#smarter-cursorline
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline
 
 " Show (partial) command in the status line
 set showcmd
@@ -363,7 +365,7 @@ set wildignorecase
 set completeopt+=longest,menuone
 "tab completion for files
 set wildmode=list:longest
-set complete-=i " Tim pop says no. So no
+set complete-=i " disable scanning included files - Tim pop says no. So no
 " Add dictionnary to <Ctrl-N> " will see if usefull in futur
 "set complete-=k complete+=k
 " }
@@ -379,6 +381,7 @@ augroup END
 
 "open the same directory as the current buffer !
 nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 "display the same directory as the current buffer !
 cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
 cnoremap %f <C-R>=expand("%:t") <CR>
@@ -778,6 +781,22 @@ autocmd FilterWritePre * if &diff | set syntax=off | endif
 
 " do not use this feature
 set nomodeline
+
+" n always go bottom, N up. Took here  https://github.com/mhinz/vim-galore/blob/master/README.md#saner-behavior-of-n-and-n
+nnoremap <expr> n  'Nn'[v:searchforward]
+nnoremap <expr> N  'nN'[v:searchforward]
+
+" take here : https://github.com/mhinz/vim-galore/blob/master/README.md#saner-ctrl-l
+" do: redraw!, de-highlighting search, fixing syntax highlighting, force updating the syntax highlighting in diff mode:
+nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+
+" https://github.com/mhinz/vim-galore/blob/master/README.md#quickly-edit-your-macros
+" Simply edit your macro
+" How to use :
+" record a macro in reg a : qa ......
+" then to edit press : "a<leader>q
+" press enter after editing
+nnoremap <leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 "
 " Tips and tricks {
