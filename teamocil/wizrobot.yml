@@ -1,0 +1,16 @@
+windows:
+  - name: robot
+    root: ~/onemw-robot-test-suite
+    layout: tiled
+    focus: true
+    panes:
+      - v my-stbpool.dat run.md -o
+      - env | grep -i proxy
+      - echo ''
+  - name: xap
+    root: ~/onemw-app-services/tools/xap
+    layout: even-horizontal
+    focus: true
+    panes:
+      - commands:
+        - git pull && npm run start

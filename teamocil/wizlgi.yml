@@ -5,9 +5,9 @@ windows:
     focus: true
     panes:
       - o_start_env
-      - cal && cd ~/onemw-js
-      - cd ~/
-      - cd ~/onemw-js
+      - cal
+      - echo ''
+      - echo ''
   - name: onemw-js
     root: ~/onemw-js
     layout: even-horizontal

@@ -182,10 +182,10 @@ set statusline=%y%f%=%m%r%h%w\ %l\/%L\ \|\ %c
 
 " Status bar
 set laststatus=2
-
+set cursorline
 " https://github.com/mhinz/vim-galore/blob/master/README.md#smarter-cursorline
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+" autocmd InsertLeave,WinEnter * set cursorline
+" autocmd InsertEnter,WinLeave * set nocursorline
 
 " Show (partial) command in the status line
 set showcmd
@@ -383,11 +383,12 @@ augroup END
 nnoremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "display the same directory as the current buffer !
-cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+" cnoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+cnoremap %% <C-R>=expand("%:p") <CR>
 cnoremap %f <C-R>=expand("%:t") <CR>
-inoremap %% <C-R>=expand("%:p:h") . "/" <CR>
+inoremap %% <C-R>=expand("%:p") <CR>
 inoremap %f <C-R>=expand("%:t") <CR>
-nnoremap <F2> a<C-R>=expand("%:p:h") . "/" <CR><esc>
+nnoremap <F2> a<C-R>=expand("%:p") <CR><esc>
 nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
 
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
@@ -797,6 +798,10 @@ nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 " then to edit press : "a<leader>q
 " press enter after editing
 nnoremap <leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+
+" Avoid 'press enter' on scp
+" set cmdheight=2
+let g:netrw_silent=1
 
 "
 " Tips and tricks {

@@ -1,0 +1,7 @@
+windows:
+  - name: test
+    root: ~/onemw-js
+    layout: tiled
+    focus: true
+    panes:
+      - npm run test:unit:watch

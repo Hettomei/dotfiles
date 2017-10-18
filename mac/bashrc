@@ -129,11 +129,14 @@ alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-l
 alias aglarger="ag --pager less --case-sensitive"
 
 af(){
+  ag --pager less -ig $@
+}
+
+fuzzy(){
   result=$(sed -e "s/\(.\)/\1.*/g" <<< $1)
   local command="ag --pager less -ig $result"
   echo $command
   $command
-# ag --pager less -ig "$result"
 }
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
@@ -232,7 +235,7 @@ PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
 set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
 set -o notify # notify when jobs running in background terminate
 
-# shopt -s histappend                # bash history is only saved when close terminal, not after each command and this fixes it
+# shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 
 source $HOME/.bashrc_special_conf
@@ -335,3 +338,10 @@ echo "has fail at the : $i attempt"
 # ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
 # If you wish to REMOVE the first 30 seconds (and keep the remainder) then use this:
 # ffmpeg -ss 30 -i inputfile.mp3 -acodec copy outputfile.mp3
+# Tips slowdown connection
+# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
+# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
+# 1 kbps
+# sudo tc qdisc add dev eth0 handle 1: root htb default 11
+# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
+# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
