@@ -92,6 +92,7 @@ set viminfo=h,'50,<1000,s1000,/500,:2000
 augroup change_file_type
   autocmd!
   autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
+  autocmd BufRead,BufNewFile {build.boot} set filetype=clojure
   " add json syntax highlighting
   autocmd BufNewFile,BufRead *.hbs set filetype=html
 augroup END
