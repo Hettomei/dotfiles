@@ -12,7 +12,7 @@ mkdir -p $DIR
 echo "Copy file into" $DIR
 
 # File that start with a '.'
-for file_name in 'gitconfig' 'irbrc' 'gemrc' 'bashrc' 'bashrc_special_conf' 'tmux.conf'
+for file_name in 'gitconfig' 'irbrc' 'gemrc' 'bashrc' 'profile' 'bashrc_special_conf' 'tmux.conf'
 do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
