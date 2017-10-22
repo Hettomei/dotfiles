@@ -124,6 +124,9 @@ export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 
 [ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && . /home/linuxbrew/.linuxbrew/etc/bash_completion
 
+HISTSIZE=10000
+HISTFILESIZE=500000
+
 alias v=nvim
 alias g=git
 
