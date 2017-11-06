@@ -121,6 +121,15 @@ fi
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
+
+export VISUAL=nvim
+export EDITOR=nvim
+# -R -> display ansi color
+# -X -> sometimes help to not clear the screen
+# -F -> quit if one string
+# --chop-long-lines -> do not wrap to next line # Sometimes usefull
+export LESS='-R -X -F'
 
 [ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && . /home/linuxbrew/.linuxbrew/etc/bash_completion
 
@@ -165,14 +174,6 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -o'
 alias n=nautilus
 alias c=chrono_rb
-
-export VISUAL=nvim
-export EDITOR=nvim
-# -R -> display ansi color
-# -X -> sometimes help to not clear the screen
-# -F -> quit if one string
-# --chop-long-lines -> do not wrap to next line # Sometimes usefull
-export LESS='-R -X -F'
 
 __git_complete g __git_main
 
@@ -268,6 +269,12 @@ done
 
 echo
 echo "has fail at the : $i attempt"
+}
+
+
+youtube-mp3(){
+ # double quote is useless as it goes background job when '&' is present
+ youtube-dl --extract-audio --audio-format mp3 "$@"
 }
 
 # Tips
