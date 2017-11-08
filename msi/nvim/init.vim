@@ -698,12 +698,6 @@ set splitright
 " }
 
 " syntastic {
-if !v:shell_error && s:uname == "Linux"
-  " let g:syntastic_mode_map = { 'mode': 'passive' }
-else
-  let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
-endif
-
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -713,6 +707,7 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 "
 " -> to reload file after eslint do his work
@@ -720,22 +715,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_args = ['--fix']
 " }
 
-" special teezily {
-if !v:shell_error && s:uname == "Linux"
-  nnoremap <PageDown> <Nop>
-  inoremap <PageDown> <Nop>
-  nnoremap <PageUp> <Nop>
-  inoremap <PageUp> <Nop>
-  nnoremap <Del> <Nop>
-
-  abbrev FP FreePeriod
-endif
-
 " Convert new hash a: 4 to old hash :a => 4
 " oh is for old hash
 nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 => <CR>
-
-" }
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
