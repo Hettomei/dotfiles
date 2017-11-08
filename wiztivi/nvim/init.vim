@@ -657,10 +657,12 @@ augroup for_wiztivi
   autocmd!
   "Don't forget the space after cchar!
   " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
-  autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
-  autocmd FileType javascript setlocal path+=src
+  autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab
+  autocmd FileType javascript,json setlocal path+=src
+  " marche presque ! : transformer 4 espaces en 2 espaces
+  " autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
   " set conceallevel=1
-  " call matchadd('Conceal', '\s\{'.&ts.'\}', 10, -1, {'conceal': '►'})
+  " call matchadd('Conceal', '^\s\{'.&ts.'\}', 10, -1, {'conceal': ' '})
 augroup END
 
 augroup delete_trailing_space
@@ -809,7 +811,7 @@ nnoremap <leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v
 " Avoid 'press enter' on scp
 " set cmdheight=2
 let g:netrw_silent=1
-
+"
 "
 " Tips and tricks {
 

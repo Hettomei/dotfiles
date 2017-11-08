@@ -154,10 +154,15 @@ af(){
 }
 
 fuzzy(){
-  result=$(sed -e "s/\(.\)/\1.*/g" <<< $1)
+  result=$(sed -e "s/\(.\)/\1.*/g" <<< "$1")
   local command="ag --pager less -ig $result"
   echo $command
   $command
+}
+
+# stand for vim fuzzy
+vf(){
+  nvim $(fuzzy "$1" | sed -n 2p)
 }
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
@@ -203,8 +208,9 @@ bind '"\e[B": history-search-forward' # search only next string on key down
 # This next 2 commands allow me to erase word on ctrl-w
 # found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
 stty werase undef
-bind '\C-w:unix-filename-rubout'
-bind '\C-l:clear-screen'
+# bind '\C-w:unix-filename-rubout' # not perfect, for npm run test:unit:blah if I c-w it erase all
+bind '\C-w:backward-kill-word'
+
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
