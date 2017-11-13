@@ -4,7 +4,7 @@
 + iab AP ApplicationController
 + map exemple ² @ (difference mac vs pc)
 + ctrl p
-+ macro simple
++ macro simple (Ajouter des nombres ???)
 + snippet (ex : bmbm <tab>)
 + split
 + on écris des verbe diw di" da'
@@ -30,8 +30,7 @@
 + vimgolf .... parce que c'est marrant
 + "J" pour 'Joindre 2 lignes'
 + ```<C-r>=22*121``` (attention ne va pas tres loin dans la taille)
-+ Editer les longues commande du shell avec c-x c-e (contient directement le vimrc !!)
-+ Vous pouvez voir vos images
++ Editer les longues commande du shell avec ESC v (contient directement le vimrc !!)
 + Besoin d'envoyer du code et gist pas dispo ? :TOhtml (:colorscheme default peut etre pratique)
 + surround : si vous avez "bonjour" -> ds"  sinon (bonjour) ->  cs(' -> 'bonjour'
 + undo redo avec des branche..... je ne maitrise pas mais c'est natif
@@ -39,8 +38,6 @@
 + omnicompletion
 + vous vous souviendrez comment faire une recherche avec LESS, navigué sur gmail, et sur github
 + persistent undo (toutsauvegardé dans undo file pour ceux qui veulent)
-+ zsh -> <C-x><C-e>
-+ bcp plus fort : bindkey -v !!!!!!!!!!!!
 + config specifique pour chaque fichiers/type de fichier.... (meme en fonction de l'heure si besoin)
 + les register "ay "by "ap
 + Faire une recherche global LA ou se trouve le fichier. Exemple, j'ai un controlleur d'ouvert. Je fais ":lcd app/controller" puis <Leader>a il va rechercher que dans ce dossier pour cette fenetre
@@ -50,6 +47,9 @@
 
 # vs sublime
 + pas de message pour certaine sauvegarde "merci de payer"
+
+# vs intellij
++ - de RAM
 
 # Plugin pour débuter
 
