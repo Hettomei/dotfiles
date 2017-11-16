@@ -1,0 +1,9 @@
+windows:
+  - name: testcase
+    root: ~/onemw-js/test/visual
+    layout: tiled
+    focus: true
+    panes:
+      - v testcases.json
+      - npm run edit
+      - echo "npm run prepare; npm run test"

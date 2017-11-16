@@ -141,6 +141,7 @@ fuzzy(){
 
 # stand for vim fuzzy
 vf(){
+  fuzzy "$1"
   nvim $(fuzzy "$1" | sed -n 2p)
 }
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
@@ -280,3 +281,32 @@ echo "has fail at the : $i attempt"
 # sudo tc qdisc add dev eth0 handle 1: root htb default 11
 # sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
 # sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
+
+# git bisect example :
+# Taken from https://git-scm.com/docs/git-bisect
+# Run this way :
+# first, create your stash that change the code.
+# first go up one n commit :
+# git bisect start HEAD HEAD~100 --
+# then
+# git bisect run ~/test.sh
+
+# cat test.sh
+# !/bin/sh
+# # tweak the working tree by merging the hot-fix branch
+# # and then attempt a build
+# if git stash apply stash@{1} || git reset --hard && git stash apply stash@{0}
+# then
+#   mocha -R dot -r ./test/setup.js  -- test/unit/domain-models/pvr-ui-flow/PVRUIFlow.DomainModel.spec.js
+#   status=$?
+# else
+#   # tell the caller this is untestable
+#   status=125
+# fi
+
+# # undo the tweak to allow clean flipping to the next commit
+# git reset --hard
+
+# # return control
+# exit $status
+
