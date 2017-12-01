@@ -40,13 +40,6 @@ Plugin 'pangloss/vim-javascript'
 
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
-" Plugin 'tpope/vim-rbenv'
-" Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
-" Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
-" Plugin 'tpope/vim-rails'
-
-" Yaml
-" Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
 
 " Lisp :
 " Plugin 'kovisoft/slimv'
@@ -59,9 +52,6 @@ Plugin 'vim-ruby/vim-ruby'
 
 " Markdown
 Plugin 'tpope/vim-markdown'
-
-" Haxe
-" Plugin 'jdonaldson/vaxe' " vim mode for Haxe
 
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
@@ -136,7 +126,7 @@ function! OpenInBufferOrTab(file)
   if line('$') == 1 && getline(1) == ''
     exec 'e' a:file
   else
-    exec 'tabnew' a:file
+    exec 'vsplit' a:file
   endif
 endfu
 
@@ -281,60 +271,6 @@ endif
 " }
 
 " For vim-rails {
-" help -> :help rails-projection
-let g:rails_projections = {
-      \ "app/decorators/*_decorator.rb": {
-      \   "command": "decorator",
-      \   "template":
-      \     "class %SDecorator < ApplicationDecorator\nend",
-      \   "test": [
-      \     "spec/decorators/%s_decorator_spec.rb"
-      \   ],
-      \   "alternate": 'app/models/%s.rb'
-      \ },
-      \ "spec/factories/*.rb": {
-      \   "command": "factory",
-      \   "template":
-      \     "FactoryGirl.define do\nfactory :%s, class: %S do\nend\nend",
-      \   "test": [
-      \     "spec/models/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/repositories/*_repository.rb": {
-      \   "command": "repository",
-      \   "template":
-      \     "class %SRepository\nend",
-      \   "test": [
-      \     "spec/repositories/%s_repository_spec.rb"
-      \   ],
-      \ },
-      \ "app/presenter/*.rb": {
-      \   "command": "presenter",
-      \   "template":
-      \     "class %S\nend",
-      \   "test": [
-      \     "spec/presenter/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/runner/*.rb": {
-      \   "command": "runner",
-      \   "template":
-      \     "class %S\nend",
-      \   "test": [
-      \     "spec/runner/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/forms/*_form.rb": {
-      \   "command": "form",
-      \   "template":
-      \     "class %Form\nend",
-      \   "test": [
-      \     "spec/forms/%s_form_spec.rb"
-      \   ],
-      \ },
-      \ "features/support/*.rb": {"command": "support"},
-      \ "features/support/env.rb": {"command": "support"}
-      \}
 " }
 
 " snipmate {
@@ -511,12 +447,6 @@ if has('mouse')
 endif
 " }
 
-" run ruby {
-" taken inside the demo video https://www.destroyallsoftware.com/screencasts
-" it run the current ruby file and display result
-nnoremap <Leader>l :w\|:!ruby %<CR>
-" }
-
 " scroll {
 "show three line before up and down => MAGIC
 set scrolloff=3
@@ -553,9 +483,9 @@ function! Del_word_delims()
     return res
   endif
   " After * on a selection i^r/ will give me pattern instead of \Vpattern
-  let res = substitute(reg, '^\\V'          , ''  , '' )
-  let res = substitute(res, '\\\\'          , '\\', 'g')
-  let res = substitute(res, '\\n'           , '\n', 'g')
+  let res = substitute(reg, '^\\V', ''  , '' )
+  let res = substitute(res, '\\\\', '\\', 'g')
+  let res = substitute(res, '\\n', '\n', 'g')
   return res
 endfunction
 inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<CR>
@@ -665,6 +595,21 @@ augroup for_wiztivi
   " call matchadd('Conceal', '^\s\{'.&ts.'\}', 10, -1, {'conceal': ' '})
 augroup END
 
+let g:projectionist_heuristics = {
+   \   "src/fti-main.js": {
+   \     "README.md": {"type": "doc"},
+   \     "src/*.js": {
+   \       "alternate": "test/unit/{}.spec.js",
+   \       "type": "source"
+   \     },
+   \     "test/unit/*.spec.js": {
+   \       "alternate": "src/{}.js",
+   \       "type": "test"
+   \     }
+   \   }
+   \ }
+
+   " \     }
 augroup delete_trailing_space
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
@@ -732,22 +677,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_args = ['--fix']
 " }
 
-" special teezily {
-if !v:shell_error && s:uname == "Linux"
-  nnoremap <PageDown> <Nop>
-  inoremap <PageDown> <Nop>
-  nnoremap <PageUp> <Nop>
-  inoremap <PageUp> <Nop>
-  nnoremap <Del> <Nop>
-
-  abbrev FP FreePeriod
-endif
-
 " Convert new hash a: 4 to old hash :a => 4
 " oh is for old hash
 nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 => <CR>
-
-" }
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
