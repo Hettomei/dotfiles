@@ -115,3 +115,203 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+################################## ADDED BY TIM
+
+alias v=nvim
+alias g=git
+
+alias bc="echo 'bc -l' && bc -l"
+alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
+alias pps='ps aux | grep'
+
+# alias for ag
+# keep to know how to ignore more than juste .gitignore
+# alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
+alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
+alias aglarger="ag --pager less --case-sensitive"
+
+af(){
+  ag --pager less -ig $@
+}
+
+fuzzy(){
+  result=$(sed -e "s/\(.\)/\1.*/g" <<< "$1")
+  local command="ag --pager less -ig $result"
+  echo $command
+  $command
+}
+
+# stand for vim fuzzy
+vf(){
+  fuzzy "$1"
+  nvim $(fuzzy "$1" | sed -n 2p)
+}
+# --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
+alias aflarger='ag --pager less --unrestricted -ig'
+
+alias todo="nvim +Todo"
+alias tod="nvim +Todo"
+alias fait="nvim +Fait"
+alias notes="nvim +Notes"
+
+# go to git root
+alias gr='cd $(git rev-parse --show-toplevel)'
+
+OS=$(uname) # Linux , Darwin for mac
+if [ "$OS" == "Linux" ]; then
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -o'
+  alias n=nautilus
+  alias c=chrono_rb
+fi
+
+export VISUAL=nvim
+export EDITOR=nvim
+# -R -> display ansi color
+# -X -> sometimes help to not clear the screen
+# -F -> quit if one string
+# --chop-long-lines -> do not wrap to next line # Sometimes usefull
+export LESS='-R -X -F'
+
+# because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
+# need to `brew install bash-completion`
+[ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
+__git_complete g __git_main
+
+[ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && . /home/linuxbrew/.linuxbrew/etc/bash_completion
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
+}
+
+PS1='\[\e[34m\]\w \[\e[31m\]$(parse_git_branch)\[\e[33m\]\t\n\[\e[0m\]\$ '
+# display in title
+PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
+
+set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
+set -o notify # notify when jobs running in background terminate
+
+# shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
+shopt -s histappend histreedit histverify
+
+source $HOME/.bashrc_special_conf
+source $HOME/.bashrc_not_in_git
+
+set -o vi
+bind 'set completion-ignore-case on'
+bind '"\C-a": beginning-of-line' # ctrl-a in insert mode
+bind '"\C-e": end-of-line' # ctrl-e in insert mode
+bind '"\e[A": history-search-backward' # search only previous string on key up
+bind '"\e[B": history-search-forward' # search only next string on key down
+# This next 2 commands allow me to erase word on ctrl-w
+# found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
+stty werase undef
+# bind '\C-w:unix-filename-rubout' # not perfect, for npm run test:unit:blah if I c-w it erase all
+bind '\C-w:backward-kill-word'
+
+eval "$(rbenv init -)"
+
+simplehttp(){
+  local command="python -m SimpleHTTPServer 8000"
+  echo $command
+  $command
+}
+
+rtest(){
+  echo "ls $1 | entr bash -c \"date; bin/ruby -I\"lib:test\" $1\""
+  echo
+  ls $1 | entr bash -c "date; bin/ruby -I\"lib:test\" $1"
+}
+
+rappel(){
+  if [ $# -lt 2 ]
+  then
+    echo "Need to be run like this"
+    echo "$FUNCNAME 09h03 'Va manger'"
+    echo "$FUNCNAME 16h13 'Va manger'"
+    a="$FUNCNAME $(date "+%Hh%M") 'TEST'"
+    echo $a
+    echo
+    echo
+    $a
+    return 1
+  fi
+
+  echo "Demande de sleep pour $1, avec le message $2, pid $$"
+  echo "Heure actuelle : " $(date "+%Hh%M")
+
+  while :
+  do
+    if [ "$1" == "$(date "+%Hh%M")" ]; then
+      break
+    fi
+    sleep 30
+  done
+
+  for i in 1 2
+  do
+    echo "$2"
+    notify-send --expire-time=7000 --urgency=critical "$2" "\njobs : $$ - n: $i"
+
+    sleep 7
+  done
+
+  notify-send --urgency=critical "$2" "\nLast rappel"
+}
+
+untilfail() {
+# run a command until it fail
+#
+# example :
+# untilfail npm run test:unit:simple
+
+i=1
+
+while "$@"; do
+  i=$((i+1))
+  echo $i
+done
+
+echo
+echo "has fail at the : $i attempt"
+}
+
+# Tips
+# youtube-dl --extract-audio --audio-format mp3 $file
+
+# Tips slowdown connection
+# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
+# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
+# 1 kbps
+# sudo tc qdisc add dev eth0 handle 1: root htb default 11
+# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
+# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
+
+# git bisect example :
+# Taken from https://git-scm.com/docs/git-bisect
+# Run this way :
+# first, create your stash that change the code.
+# first go up one n commit :
+# git bisect start HEAD HEAD~100 --
+# then
+# git bisect run ~/test.sh
+
+# cat test.sh
+# !/bin/sh
+# # tweak the working tree by merging the hot-fix branch
+# # and then attempt a build
+# if git stash apply stash@{1} || git reset --hard && git stash apply stash@{0}
+# then
+#   mocha -R dot -r ./test/setup.js  -- test/unit/domain-models/pvr-ui-flow/PVRUIFlow.DomainModel.spec.js
+#   status=$?
+# else
+#   # tell the caller this is untestable
+#   status=125
+# fi
+
+# # undo the tweak to allow clean flipping to the next commit
+# git reset --hard
+
+# # return control
+# exit $status
