@@ -271,6 +271,18 @@ echo
 echo "has fail at the : $i attempt"
 }
 
+getJSON() {
+  tmpfile=$(mktemp /tmp/json.XXXXXX.js)
+
+  echo -n 'const a = ' >> $tmpfile
+  curl -s "$1" >> $tmpfile
+  echo ';' >> $tmpfile
+  echo 'console.log(JSON.stringify(a, null, 2))' >> $tmpfile
+
+  node $tmpfile
+  echo "cat $tmpfile"
+}
+
 # Tips
 # youtube-dl --extract-audio --audio-format mp3 $file
 
