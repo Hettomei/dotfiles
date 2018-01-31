@@ -28,6 +28,6 @@ export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
 if [ "$(ls -A $HOME/share)" ] ; then
 :
 else
-  echo 'need mount'
-  sudo mount -t vboxsf timwin ~/share/
+  echo 'need mount, type :'
+  echo 'sudo mount -t vboxsf timwin ~/share/'
 fi

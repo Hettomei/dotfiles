@@ -1,0 +1,19 @@
+windows:
+  - name: serveur
+    root: ~/programmes/formation-react/react-budget
+    layout: even-horizontal
+    panes:
+      - npm start
+      - git lll
+  - name: vim
+    root: ~/programmes/formation-react/react-budget
+    layout: even-horizontal
+    focus: true
+    panes:
+      - commands:
+        - git status
+  - name: other
+    root: ~/programmes/formation-react/react-budget
+    panes:
+      - commands:
+        - pwd

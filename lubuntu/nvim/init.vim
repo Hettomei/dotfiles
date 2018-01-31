@@ -36,6 +36,8 @@ Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <L
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
+
 " Plugin 'mxw/vim-jsx'
 
 " Ruby
@@ -583,18 +585,6 @@ augroup tab_and_space
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
 augroup END
 
-augroup for_wiztivi
-  autocmd!
-  "Don't forget the space after cchar!
-  " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
-  autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab
-  autocmd FileType javascript,json setlocal path+=src
-  " marche presque ! : transformer 4 espaces en 2 espaces
-  " autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
-  " set conceallevel=1
-  " call matchadd('Conceal', '^\s\{'.&ts.'\}', 10, -1, {'conceal': ' '})
-augroup END
-
 let g:projectionist_heuristics = {
    \   "src/fti-main.js": {
    \     "README.md": {"type": "doc"},
@@ -670,8 +660,11 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+
+
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-"
+
 " -> to reload file after eslint do his work
 " http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
 " let g:syntastic_javascript_eslint_args = ['--fix']
