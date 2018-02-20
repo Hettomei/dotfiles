@@ -743,8 +743,14 @@ nnoremap <leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v
 " Avoid 'press enter' on scp
 " set cmdheight=2
 let g:netrw_silent=1
-"
-"
+
+" More colors
+" taken from https://github.com/tpope/vim-sensible
+if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
+  set t_Co=16
+endif
+
+
 " Tips and tricks {
 
 "## g with norm
