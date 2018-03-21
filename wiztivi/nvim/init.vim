@@ -122,7 +122,7 @@ set fileencodings=utf-8,iso-8859-1
 " }
 
 " QuickLink to various file {
-function! OpenInBufferOrTab(file)
+function! OpenInBufferOrVsplit(file)
   if line('$') == 1 && getline(1) == ''
     exec 'e' a:file
   else
@@ -130,14 +130,14 @@ function! OpenInBufferOrTab(file)
   endif
 endfu
 
-command! Vimrc :call OpenInBufferOrTab("$MYVIMRC")
+command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! SourceVimrc source $MYVIMRC
-command! Gvimrc :call OpenInBufferOrTab("$MYGVIMRC")
-command! Bashrc :call OpenInBufferOrTab("$HOME/.bashrc")
-command! Todo :call OpenInBufferOrTab("$HOME/todo.md")
-command! Fait :call OpenInBufferOrTab("$HOME/fait.md")
-command! Notes :call OpenInBufferOrTab("$HOME/notes.md")
-command! Tmux :call OpenInBufferOrTab("$HOME/.tmux.conf")
+command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
+command! Bashrc :call OpenInBufferOrVsplit("$HOME/.bashrc")
+command! Todo :call OpenInBufferOrVsplit("$HOME/todo.md")
+command! Fait :call OpenInBufferOrVsplit("$HOME/fait.md")
+command! Notes :call OpenInBufferOrVsplit("$HOME/notes.md")
+command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
 " }
 
 " backup swap {
@@ -213,6 +213,9 @@ augroup change_file_fold
   autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=6
   autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
 augroup END
+
+" unfold/fold everythings
+nnoremap ZA :set invfoldenable<CR>
 
 " If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
 " let g:vimsyn_folding='af'
@@ -730,15 +733,15 @@ nnoremap <expr> N  'nN'[v:searchforward]
 
 " take here : https://github.com/mhinz/vim-galore/blob/master/README.md#saner-ctrl-l
 " do: redraw!, de-highlighting search, fixing syntax highlighting, force updating the syntax highlighting in diff mode:
-nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <Leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 
 " https://github.com/mhinz/vim-galore/blob/master/README.md#quickly-edit-your-macros
 " Simply edit your macro
 " How to use :
 " record a macro in reg a : qa ......
-" then to edit press : "a<leader>q
+" then to edit press : "a<Leader>q
 " press enter after editing
-nnoremap <leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+nnoremap <Leader>q  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 " Avoid 'press enter' on scp
 " set cmdheight=2
@@ -807,3 +810,6 @@ endif
 " :w
 " :e
 " }
+"
+" ## to automatialy fix eslint, reload file, go back to previous 'manual' eslint
+" :let g:syntastic_javascript_eslint_args = ['--fix'] | w | e | let g:syntastic_javascript_eslint_args = ['']
