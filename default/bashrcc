@@ -1,5 +1,8 @@
 PATH=$PATH:$HOME/onemw-js/node_modules/.bin
 
+HISTSIZE=10000
+HISTFILESIZE=500000
+
 alias v=nvim
 alias g=git
 
@@ -90,7 +93,7 @@ set -o notify # notify when jobs running in background terminate
 # shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 
-source $HOME/.bashrc_not_in_git
+[ -f $HOME/.bashrc_not_in_git ] && source $HOME/.bashrc_not_in_git
 
 set -o vi
 bind 'set completion-ignore-case on'
