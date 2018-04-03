@@ -134,7 +134,7 @@ endfu
 command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! SourceVimrc source $MYVIMRC
 command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
-command! Bashrc :call OpenInBufferOrVsplit("$HOME/.bashrc")
+command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! Todo :call OpenInBufferOrVsplit("$HOME/todo.md")
 command! Fait :call OpenInBufferOrVsplit("$HOME/fait.md")
 command! Notes :call OpenInBufferOrVsplit("$HOME/notes.md")

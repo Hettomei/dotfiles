@@ -74,6 +74,8 @@ export LESS='-R -X -F'
 [ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 
+[ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && . /home/linuxbrew/.linuxbrew/etc/bash_completion
+
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
 }
@@ -102,6 +104,7 @@ stty werase undef
 # bind '\C-w:unix-filename-rubout' # not perfect, for npm run test:unit:blah if I c-w it erase all
 bind '\C-w:backward-kill-word'
 
+command -v rbenv && eval "$(rbenv init -)"
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
@@ -218,4 +221,3 @@ getJSON() {
 
 # # return control
 # exit $status
-
