@@ -7,9 +7,18 @@ DIR="$CURRENT_DIR/${1:-default}"
 
 cp -v $DIR/irbrc $HOME/.irbrc
 cp -v $DIR/gemrc $HOME/.gemrc
-cp -v $DIR/bashrc $HOME/.bashrc
+cp -v $DIR/bashrcc $HOME/.bashrcc
 cp -v $DIR/gitconfig $HOME/.gitconfig
-cp -v $DIR/bashrc_special_conf $HOME/.bashrc_special_conf
 
 echo touch $HOME/.bashrc_not_in_git
 touch $HOME/.bashrc_not_in_git
+
+cat <<-____HERE
+
+You need to add
+source \$HOME/.bashrcc
+at the end of .bashrc
+you can copy/paste :
+
+echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
+____HERE
