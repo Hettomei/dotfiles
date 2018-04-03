@@ -37,6 +37,8 @@ Plugin 'mbbill/undotree' " do :UndotreeToggle
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
+
 " Plugin 'mxw/vim-jsx'
 
 " Ruby
@@ -676,11 +678,8 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-"
-" -> to reload file after eslint do his work
-" http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
-" let g:syntastic_javascript_eslint_args = ['--fix']
 " }
 
 " Convert new hash a: 4 to old hash :a => 4
@@ -816,3 +815,7 @@ endif
 "
 " ## to automatialy fix eslint, reload file, go back to previous 'manual' eslint
 " :let g:syntastic_javascript_eslint_args = ['--fix'] | w | e | let g:syntastic_javascript_eslint_args = ['']
+"
+
+" ## to reload file after eslint do his work
+" http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
