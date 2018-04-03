@@ -2,9 +2,8 @@
 
 #get the dir where this script is launched
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $CURRENT_DIR/base.sh
 
-DIR="$CURRENT_DIR/$1"
+DIR="$CURRENT_DIR/${1:-default}"
 
 mkdir -p $HOME/.config/nvim/bundle
 
