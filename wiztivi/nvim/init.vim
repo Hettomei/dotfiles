@@ -32,6 +32,7 @@ Plugin 'gorkunov/smartpairs.vim' " easy select with vv
 Plugin 'jayflo/vim-skip' " press s and go in midle of line
 Plugin 'msanders/snipmate.vim' " edit my_snippets to add
 Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
+Plugin 'mbbill/undotree' " do :UndotreeToggle
 
 
 " Javascript
@@ -513,6 +514,8 @@ nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is selected
 vnoremap <silent> <Leader>/ y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
+" Count selected search
+command! Count :%s///gn
 
 augroup specific-quickfix-window
   autocmd!
