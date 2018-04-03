@@ -1,9 +1,0 @@
-set guioptions+=b
-
-set bg=light
-
-let s:uname = system("echo -n \"$(uname)\"")
-if !v:shell_error && s:uname == "Linux"
-else
-  set guifont=Monaco:h13
-endif

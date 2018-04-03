@@ -56,6 +56,9 @@ Plugin 'vim-ruby/vim-ruby'
 " Markdown
 Plugin 'tpope/vim-markdown'
 
+" Haxe
+" Plugin 'jdonaldson/vaxe' " vim mode for Haxe
+
 call vundle#end()            " required
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on    " required
@@ -85,6 +88,7 @@ set viminfo=h,'50,<1000,s1000,/500,:2000
 augroup change_file_type
   autocmd!
   autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
+  autocmd BufRead,BufNewFile {build.boot} set filetype=clojure
   " add json syntax highlighting
   autocmd BufNewFile,BufRead *.hbs set filetype=html
 augroup END
@@ -247,12 +251,15 @@ nnoremap ZA :set invfoldenable<CR>
 " augroup END
 " }
 
-" configure html/javascript{
-augroup config_html_css_js
+augroup config_html_css_js_ruby
   autocmd!
   autocmd FileType html,javascript,javascript.jsx,eruby,css,scss setlocal iskeyword-=-,$ iskeyword+=-,$
 augroup END
-" }
+
+augroup config_clojure
+  autocmd!
+  autocmd FileType clojure setlocal iskeyword-=: iskeyword+=:
+augroup END
 
 " configure when open large_files {
 " http://vim.wikia.com/wiki/Faster_loading_of_large_files
@@ -277,6 +284,60 @@ endif
 " }
 
 " For vim-rails {
+" help -> :help rails-projection
+let g:rails_projections = {
+      \ "app/decorators/*_decorator.rb": {
+      \   "command": "decorator",
+      \   "template":
+      \     "class %SDecorator < ApplicationDecorator\nend",
+      \   "test": [
+      \     "spec/decorators/%s_decorator_spec.rb"
+      \   ],
+      \   "alternate": 'app/models/%s.rb'
+      \ },
+      \ "spec/factories/*.rb": {
+      \   "command": "factory",
+      \   "template":
+      \     "FactoryGirl.define do\nfactory :%s, class: %S do\nend\nend",
+      \   "test": [
+      \     "spec/models/%s_spec.rb"
+      \   ],
+      \ },
+      \ "app/repositories/*_repository.rb": {
+      \   "command": "repository",
+      \   "template":
+      \     "class %SRepository\nend",
+      \   "test": [
+      \     "spec/repositories/%s_repository_spec.rb"
+      \   ],
+      \ },
+      \ "app/presenter/*.rb": {
+      \   "command": "presenter",
+      \   "template":
+      \     "class %S\nend",
+      \   "test": [
+      \     "spec/presenter/%s_spec.rb"
+      \   ],
+      \ },
+      \ "app/runner/*.rb": {
+      \   "command": "runner",
+      \   "template":
+      \     "class %S\nend",
+      \   "test": [
+      \     "spec/runner/%s_spec.rb"
+      \   ],
+      \ },
+      \ "app/forms/*_form.rb": {
+      \   "command": "form",
+      \   "template":
+      \     "class %Form\nend",
+      \   "test": [
+      \     "spec/forms/%s_form_spec.rb"
+      \   ],
+      \ },
+      \ "features/support/*.rb": {"command": "support"},
+      \ "features/support/env.rb": {"command": "support"}
+      \}
 " }
 
 " snipmate {
