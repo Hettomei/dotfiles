@@ -16,10 +16,7 @@ touch $HOME/.bashrc_not_in_git
 
 cat <<-____HERE
 
-You need to add
-source \$HOME/.bashrcc
-at the end of .bashrc
-you can copy/paste :
+Please do
 
 echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile

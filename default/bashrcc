@@ -107,7 +107,7 @@ stty werase undef
 # bind '\C-w:unix-filename-rubout' # not perfect, for npm run test:unit:blah if I c-w it erase all
 bind '\C-w:backward-kill-word'
 
-command -v rbenv && eval "$(rbenv init -)"
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
