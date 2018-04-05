@@ -93,8 +93,6 @@ set -o notify # notify when jobs running in background terminate
 # shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
 shopt -s histappend histreedit histverify
 
-[ -f $HOME/.bashrc_not_in_git ] && source $HOME/.bashrc_not_in_git
-
 set -o vi
 bind 'set completion-ignore-case on'
 bind '"\C-a": beginning-of-line' # ctrl-a in insert mode

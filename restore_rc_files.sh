@@ -11,9 +11,6 @@ cp -v $DIR/bashrcc $HOME/.bashrcc
 cp -v $DIR/profilee $HOME/.profilee
 cp -v $DIR/gitconfig $HOME/.gitconfig
 
-echo touch $HOME/.bashrc_not_in_git
-touch $HOME/.bashrc_not_in_git
-
 cat <<-____HERE
 
 Please do
