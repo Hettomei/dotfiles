@@ -9,4 +9,4 @@ swift post angie # creer conteneur # attention, on veut du a froid, il vau mieux
 swift upload angie Angie --changed
 
 cd google-6p-fevrier-aout-2017
-swift upload google-6p-fevrier-aout-2017 . --changed --segment-size 104857600
+swift upload --changed --segment-size 104857600 google-6p-fevrier-aout-2017 .

@@ -106,6 +106,7 @@ stty werase undef
 bind '\C-w:backward-kill-word'
 
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
