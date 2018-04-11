@@ -4,7 +4,7 @@ windows:
     layout: tiled
     focus: true
     panes:
-      - o_start_env
+      - oostart_env
       - cal
       - echo ''
       - echo ''

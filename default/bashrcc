@@ -175,6 +175,28 @@ echo
 echo "has fail at the : $i attempt"
 }
 
+untilworks() {
+# run a command until it works
+#
+# example :
+# untilworks npm run test:unit:simple
+
+i=1
+
+$@
+RESULT=$?
+
+while [[ $RESULT -eq 1 ]]; do
+  $@
+  RESULT=$?
+  i=$((i+1))
+  echo $i
+done
+
+echo
+echo "has worked at the : $i attempt"
+}
+
 getJSON() {
   tmpfile=$(mktemp /tmp/json.XXXXXX.js)
 
