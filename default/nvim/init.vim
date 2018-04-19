@@ -43,10 +43,9 @@ Plugin 'maxmellon/vim-jsx-pretty'
 
 " Ruby
 Plugin 'vim-ruby/vim-ruby'
-" Plugin 'tpope/vim-rbenv'
 " Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
 " Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
-" Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rails'
 
 " Yaml
 " Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath

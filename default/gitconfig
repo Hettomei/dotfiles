@@ -1,9 +1,9 @@
 [gui]
 [user]
-  ; name = Timothée Gauthier
-  ; email = itsumo.sibyllin@gmail.com
   name = Timothée Gauthier
-  email = timothee.gauthier.prestataire@wiztivi.com
+  ; email = itsumo.sibyllin@gmail.com
+  ; email = timothee.gauthier.prestataire@wiztivi.com
+  email = t.gauthier42@gmail.com
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global
