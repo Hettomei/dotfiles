@@ -10,3 +10,12 @@ swift upload angie Angie --changed
 
 cd google-6p-fevrier-aout-2017
 swift upload --changed --segment-size 104857600 google-6p-fevrier-aout-2017 .
+
+
+# Tout synchro les photos :
+
+cd /home/tim/programmes/my_computer_conf/swift/
+source openrc.sh
+
+cd /media/sf_timwin/Pictures
+swift upload --changed --segment-size 104857600 photos-archive .
