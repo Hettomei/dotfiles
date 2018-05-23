@@ -40,12 +40,16 @@ alias tod="nvim +Todo"
 alias fait="nvim +Fait"
 alias notes="nvim +Notes"
 
+### git alias
+# Why start with 'gg' to simulate 'g command'
+# also, I always forget the command,
+# if I press gg<Tab> I know...
 # go to git root
-alias gr='cd $(git rev-parse --show-toplevel)'
+alias ggr='cd $(git rev-parse --show-toplevel)'
 # go to next commit on a given branch
 # previous commit is
 # git checkout HEAD^
-gforward() {
+ggnext() {
   _BRANCH_=$1
   if [ -z "$_BRANCH_" ]; then
     _BRANCH_=master
@@ -158,6 +162,21 @@ rappel(){
   notify-send --urgency=critical "$2" "\nLast rappel"
 }
 
+indefinitely() {
+# run a command, non stop
+#
+# example :
+# indefinitely npm run test:unit:simple
+
+i=0
+
+while true; do
+  i=$((i+1))
+  echo $i
+  $@
+done
+}
+
 untilfail() {
 # run a command until it fail
 #
@@ -186,14 +205,14 @@ i=1
 $@
 RESULT=$?
 
-while [[ $RESULT -eq 1 ]]; do
+while [[ $RESULT -gt 0 ]]; do
   $@
   RESULT=$?
   i=$((i+1))
   echo $i
 done
 
-echo
+echo $RESULT
 echo "has worked at the : $i attempt"
 }
 
@@ -230,7 +249,7 @@ getJSON() {
 # Run this way :
 # first, create your stash that change the code.
 # first go up one n commit :
-# git bisect start HEAD HEAD~100 --
+# git bisect start HEAD HEAD~100
 # then
 # git bisect run ~/test.sh
 
@@ -252,3 +271,6 @@ getJSON() {
 
 # # return control
 # exit $status
+
+# Rename in file string -> newString
+# ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'

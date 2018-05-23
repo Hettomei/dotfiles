@@ -673,6 +673,13 @@ augroup END
 let g:projectionist_heuristics = {
    \   "src/fti-main.js": {
    \     "README.md": {"type": "doc"},
+   \     "src/domain-models/*.js": { "type": "domainModel" },
+   \     "src/helpers/*.js": { "type": "helpers" },
+   \     "src/constants/*.js": { "type": "constants" },
+   \     "src/locale/*.js": { "type": "locale" },
+   \     "src/services/*.js": { "type": "services" },
+   \     "src/shared/*.js": { "type": "shared" },
+   \     "src/views/*.js": { "type": "views" },
    \     "src/*.js": {
    \       "alternate": "test/unit/{}.spec.js",
    \       "type": "source"
