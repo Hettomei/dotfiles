@@ -1,4 +1,10 @@
-PATH=$PATH:$HOME/onemw-js/node_modules/.bin
+if [ -f $HOME/onemw-js/node_modules/.bin ]; then
+  PATH=$PATH:$HOME/onemw-js/node_modules/.bin
+fi
+
+if [ -d $HOME/.rbenv/bin ]; then
+  PATH=$PATH:$HOME/.rbenv/bin
+fi
 
 HISTSIZE=10000
 HISTFILESIZE=500000
