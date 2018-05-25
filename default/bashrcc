@@ -52,9 +52,8 @@ alias notes="nvim +Notes"
 # if I press gg<Tab> I know...
 # go to git root
 alias ggr='cd $(git rev-parse --show-toplevel)'
+
 # go to next commit on a given branch
-# previous commit is
-# git checkout HEAD^
 ggnext() {
   _BRANCH_=$1
   if [ -z "$_BRANCH_" ]; then
@@ -64,6 +63,10 @@ ggnext() {
   fi
   __CURRENT_COMMIT__=$(git rev-parse HEAD)
   git checkout $(git log --format='%H' $_BRANCH_ | grep -B1 $__CURRENT_COMMIT__ | grep -v $__CURRENT_COMMIT__ || echo $_BRANCH_)
+}
+
+ggprev() {
+  git checkout HEAD^
 }
 
 OS=$(uname) # Linux , Darwin for mac
