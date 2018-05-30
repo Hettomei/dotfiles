@@ -752,7 +752,8 @@ let g:syntastic_style_warning_symbol = '⚠'
 " let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 " }
 
