@@ -4,7 +4,7 @@ windows:
     layout: even-vertical
     panes:
       - xdg-open http://localhost:8080 && bundle exec unicorn -c config/unicorn.rb -E development
-      - docker rm my-mongo-dev && docker run -p 27017:27017 -v /opt/mongodb/db:/data/db --name my-mongo-dev -d mongo mongod --auth
+      - docker run --rm -p 27017:27017 -v /opt/mongodb/db3.6:/data/db --name mongo-3.6 -d mongo mongod --auth
   - name: vim
     root: ~/programmes/vimgolf
     layout: even-horizontal
