@@ -761,6 +761,14 @@ let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " oh is for old hash
 nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 => <CR>
 
+" Leader s is for 'syntastic'
+" This reformat text using syntasic
+" save file
+" reload file (to remove Error from syntastic)
+" Not working
+" nnoremap <Leader>s :let g:syntastic_javascript_eslint_args = ['--fix'] | w | e | let g:syntastic_javascript_eslint_args = ['']
+
+
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 " or :SudoEdit
