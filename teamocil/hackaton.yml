@@ -1,0 +1,19 @@
+windows:
+  - name: serveur
+    root: ~/programmes/hackaton
+    layout: even-vertical
+    panes:
+      - ./node_modules/.bin/http-server
+      - git status
+  - name: code
+    root: ~/programmes/hackaton
+    layout: even-horizontal
+    focus: true
+    panes:
+      - commands:
+        - git status && git lll
+  - name: other
+    root: ~/programmes/hackaton
+    panes:
+      - commands:
+        - pwd
