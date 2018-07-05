@@ -23,6 +23,7 @@
   st = status
   br = branch -vv
   co = checkout
+  cod = checkout --detach
   c  = commit
   cm = commit -m
   ca = commit --amend

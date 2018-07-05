@@ -4,4 +4,4 @@ windows:
     layout: tiled
     focus: true
     panes:
-      - npm run test:unit:watch
+      - npm run test:unit:simple
