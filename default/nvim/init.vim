@@ -75,7 +75,7 @@ let g:mapleader = "\<Space>"
 " setup var to know wich enironnement is running
 let s:uname = system("echo -n \"$(uname)\"")
 
-set history=4000
+set history=10000
 
 " taken here : https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 "           +--Disable hlsearch while loading viminfo
