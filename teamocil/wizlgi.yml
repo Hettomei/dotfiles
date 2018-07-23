@@ -5,7 +5,7 @@ windows:
     focus: true
     panes:
       - oostart_env
-      - cd feature-scroll/; nvim README.md
+      - cal
       - echo ''
       - echo ''
   - name: onemw-js

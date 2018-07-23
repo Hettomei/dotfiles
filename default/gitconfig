@@ -24,6 +24,7 @@
   br = branch -vv
   co = checkout
   cod = checkout --detach
+  com = checkout master
   c  = commit
   cm = commit -m
   ca = commit --amend
