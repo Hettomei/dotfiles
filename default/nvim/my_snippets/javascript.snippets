@@ -7,8 +7,12 @@ snippet cl
 	console.log(${1});
 snippet clt
 	console.log(${1:this});
+snippet JSON
+	JSON.stringify(${1}, null, 2)
 snippet json
 	JSON.stringify(${1}, null, 2)
+snippet ex
+	expect(${1}).to.equals(${2});
 snippet /// Add TomDoc comment
 	// Public: ${1:Explain what the method do}
 	//
@@ -50,7 +54,7 @@ snippet bmbm Do a quick benchmarck
 	}
 	const t1 = performance.now()
 	console.log('Took', (t1 - t0).toFixed(4))
-snippet bmbmbm Do a quick benchmarc in nodek
+snippet bmbmbm Do a quick benchmarc in node
 	const NS_PER_SEC = 1e9;
 	const iterations = 10000
 

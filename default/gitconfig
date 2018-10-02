@@ -29,16 +29,16 @@
   cm = commit -m
   ca = commit --amend
   d = diff
-  ; not possible as git run in sub shell
-  ; r = !cd $(git rev-parse --show-toplevel)
+  ; not possible as git run in sub shell; si gg<TAB> in bashrc
+  ; root = !cd $(git rev-parse --show-toplevel)
   dc = diff --cached
   dic = diff --cached
   diw = diff --color-words
   dicw = diff --cached --color-words
   f = fetch --all --prune
   l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
-  ll  = log -5  --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
-  lll = log -15 --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
+  ll  = log -10  --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
+  lll = log -25 --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   # Print current branch graph
   lg  = log --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s' --graph
   # Print all branch all graph
@@ -55,6 +55,7 @@
   undo-soft = reset --soft HEAD^
   rh = reset HEAD
   rhall = !git reset HEAD . && git status
+  resetoriginmaster = reset --hard origin/master
   # edit config : open this file :)
   ec = config --global -e
   branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"

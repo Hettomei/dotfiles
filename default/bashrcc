@@ -1,4 +1,4 @@
-if [ -f $HOME/onemw-js/node_modules/.bin ]; then
+if [ -d $HOME/onemw-js/node_modules/.bin ]; then
   PATH=$PATH:$HOME/onemw-js/node_modules/.bin
 fi
 
@@ -253,6 +253,7 @@ getJSON() {
 # sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
 # sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
 
+##################################
 # git bisect example :
 # Taken from https://git-scm.com/docs/git-bisect
 # Run this way :
@@ -277,9 +278,12 @@ getJSON() {
 
 # # undo the tweak to allow clean flipping to the next commit
 # git reset --hard
-
 # # return control
 # exit $status
+##################################
+
+## exclude file in git diff show
+# git show --stat -- . ':(exclude)test'
 
 # Rename in file string -> newString
 # ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
