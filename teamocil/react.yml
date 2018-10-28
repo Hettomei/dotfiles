@@ -4,7 +4,7 @@ windows:
     layout: even-horizontal
     panes:
       - npm start
-      - git lll
+      - cd expressjs-budget && PORT=3333 DEBUG=expressjs-budget:* npm start
   - name: vim
     root: ~/programmes/formation-react
     layout: even-horizontal
