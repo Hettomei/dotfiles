@@ -6,10 +6,6 @@ if [ -d $HOME/.rbenv/bin ]; then
   PATH=$PATH:$HOME/.rbenv/bin
 fi
 
-if [ -d $HOME/bin ]; then
-  PATH=$PATH:$HOME/bin
-fi
-
 HISTSIZE=10000
 HISTFILESIZE=500000
 
@@ -291,3 +287,9 @@ getJSON() {
 
 # Rename in file string -> newString
 # ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
+
+# stop led on razer
+# sudo razercfg -l Scrollwheel:off
+
+# compare two commit. And only the content :
+# v -d <(g show 11111111) <(g show 22222222)
