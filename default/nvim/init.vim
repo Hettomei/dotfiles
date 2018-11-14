@@ -20,6 +20,7 @@ Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
 Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
 Plugin 'tpope/vim-vinegar' " better :Explore
 Plugin 'kien/ctrlp.vim' " open file ctrl p
+Plugin 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
 
 " Special map
 Plugin 'tpope/vim-commentary' " use gcc
@@ -38,7 +39,6 @@ Plugin 'mbbill/undotree' " do :UndotreeToggle
 " Javascript
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
-
 " Plugin 'mxw/vim-jsx'
 
 " Ruby
@@ -838,6 +838,16 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
   set t_Co=16
 endif
 
+" gitgutter
+" start disabled
+let g:gitgutter_enabled = 0
+" to enable it ;
+" :GitGutterEnable
+" To compare current commit :
+" GitGutterEnable | let g:gitgutter_diff_base = 'HEAD~1' | e
+" let g:gitgutter_diff_base = 'abc521edfg' | e
+" jump to next hunk (change): ]c
+" jump to previous hunk (change): [c.
 
 " Tips and tricks {
 

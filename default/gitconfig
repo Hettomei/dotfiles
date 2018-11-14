@@ -55,7 +55,7 @@
   undo-soft = reset --soft HEAD^
   rh = reset HEAD
   rhall = !git reset HEAD . && git status
-  resetoriginmaster = "! git l -1 && echo ----------------- && git reset --hard origin/master && git l -1"
+  resetoriginmaster = "! git l -1 && echo "" && git reset --hard origin/master && echo "" && git l -1"
   # edit config : open this file :)
   ec = config --global -e
   branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"

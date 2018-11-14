@@ -7,7 +7,7 @@ windows:
       - oostart_env
       - cal
       - cd lgi-wtv-cli/ && git pull
-      - tod
+      - cal
   - name: onemw-js
     root: ~/onemw-js
     layout: even-horizontal
