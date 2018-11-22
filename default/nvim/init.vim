@@ -777,7 +777,6 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " tpope vinegar{
 let g:netrw_liststyle=3
-nmap <Leader>n <Plug>VinegarUp
 " keep - the old way because tpope remapped it
 nnoremap - -
 " }
@@ -846,8 +845,11 @@ let g:gitgutter_enabled = 0
 " To compare current commit :
 " GitGutterEnable | let g:gitgutter_diff_base = 'HEAD~1' | e
 " let g:gitgutter_diff_base = 'abc521edfg' | e
-" jump to next hunk (change): ]c
-" jump to previous hunk (change): [c.
+" default jump to next hunk : ]c
+" default jump to prev hunk : [c
+"nnoremap does not work
+nmap <Leader>n <Plug>GitGutterNextHunk
+nmap <Leader>N <Plug>GitGutterPrevHunk
 
 " Tips and tricks {
 
