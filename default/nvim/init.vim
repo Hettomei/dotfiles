@@ -34,6 +34,7 @@ Plugin 'jayflo/vim-skip' " press s and go in midle of line
 Plugin 'msanders/snipmate.vim' " edit my_snippets to add
 Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plugin 'mbbill/undotree' " do :UndotreeToggle
+Plugin 'file:///home/tgauthier/programmes/fzf' " do :FZF # more at https://github.com/junegunn/fzf/blob/master/README-VIM.md
 
 
 " Javascript

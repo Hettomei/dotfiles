@@ -6,7 +6,7 @@ windows:
     panes:
       - oostart_env
       - cal
-      - cd lgi-wtv-cli/ && git pull
+      - cal
       - cal
   - name: onemw-js
     root: ~/onemw-js

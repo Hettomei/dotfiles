@@ -1,10 +1,6 @@
-if [ -d $HOME/onemw-js/node_modules/.bin ]; then
-  PATH=$PATH:$HOME/onemw-js/node_modules/.bin
-fi
+[ -d $HOME/onemw-js/node_modules/.bin ] && PATH=$PATH:$HOME/onemw-js/node_modules/.bin
 
-if [ -d $HOME/.rbenv/bin ]; then
-  PATH=$PATH:$HOME/.rbenv/bin
-fi
+[ -d $HOME/.rbenv/bin ] && PATH=$PATH:$HOME/.rbenv/bin
 
 HISTSIZE=10000
 HISTFILESIZE=500000
@@ -26,18 +22,6 @@ af(){
   ag --pager less -ig "$@"
 }
 
-fuzzy(){
-  result=$(sed -e "s/\(.\)/\1.*/g" <<< "$1")
-  local command="ag --pager less -ig $result"
-  echo $command
-  $command
-}
-
-# stand for vim fuzzy
-vf(){
-  fuzzy "$1"
-  nvim $(fuzzy "$1" | sed -n 2p)
-}
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
 alias aflarger='ag --pager less --unrestricted -ig'
 
@@ -128,6 +112,11 @@ bind '\C-w:backward-kill-word'
 
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
+
+# https://github.com/junegunn/fzf
+# If you use vi mode on bash, you need to add set -o vi before source ~/.fzf.bash in your .bashrc, so that it correctly sets up key bindings for vi mode.
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+complete -F _fzf_path_completion -o default -o bashdefault v
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
