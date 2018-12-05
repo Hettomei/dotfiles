@@ -59,6 +59,7 @@ Plugin 'tpope/vim-rails'
 " Plugin 'tpope/vim-salve'
 " Plugin 'tpope/vim-dispatch'
 " Plugin 'tpope/vim-fireplace'
+" Plugin 'vim-scripts/paredit.vim'
 
 " Markdown
 Plugin 'tpope/vim-markdown'
@@ -778,6 +779,7 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " tpope vinegar{
 let g:netrw_liststyle=3
+nmap <Leader>n <Plug>VinegarUp
 " keep - the old way because tpope remapped it
 nnoremap - -
 " }
