@@ -116,7 +116,17 @@ command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
 # https://github.com/junegunn/fzf
 # If you use vi mode on bash, you need to add set -o vi before source ~/.fzf.bash in your .bashrc, so that it correctly sets up key bindings for vi mode.
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-complete -F _fzf_path_completion -o default -o bashdefault v
+
+if [ "$(command -v fzf)" ]
+then
+  complete -F _fzf_path_completion -o default -o bashdefault v
+  if [ "$(command -v ag)" ]
+  then
+    export FZF_DEFAULT_COMMAND='ag --nocolor -i -g ""'
+  fi
+  # -m : allow multiple select
+  export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
+fi
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"

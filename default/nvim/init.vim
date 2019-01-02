@@ -19,7 +19,6 @@ Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
 Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
 Plugin 'tpope/vim-vinegar' " better :Explore
-Plugin 'kien/ctrlp.vim' " open file ctrl p
 Plugin 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
 
 " Special map
@@ -606,16 +605,18 @@ augroup specific-quickfix-window
 augroup END
 " }
 
-" ctrlp {
-"https://github.com/kien/ctrlp.vim
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-" display 30 results from top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
-" Do not update on every key, wait 200 ms
-let g:ctrlp_lazy_update = 200
+" fzf https://github.com/junegunn/fzf {
+" " This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-j': 'split',
+  \ 'ctrl-k': 'split',
+  \ 'ctrl-h': 'vsplit',
+  \ 'ctrl-l': 'vsplit' }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+nnoremap <C-p> :FZF<CR>
+
+
 " }
 
 " spell {
@@ -779,7 +780,6 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " tpope vinegar{
 let g:netrw_liststyle=3
-nmap <Leader>n <Plug>VinegarUp
 " keep - the old way because tpope remapped it
 nnoremap - -
 " }

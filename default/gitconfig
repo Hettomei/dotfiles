@@ -64,9 +64,6 @@
   dpush = svn dcommit
 [push]
   default = simple
-[diff]
-  ; algorithm = patience
-  tool = nvim -d
 [merge]
   tool = fugitive
   ; conflictstyle = diff3

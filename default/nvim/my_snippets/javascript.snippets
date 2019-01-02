@@ -58,16 +58,32 @@ snippet bmbmbm Do a quick benchmarc in node
 	const NS_PER_SEC = 1e9;
 	const iterations = 10000
 
-	const t0 = process.hrtime()
-	for (let i = 0; i < iterations; i++) {
-	  OldBigMethod()
-	}
-	const diff0 = process.hrtime(t0);
-	console.log('OLD: ' + (diff0[0] + diff0[1] / NS_PER_SEC) + ' sec')
+	const benchOld = () => {
+	};
 
-	const t1 = process.hrtime()
-	for (let i = 0; i < iterations; i++) {
-	  NewBigMethod()
-	}
-	const diff1 = process.hrtime(t1);
-	console.log('NEW: ' + (diff1[0] + diff1[1] / NS_PER_SEC) + ' sec')
+	const benchNew = () => {
+	};
+
+	const benchOther = () => {
+	};
+
+	const methods = [
+	    ['old  ', benchOld],
+	    ['new  ', benchNew],
+	    ['other', benchOther],
+	];
+
+	methods.forEach(([name, func]) => {
+	    // warm up
+	    for (let i = 0; i < 100; i++) {
+	        func();
+	    }
+
+	    const t0 = process.hrtime();
+	    for (let i = 0; i < iterations; i++) {
+	        func();
+	    }
+
+	    const [a, b] = process.hrtime(t0);
+	    console.log('' + name + ': ' + (a + (b / NS_PER_SEC)) + ' sec');
+	});
