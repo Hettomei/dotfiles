@@ -1,6 +1,8 @@
 openrc https://www.ovh.com/fr/publiccloud/guides/g1852.charger_les_variables_denvironnement_openstack
 swift https://www.ovh.com/fr/publiccloud/guides/g1916.debuter_avec_lapi_swift
 
+sudo apt install swift-client
+se connecter sur le compte ovh, et telecharger le fichier openrc.sh
 source /Users/tim/programmes/my_computer_conf/swift/openrc.sh
 
 cd desktop
@@ -12,10 +14,16 @@ cd google-6p-fevrier-aout-2017
 swift upload --changed --segment-size 104857600 google-6p-fevrier-aout-2017 .
 
 
+# copier du tel vers l'ordi (sans doublons)
+
+
 # Tout synchro les photos :
 
 cd /home/tim/programmes/my_computer_conf/swift/
 source openrc.sh
 
 cd /media/sf_timwin/Pictures
+ou
+cd /mnt/c/Users/tim/Pictures
+
 swift upload --changed --segment-size 104857600 photos-archive .
