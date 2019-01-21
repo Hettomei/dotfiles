@@ -15,7 +15,9 @@ master vs origin/master
 
 git log -S
 git log abcd
+git log --pretty=fuller
 git show abcd
+git show --stat
 git rebase -i
 git blame
 git status
@@ -31,6 +33,9 @@ git checkout HEAD~
 git checkout HEAD~1
 git checkout HEAD~100
 git bisect
+
+git shortlog -se -> on peut proposer un TD avec
+
 
 git pull -> fetch + merge
 git fetch --prune
@@ -71,43 +76,49 @@ user@host:~$ rm $file_to_kill
 rm: cannot remove 'Junk': No such file or directory
 rm: cannot remove 'Final.docx': No such file or directory
 
-Exercice :
+le `if [ "$a" -gt 3 ]`
 
-J'ai une liste de fichiers de test.
-Ces fichiers doivent être dans un path précis qui reproduit celui des sources.
-Fichier de test : dans /test/unit/ *.spec.js
-Fichier source : dans /src et pas de ".spec"
+# Exercice 1 :
 
-Exemple :
-test/unit/datamodels/DataModel.RecordingList.spec.js est mal placé car src/datamodels/DataModel.RecordingList.js n'existe pas
+J'ai une liste de fichiers de test exemple :
+test/unit/widgets/NodeLayout/ReplayGridColumn.spec.js
+test/unit/testTools/deepLinks/routes/Testtools.VodDPViewNavigationRoute.spec.js
 
-il devrait etre dans test/unit/views/recordinglist/RecordingList.DataModel.spec.js
+Ces fichiers reproduit le path des sources.
+exemple :
 
-```
-solution naive :
+test/unit/widgets/NodeLayout/ReplayGridColumn.spec.js -> src/widgets/NodeLayout/ReplayGridColumn.js
+test/unit/testTools/deepLinks/routes/Testtools.VodDPViewNavigationRoute.spec.js -> src/testTools/deepLinks/routes/Testtools.VodDPViewNavigationRoute.js
+
+Certain fichier ne match aucun fichier.
+Je veux la liste.
+
+exemple
+test/unit/datamodels/DataModel.RecordingList.spec.js doit etre retourné car
+src/datamodels/DataModel.RecordingList.js n'existe pas
+
+# Solution 1
+
+solution naive, voir ./cours-git-bash/example_TD1.sh
+meilleur solution, voir ./cours-git-bash/example_TD1_better.sh
+
+
+# Exercice 2 :
+git + bash
+
+Le but : trouver à qui parler quand on découvre un fichier. Facon basique : voir qui à le plus de ligne de code 'active'
+Je veux la liste de tous les commiters pour un fichier donné
+- le nombre de lignes par commiter encore present pour ce fichier
+(uniquement les lignes encore présente : ne pas afficher le commiter si les lignes ne sont plus presente)
+
+
+# exercice 3 :
+Trouver la place des describe pour detecter des test unit strange
+
 
 for i in $(find test/unit -name '*.spec.js')
 do
-    filePath=$(echo $i | sed 's/test\/unit/src/' | sed 's/\.spec\.js/.js/')
-    cat $filePath &> /dev/null
-    RESULT=$?
-    if [ $RESULT -gt 0 ]
-    then
-        echo $i
-    fi
+  a=$(cat -n $i | grep -m 1 describe)
+  echo $a $i
 done
 
-
-meilleure solution:
-
-set -e
-
-for i in $(find test/unit -name '*.spec.js')
-do
-  file=$(echo $i | sed 's/test\/unit/src/' | sed 's/\.spec\.js/.js/')
-  if [ ! -f "$file" ]
-  then
-    echo $file
-  fi
-done
-```
