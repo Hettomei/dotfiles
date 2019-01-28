@@ -119,10 +119,14 @@ command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
 
 if [ "$(command -v fzf)" ]
 then
-  complete -F _fzf_path_completion -o default -o bashdefault v
+  complete -F _fzf_path_completion v
   if [ "$(command -v ag)" ]
   then
-    export FZF_DEFAULT_COMMAND='ag --nocolor -i -g ""'
+    # not needed because we changed _fzf_compgen_path to make it works during auto completion
+    # export FZF_DEFAULT_COMMAND='ag --nocolor -i -g ""'
+    _fzf_compgen_path() {
+      ag --nocolor -i -g "$1"
+    }
   fi
   # -m : allow multiple select
   export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'

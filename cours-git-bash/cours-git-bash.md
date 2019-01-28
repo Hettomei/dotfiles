@@ -45,7 +45,9 @@ integration de svn
 .gitconfig
 
 git worktree
+git worktree list
 git worktree add /tmp/toto
+git worktree prune
 
 
 # Exemple git tricky
