@@ -854,6 +854,15 @@ let g:gitgutter_enabled = 0
 nmap <Leader>n <Plug>GitGutterNextHunk
 nmap <Leader>N <Plug>GitGutterPrevHunk
 
+" Move to the previous {
+" Also works with ( using [(
+nnoremap <Leader>B [{
+" Move to the closing }
+" Also works with ) using ])
+nnoremap <Leader>b ]}
+
+
+
 " Tips and tricks {
 
 "## g with norm
