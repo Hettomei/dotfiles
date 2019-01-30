@@ -33,6 +33,9 @@ git checkout HEAD~
 git checkout HEAD~1
 git checkout HEAD~100
 git bisect
+git reset --hard -> attention, supprime les changement en cours
+git reset --soft
+git reset HEAD . -> sort les partie pret a etre commité
 
 git shortlog -se -> on peut proposer un TD avec
 
@@ -44,11 +47,23 @@ integration de svn
 
 .gitconfig
 
+-> On peut mettre son editeur préféré pour les commits message
+
 git worktree
 git worktree list
 git worktree add /tmp/toto
 git worktree prune
 
+
+# TD : comment splitter un commit ?
+git reset --soft HEAD~1
+
+git reset HEAD . # pour enlever les partie pret a etre commit)
+puis tu retourne dans un stade classique :
+git add ...
+git commit -m "commit 1"
+git add ...
+git commit -m "commit 2
 
 # Exemple git tricky
 
