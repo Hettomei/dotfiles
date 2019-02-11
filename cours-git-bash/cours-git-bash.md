@@ -1,4 +1,4 @@
-# But
+But
 
 Ce n'est pas une présentation débutant git ni débutant bash
 C'est une présentation ou je vous montre les possibilité
@@ -71,7 +71,7 @@ TODO find example a base de rebase checkout conflict ?
 # bash
 
 Parler de tmux ?
-on faire le terminal -> pas de problem
+on faire le terminal -> pas de probleme
 on ssh -> pas de problem
 
 set -e
@@ -95,6 +95,21 @@ rm: cannot remove 'Junk': No such file or directory
 rm: cannot remove 'Final.docx': No such file or directory
 
 le `if [ "$a" -gt 3 ]`
+
+entr / inotify
+grep
+bc
+sed
+awk
+head
+tail -f
+sort
+uniq
+wc
+cat
+less
+yes
+.......
 
 # Exercice 1 :
 
