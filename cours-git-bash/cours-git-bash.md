@@ -9,8 +9,6 @@ puis vous googlez votre probleme.
 
 Pour débutant aller sur https://learngitbranching.js.org/
 
-git : arbre binaire
-
 master vs origin/master
 
 git log -S
@@ -65,7 +63,7 @@ git commit -m "commit 1"
 git add ...
 git commit -m "commit 2
 
-# Exemple git tricky
+# TROUVER Exemple git tricky
 
 TODO find example a base de rebase checkout conflict ?
 
@@ -85,6 +83,9 @@ apt install shell check
 la redirection
 cat toto.md 1> /dev/null # redirect stdout to dev null; so only stay errors
 cat toto.md 2> /dev/null # redirect sterr to dev null; so only stay no error
+cat toto.md 2&>1 # tout redirect to stdout
+
+-> voir ./example_stderr.sh
 
 
 from : http://www.compciv.org/topics/bash/variables-and-substitution/
@@ -116,8 +117,8 @@ src/datamodels/DataModel.RecordingList.js n'existe pas
 
 # Solution 1
 
-solution naive, voir ./cours-git-bash/example_TD1.sh
-meilleur solution, voir ./cours-git-bash/example_TD1_better.sh
+solution naive, voir ./example_TD1.sh
+meilleur solution, voir ./example_TD1_better.sh
 
 
 # Exercice 2 :
@@ -128,6 +129,7 @@ Je veux la liste de tous les commiters pour un fichier donné
 - le nombre de lignes par commiter encore present pour ce fichier
 (uniquement les lignes encore présente : ne pas afficher le commiter si les lignes ne sont plus presente)
 
+Voir committers() dans bashrc
 
 # exercice 3 :
 Trouver la place des describe pour detecter des test unit strange
@@ -139,3 +141,20 @@ do
   echo $a $i
 done
 
+# Bonus si temps
+conf de bash
+PS1
+bc
+autocomplete de git sur alias g
+
+set -o vi
+bind 'set completion-ignore-case on'
+bind '"\e[A": history-search-backward' # search only previous string on key up
+bind '"\e[B": history-search-forward' # search only next string on key down
+stty werase undef
+xdg-open
+$?
+tmpfile=$(mktemp /tmp/json.XXXXXX.js)
+
+# Bonus si temps ++ -> tmux
+# Bonus si temps +++ -> vim
