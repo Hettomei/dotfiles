@@ -107,7 +107,6 @@ bind '"\e[B": history-search-forward' # search only next string on key down
 # This next 2 commands allow me to erase word on ctrl-w
 # found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
 stty werase undef
-# bind '\C-w:unix-filename-rubout' # not perfect, for npm run test:unit:blah if I c-w it erase all
 bind '\C-w:backward-kill-word'
 
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
