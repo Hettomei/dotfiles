@@ -156,6 +156,10 @@ do
   echo $a $i
 done
 
+# Exercice : extraire un nombre
+echo "✖ Found 35 circular dependencies!" | grep 'Found.\+circular' | sed 's/.\+Found \([0-9]\+\) .*/\1/'
+
+
 # Bonus si temps
 conf de bash
 PS1
