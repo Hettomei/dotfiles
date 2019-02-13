@@ -33,8 +33,7 @@ Plugin 'jayflo/vim-skip' " press s and go in midle of line
 Plugin 'msanders/snipmate.vim' " edit my_snippets to add
 Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plugin 'mbbill/undotree' " do :UndotreeToggle
-Plugin 'file:///home/tgauthier/programmes/fzf' " do :FZF # more at https://github.com/junegunn/fzf/blob/master/README-VIM.md
-
+Plugin 'kien/ctrlp.vim' " open file ctrl p
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
@@ -605,18 +604,16 @@ augroup specific-quickfix-window
 augroup END
 " }
 
-" fzf https://github.com/junegunn/fzf {
-" " This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-j': 'split',
-  \ 'ctrl-k': 'split',
-  \ 'ctrl-h': 'vsplit',
-  \ 'ctrl-l': 'vsplit' }
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-nnoremap <C-p> :FZF<CR>
-
-
+" ctrlp {
+"https://github.com/kien/ctrlp.vim
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+" display 30 results from top to bottom
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
+" Do not update on every key, wait 200 ms
+let g:ctrlp_lazy_update = 200
 " }
 
 " spell {
