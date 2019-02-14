@@ -1,60 +1,44 @@
 ---
-author: 'Timothée GAUTHIER'
-title: 'This is the title'
+author: 'Timothée GAUTHIER / Conserto / instant technique'
+title: 'Git & Bash'
+date: 2019-02-14
 patat:
+  slideLevel: 2
   wrap: true
   margins:
-    left: 10
-    right: 10
+    left: 2
+    right: 2
 ...
 
-#This is a header
+# Git & Bash
 
-[comment]: # This is a comment
+## Un peu d'histoire
 
-This is *emph textis is *emph textis is *emph textis is *emph textis is *emph text*****is is *emph text*
+Git créé par Linus Torvalds en 2005
 
-This is **bold text**
+"git" parce que linus est un egocentrique
 
-This is `code text`
+## Pourquoi un instant tech quand tout est sur le net ?
 
-Here is a code block:
-
-    line of code
-    another line of code
-
--------------
-
-Voici le second slides
+# man git
 
 
-Je veux essayer un autre code block :
+# The end
 
-. . .
-
-```javascript
-console.log("ok");
+```
+_______________
+| Questions ? |
+---------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
 ```
 
-. . .
+## Liens
 
-
-```bash
-echo "ok"
-```
-
-. . .
-
-
-Je veux essayer un autre code block :
-
-```javascript
-console.log("ok");
-```
-
-. . .
-
-
-```bash
-echo "ok"
-```
+- Culture G <https://fr.wikipedia.org/wiki/Git>
+- La doc `man git`
+- patat <https://github.com/jaspervdj/patat>
+- Les slides : <https://github.com/Hettomei/my_computer_conf/tree/master/cours-git-bash>
