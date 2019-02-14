@@ -9,6 +9,10 @@ puis vous googlez votre probleme.
 
 Pour débutant aller sur https://learngitbranching.js.org/
 
+man git
+man git-checkout
+....
+
 master vs origin/master
 
 git log -S
