@@ -39,6 +39,7 @@ git shortlog -se -> on peut proposer un TD avec
 
 
 git pull -> fetch + merge
+git pull --rebase
 git fetch --prune
 
 integration de svn
