@@ -16,7 +16,6 @@ git log abcd
 git log --pretty=fuller
 git show abcd
 git show --stat
-git rebase -i
 git blame
 git status
 git diff
@@ -37,6 +36,15 @@ git reset HEAD . -> sort les partie pret a etre commité
 
 git shortlog -se -> on peut proposer un TD avec
 
+git merge
+git merge --no-ff
+git cherry-pick
+git rebase -i
+
+git notes add -m "my first note"
+git notes append -m "my second note"
+git log
+git log -p notes/commits
 
 git pull -> fetch + merge
 git pull --rebase
