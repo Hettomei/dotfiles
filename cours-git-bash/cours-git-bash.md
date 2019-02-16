@@ -111,9 +111,13 @@ le `if [ "$a" -gt 3 ]`
 
 entr / inotify
 grep
+grep -C 5
+whereis
+type
 bc
 sed
 awk
+find
 head
 tail -f
 sort
@@ -122,6 +126,11 @@ wc
 cat
 less
 yes
+history
+$()
+(
+...
+) subshell
 .......
 
 # Exercice 1 :
