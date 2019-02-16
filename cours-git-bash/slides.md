@@ -12,16 +12,56 @@ patat:
 
 # Git & Bash
 
-## Un peu d'histoire
+## Pourquoi un instant tech quand tout est sur le net ?
 
-Git créé par Linus Torvalds en 2005
+. . .
+
+- Parce que j'ai des collegues
+
+. . .
+
+- Parce que <https://learngitbranching.js.org/> n'est jamais suivis.
+
+## Format de l'instant tech
+
+Beaucoup de blabla rapide :
+
+- Les connaisseurs ne s'ennuient pas
+
+- Les novices enregistrent et vont sur google
+
+- quelques TD; la pratique y a que ca de vrai
+
+# git
+
+## Git init
+
+Gestion de versions - mais vous savez déjà.
+
+. . .
+
+```
+$ whatis git
+git (1)              - the stupid content tracker
+```
+
+. . .
+
+créé par Linus Torvalds en 2005
 
 "git" parce que linus est un egocentrique
 
-## Pourquoi un instant tech quand tout est sur le net ?
+## man git
 
-# man git
+# Bash
 
+## Survivre sans internet : man
+
+```
+man man
+help help
+info bash
+```
 
 # The end
 
@@ -38,7 +78,8 @@ _______________
 
 ## Liens
 
-- Culture G <https://fr.wikipedia.org/wiki/Git>
-- La doc `man git`
-- patat <https://github.com/jaspervdj/patat>
+- <https://fr.wikipedia.org/wiki/Git>
+- <https://fr.wikipedia.org/wiki/Man_(Unix)>
+- `man git`
+- <https://github.com/jaspervdj/patat>
 - Les slides : <https://github.com/Hettomei/my_computer_conf/tree/master/cours-git-bash>
