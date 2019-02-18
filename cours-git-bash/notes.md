@@ -29,6 +29,7 @@ git diff master..HEAD
 git whatchanged -p
 git add -p -> code review ; s / edit
 git reflog
+git checkout - // cd -
 git checkout -b branch-name -> seulement un pointeur sur commit
 git checkout HEAD~
 git checkout HEAD~1
