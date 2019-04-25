@@ -19,6 +19,6 @@ for dir_name in 'my_snippets'
 done
 
 
-echo 'to install vim vundle :'
-echo "git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.config/nvim/bundle/Vundle.vim"
-echo 'nvim +PluginInstall +qa'
+echo 'to install vim-plug see https://github.com/junegunn/vim-plug#installation'
+echo "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+echo 'nvim +PlugInstall'

@@ -4,70 +4,66 @@ set nocompatible
 " required!
 filetype off
 
-" Vundle {
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin("~/.config/nvim/bundle")
+" https://github.com/junegunn/vim-plug {
+call plug#begin('~/.config/nvim/bundle')
 
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/syntastic'
+Plug 'altercation/vim-colors-solarized'
+Plug 'scrooloose/syntastic'
 
 " Special :Command
-Plugin 'godlygeek/tabular' " Make multiple things aligned
-Plugin 'tpope/vim-fugitive' " Gblame, Gremove .... fun
-Plugin 'tpope/vim-projectionist' " Allow to use :A on any project
-Plugin 'tpope/vim-characterize' " Add more display when press ga on a char
-Plugin 'tpope/vim-vinegar' " better :Explore
-Plugin 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
+Plug 'godlygeek/tabular' " Make multiple things aligned
+Plug 'tpope/vim-fugitive' " Gblame, Gremove .... fun
+Plug 'tpope/vim-projectionist' " Allow to use :A on any project
+Plug 'tpope/vim-characterize' " Add more display when press ga on a char
+Plug 'tpope/vim-vinegar' " better :Explore
+Plug 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
 
 " Special map
-Plugin 'tpope/vim-commentary' " use gcc
-Plugin 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
-Plugin 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
-Plugin 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
-Plugin 'tpope/vim-repeat' " Allow to repeat custom map
-Plugin 'tpope/vim-abolish' " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
-Plugin 'gorkunov/smartpairs.vim' " easy select with vv
-Plugin 'jayflo/vim-skip' " press s and go in midle of line
-Plugin 'msanders/snipmate.vim' " edit my_snippets to add
-Plugin 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
-Plugin 'mbbill/undotree' " do :UndotreeToggle
-Plugin 'kien/ctrlp.vim' " open file ctrl p
+Plug 'tpope/vim-commentary' " use gcc
+Plug 'tpope/vim-rsi' "allow you to use <ctrl-a> as move to left in command mode
+Plug 'tpope/vim-surround' " To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
+Plug 'tpope/vim-eunuch' "Add unix command like :Remove :Move :SudoWrite
+Plug 'tpope/vim-repeat' " Allow to repeat custom map
+Plug 'tpope/vim-abolish' " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
+Plug 'gorkunov/smartpairs.vim' " easy select with vv
+Plug 'jayflo/vim-skip' " press s and go in midle of line
+Plug 'msanders/snipmate.vim' " edit my_snippets to add
+Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
+Plug 'mbbill/undotree' " do :UndotreeToggle
+Plug 'kien/ctrlp.vim' " open file ctrl p
+Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selection too)
 
 " Javascript
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
-" Plugin 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
+" Plug 'mxw/vim-jsx'
 
 " Ruby
-Plugin 'vim-ruby/vim-ruby'
-" Plugin 'tpope/vim-bundler' " add gf on Gemfile to open gem source
-" Plugin 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
-Plugin 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'tpope/vim-bundler' " add gf on Gemfile to open gem source
+" Plug 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
+Plug 'tpope/vim-rails', { 'for': 'yaml' }
 
 " Yaml
-" Plugin 'lmeijvogel/vim-yaml-helper' " go to key and press :YamlGetFullPath
+Plug 'lmeijvogel/vim-yaml-helper', { 'for': 'yaml' } " go to key and press :YamlGetFullPath
 
 " Lisp :
-" Plugin 'kovisoft/slimv'
+" Plug 'kovisoft/slimv'
 
 " Clojure
-" Plugin 'guns/vim-clojure-static'
-" Plugin 'tpope/vim-salve'
-" Plugin 'tpope/vim-dispatch'
-" Plugin 'tpope/vim-fireplace'
-" Plugin 'vim-scripts/paredit.vim'
+" Plug 'guns/vim-clojure-static'
+" Plug 'tpope/vim-salve'
+" Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
 " Markdown
-Plugin 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 " Haxe
-" Plugin 'jdonaldson/vaxe' " vim mode for Haxe
-
-call vundle#end()            " required
-" load the plugin and indent settings for the detected filetype
-filetype plugin indent on    " required
+" Plug 'jdonaldson/vaxe' " vim mode for Haxe
+"
+call plug#end()
 " }
 
 let g:mapleader = "\<Space>"
@@ -691,11 +687,10 @@ let g:projectionist_heuristics = {
    \   }
    \ }
 
-   " \     }
-augroup delete_trailing_space
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
+" augroup delete_trailing_space
+"   autocmd!
+"   autocmd BufWritePre * :%s/\s\+$//e
+" augroup END
 " }
 
 " move in window stuff {
@@ -757,10 +752,6 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 " }
-
-" Convert new hash a: 4 to old hash :a => 4
-" oh is for old hash
-nnoremap <Leader>oh :s/\([a-z_]\+\): /:\1 => <CR>
 
 " Leader s is for 'syntastic'
 " This reformat text using syntasic
