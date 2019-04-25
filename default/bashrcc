@@ -1,9 +1,7 @@
-[ -d $HOME/onemw-js/node_modules/.bin ] && PATH=$PATH:$HOME/onemw-js/node_modules/.bin
-
 [ -d $HOME/.rbenv/bin ] && PATH=$PATH:$HOME/.rbenv/bin
 
-HISTSIZE=10000
-HISTFILESIZE=500000
+HISTSIZE=999999
+HISTFILESIZE=999999
 
 alias v=nvim
 alias g=git
@@ -18,8 +16,16 @@ alias pps='ps aux | grep'
 alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
 alias aglarger="ag --pager less --case-sensitive"
 
+fuzzy(){
+  fzf -f "$1"
+}
+
 af(){
   ag --pager less -ig "$@"
+}
+
+aff(){
+  fzf -f "$@"
 }
 
 # --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
@@ -94,7 +100,10 @@ set -b        # causes output from background processes to be output right away,
 set -o notify # notify when jobs running in background terminate
 
 # shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
-shopt -s histappend histreedit histverify
+# histverify https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html :
+# If set, and Readline is being used, the results of history substitution are not immediately passed to the shell parser.
+# Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
+shopt -s histappend histverify
 
 [ -f $HOME/.bashrc_not_in_git ] && source $HOME/.bashrc_not_in_git
 
@@ -122,7 +131,7 @@ then
   if [ "$(command -v ag)" ]
   then
     # not needed because we changed _fzf_compgen_path to make it works during auto completion
-    # export FZF_DEFAULT_COMMAND='ag --nocolor -i -g ""'
+    export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
     _fzf_compgen_path() {
       ag --nocolor -i -g "$1"
     }
@@ -345,3 +354,10 @@ committers() {
 #     return 2
 #   fi
 # }
+
+
+# ssh -p 29418 timothee-gauthier-wiztivi@gerrit.onemw.net gerrit set-reviewers --project onemw-js  \
+# -a nicolas.le-mellec@wiztivi.com \
+# -a nicolas.thebaud@wiztivi.com \
+# -a romain.chery@wiztivi.com \
+# 39563
