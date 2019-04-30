@@ -98,7 +98,7 @@ augroup END
 augroup change_txt_behavior
   autocmd!
   " linebreak is to not cut a word in 2 piece
-  autocmd BufNewFile,BufRead {*.txt,*.md} setlocal wrap linebreak ignorecase
+  autocmd BufNewFile,BufRead {*.txt,*.md} setlocal linebreak ignorecase
 augroup END
 
 " thanks to http://stackoverflow.com/questions/33093491/vim-gf-with-file-extension-based-on-current-filetype
