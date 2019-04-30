@@ -1,9 +1,6 @@
 " be iMproved
 set nocompatible
 
-" required!
-filetype off
-
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.config/nvim/bundle')
 
@@ -159,7 +156,6 @@ set directory=/tmp "dir: directory for temp files
 " colors {
 let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 " let g:solarized_termcolors=256
-syntax enable
 set background=dark
 colorscheme solarized
 
