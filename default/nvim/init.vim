@@ -443,12 +443,14 @@ nnoremap <Leader>y :call SavePosAndDo('yiw')<cr>
 " save all line in clipboard
 nnoremap YY :call SavePosAndDo('^"+y$')<cr>
 
-function! SavePosAndSave()
-   let save_pos = getpos(".")
-   write
-   call setpos(".", save_pos)
-endfu
-nnoremap <Leader><Leader> :call SavePosAndSave()<cr>
+" Was used before when I automatically erased whitespace
+" function! SavePosAndSave()
+"    let save_pos = getpos(".")
+"    write
+"    call setpos(".", save_pos)
+" endfu
+" nnoremap <Leader><Leader> :call SavePosAndSave()<cr>
+noremap <Leader><Leader> :update<CR>
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible
