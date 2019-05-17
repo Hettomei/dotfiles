@@ -5,7 +5,7 @@ windows:
     focus: true
     panes:
       - oostart_env
-      - cal
+      - oowait && ootruc_du_jour
       - cal
       - cal
   - name: onemw-js
