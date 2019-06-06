@@ -5,7 +5,9 @@ set nocompatible
 call plug#begin('~/.config/nvim/bundle')
 
 Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+" this replace syntastic. Keep here because I test ale
+Plug 'w0rp/ale'
 
 " Special :Command
 Plug 'godlygeek/tabular' " Make multiple things aligned
@@ -34,6 +36,9 @@ Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selecti
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
 " Plug 'mxw/vim-jsx'
+"
+" typescript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " Ruby
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
@@ -729,27 +734,27 @@ set splitbelow
 set splitright
 " }
 
-" syntastic {
-if !v:shell_error && s:uname == "Linux"
-  " let g:syntastic_mode_map = { 'mode': 'passive' }
-else
-  let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
-endif
+" " syntastic {
+" if !v:shell_error && s:uname == "Linux"
+"   " let g:syntastic_mode_map = { 'mode': 'passive' }
+" else
+"   let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+" endif
 
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-" Always open loc list
-" let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
-" need npm install -g eslint_d
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-" let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-" }
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_error_symbol='✗'
+" let g:syntastic_warning_symbol='⚠'
+" let g:syntastic_style_error_symbol = '✗'
+" let g:syntastic_style_warning_symbol = '⚠'
+" " Always open loc list
+" " let g:syntastic_auto_loc_list=1
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+" " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+" " need npm install -g eslint_d
+" let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
+" " }
 
 " Leader s is for 'syntastic'
 " This reformat text using syntasic
@@ -757,6 +762,16 @@ let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " reload file (to remove Error from syntastic)
 " Not working
 " nnoremap <Leader>s :let g:syntastic_javascript_eslint_args = ['--fix'] | w | e | let g:syntastic_javascript_eslint_args = ['']
+
+
+" typescript
+let g:ale_linters = {
+\  'javascript': ['prettier'],
+\  'typescript': ['tslint'],
+\}
+let g:ale_fixers = {'typescript': ['prettier', 'tslint'], 'javascript': ['prettier']}
+" let g:ale_fix_on_save = 1
+
 
 
 " sudo {
