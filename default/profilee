@@ -9,3 +9,11 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
   export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 fi
+
+if [ -d "/home/tgauthier/Android/Sdk" ] ; then
+  export ANDROID_HOME=$HOME/Android/Sdk
+  PATH=$PATH:$ANDROID_HOME/emulator
+  PATH=$PATH:$ANDROID_HOME/tools
+  PATH=$PATH:$ANDROID_HOME/tools/bin
+  PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
