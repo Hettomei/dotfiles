@@ -1,0 +1,26 @@
+windows:
+  - name: studio
+    root: ~/front
+    layout: tiled
+    focus: true
+    panes:
+      - /usr/local/android-studio/bin/studio.sh
+      - npm start
+      - emulator -avd Nexus_6P_API_28 -netdelay none -netspeed full
+      - cal
+  - name: code
+    root: ~/front
+    layout: even-horizontal
+    panes:
+        - cat ~/todo.md
+  - name: git
+    root: ~/front
+    layout: even-horizontal
+    panes:
+      - git status
+      - git status
+  - name: home
+    root: ~/
+    layout: even-horizontal
+    panes:
+      - pwd
