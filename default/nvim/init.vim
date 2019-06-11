@@ -580,6 +580,12 @@ endif
 nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 " Search what is inside register "/"
 nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
+
+" search the filename without extension/home/tgauthier/.config/nvim/init.vim
+" /home/tgauthier/.config/nvim/init /home/tgauthier/.config/nvim/init init.vim
+" leader o because I don t know
+nnoremap <silent> <Leader>o :grep! -w "<C-R>=expand("%:t:r")<CR>"<CR>:cw<CR>
+
 " Search what is selected
 vnoremap <silent> <Leader>/ y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
 " Count selected search
@@ -769,10 +775,11 @@ let g:ale_linters = {
 \  'javascript': ['prettier'],
 \  'typescript': ['tslint'],
 \}
-let g:ale_fixers = {'typescript': ['prettier', 'tslint'], 'javascript': ['prettier']}
-" let g:ale_fix_on_save = 1
-
-
+let g:ale_fixers = {
+\  'javascript': ['prettier'],
+\  'typescript': ['tslint', 'prettier'],
+\}
+let g:ale_fix_on_save=1
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.

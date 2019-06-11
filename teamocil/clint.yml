@@ -4,10 +4,10 @@ windows:
     layout: tiled
     focus: true
     panes:
-      - /usr/local/android-studio/bin/studio.sh
-      - npm start
+      # - /usr/local/android-studio/bin/studio.sh
       - emulator -avd Nexus_6P_API_28 -netdelay none -netspeed full
-      - cal
+      - sleep 5 && npm start
+      - sleep 30 && npm run android
   - name: code
     root: ~/front
     layout: even-horizontal
@@ -18,7 +18,7 @@ windows:
     layout: even-horizontal
     panes:
       - git status
-      - git status
+      - echo "ok"
   - name: home
     root: ~/
     layout: even-horizontal
