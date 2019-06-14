@@ -270,13 +270,16 @@ if [ ! -z "${ANDROID_HOME+x}" ]
 then
   function oscreenshot {
     local filename
+    local filepath
     filename="adb-$(date +"%Y_%m_%d").png"
+    filepath="/home/tgauthier/Pictures/redbullapp/$filename"
     adb shell screencap -p /sdcard/screen.png
-    adb pull "/sdcard/screen.png /home/tgauthier/Pictures/redbullapp/$filename"
-    xdg-open "/home/tgauthier/Pictures/redbullapp/$filename"
+    adb pull "/sdcard/screen.png" "$filepath"
+    echo "xdg-open $filepath"
+    xdg-open "$filepath"
   }
 
-function oreload {
+function orr {
   adb shell input text "RR"
 }
 

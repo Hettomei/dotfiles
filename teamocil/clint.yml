@@ -5,9 +5,10 @@ windows:
     focus: true
     panes:
       # - /usr/local/android-studio/bin/studio.sh
-      - emulator -avd Nexus_6P_API_28 -netdelay none -netspeed full
-      - sleep 5 && npm start
-      - sleep 30 && npm run android
+      # - emulator -avd Nexus_6P_API_28 -netdelay none -netspeed full
+      - npm start
+      - echo "npm run android"
+      - echo "pgadmin4"
   - name: code
     root: ~/front
     layout: even-horizontal
