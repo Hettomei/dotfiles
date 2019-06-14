@@ -19,8 +19,3 @@ windows:
     panes:
       - git status
       - echo "ok"
-  - name: home
-    root: ~/
-    layout: even-horizontal
-    panes:
-      - pwd

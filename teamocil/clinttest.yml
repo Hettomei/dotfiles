@@ -1,0 +1,7 @@
+windows:
+  - name: studio
+    root: ~/front
+    layout: tiled
+    focus: true
+    panes:
+      - npm test
