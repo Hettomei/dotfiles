@@ -1,14 +1,13 @@
 [gui]
 [user]
   name = Timothée Gauthier
-  ; email = itsumo.sibyllin@gmail.com
-  ; email = timothee.gauthier.prestataire@wiztivi.com
-  email = t.gauthier42@gmail.com
+  email = timothee.gauthier@consertotech.pro
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
-  ui = auto
+  ui = true
 [color "diff"]
   meta = yellow
 [color "branch"]
@@ -71,8 +70,8 @@
   prompt = false
 [pager]
   # diff-so-fancy brew install diff-so-fancy or https://github.com/so-fancy/diff-so-fancy
-  diff = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
-  show = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
-  whatchanged = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
+  ; diff = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
+  ; show = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
+  ; whatchanged = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
 [status]
   showUntrackedFiles = all
