@@ -740,11 +740,11 @@ set splitbelow
 set splitright
 " }
 
-" " syntastic {
+" syntastic {
 " if !v:shell_error && s:uname == "Linux"
 "   " let g:syntastic_mode_map = { 'mode': 'passive' }
 " else
-"   let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
+"   " let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
 " endif
 
 " let g:syntastic_always_populate_loc_list=1
@@ -759,18 +759,11 @@ set splitright
 " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 " " need npm install -g eslint_d
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
-" " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
-" " }
-
-" Leader s is for 'syntastic'
-" This reformat text using syntasic
-" save file
-" reload file (to remove Error from syntastic)
-" Not working
-" nnoremap <Leader>s :let g:syntastic_javascript_eslint_args = ['--fix'] | w | e | let g:syntastic_javascript_eslint_args = ['']
+" let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
+" }
 
 
-" typescript
+" To open error list run :lopen
 let g:ale_linters = {
 \  'javascript': ['prettier'],
 \  'typescript': ['tslint'],
@@ -779,7 +772,10 @@ let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'typescript': ['tslint', 'prettier'],
 \}
-let g:ale_fix_on_save=1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_set_highlights = 0
+" let g:ale_fix_on_save=1
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
