@@ -263,6 +263,37 @@ committers() {
   git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
 }
 
+###### ANDROID ######
+
+
+if [ ! -z "${ANDROID_HOME+x}" ]
+then
+  function oscreenshot {
+    local filename
+    filename="adb-$(date +"%Y_%m_%d").png"
+    adb shell screencap -p /sdcard/screen.png
+    adb pull "/sdcard/screen.png /home/tgauthier/Pictures/redbullapp/$filename"
+    xdg-open "/home/tgauthier/Pictures/redbullapp/$filename"
+  }
+
+function oreload {
+  adb shell input text "RR"
+}
+
+function oreboot {
+  adb reboot bootloader
+}
+
+function odevmenu {
+  adb shell input keyevent 82
+}
+
+function oclear_app_and_permission {
+  adb shell pm clear fr.redbull.batallagallos
+}
+fi
+
+
 # Tips
 # youtube-dl --extract-audio --audio-format mp3 $file
 
