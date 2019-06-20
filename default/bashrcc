@@ -291,6 +291,14 @@ function odevmenu {
   adb shell input keyevent 82
 }
 
+function oinput {
+  adb shell input text "$1"
+}
+
+function oback {
+  adb shell input keyevent 4
+}
+
 function oclear_app_and_permission {
   adb shell pm clear fr.redbull.batallagallos
 }
