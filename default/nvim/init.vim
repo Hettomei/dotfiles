@@ -667,7 +667,7 @@ augroup for_wiztivi
   autocmd!
   "Don't forget the space after cchar!
   " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
-  autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab
+  autocmd FileType javascript,json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nosmarttab expandtab
   autocmd FileType javascript,json setlocal path+=src,test
   " marche presque ! : transformer 4 espaces en 2 espaces
   " autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
