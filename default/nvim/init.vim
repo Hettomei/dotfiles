@@ -765,17 +765,20 @@ set splitright
 
 " To open error list run :lopen
 let g:ale_linters = {
-\  'javascript': ['prettier'],
-\  'typescript': ['tslint'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint'],
 \}
 let g:ale_fixers = {
-\  'javascript': ['prettier'],
-\  'typescript': ['tslint', 'prettier'],
+\  'javascript': ['eslint'],
+\  'typescript': ['eslint'],
 \}
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
-let g:ale_set_highlights = 0
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '>'
 " let g:ale_fix_on_save=1
+let g:ale_set_highlights = 0
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_insert_leave = 0
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
