@@ -271,7 +271,8 @@ then
   function oscreenshot {
     local filename
     local filepath
-    filename="adb-$(date +"%Y_%m_%d").png"
+    NAME=${1:-adb}
+    filename="$NAME-$(date +"%Y_%m_%d").png"
     filepath="/home/tgauthier/Pictures/redbullapp/$filename"
     adb shell screencap -p /sdcard/screen.png
     adb pull "/sdcard/screen.png" "$filepath"

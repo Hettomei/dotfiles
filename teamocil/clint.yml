@@ -9,6 +9,7 @@ windows:
       - npm start
       - echo "npm run android"
       - echo "pgadmin4"
+      - rappel 09h59 'daily'
   - name: code
     root: ~/front
     layout: even-horizontal

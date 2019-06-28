@@ -779,6 +779,8 @@ let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
+" always open
+" let g:ale_open_list = 1
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
