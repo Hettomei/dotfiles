@@ -56,8 +56,8 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for': 'yaml' } " go to key and press :Yaml
 " Plug 'guns/vim-clojure-static'
 " Plug 'tpope/vim-salve'
 " Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
 
 " Markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
@@ -401,7 +401,7 @@ nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 " mf   -> mark line inside f,
 " gg=G -> reindent,
 " 'f   -> go to current line
-nnoremap <Leader>f mfgg=G'f
+nnoremap <Leader>= mfgg=G'f
 
 "display cursor column
 nnoremap <Leader>col :set invcursorcolumn<CR>
@@ -661,18 +661,12 @@ augroup tab_and_space
   autocmd FileType make setlocal noexpandtab
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
+  autocmd FileType javascript,typescript,json,html setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab
 augroup END
 
-augroup for_wiztivi
+augroup for_projects
   autocmd!
-  "Don't forget the space after cchar!
-  " autocmd FileType javascript syntax match spaces /  / conceal cchar=\ "fd
-  autocmd FileType javascript,json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nosmarttab expandtab
   autocmd FileType javascript,json setlocal path+=src,test
-  " marche presque ! : transformer 4 espaces en 2 espaces
-  " autocmd FileType javascript,json setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab concealcursor=nvi conceallevel=1
-  " set conceallevel=1
-  " call matchadd('Conceal', '^\s\{'.&ts.'\}', 10, -1, {'conceal': ' '})
 augroup END
 
 let g:projectionist_heuristics = {
@@ -695,12 +689,6 @@ let g:projectionist_heuristics = {
    \     }
    \   }
    \ }
-
-" augroup delete_trailing_space
-"   autocmd!
-"   autocmd BufWritePre * :%s/\s\+$//e
-" augroup END
-" }
 
 " move in window stuff {
 " ----------------------------------------------------------------------------
@@ -781,6 +769,8 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
 " always open
 " let g:ale_open_list = 1
+nnoremap <Leader>f :ALEFix<CR>
+nnoremap <Leader>w :FixWhitespace<CR>
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.

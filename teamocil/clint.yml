@@ -1,6 +1,6 @@
 windows:
   - name: studio
-    root: ~/front
+    root: ~/clint-redbull/front
     layout: tiled
     focus: true
     panes:
@@ -11,12 +11,12 @@ windows:
       - echo "pgadmin4"
       - rappel 09h59 'daily'
   - name: code
-    root: ~/front
+    root: ~/clint-redbull/front
     layout: even-horizontal
     panes:
         - cat ~/todo.md
   - name: git
-    root: ~/front
+    root: ~/clint-redbull/front
     layout: even-horizontal
     panes:
       - git status

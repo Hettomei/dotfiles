@@ -1,0 +1,19 @@
+windows:
+  - name: server
+    root: ~/secheresse/poly-sech-front
+    layout: even-horizontal
+    focus: true
+    panes:
+      - yarn ng serve --open
+      - yarn ng help
+  - name: code
+    root: ~/secheresse/poly-sech-front
+    layout: even-horizontal
+    panes:
+        - cat ~/todo.md
+  - name: git
+    root: ~/secheresse/poly-sech-front
+    layout: even-horizontal
+    panes:
+      - git status
+      - echo "ok"

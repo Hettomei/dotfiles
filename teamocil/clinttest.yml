@@ -1,6 +1,6 @@
 windows:
   - name: studio
-    root: ~/front
+    root: ~/le-projet/front
     layout: tiled
     focus: true
     panes:
