@@ -687,6 +687,30 @@ let g:projectionist_heuristics = {
    \       "alternate": "src/{}.js",
    \       "type": "test"
    \     }
+   \   },
+   \   "angular.json": {
+   \     "README.md": {"type": "doc"},
+   \     "src/app/*.component.html": {
+   \       "type": "view",
+   \       "alternate": "src/app/{}.component.spec.ts",
+   \       "related": "src/app/{}.component.ts"
+   \     },
+   \     "src/app/*.component.ts": {
+   \       "type": "component",
+   \       "related": "src/app/{}.component.html"
+   \     },
+   \     "src/app/*.module.ts": {
+   \       "type": "module",
+   \       "related": "src/app/{}.component.ts"
+   \     },
+   \     "src/app/shared/*.ts": { "type": "shared" },
+   \     "src/app/*.ts": {
+   \       "alternate": "src/app/{}.spec.ts"
+   \     },
+   \     "src/app/*.spec.ts": {
+   \       "alternate": "src/app/{}.ts",
+   \       "type": "test"
+   \     }
    \   }
    \ }
 
