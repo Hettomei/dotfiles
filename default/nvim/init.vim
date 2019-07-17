@@ -669,6 +669,22 @@ augroup for_projects
   autocmd FileType javascript,json setlocal path+=src,test
 augroup END
 
+" simplify help navigation
+" See https://vim.fandom.com/wiki/Learn_to_use_help
+" when on a link, press enter
+" to go back to previous page, press back
+" to go to next/prev link, press s or S
+" o / O is for options
+augroup for_help
+  autocmd!
+  autocmd FileType help nnoremap <buffer> <CR> <C-]>
+  autocmd FileType help nnoremap <buffer> <BS> <C-T>
+  autocmd FileType help nnoremap <buffer> o /'\l\{2,\}'<CR>
+  autocmd FileType help nnoremap <buffer> O ?'\l\{2,\}'<CR>
+  autocmd FileType help nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
+  autocmd FileType help nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
+augroup END
+
 let g:projectionist_heuristics = {
    \   "src/fti-main.js": {
    \     "README.md": {"type": "doc"},
