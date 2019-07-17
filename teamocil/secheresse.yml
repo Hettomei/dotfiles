@@ -2,13 +2,13 @@ windows:
   - name: server
     root: ~/secheresse/poly-sech-front
     layout: even-horizontal
-    focus: true
     panes:
-      - yarn ng serve --open
+      - yarn ng serve
       - yarn ng help
   - name: code
     root: ~/secheresse/poly-sech-front
     layout: even-horizontal
+    focus: true
     panes:
         - cat ~/todo.md
   - name: git
