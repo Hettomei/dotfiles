@@ -1,7 +1,17 @@
 [ -d $HOME/.rbenv/bin ] && PATH=$PATH:$HOME/.rbenv/bin
 
-HISTSIZE=999999
+# https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize/19454838#19454838
+HISTSIZE=20000
 HISTFILESIZE=999999
+HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+
+# histappend :
+# bash history is only saved when close terminal, not after each command and this fixes it
+
+# histverify https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html :
+# If set, and Readline is being used, the results of history substitution are not immediately passed to the shell parser.
+# Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
+shopt -s histappend histverify
 
 alias v=nvim
 alias g=git
@@ -98,12 +108,6 @@ PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
 
 set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
 set -o notify # notify when jobs running in background terminate
-
-# shopt -s histappend  # bash history is only saved when close terminal, not after each command and this fixes it
-# histverify https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html :
-# If set, and Readline is being used, the results of history substitution are not immediately passed to the shell parser.
-# Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
-shopt -s histappend histverify
 
 [ -f $HOME/.bashrc_not_in_git ] && source $HOME/.bashrc_not_in_git
 
