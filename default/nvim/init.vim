@@ -1,6 +1,9 @@
 " be iMproved
 set nocompatible
 
+" do not use this feature
+set nomodeline
+
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.config/nvim/bundle')
 
@@ -100,7 +103,9 @@ augroup END
 augroup change_txt_behavior
   autocmd!
   " linebreak is to not cut a word in 2 piece
-  autocmd BufNewFile,BufRead {*.txt,*.md} setlocal linebreak ignorecase
+  " autocmd BufNewFile,BufRead  setlocal linebreak ignorecase
+  autocmd BufEnter  *             setlocal noignorecase
+  autocmd BufEnter  {*.txt,*.md}  setlocal linebreak ignorecase
 augroup END
 
 " thanks to http://stackoverflow.com/questions/33093491/vim-gf-with-file-extension-based-on-current-filetype
@@ -164,7 +169,7 @@ let g:solarized_termtrans=1 " need to add this light to have a decent render on 
 set background=dark
 colorscheme solarized
 
-" stop syntax coloring after 1000 columns
+" stop syntax coloring after n columns
 set synmaxcol=400
 " }
 
@@ -850,9 +855,6 @@ let g:qfenter_topen_map = ['<Nop>']
 " when in diff mode, no color {
 autocmd FilterWritePre * if &diff | set syntax=off | endif
 " }
-
-" do not use this feature
-set nomodeline
 
 " n always go bottom, N up. Took here  https://github.com/mhinz/vim-galore/blob/master/README.md#saner-behavior-of-n-and-n
 nnoremap <expr> n  'Nn'[v:searchforward]
