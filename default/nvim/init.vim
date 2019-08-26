@@ -713,16 +713,25 @@ let g:projectionist_heuristics = {
    \     "README.md": {"type": "doc"},
    \     "src/app/*.component.html": {
    \       "type": "view",
-   \       "alternate": "src/app/{}.component.spec.ts",
-   \       "related": "src/app/{}.component.ts"
+   \       "alternate": "src/app/{}.component.ts",
+   \       "related": "src/app/{}.component.spec.ts"
    \     },
    \     "src/app/*.component.ts": {
    \       "type": "component",
-   \       "related": "src/app/{}.component.html"
+   \       "alternate": "src/app/{}.component.html",
+   \       "related": "src/app/{}.component.spec.ts"
    \     },
    \     "src/app/*.module.ts": {
    \       "type": "module",
-   \       "related": "src/app/{}.component.ts"
+   \       "alternate": "src/app/{}.component.ts"
+   \     },
+   \     "src/app/*.service.ts": {
+   \       "type": "service",
+   \       "alternate": "src/app/{}.service.spec.ts"
+   \     },
+   \     "src/app/*.component.scss": {
+   \       "type": "css",
+   \       "alternate": "src/app/{}.component.ts"
    \     },
    \     "src/app/shared/*.ts": { "type": "shared" },
    \     "src/app/*.ts": {
