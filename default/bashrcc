@@ -93,10 +93,10 @@ export LESS='-R -X -F'
 
 # because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
 # need to `brew install bash-completion`
-[ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
+[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g __git_main
 
-[ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && . /home/linuxbrew/.linuxbrew/etc/bash_completion
+[ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && source /home/linuxbrew/.linuxbrew/etc/bash_completion
 
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
@@ -257,6 +257,32 @@ getJSON() {
 
   node "$tmpfile"
   echo "node $tmpfile"
+}
+
+# Call a psql table
+# output in json
+# extract line with sed
+# create a .js file
+# execute it
+function displaypsqltojson {
+  ## need $1 as numero_dossier
+  tmpfile=$(mktemp /tmp/XXXXXX)
+
+PGPASSWORD='changeThis' psql -h localhost -p 5433 -U changethisUSer -c \
+  "SELECT json_agg(t) from (
+  SELECT * FROM public.change_this
+  WHERE numero_dossier='$1'
+  ORDER BY numero_dossier
+  ASC LIMIT 100
+  ) t" > "$tmpfile"
+
+  sed -n '4,4p' "$tmpfile" > "$tmpfile.js"
+  sed -i '1ia = ' "$tmpfile.js"
+  echo "console.log(JSON.stringify(a, null, 2))" >> "$tmpfile.js"
+
+
+  echo "$tmpfile.js"
+  node "$tmpfile.js"
 }
 
 # display all comitter for a given file
