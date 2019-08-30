@@ -69,6 +69,13 @@ ggprev() {
   git checkout HEAD^
 }
 
+# gg -> git 
+# v -> vim
+# take all file present in git status and edit it
+ggv() {
+  nvim -O $(git status --porcelain | awk '{ print $2 }')
+}
+
 OS=$(uname) # Linux , Darwin for mac
 if [ "$OS" == "Linux" ]; then
   # -> go on chrome, select text (DO NOT ctrl-C)
@@ -291,6 +298,13 @@ PGPASSWORD='changeThis' psql -h localhost -p 5433 -U changethisUSer -c \
 #      79 author-mail <bardelli.enrico@gmail.com>
 committers() {
   git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
+}
+
+autologin ()
+{
+    echo "bernard.dupond@laposte.fr" | xclip -selection clipboard;
+    sleep 1;
+    echo "too_easy_password" | xclip -selection clipboard;
 }
 
 ###### ANDROID ######

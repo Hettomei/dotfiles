@@ -808,10 +808,14 @@ set splitright
 " To open error list run :lopen
 let g:ale_linters = {
 \  'javascript': ['prettier'],
+\  'json': ['prettier'],
+\  'html': ['prettier'],
 \  'typescript': ['prettier'],
 \}
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
+\  'json': ['prettier'],
+\  'html': ['prettier'],
 \  'typescript': ['prettier'],
 \}
 let g:ale_sign_error = '>>'
