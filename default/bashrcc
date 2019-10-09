@@ -15,6 +15,7 @@ shopt -s histappend histverify
 
 alias v=nvim
 alias g=git
+alias ll='ls -alh'
 
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'

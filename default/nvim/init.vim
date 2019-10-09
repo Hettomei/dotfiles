@@ -666,7 +666,7 @@ augroup tab_and_space
   autocmd FileType make setlocal noexpandtab
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 noexpandtab
-  autocmd FileType javascript,typescript,json,html setlocal tabstop=4 shiftwidth=4 softtabstop=4 nosmarttab expandtab
+  autocmd FileType javascript,typescript,json,html setlocal tabstop=2 shiftwidth=2 softtabstop=2 nosmarttab expandtab
 augroup END
 
 augroup for_projects
@@ -741,6 +741,44 @@ let g:projectionist_heuristics = {
    \       "alternate": "src/app/{}.ts",
    \       "type": "test"
    \     }
+   \   },
+   \   "services/quantumPlugin.service.js": {
+   \     "*.js": {
+   \       "type": "all",
+   \       "alternate": "{}.test.js"
+   \     },
+   \     "redux/reducers/*.js": {
+   \       "type": "reducers",
+   \       "alternate": "redux/reducers/{}.test.js"
+   \     },
+   \     "redux/types/*.js": {
+   \       "type": "types",
+   \       "alternate": "redux/types/{}.test.js"
+   \     },
+   \     "constants/*.js": {
+   \       "type": "constants",
+   \       "alternate": "constants/{}.test.js"
+   \     },
+   \     "components/*.js": {
+   \       "type": "components",
+   \       "alternate": "components/{}.test.js"
+   \     },
+   \     "containers/*.js": {
+   \       "type": "containers",
+   \       "alternate": "containers/{}.test.js"
+   \     },
+   \     "helpers/*.js": {
+   \       "type": "helpers",
+   \       "alternate": "helpers/{}.test.js"
+   \     },
+   \     "models/*.js": {
+   \       "type": "models",
+   \       "alternate": "models/{}.test.js"
+   \     },
+   \     "*.test.js": {
+   \       "alternate": "{}.js",
+   \       "type": "test"
+   \     }
    \   }
    \ }
 
@@ -807,13 +845,13 @@ set splitright
 
 " To open error list run :lopen
 let g:ale_linters = {
-\  'javascript': ['prettier'],
+\  'javascript': ['eslint'],
 \  'json': ['prettier'],
 \  'html': ['prettier'],
 \  'typescript': ['prettier'],
 \}
 let g:ale_fixers = {
-\  'javascript': ['prettier'],
+\  'javascript': ['eslint'],
 \  'json': ['prettier'],
 \  'html': ['prettier'],
 \  'typescript': ['prettier'],
@@ -981,3 +1019,14 @@ nnoremap <Leader>b ]}
 
 " ## to reload file after eslint do his work
 " http://vi.stackexchange.com/questions/8381/how-to-auto-fix-common-linting-errors-reported-via-syntastic
+"
+" ## vim-fugitive how to do a 3 way merge
+" http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
+" Open a file with merge conflict
+" do
+" :Gdiffsplit!
+"
+" Then, go on what you whant, do 'dp' -> diffput 
+" Then it will move your focused dp in the middle
+" then you will be able to again compare with the left part :D
+" ENJOY

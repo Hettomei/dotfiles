@@ -46,10 +46,9 @@
   riom = rebase -i origin/master
   riod = rebase -i origin/develop
   whatrebase = log origin/master..HEAD --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
-  wc = whatchanged -p
-  # -m -> see merge : ityshow EVERY changing
-  wcmax = whatchanged -m -p
-  wcw = whatchanged -m -p --color-words
+  # git ask to stop using whatchanged because it does not include merge. Everything can be done with log
+  wc = log -p --follow
+  wcw = log -p --follow --color-words
   ap = add -p
   # you can do this if you didn't push. commit is lost but all the changes return to "stagged for commit"
   undo-soft = reset --soft HEAD^
@@ -76,3 +75,5 @@
   ; whatchanged = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
 [status]
   showUntrackedFiles = all
+[credential]
+	helper = store

@@ -1,0 +1,22 @@
+windows:
+  - name: server
+    root: quantum-project/userinterface
+    layout: main-vertical
+    focus: true
+    panes:
+      - echo "yarn test"
+      - yarn start
+      - cd backend && yarn start
+  - name: code
+    root: quantum-project/userinterface
+    layout: even-vertical
+    focus: true
+    panes:
+      - git status
+  - name: git
+    root: quantum-project/userinterface
+    layout: even-horizontal
+    focus: true
+    panes:
+      - git status
+      - git status
