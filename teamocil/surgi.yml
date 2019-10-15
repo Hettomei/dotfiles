@@ -4,9 +4,9 @@ windows:
     layout: main-vertical
     focus: true
     panes:
-      - echo "yarn test"
       - yarn start
-      - cd backend && yarn start
+      - cd backend 
+      - cd /home/tgauthier/programmes/backend-scenario && npm start
   - name: code
     root: quantum-project/userinterface
     layout: even-vertical

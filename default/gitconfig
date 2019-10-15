@@ -47,6 +47,24 @@
   riod = rebase -i origin/develop
   whatrebase = log origin/master..HEAD --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   # git ask to stop using whatchanged because it does not include merge. Everything can be done with log
+  # More on this command : log -p --follow :
+  # be carefull, sometimes it can be misleading and show file as deleted
+  # example :
+  # take containers/SearchPage.js with various commit
+  # has been renamed to pages/CaseList/CaseList.js again with others commit :
+  # git log -p --follow containers/SearchPage.js
+  # will show containers/SearchPage.js has been DELETED and THEN (chronologically speaking) updated
+  # This is because git has not a real file rename history. It has a whole tree with change
+  # every time we git log, git 'compute' an history
+  # Also, with merge, git has to show multiple commit at once, but it is not possible in a terminal
+  # come back to SearchPage :
+  # What to do :
+  # take the commit number where it has been deleted
+  # then
+  # git show --stat $commitNumber
+  # Then you will see containers/SearchPage.js => pages/CaseList/CaseList.js
+  # then you can again do git log -p --follow -- pages/CaseList/CaseList.js
+  # to see all commit (including all previous commit of containers/SearchPage
   wc = log -p --follow
   wcw = log -p --follow --color-words
   ap = add -p
