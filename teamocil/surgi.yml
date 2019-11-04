@@ -1,20 +1,20 @@
 windows:
   - name: server
-    root: quantum-project/userinterface
+    root: quantum-project/code/userinterface/webapp/userinterface
     layout: main-vertical
     focus: true
     panes:
       - yarn start
-      - cd backend 
-      - cd /home/tgauthier/programmes/backend-scenario && npm start
+      - cd backend
+      - cd /home/tgauthier/programmes/backend-scenario
   - name: code
-    root: quantum-project/userinterface
+    root: quantum-project/code/userinterface/webapp/userinterface
     layout: even-vertical
     focus: true
     panes:
       - git status
   - name: git
-    root: quantum-project/userinterface
+    root: quantum-project/code/userinterface/webapp/userinterface
     layout: even-horizontal
     focus: true
     panes:

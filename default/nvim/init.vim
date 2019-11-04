@@ -624,6 +624,13 @@ endif
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
 let g:ctrlp_lazy_update = 200
+
+" When starting up, CtrlP sets its local working directory according to this variable:
+" c - the directory of the current file.
+" a - like "c", but only applies when the current working directory outside of
+    " CtrlP isn't a direct ancestor of the directory of the current file.
+let g:ctrlp_working_path_mode = 'a'
+
 " }
 
 " spell {
@@ -864,7 +871,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
 " always open
-" let g:ale_open_list = 1
+let g:ale_open_list = 1
 nnoremap <Leader>f :ALEFix<CR>
 nnoremap <Leader>w :FixWhitespace<CR>
 
@@ -1026,7 +1033,7 @@ nnoremap <Leader>b ]}
 " do
 " :Gdiffsplit!
 "
-" Then, go on what you whant, do 'dp' -> diffput 
+" Then, go on what you want, do 'dp' -> diffput
 " Then it will move your focused dp in the middle
 " then you will be able to again compare with the left part :D
 " ENJOY

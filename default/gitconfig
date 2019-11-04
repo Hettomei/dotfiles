@@ -82,7 +82,7 @@
 [push]
   default = simple
 [merge]
-  tool = fugitive
+  tool = vimdiff
   ; conflictstyle = diff3
 [difftool]
   prompt = false
@@ -94,4 +94,4 @@
 [status]
   showUntrackedFiles = all
 [credential]
-	helper = store
+  helper = store
