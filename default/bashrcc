@@ -31,6 +31,12 @@ fuzzy(){
   fzf -f "$1"
 }
 
+vv(){
+  # fuzzy "$1" | head -1 | xargs nvim
+  fuzzy "$1" | head | xargs nvim
+}
+
+
 af(){
   ag --pager less -ig "$@"
 }
