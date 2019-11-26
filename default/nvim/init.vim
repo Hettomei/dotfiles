@@ -786,7 +786,17 @@ let g:projectionist_heuristics = {
    \       "alternate": "{}.js",
    \       "type": "test"
    \     }
-   \   }
+   \   },
+   \   "src/App.js": {
+   \     "*.js": {
+   \       "type": "all",
+   \       "alternate": "{}.test.js"
+   \     },
+   \     "*.test.js": {
+   \       "type": "all",
+   \       "alternate": "{}.js"
+   \     },
+   \   },
    \ }
 
 " move in window stuff {
@@ -858,7 +868,8 @@ let g:ale_linters = {
 \  'typescript': ['prettier'],
 \}
 let g:ale_fixers = {
-\  'javascript': ['eslint'],
+\  'javascript': ['prettier', 'eslint'],
+\  'css': ['prettier'],
 \  'json': ['prettier'],
 \  'html': ['prettier'],
 \  'typescript': ['prettier'],

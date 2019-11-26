@@ -1,7 +1,7 @@
 [gui]
 [user]
   name = Timothée Gauthier
-  email = timothee.gauthier@consertotech.pro
+  email = 2079042+Hettomei@users.noreply.github.com
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global
