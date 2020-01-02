@@ -575,7 +575,8 @@ if executable('ag')
   " Use ag over grep
   " set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ $HOME/.agignorecustom
   set grepformat=%f:%l:%c:%m
-  set grepprg=ag\ --vimgrep\ --case-sensitive\ $*
+  " set grepprg=ag\ --vimgrep\ --case-sensitive\ $*
+  set grepprg=ag\ --vimgrep\ --ignore\ '**.spec.ts'\ --case-sensitive\ $*
 endif
 
 " Like * but on all repo :)

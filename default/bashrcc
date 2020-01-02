@@ -32,8 +32,10 @@ fuzzy(){
 }
 
 vv(){
+  # xargs keep a running proccess. Find another way
   # fuzzy "$1" | head -1 | xargs nvim
-  fuzzy "$1" | head | xargs nvim
+  # fuzzy "$1" | head | xargs nvim
+  echo 'please rework this'
 }
 
 
