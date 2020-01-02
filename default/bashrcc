@@ -13,6 +13,7 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 # Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
 shopt -s histappend histverify
 
+alias e='emacs -nw'
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -99,8 +100,8 @@ if [ "$OS" == "Linux" ]; then
   alias c=chrono_rb
 fi
 
-export VISUAL=nvim
-export EDITOR=nvim
+export EDITOR="emacs -nw"
+export VISUAL=emacs
 # -R -> display ansi color
 # -X -> sometimes help to not clear the screen
 # -F -> quit if one string

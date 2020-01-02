@@ -14,18 +14,25 @@ do
   cp -v $HOME/.$file_name $DIR/$file_name
 done
 
-#### NVIM ####
+#### Emacs ####
+rm -r $DIR/emacs.d
+mkdir $DIR/emacs.d
+
+cp -v $HOME/.emacs.d/init.el $DIR/emacs.d/init.el
+
+#### Nvim ####
 rm -r $DIR/nvim
 mkdir $DIR/nvim
 
 cp -v $HOME/.config/nvim/init.vim $DIR/nvim/init.vim
 cp -v -R $HOME/.config/nvim/my_snippets $DIR/nvim/
 
-
+#### teamocil ####
 mkdir $CURRENT_DIR/teamocil
 cp -v $HOME/.teamocil/* $CURRENT_DIR/teamocil/
 
 
+#### commit ####
 cd $CURRENT_DIR
 
 git add -p
