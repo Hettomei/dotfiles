@@ -29,26 +29,46 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(custom-safe-themes
+   (quote
+    ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default)))
  '(evil-backspace-join-lines t)
  '(evil-want-Y-yank-to-eol t)
  '(global-display-line-numbers-mode t)
+ '(inhibit-startup-screen t)
  '(make-backup-files nil)
- '(save-place-mode t)
+ '(menu-bar-mode nil nil nil "Do not display menu bar on top of emacs")
+ '(package-selected-packages
+   (quote
+    (markdown-mode evil-commentary evil-numbers typescript-mode evil-surround ag evil elscreen)))
+ '(save-place-mode t nil nil "Save current position of file")
  '(savehist-mode t nil nil "Save M-x history")
  '(show-paren-mode t)
+ '(tool-bar-mode nil nil nil "Do not display the second bar in gui")
  '(truncate-lines t))
+
+(when (display-graphic-p)
+  (load-theme 'solarized-dark t))
 
 (require 'evil)
 (evil-mode 1)
+
+;; https://github.com/emacs-evil/evil-surround
+;; To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 ;; set leader to space
 (evil-set-leader 'normal (kbd "SPC"))
 ;; cannot use <leader><leader>
 (evil-define-key 'normal 'global (kbd "<leader>SPC") 'save-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>e") 'find-file)
-(evil-define-key 'normal 'global (kbd "gcc") 'comment-line)
-
-
+;; Need to refine this <leader>f: need to display file name
+(evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
+(evil-define-key 'normal 'global (kbd "C-h") 'evil-window-left)
+(evil-define-key 'normal 'global (kbd "C-j") 'evil-window-down)
+(evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
+(evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
 
 (elscreen-start)
 (define-key evil-normal-state-map (kbd "C-w t") 'elscreen-create) ;create tab
@@ -56,3 +76,29 @@ There are two things you can do about this warning:
 
 (define-key evil-normal-state-map "gT" 'elscreen-previous) ;previous tab
 (define-key evil-normal-state-map "gt" 'elscreen-next) ;next tab
+
+(evil-commentary-mode)
+
+(require 'evil-numbers)
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+
+(defun middle-of-line-forward ()
+  "Put cursor at the middle point of the line. try to mimic vim-skip"
+  (interactive)
+  (goto-char (/ (+ (point) (point-at-eol)) 2)))
+
+(defun middle-of-line-backward ()
+  "Put cursor at the middle point of the line. try to mimic vim-skip"
+  (interactive)
+  (goto-char (/ (+ (point) (point-at-bol)) 2)))
+
+(define-key evil-normal-state-map (kbd "s") 'middle-of-line-forward)
+(define-key evil-normal-state-map (kbd "S") 'middle-of-line-backward)
+
+(defun middle-of-file-forward ()
+  "Put cursor at the middle point of the line. try to mimic vim-skip"
+  (interactive)
+  (goto-char (/ (+ (point) (point-at-eol)) 2)))
+
+(define-key evil-normal-state-map (kbd "M-s") 'middle-of-line-forward)
