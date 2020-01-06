@@ -13,13 +13,9 @@ do
   cp -v $DIR/emacs.d/$file_name $HOME/.emacs.d/$file_name
 done
 
+cp -v -r $DIR/emacs.d/elisp $HOME/.emacs.d/elisp
+
 cat <<EOF
-copy init.el
-M-x package-refresh-contents
-M-x package-install-selected-packages
 
-Sometimes, solarized is not installed, so :
-M-x package-install RET solarized-theme RET
-
-M-x package-install RET evil RET
+Run the gui version and just wait
 EOF
