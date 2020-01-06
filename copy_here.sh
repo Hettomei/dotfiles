@@ -18,7 +18,15 @@ done
 rm -r $DIR/emacs.d
 mkdir $DIR/emacs.d
 
-cp -v $HOME/.emacs.d/init.el $DIR/emacs.d/init.el
+for file_name in 'init.el' '.custom.el'
+do
+  cp -v $HOME/.emacs.d/$file_name $DIR/emacs.d/$file_name
+done
+
+for folder_name in 'elisp' 'snippets'
+do
+  cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/$folder_name
+done
 
 #### Nvim ####
 rm -r $DIR/nvim

@@ -15,15 +15,9 @@
 (require 'evil-config)
 
 (require 'lang-python)
-
 (require 'lang-ruby)
-
 (require 'lang-go)
-
 (require 'lang-php)
-
 (require 'lang-javascript)
-
 (require 'lang-web)
-
 (require 'lang-c)
