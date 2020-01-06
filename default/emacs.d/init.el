@@ -70,6 +70,11 @@ There are two things you can do about this warning:
 (evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
 (evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
 
+(evil-define-key 'normal 'global (kbd "C-w <left>") 'evil-window-left)
+(evil-define-key 'normal 'global (kbd "C-w <down>") 'evil-window-down)
+(evil-define-key 'normal 'global (kbd "C-w <up>") 'evil-window-up)
+(evil-define-key 'normal 'global (kbd "C-w <right>") 'evil-window-right)
+
 (elscreen-start)
 (define-key evil-normal-state-map (kbd "C-w t") 'elscreen-create) ;create tab
 (define-key evil-normal-state-map (kbd "C-w x") 'elscreen-kill) ;kill tab
@@ -96,9 +101,9 @@ There are two things you can do about this warning:
 (define-key evil-normal-state-map (kbd "s") 'middle-of-line-forward)
 (define-key evil-normal-state-map (kbd "S") 'middle-of-line-backward)
 
-(defun middle-of-file-forward ()
-  "Put cursor at the middle point of the line. try to mimic vim-skip"
-  (interactive)
-  (goto-char (/ (+ (point) (point-at-eol)) 2)))
+;; (defun middle-of-file-forward ()
+;;   "Put cursor at the middle point of the line. try to mimic vim-skip"
+;;   (interactive)
+;;   (goto-char (/ (+ (point) (point-at-eol)) 2)))
 
-(define-key evil-normal-state-map (kbd "M-s") 'middle-of-line-forward)
+;; (define-key evil-normal-state-map (kbd "M-s") 'middle-of-line-forward)
