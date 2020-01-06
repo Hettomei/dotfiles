@@ -33,6 +33,9 @@ There are two things you can do about this warning:
    (quote
     ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default)))
  '(evil-backspace-join-lines t)
+ '(evil-ex-search-case (quote sensitive))
+ '(evil-search-module (quote evil-search))
+ '(evil-search-wrap nil)
  '(evil-want-Y-yank-to-eol t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
@@ -65,10 +68,10 @@ There are two things you can do about this warning:
 (evil-define-key 'normal 'global (kbd "<leader>e") 'find-file)
 ;; Need to refine this <leader>f: need to display file name
 (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
-(evil-define-key 'normal 'global (kbd "C-h") 'evil-window-left)
-(evil-define-key 'normal 'global (kbd "C-j") 'evil-window-down)
-(evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
-(evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
+;; (evil-define-key 'normal 'global (kbd "C-h") 'evil-window-left)
+;; (evil-define-key 'normal 'global (kbd "C-j") 'evil-window-down)
+;; (evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
+;; (evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
 
 (evil-define-key 'normal 'global (kbd "C-w <left>") 'evil-window-left)
 (evil-define-key 'normal 'global (kbd "C-w <down>") 'evil-window-down)
