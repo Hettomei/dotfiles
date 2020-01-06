@@ -107,3 +107,6 @@ There are two things you can do about this warning:
 ;;   (goto-char (/ (+ (point) (point-at-eol)) 2)))
 
 ;; (define-key evil-normal-state-map (kbd "M-s") 'middle-of-line-forward)
+
+(global-whitespace-mode)
+(setq whitespace-style '(face empty trailing big-indent))

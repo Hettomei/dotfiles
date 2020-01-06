@@ -13,6 +13,13 @@ do
   cp -v $DIR/emacs.d/$file_name $HOME/.emacs.d/$file_name
 done
 
-echo "For evil, see https://evil.readthedocs.io/en/latest/overview.html#installation-via-package-el"
-echo "M-x package-refresh-contents"
-echo "M-x package-install RET evil RET"
+cat <<EOF
+copy init.el
+M-x package-refresh-contents
+M-x package-install-selected-packages
+
+Sometimes, solarized is not installed, so :
+M-x package-install RET solarized-theme RET
+
+M-x package-install RET evil RET
+EOF
