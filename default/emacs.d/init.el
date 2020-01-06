@@ -12,6 +12,8 @@
 (require 'base-functions)
 (require 'base-global-keys)
 
+(require 'evil-config)
+
 (require 'lang-python)
 
 (require 'lang-ruby)

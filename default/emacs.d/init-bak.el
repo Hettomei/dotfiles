@@ -32,11 +32,6 @@ There are two things you can do about this warning:
  '(custom-safe-themes
    (quote
     ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" default)))
- '(evil-backspace-join-lines t)
- '(evil-ex-search-case (quote sensitive))
- '(evil-search-module (quote evil-search))
- '(evil-search-wrap nil)
- '(evil-want-Y-yank-to-eol t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(make-backup-files nil)
@@ -50,11 +45,8 @@ There are two things you can do about this warning:
  '(tool-bar-mode nil nil nil "Do not display the second bar in gui")
  '(truncate-lines t))
 
-(when (display-graphic-p)
-  (load-theme 'solarized-dark t))
-
-(require 'evil)
-(evil-mode 1)
+;; (when (display-graphic-p)
+;;   (load-theme 'solarized-dark t))
 
 ;; https://github.com/emacs-evil/evil-surround
 ;; To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
