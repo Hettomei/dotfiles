@@ -1,9 +1,3 @@
-
-(use-package avy
-  :bind
-  ("C-c SPC" . avy-goto-char))
-
-
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode))
