@@ -12,6 +12,8 @@
 (require 'base-functions)
 (require 'base-global-keys)
 
+(require 'tim-base)
+(require 'ag-config)
 (require 'evil-config)
 
 (require 'lang-python)

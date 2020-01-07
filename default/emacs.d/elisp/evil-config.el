@@ -44,6 +44,8 @@
   (evil-define-key 'normal 'global (kbd "C-<up>") 'evil-window-up)
   (evil-define-key 'normal 'global (kbd "C-<right>") 'evil-window-right)
 
+  (evil-define-key 'normal 'global (kbd "C-w x") 'window-swap-state)
+
 
   ;; mimic vim-skip
   (evil-define-key 'normal 'global (kbd "s") 'middle-of-line-forward)
