@@ -25,7 +25,7 @@ done
 
 for folder_name in 'elisp' 'snippets'
 do
-  cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/$folder_name
+  cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/
 done
 
 #### Nvim ####

@@ -8,12 +8,15 @@ DIR="$CURRENT_DIR/${1:-default}"
 mkdir -p $HOME/.emacs.d
 
 # Add here a list of file you want to copy
-for file_name in 'init.el'
+for file_name in 'init.el' '.custom.el'
 do
   cp -v $DIR/emacs.d/$file_name $HOME/.emacs.d/$file_name
 done
 
-cp -v -r $DIR/emacs.d/elisp $HOME/.emacs.d/elisp
+for folder_name in 'elisp' 'snippets'
+do
+  cp -v -r $DIR/emacs.d/$folder_name $HOME/emacs.d/
+done
 
 cat <<EOF
 
