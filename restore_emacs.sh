@@ -15,7 +15,7 @@ done
 
 for folder_name in 'elisp' 'snippets'
 do
-  cp -v -r $DIR/emacs.d/$folder_name $HOME/emacs.d/
+  cp -v -r $DIR/emacs.d/$folder_name $HOME/.emacs.d/
 done
 
 cat <<EOF
