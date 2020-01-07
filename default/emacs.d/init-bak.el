@@ -15,6 +15,3 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil nil nil "Do not display the second bar in gui")
  '(truncate-lines t))
-
-(global-whitespace-mode)
-(setq whitespace-style '(face empty trailing big-indent))
