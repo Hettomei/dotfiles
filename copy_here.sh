@@ -18,7 +18,7 @@ done
 rm -r $DIR/emacs.d
 mkdir $DIR/emacs.d
 
-for file_name in 'init.el' '.custom.el'
+for file_name in 'init.el' 'custom.el'
 do
   cp -v $HOME/.emacs.d/$file_name $DIR/emacs.d/$file_name
 done
