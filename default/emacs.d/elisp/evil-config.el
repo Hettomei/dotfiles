@@ -63,7 +63,7 @@
   :ensure t
   :config
   (evil-define-key 'normal 'global (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (evil-define-key 'normal 'global (kbd "C-z") 'evil-numbers/dec-at-pt))
+  (evil-define-key 'normal 'global (kbd "M-a") 'evil-numbers/dec-at-pt))
 
 ;; https://github.com/emacs-evil/evil-surround
 ;; To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(

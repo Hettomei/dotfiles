@@ -20,10 +20,6 @@
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-initialize)))
 
-(use-package expand-region
-  :bind
-  ("C-=" . er/expand-region))
-
 (use-package flycheck)
 
 

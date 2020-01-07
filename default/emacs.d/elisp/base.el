@@ -80,8 +80,6 @@
 (when (  fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
-(show-paren-mode 1)
-
 ;; Delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
