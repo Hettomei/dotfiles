@@ -24,10 +24,12 @@
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-ex-search-case (quote sensitive))
   (setq evil-search-module 'evil-search)
-  (setq evil-search-wrap nil)
+  ; I don't want this option. But when it is at nil, if I am on the first char of word, it is not found
+  (setq evil-search-wrap t)
   (setq evil-shift-round nil)
   (setq evil-split-window-below t)
   (setq evil-vsplit-window-right t)
+  ; make Y copy from point to end of line.
   (setq evil-want-Y-yank-to-eol t)
   :config ;; tweak evil after loading it
   (evil-mode 1)
@@ -69,5 +71,10 @@
   :ensure t
   :config
   (global-evil-surround-mode 1))
+
+(use-package evil-visualstar
+  :ensure t
+  :config
+  (global-evil-visualstar-mode t))
 
 (provide 'evil-config)

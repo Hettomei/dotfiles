@@ -25,13 +25,14 @@
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; Emacs customizations
-(setq confirm-nonexistent-file-or-buffer  t
+(setq confirm-nonexistent-file-or-buffer  nil
       save-interprogram-paste-before-kill t
       mouse-yank-at-point                 t
+      ;; add a new line at the end of file if does not exist
       require-final-newline               t
       visible-bell                        nil
       ring-bell-function                  'ignore
-      custom-file                         "~/.emacs.d/.custom.el"
+      custom-file                         "~/.emacs.d/custom.el"
       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
       minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
@@ -47,6 +48,8 @@
       x-select-enable-clipboard          t
       use-package-always-ensure          t)
 
+(load custom-file)
+
 ;; Bookmarks
 (setq
  ;; persistent bookmarks
@@ -57,10 +60,9 @@
 (setq
  history-length                     1000
  backup-inhibited                   nil
- make-backup-files                  t
+ make-backup-files                  nil
  auto-save-default                  t
  auto-save-list-file-name           (concat temp-dir "/autosave")
- make-backup-files                  t
  create-lockfiles                   nil
  backup-directory-alist            `((".*" . ,(concat temp-dir "/backup/")))
  auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t)))
