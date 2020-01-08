@@ -20,9 +20,16 @@
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-initialize)))
 
+(use-package expand-region
+  :bind
+  ("C-@" . er/expand-region))
+
+;; Can check the code; Need some initialisation
+;; More at https://www.flycheck.org/en/latest/user/quickstart.html
 (use-package flycheck)
 
 
+;; Works with ivy
 (use-package counsel
   :bind
   ("M-x" . counsel-M-x)
@@ -53,7 +60,7 @@
 
 (use-package linum
   :config
-  (setq linum-format " %3d")
+  (setq linum-format "%3d ")
   (global-linum-mode nil))
 
 (use-package magit
