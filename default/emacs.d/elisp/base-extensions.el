@@ -70,21 +70,6 @@
 
 (use-package magit-popup)
 
-(use-package multiple-cursors
-  :bind
-  ("C-S-c C-S-c" . mc/edit-lines)
-  ("C->" . mc/mark-next-like-this)
-  ("C-<" . mc/mark-previous-like-this)
-  ("C-c C->" . mc/mark-all-like-this))
-
-(use-package neotree
-  :config
-  (setq neo-theme 'arrow
-        neotree-smart-optn t
-        neo-window-fixed-size nil)
-  ;; Disable linum for neotree
-  (add-hook 'neo-after-create-hook 'disable-neotree-hook))
-
 (use-package org
   :config
   (setq org-directory "~/org-files"
