@@ -8,13 +8,19 @@
   (interactive)
   (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
-;; TODO fix bug : when on the first char of word, it delete the previous one
 (defun delete-and-replace-word ()
-  "Kill the word at point."
+  "Kill the word and go in insert mode. When word is not found go forward-word"
   (interactive)
-  (backward-word)
-  (kill-word 1)
-  (evil-insert 1))
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (if bounds
+	(progn
+	  ;; kill-region will save it in kill ring. Delete just delete
+	  (delete-region (car bounds) (cdr bounds))
+	  (evil-insert 1))
+	(progn
+	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+	  (forward-word)
+	  (delete-and-replace-word)))))
 
 ;; load evil
 (use-package evil
