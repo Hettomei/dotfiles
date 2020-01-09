@@ -109,8 +109,6 @@
 
 (use-package smartparens)
 
-(use-package smex)
-
 (use-package undo-tree
   :config
   ;; Remember undo history
@@ -119,6 +117,8 @@
    undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
   (global-undo-tree-mode 1))
 
+;; When press C-x , wait 1 sec, then a full list appear to help.
+;; See https://github.com/justbur/emacs-which-key
 (use-package which-key
   :config
   (which-key-mode))
@@ -130,8 +130,13 @@
   ("C-x <left>" . windmove-left)
   ("C-x <right>" . windmove-right))
 
+;; Allow to directly multiple file during grep.
+;; Demo https://www.reddit.com/r/emacs/comments/ce0557/emacs_editing_multiple_files_with_grep_wgrep/
+;; More at https://www.emacswiki.org/emacs/wgrep.el
 (use-package wgrep)
 
+;; Documentation at http://joaotavora.github.io/yasnippet/
+;; just start tipping and press TAB
 (use-package yasnippet
   :config
   (yas-global-mode 1))

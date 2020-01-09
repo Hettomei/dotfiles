@@ -1,5 +1,5 @@
 (global-whitespace-mode)
-(setq whitespace-style '(face empty trailing big-indent))
+(setq whitespace-style '(face empty trailing))
 
 (use-package markdown-mode
   :ensure t

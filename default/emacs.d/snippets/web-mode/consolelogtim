@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: console.log.tim
+# key: clt
+# --
+console.log('ttiimm', $0)

@@ -5,8 +5,6 @@
 (require 'base)
 (require 'base-theme)
 (require 'base-extensions)
-(require 'base-functions)
-(require 'base-global-keys)
 
 (require 'tim-base)
 (require 'ag-config)

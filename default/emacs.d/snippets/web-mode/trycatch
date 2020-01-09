@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: try catch
+# key: tc
+# --
+try {
+    $0
+} catch(e) {
+    console.log(e);
+}
