@@ -9,7 +9,7 @@
   (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
 (defun delete-and-replace-word ()
-  "Kill the word and go in insert mode. When word is not found go forward-word"
+  "Delete the word and go in insert mode. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
@@ -21,6 +21,31 @@
 	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
 	  (forward-word)
 	  (delete-and-replace-word)))))
+
+(defun copy-word ()
+  "Copy the word. When word is not found go forward-word"
+  (interactive)
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (if bounds
+	(copy-region-as-kill (car bounds) (cdr bounds))
+	(progn
+	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+	  (forward-word)
+	  (copy-word)))))
+
+(defun replace-with-paste ()
+  "Delete the word and Paste another on it. When word is not found go forward-word"
+  (interactive)
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (if bounds
+	(progn
+	  ;; kill-region will save it in kill ring. Delete just delete
+	  (delete-region (car bounds) (cdr bounds))
+	  (yank))
+	(progn
+	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+	  (forward-word)
+	  (replace-with-paste)))))
 
 ;; load evil
 (use-package evil
@@ -58,7 +83,13 @@
   ;; mimic vim-skip
   (evil-define-key 'normal 'global (kbd "s") 'middle-of-line-forward)
   (evil-define-key 'normal 'global (kbd "S") 'middle-of-line-backward)
-  (evil-define-key 'normal 'global (kbd "<leader>r") 'delete-and-replace-word))
+
+  (evil-define-key 'visual 'global (kbd "v") 'er/expand-region)
+
+  ;; fast act on words
+  (evil-define-key 'normal 'global (kbd "<leader>r") 'delete-and-replace-word)
+  (evil-define-key 'normal 'global (kbd "<leader>p") 'replace-with-paste)
+  (evil-define-key 'normal 'global (kbd "<leader>y") 'copy-word))
 
 (use-package evil-commentary
   :ensure t

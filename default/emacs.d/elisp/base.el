@@ -71,6 +71,8 @@
 		       (make-directory (concat temp-dir "/auto-save-list") :parents))
 
 (fset 'yes-or-no-p 'y-or-n-p)
+;; Automatically reload file content. But only if it has not been edited emacs side.
+;; So I let it because it looks like well handled.
 (global-auto-revert-mode t)
 
 ;; Disable toolbar & menubar

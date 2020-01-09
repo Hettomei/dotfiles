@@ -20,16 +20,15 @@
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-initialize)))
 
-(use-package expand-region
-  :bind
-  ("C-@" . er/expand-region))
+;; Look inside evil-config : it is bound to v
+;; So press multiple time 'v' to expand selection
+(use-package expand-region)
 
 ;; Can check the code; Need some initialisation
 ;; More at https://www.flycheck.org/en/latest/user/quickstart.html
 (use-package flycheck)
 
-
-;; Works with ivy
+;; Completion plugin. Works with ivy. Replace the built in ido.
 (use-package counsel
   :bind
   ("M-x" . counsel-M-x)
