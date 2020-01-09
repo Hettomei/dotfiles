@@ -61,4 +61,3 @@
 (add-hook 'projectile-after-switch-project-hook 'pyenv-activate-current-project)
 
 (provide 'lang-python)
-;;; base-python.el ends here

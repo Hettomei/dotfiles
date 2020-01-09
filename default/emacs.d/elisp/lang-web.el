@@ -7,11 +7,7 @@
    ("\\.html?\\'" . web-mode)
    ("\\.phtml?\\'" . web-mode)
    ("\\.tpl\\.php\\'" . web-mode)
-   ("\\.[agj]sp\\'" . web-mode)
-   ("\\.as[cp]x\\'" . web-mode)
    ("\\.erb\\'" . web-mode)
-   ("\\.mustache\\'" . web-mode)
-   ("\\.djhtml\\'" . web-mode)
    ("\\.jsx$" . web-mode))
   :config
   (setq web-mode-markup-indent-offset 2
@@ -85,11 +81,5 @@
          '((company-css company-dabbrev-code company-files))))
   (add-hook 'css-mode-hook 'my-css-mode-hook)
   (add-hook 'css-mode-hook 'company-mode))
-
-;; impatient mode - Live refresh of web pages
-;; https://github.com/skeeto/impatient-mode
-(use-package impatient-mode
-  :diminish (impatient-mode . " i")
-  :commands (impatient-mode))
 
 (provide 'lang-web)
