@@ -4,6 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t nil nil "Display line and column number in modeline")
+ '(custom-safe-themes
+   (quote
+    ("2809bcb77ad21312897b541134981282dc455ccd7c14d74cc333b6e549b824f3" default)))
  '(global-display-line-numbers-mode t)
  '(package-selected-packages
    (quote
