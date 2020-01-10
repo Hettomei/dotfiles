@@ -55,8 +55,9 @@
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-ex-search-case (quote sensitive))
   (setq evil-search-module 'evil-search)
-  ; I don't want this option. But when it is at nil, if I am on the first char of word, it is not found
-  (setq evil-search-wrap t)
+  (setq evil-move-beyond-eol nil)
+  ; Mini bug, if I am on the last word, and press * it found nothing. But it s close to nowrapscan
+  (setq evil-search-wrap nil)
   (setq evil-shift-round nil)
   (setq evil-split-window-below t)
   (setq evil-vsplit-window-right t)
@@ -64,11 +65,14 @@
   (setq evil-want-Y-yank-to-eol t)
   :config ;; tweak evil after loading it
   (evil-mode 1)
+
   ;; set leader to space
   (evil-set-leader 'normal (kbd "SPC"))
+
   ;; cannot use <leader><leader>
   (evil-define-key 'normal 'global (kbd "<leader>SPC") 'save-buffer)
   (evil-define-key 'normal 'global (kbd "<leader>e") 'find-file)
+
   ;; Need to refine this <leader>f: need to display file name
   (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
 
@@ -103,12 +107,20 @@
   (evil-define-key 'normal 'global (kbd "M-a") 'evil-numbers/dec-at-pt))
 
 ;; https://github.com/emacs-evil/evil-surround
-;; To remove the delimiters entirely to 'Hello world!' press ds'.  Hello world!. or ysiw( . or visual mode then S(
+;; To remove the ' arround 'Hello world!' press ds'
+;; To change the ( into [ arround (printf ok) press cs(]
+;; To ADD to a line something let s say :
+;; hello world
+;; press: yss(
+;; ( hello world )
+;; press: yss)
+;; (hello world)
 (use-package evil-surround
   :ensure t
   :config
   (global-evil-surround-mode 1))
 
+;; evil-visualstar allow you to press * during visual mode to start search mode
 (use-package evil-visualstar
   :ensure t
   :config

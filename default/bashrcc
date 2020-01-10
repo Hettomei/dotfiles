@@ -13,8 +13,9 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 # Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
 shopt -s histappend histverify
 
-alias e='TERM=xterm emacs -nw'
-alias v=nvim
+alias e='emacs -nw'
+alias v='emacs -nw'
+# alias v=nvim
 alias g=git
 alias ll='ls -alh'
 
@@ -79,7 +80,7 @@ ggprev() {
   git checkout HEAD^
 }
 
-# gg -> git 
+# gg -> git
 # v -> vim
 # take all file present in git status and edit it
 ggv() {

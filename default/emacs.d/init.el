@@ -10,10 +10,23 @@
 (require 'ag-config)
 (require 'evil-config)
 
+(require 'lang-javascript)
+(require 'lang-web)
+
+(add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
+
+;; Lang, just uncomment, reload emacs, and voilà
+
 ;; (require 'lang-python)
 ;; (require 'lang-ruby)
 ;; (require 'lang-go)
 ;; (require 'lang-php)
-(require 'lang-javascript)
-(require 'lang-web)
 ;; (require 'lang-c)
+
+
+;; Tips
+
+;; C-u M-! inserts the result of the ‘shell-command’
+
+;; How to quickly create a new mode : (maybe for vim file ?)
+;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a
