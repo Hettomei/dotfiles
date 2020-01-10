@@ -28,5 +28,11 @@
 
 ;; C-u M-! inserts the result of the ‘shell-command’
 
+;; To save session :
+;; M-x desktop-save
+;; Then reopen emacs then
+;; M-x desktop-change-dir
+;; And find dir
+
 ;; How to quickly create a new mode : (maybe for vim file ?)
 ;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a
