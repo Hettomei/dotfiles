@@ -21,6 +21,12 @@
  '(scroll-step 1)
  '(show-paren-mode t)
  '(truncate-lines t)
+ '(web-mode-comment-formats
+   (quote
+    (("java" . "/*")
+     ("javascript" . "//")
+     ("php" . "/*")
+     ("css" . "/*"))))
  '(xterm-mouse-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
