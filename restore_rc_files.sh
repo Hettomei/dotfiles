@@ -13,8 +13,11 @@ cp -v $DIR/gitconfig $HOME/.gitconfig
 
 cat <<-____HERE
 
-Please do
+On the first install, please do
 
 echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile
+
+Also, read  ~/.gitconfig to ensure 'user'
+
 ____HERE

@@ -1,17 +1,37 @@
-Pour une machine vierge :
+# How to use it
 
-install git
+## When you get a fresh new $HOME
 
-install rbenv
-install ruby-build
-install ruby
+Just run
 
-puis va sur brew.sh
-install curl
+```
+./restore_rc_files.sh
+./restore_tmux.sh
+./restore_emacs.sh
+```
 
-ensuite, install git avec brew pour avoir la completion
-install tout avec brew
+And read the comment at the end.
 
-brew install neovim/neovim/neovim
-brew install git tmux xclip
-brew install diff-so-fancy
+## To save current configuration
+
+```
+./copy_here.sh
+```
+
+then `git push`
+
+# Hint
+
+You can pass an argument to `./restore*` and `./copy_here.sh` and it will create the named folder to store conf.
+
+```
+./copy_here.sh windows
+# Will save configuration in dotfiles/windows
+
+./restore_emacs.sh windows window
+# Will restore from dotfiles/windows
+```
+
+# Starting to automate vps installation
+
+Look at vps.sh
