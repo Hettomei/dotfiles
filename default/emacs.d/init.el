@@ -34,5 +34,10 @@
 ;; M-x desktop-change-dir
 ;; And find dir
 
-;; How to quickly create a new mode : (maybe for vim file ?)
-;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a
+;; How to quickly create a new mode :
+;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a :
+;; you can also find a new mode in evil-config.el
+;; (define-derived-mode my-cfg-mode sh-mode "My CFg Mode"
+;;   "A mode for my CFg files."
+;;   (sh-set-shell "bash"))
+;; (add-to-list 'auto-mode-alist '("\\.cfg\\'" . my-cfg-mode))

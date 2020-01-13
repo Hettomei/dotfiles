@@ -5,7 +5,7 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
   export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 fi
 
-if [ -d "/home/tgauthier/programmes/Android/Sdk" ] ; then
+if [ -d "$HOME/programmes/Android/Sdk" ] ; then
   export ANDROID_HOME=$HOME/programmes/Android/Sdk
   PATH=$PATH:$ANDROID_HOME/emulator
   PATH=$PATH:$ANDROID_HOME/tools
