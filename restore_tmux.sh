@@ -7,8 +7,8 @@ DIR="$CURRENT_DIR/${1:-default}"
 
 cp -v $DIR/tmux.conf $HOME/.tmux.conf
 
-mkdir $HOME/.teamocil
-cp -v  $CURRENT_DIR/teamocil/* $HOME/.teamocil/
+mkdir -p $HOME/.teamocil
+cp -v -r $DIR/teamocil/* $HOME/.teamocil
 
 cat <<-____HERE
 
@@ -18,15 +18,13 @@ tmux kill-server
 open tmux, then prefix + I
 and again prefix + I
 
-
 to update tmux plugin :
 prefix + U
 then type 'all'
-
 
 teamocil http://www.teamocil.com/ :
 
 gem install teamocil
 tmux
-teamocil horo
+teamocil --here horo
 ____HERE

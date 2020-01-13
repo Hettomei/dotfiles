@@ -36,8 +36,9 @@ cp -v $HOME/.config/nvim/init.vim $DIR/nvim/init.vim
 cp -v -R $HOME/.config/nvim/my_snippets $DIR/nvim/
 
 #### teamocil ####
-mkdir $CURRENT_DIR/teamocil
-cp -v $HOME/.teamocil/* $CURRENT_DIR/teamocil/
+rm -r $DIR/teamocil
+mkdir $DIR/teamocil
+cp -v -R $HOME/.teamocil/* $DIR/teamocil
 
 
 #### commit ####
