@@ -26,29 +26,25 @@
 ;; (require 'lang-php)
 ;; (require 'lang-c)
 
+(defun tim/get-file-path ()
+  "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+  (if (eq major-mode 'dired-mode)
+      (dired-get-filename)
+    (or (buffer-file-name) "")))
+
 (defun copy-file-name ()
-  "Copy the buffer file name. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+  "Copy the buffer file name."
   (interactive)
-  (let ((new-kill-string)
-        (name (if (eq major-mode 'dired-mode)
-                  (dired-get-filename)
-		(or (buffer-file-name) ""))))
-    (setq new-kill-string (file-name-nondirectory name))
-    (when new-kill-string
-      (message "Copied: %s" new-kill-string)
-      (kill-new new-kill-string))))
+  (let ((name (file-name-nondirectory (tim/get-file-path))))
+    (message "Copied: %s" name)
+    (kill-new name)))
 
 (defun copy-file-path ()
-  "Copy the buffer full path. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+  "Copy the buffer full path."
   (interactive)
-  (let ((new-kill-string)
-        (name (if (eq major-mode 'dired-mode)
-                  (dired-get-filename)
-		(or (buffer-file-name) ""))))
-    (setq new-kill-string name)
-    (when new-kill-string
-      (message "Copied: %s" new-kill-string)
-      (kill-new new-kill-string))))
+  (let ((name (tim/get-file-path)))
+    (message "Copied: %s" name)
+    (kill-new name)))
 
 ;; Tips
 
