@@ -1,5 +1,3 @@
-[ -d $HOME/.rbenv/bin ] && PATH=$PATH:$HOME/.rbenv/bin
-
 # https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize/19454838#19454838
 HISTSIZE=20000
 HISTFILESIZE=999999
@@ -459,3 +457,8 @@ fi
 # -a nicolas.thebaud@wiztivi.com \
 # -a romain.chery@wiztivi.com \
 # 39563
+
+
+# Automatically mount virtualbox on bash startup :
+# (Need to at first create a shared folder. Need to read virtual box doc. Sorry I forget to link it here
+# [ -f /home/tgauthier/share/.keep_this_file ] || sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) sharevm ~/share

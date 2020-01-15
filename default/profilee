@@ -12,3 +12,7 @@ if [ -d "$HOME/programmes/Android/Sdk" ] ; then
   PATH=$PATH:$ANDROID_HOME/tools/bin
   PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
+
+if [ -d "$HOME/.local/bin" ] ; then
+  PATH=$PATH:$HOME/.local/bin
+fi
