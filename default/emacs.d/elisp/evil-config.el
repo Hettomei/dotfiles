@@ -47,6 +47,29 @@
 	  (forward-word)
 	  (replace-with-paste)))))
 
+(defun set-case-insensitive ()
+  "Ignore case for vim-search"
+  (interactive)
+  (setq evil-ex-search-case (quote insensitive)))
+
+(defun set-case-sensitive ()
+  "Consider case for vim-search"
+  (interactive)
+  (setq evil-ex-search-case (quote sensitive)))
+
+(defun set-case-smart ()
+  "Smart case for vim-search"
+  (interactive)
+  (setq evil-ex-search-case (quote smart)))
+
+;; (defadvice isearch-repeat (after isearch-no-fail activate)
+;;   (unless isearch-success
+;;     (ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
+;;     (ad-activate 'isearch-repeat)
+;;     (isearch-repeat (if isearch-forward 'forward))
+;;     (ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
+;;     (ad-activate 'isearch-repeat)))
+
 ;; load evil
 (use-package evil
   :ensure t ;; install the evil package if not installed
@@ -54,7 +77,7 @@
   (setq evil-backspace-join-lines t)
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-ex-search-case (quote sensitive))
-  (setq evil-search-module 'evil-search)
+  ;; (setq evil-search-module 'evil-search)
   (setq evil-move-beyond-eol nil)
   ; Mini bug, if I am on the last word, and press * it found nothing. But it s close to nowrapscan
   (setq evil-search-wrap nil)

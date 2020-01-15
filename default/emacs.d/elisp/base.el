@@ -56,7 +56,7 @@
  bookmark-save-flag                      t
  bookmark-default-file              (concat temp-dir "/bookmarks"))
 
-;; Backups enabled, use nil to disable
+;; Backups disabled, use t to enable
 (setq
  history-length                     1000
  backup-inhibited                   nil

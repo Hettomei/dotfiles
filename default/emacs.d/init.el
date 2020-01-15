@@ -17,7 +17,7 @@
 
 ;; Lang, just uncomment, reload emacs, and voilà
 
-;; (require 'lang-python)
+(require 'lang-python)
 ;; (require 'lang-ruby)
 ;; (require 'lang-go)
 ;; (require 'lang-php)
@@ -41,3 +41,7 @@
 ;;   "A mode for my CFg files."
 ;;   (sh-set-shell "bash"))
 ;; (add-to-list 'auto-mode-alist '("\\.cfg\\'" . my-cfg-mode))
+
+
+;; count number of occurence
+;; M-x swipper RET

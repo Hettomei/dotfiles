@@ -140,4 +140,10 @@
   :config
   (yas-global-mode 1))
 
+;; Allow to copypaste in terminal
+;; Do not forget to apt install xclip
+(use-package xclip
+  :config
+  (xclip-mode 1))
+
 (provide 'base-extensions)
