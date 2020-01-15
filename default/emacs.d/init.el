@@ -26,6 +26,29 @@
 ;; (require 'lang-php)
 ;; (require 'lang-c)
 
+(defun copy-file-name ()
+  "Copy the buffer file name. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+  (interactive)
+  (let ((new-kill-string)
+        (name (if (eq major-mode 'dired-mode)
+                  (dired-get-filename)
+		(or (buffer-file-name) ""))))
+    (setq new-kill-string (file-name-nondirectory name))
+    (when new-kill-string
+      (message "Copied: %s" new-kill-string)
+      (kill-new new-kill-string))))
+
+(defun copy-file-path ()
+  "Copy the buffer full path. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+  (interactive)
+  (let ((new-kill-string)
+        (name (if (eq major-mode 'dired-mode)
+                  (dired-get-filename)
+		(or (buffer-file-name) ""))))
+    (setq new-kill-string name)
+    (when new-kill-string
+      (message "Copied: %s" new-kill-string)
+      (kill-new new-kill-string))))
 
 ;; Tips
 
@@ -48,3 +71,28 @@
 
 ;; count number of occurence
 ;; M-x swipper RET
+
+;; Very good function with choice
+;; Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
+;;
+;; (defun copy-buffer-file-name-as-kill (choice)
+;;   "Copyies the buffer {name/mode}, file {name/full path/directory} to the kill-ring."
+;;   (interactive "cCopy (b) buffer name, (m) buffer major mode, (f) full buffer-file path, (d) buffer-file directory, (n) buffer-file basename")
+;;   (let ((new-kill-string)
+;;         (name (if (eq major-mode 'dired-mode)
+;;                   (dired-get-filename)
+;;                 (or (buffer-file-name) ""))))
+;;     (cond ((eq choice ?f)
+;;            (setq new-kill-string name))
+;;           ((eq choice ?d)
+;;            (setq new-kill-string (file-name-directory name)))
+;;           ((eq choice ?n)
+;;            (setq new-kill-string (file-name-nondirectory name)))
+;;           ((eq choice ?b)
+;;            (setq new-kill-string (buffer-name)))
+;;           ((eq choice ?m)
+;;            (setq new-kill-string (format "%s" major-mode)))
+;;           (t (message "Quit")))
+;;     (when new-kill-string
+;;       (message "%s copied" new-kill-string)
+;;       (kill-new new-kill-string))))

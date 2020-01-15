@@ -1,8 +1,5 @@
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
-  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-  export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
-  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
 if [ -d "$HOME/programmes/Android/Sdk" ] ; then
@@ -13,6 +10,7 @@ if [ -d "$HOME/programmes/Android/Sdk" ] ; then
   PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
 
+# Used for python pip virtualenv
 if [ -d "$HOME/.local/bin" ] ; then
   PATH=$PATH:$HOME/.local/bin
 fi
