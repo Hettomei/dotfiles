@@ -2,6 +2,9 @@
 
 (add-to-list 'load-path (concat user-emacs-directory "elisp"))
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
 (require 'base)
 (require 'base-theme)
 (require 'base-extensions)

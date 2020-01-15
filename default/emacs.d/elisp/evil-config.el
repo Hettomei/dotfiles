@@ -62,14 +62,6 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
-;; (defadvice isearch-repeat (after isearch-no-fail activate)
-;;   (unless isearch-success
-;;     (ad-disable-advice 'isearch-repeat 'after 'isearch-no-fail)
-;;     (ad-activate 'isearch-repeat)
-;;     (isearch-repeat (if isearch-forward 'forward))
-;;     (ad-enable-advice 'isearch-repeat 'after 'isearch-no-fail)
-;;     (ad-activate 'isearch-repeat)))
-
 ;; load evil
 (use-package evil
   :ensure t ;; install the evil package if not installed

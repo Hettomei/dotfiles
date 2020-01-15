@@ -32,7 +32,6 @@
       require-final-newline               t
       visible-bell                        nil
       ring-bell-function                  'ignore
-      custom-file                         "~/.emacs.d/custom.el"
       ;; http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
       minibuffer-prompt-properties
       '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)
@@ -47,8 +46,6 @@
       fringes-outside-margins            t
       x-select-enable-clipboard          t
       use-package-always-ensure          t)
-
-(load custom-file)
 
 ;; Bookmarks
 (setq
