@@ -160,6 +160,14 @@ then
   export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
 fi
 
+#### PYTHON
+
+if [ -d "$HOME/.pyenv/bin" ] ; then
+  export PATH="/$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
   echo $command

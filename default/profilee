@@ -2,8 +2,8 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
-if [ -d "$HOME/programmes/Android/Sdk" ] ; then
-  export ANDROID_HOME=$HOME/programmes/Android/Sdk
+if [ -d "$HOME/Android/Sdk" ] ; then
+  export ANDROID_HOME=$HOME/Android/Sdk
   PATH=$PATH:$ANDROID_HOME/emulator
   PATH=$PATH:$ANDROID_HOME/tools
   PATH=$PATH:$ANDROID_HOME/tools/bin
