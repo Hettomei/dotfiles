@@ -1,5 +1,7 @@
 if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+    [[ -r "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh" ]] && . "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh"
 fi
 
 if [ -d "$HOME/Android/Sdk" ] ; then

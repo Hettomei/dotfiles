@@ -12,8 +12,8 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
-alias v='emacs -nw'
-# alias v=nvim
+# alias v='emacs -nw'
+alias v=nvim
 alias g=git
 alias ll='ls -alh'
 
@@ -111,8 +111,6 @@ export LESS='-R -X -F'
 # need to `brew install bash-completion`
 [ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g __git_main
-
-[ -f /home/linuxbrew/.linuxbrew/etc/bash_completion ] && source /home/linuxbrew/.linuxbrew/etc/bash_completion
 
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'

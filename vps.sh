@@ -20,8 +20,6 @@ sudo apt update
 sudo apt install --yes libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 alias g=git
 g clone https://github.com/neovim/neovim
-cd neovim
-make && sudo make install
 alias v=nvim
 
 brew install ag
