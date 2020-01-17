@@ -160,11 +160,16 @@ fi
 
 #### PYTHON
 
-if [ -d "$HOME/.pyenv/bin" ] ; then
-  export PATH="$HOME/.pyenv/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+if [ -z "$TMUX" ]
+then
+  # Inside bash, we load pyenv, and wont load it inside tmux
+    if [ -d "$HOME/.pyenv/bin" ] ; then
+      export PATH="$HOME/.pyenv/bin:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+    fi
 fi
+
 
 simplehttp(){
   local command="python -m SimpleHTTPServer 8000"
