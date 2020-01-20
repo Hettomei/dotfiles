@@ -53,3 +53,4 @@
 
 ;; make 's' binded to go to texte
 (package! evil-snipe :disable t)
+(package! evil/easymotion :disable t)

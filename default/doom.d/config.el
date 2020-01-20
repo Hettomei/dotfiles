@@ -114,39 +114,39 @@
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
-	(progn
-	  ;; kill-region will save it in kill ring. Delete just delete
-	  (delete-region (car bounds) (cdr bounds))
-	  (evil-insert 1))
-	(progn
-	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-	  (forward-word)
-	  (delete-and-replace-word)))))
+        (progn
+          ;; kill-region will save it in kill ring. Delete just delete
+          (delete-region (car bounds) (cdr bounds))
+          (evil-insert 1))
+      (progn
+        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+        (forward-word)
+        (delete-and-replace-word)))))
 
 (defun copy-word ()
   "Copy the word. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
-	(copy-region-as-kill (car bounds) (cdr bounds))
-	(progn
-	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-	  (forward-word)
-	  (copy-word)))))
+        (copy-region-as-kill (car bounds) (cdr bounds))
+      (progn
+        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+        (forward-word)
+        (copy-word)))))
 
 (defun replace-with-paste ()
   "Delete the word and Paste another on it. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
-	(progn
-	  ;; kill-region will save it in kill ring. Delete just delete
-	  (delete-region (car bounds) (cdr bounds))
-	  (yank))
-	(progn
-	  ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-	  (forward-word)
-	  (replace-with-paste)))))
+        (progn
+          ;; kill-region will save it in kill ring. Delete just delete
+          (delete-region (car bounds) (cdr bounds))
+          (yank))
+      (progn
+        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+        (forward-word)
+        (replace-with-paste)))))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -170,7 +170,8 @@
   (setq evil-vsplit-window-right t))
 
 (map! (:map doom-leader-map "SPC" #'save-buffer)
-      :n "SPC e" #'+default/find-file-under-here
+      :n "SPC e" #'counsel-find-file
+      :n "C-p" #'+default/find-file-under-here
       :n "C-w x" #'window-swap-states
 
       :n "s" #'middle-of-line-forward
@@ -203,10 +204,36 @@
       (modify-syntax-entry ?\" ".")))
   "Generic mode for Vim configuration files.")
 
+;; increment or decrement numbers
+;; Taken from : https://www.emacswiki.org/emacs/IncrementNumber
+(defun my-increment-number-decimal (&optional arg)
+  "Increment the number forward from point by 'arg'."
+  (interactive "p*")
+  (save-excursion
+    (save-match-data
+      (let (inc-by field-width answer)
+        (setq inc-by (if arg arg 1))
+        (skip-chars-backward "0123456789")
+        (when (re-search-forward "[0-9]+" nil t)
+          (setq field-width (- (match-end 0) (match-beginning 0)))
+          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+          (when (< answer 0)
+            (setq answer (+ (expt 10 field-width) answer)))
+          (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                 answer)))))))
+(defun my-decrement-number-decimal (&optional arg)
+  (interactive "p*")
+  (my-increment-number-decimal (if arg (- arg) -1)))
+
+(map! :n "M-+" #'my-increment-number-decimal
+      :n "M--" #'my-decrement-number-decimal)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; Tips ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; To discover default command :
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
+;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
 ;; C-u M-! inserts the result of the ‘shell-command’
 
 ;; To save session :
