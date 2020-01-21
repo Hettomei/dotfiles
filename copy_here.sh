@@ -15,18 +15,15 @@ do
 done
 
 #### Emacs ####
-rm -r $DIR/emacs.d
-mkdir $DIR/emacs.d
+rm -r "$DIR/doom.d"
 
-for file_name in 'init.el' 'custom.el'
-do
-  cp -v $HOME/.emacs.d/$file_name $DIR/emacs.d/$file_name
-done
+cp -v -r "$HOME/.doom.d" "$DIR"
+mv "$DIR/.doom.d" "$DIR/doom.d"
 
-for folder_name in 'elisp' 'snippets'
-do
-  cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/
-done
+# for folder_name in 'elisp' 'snippets'
+# do
+#   cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/
+# done
 
 #### Nvim ####
 rm -r $DIR/nvim

@@ -5,20 +5,23 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 DIR="$CURRENT_DIR/${1:-default}"
 
-mkdir -p $HOME/.emacs.d
-
+mkdir "$HOME/.doom.d"
 # Add here a list of file you want to copy
-for file_name in 'init.el' 'custom.el'
+for file_name in 'init.el' 'config.el' 'packages.el'
 do
-  cp -v $DIR/emacs.d/$file_name $HOME/.emacs.d/$file_name
+  cp -v "$DIR/doom.d/$file_name" "$HOME/.doom.d/$file_name"
 done
 
-for folder_name in 'elisp' 'snippets'
-do
-  cp -v -r $DIR/emacs.d/$folder_name $HOME/.emacs.d/
-done
+# Cannot do :
+# cp -v -r "$DIR/doom.d" "$HOME"
+# mv -vt "$HOME/doom.d" "$HOME/.doom.d"
+# Because it may suppress file that was not versionned in home
 
 cat <<EOF
 
-Run the gui version and just wait
+Please go to https://github.com/hlissner/doom-emacs to install it
+
+please run
+~/.emacs.d/bin/doom refresh
+
 EOF

@@ -55,19 +55,6 @@
 
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
-;; Extracted from my old custom.el
-;; Maybe I ll have to reinsert this into doom
-;; '(web-mode-comment-formats
-;;   (quote
-;;    (("java" . "/*")
-;;     ("javascript" . "//")
-;;     ("php" . "/*")
-;;     ("css" . "/*"))))
-;; '(xterm-mouse-mode t))
-
-;; (global-whitespace-mode)
-;; (setq whitespace-style '(face empty trailing))
-
 (after! undo-tree
   (setq undo-tree-auto-save-history nil))
 
@@ -246,6 +233,21 @@
 ;; C-u M-! inserts the result of the ‘shell-command’
 
 ;; After updating, please run M-x doom/reload
+
+
+;; Extracted from my old custom.el
+;; Maybe I ll have to reinsert this into doom
+;; '(web-mode-comment-formats
+;;   (quote
+;;    (("java" . "/*")
+;;     ("javascript" . "//")
+;;     ("php" . "/*")
+;;     ("css" . "/*"))))
+;; '(xterm-mouse-mode t))
+
+;; (global-whitespace-mode)
+;; (setq whitespace-style '(face empty trailing))
+
 
 ;; To save session :
 ;; M-x desktop-save
