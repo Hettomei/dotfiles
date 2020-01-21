@@ -10,8 +10,8 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     [[ -r "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh" ]] && . "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh"
 fi
 
-if [ -d "$HOME/Android/Sdk" ] ; then
-  export ANDROID_HOME=$HOME/Android/Sdk
+if [ -d "$HOME/programmes/Android" ] ; then
+  export ANDROID_HOME=$HOME/programmes/Android
   PATH=$PATH:$ANDROID_HOME/emulator
   PATH=$PATH:$ANDROID_HOME/tools
   PATH=$PATH:$ANDROID_HOME/tools/bin
