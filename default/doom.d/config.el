@@ -78,6 +78,7 @@
       scroll-margin 5)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
 
 (defun tim/get-file-path ()
   "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
@@ -169,19 +170,11 @@
   (setq evil-split-window-below t)
   (setq evil-vsplit-window-right t))
 
-(map! (:map doom-leader-map "SPC" #'save-buffer)
-      :n "SPC e" #'counsel-find-file
-      :n "C-p" #'+default/find-file-under-here
-      :n "C-w x" #'window-swap-states
-
-      :n "s" #'middle-of-line-forward
-      :n "S" #'middle-of-line-backward
-
-      (:map doom-leader-map "r" #'delete-and-replace-word)
-      (:map doom-leader-map "p" #'replace-with-paste)
-      (:map doom-leader-map "y" #'copy-word)
-
-      :v "v" #'er/expand-region)
+;; disable smartparens that automatically completed " with a second " (same for ''())
+;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
+;; update: cannot disable in ./packages.el because it is a core package. Need to disable hook.
+(after! smartparens
+  (smartparens-global-mode -1))
 
 ;; (evil-define-key 'normal 'global (kbd "C-<left>") 'evil-window-left)
 ;; (evil-define-key 'normal 'global (kbd "C-<down>") 'evil-window-down)
@@ -225,8 +218,24 @@
   (interactive "p*")
   (my-increment-number-decimal (if arg (- arg) -1)))
 
-(map! :n "M-+" #'my-increment-number-decimal
+(map! (:map doom-leader-map "SPC" #'save-buffer)
+      :n "C-p" #'+ivy/projectile-find-file
+      :n "C-w x" #'window-swap-states
+
+      :n "s" #'middle-of-line-forward
+      :n "S" #'middle-of-line-backward
+
+      (:map doom-leader-map "r" #'delete-and-replace-word)
+      ;; Temporary disable because doom map project on this
+      ;; (:map doom-leader-map "p" #'replace-with-paste)
+      (:map doom-leader-map "y" #'copy-word)
+      (:map doom-leader-map "e" #'counsel-find-file)
+
+      :v "v" #'er/expand-region
+      :n "M-+" #'my-increment-number-decimal
       :n "M--" #'my-decrement-number-decimal)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; Tips ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -235,6 +244,8 @@
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
 ;; C-u M-! inserts the result of the ‘shell-command’
+
+;; After updating, please run M-x doom/reload
 
 ;; To save session :
 ;; M-x desktop-save

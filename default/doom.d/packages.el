@@ -54,3 +54,8 @@
 ;; make 's' binded to go to texte
 (package! evil-snipe :disable t)
 (package! evil/easymotion :disable t)
+
+;; disable smartparens that automatically completed " with a second " (same for ''())
+;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
+;; update: cannot disable because it is a core package. Need to disable hook.
+;; (package! smartparens :disable t)
