@@ -163,6 +163,15 @@
 (after! smartparens
   (smartparens-global-mode -1))
 
+;; Will tell you your frequence
+;; It is possible to filter some pattern.
+;; To know :
+;; M-x keyfreq-show
+(use-package! keyfreq
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
 ;; (evil-define-key 'normal 'global (kbd "C-<left>") 'evil-window-left)
 ;; (evil-define-key 'normal 'global (kbd "C-<down>") 'evil-window-down)
 ;; (evil-define-key 'normal 'global (kbd "C-<up>") 'evil-window-up)
@@ -230,9 +239,13 @@
 ;; To discover default command :
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
-;; C-u M-! inserts the result of the ‘shell-command’
+;; To manage package
+;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#package-management
 
 ;; After updating, please run M-x doom/reload
+
+;; C-u M-! inserts the result of the ‘shell-command’
+
 
 
 ;; Extracted from my old custom.el

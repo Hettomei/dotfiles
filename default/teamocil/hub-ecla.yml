@@ -1,0 +1,15 @@
+windows:
+  - name: server
+    root: ~/grandmgroup/hub-ecla
+    layout: even-horizontal
+    panes:
+      - git status
+  - name: code
+    root: ~/grandmgroup/hub-ecla
+    layout: even-horizontal
+    focus: true
+    panes:
+        - git status
+        - date
+  - name: other
+    root: ~/

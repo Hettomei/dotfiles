@@ -54,6 +54,7 @@
 ;; make 's' binded to go to texte
 (package! evil-snipe :disable t)
 (package! evil/easymotion :disable t)
+(package! keyfreq)
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
