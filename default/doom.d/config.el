@@ -97,6 +97,40 @@
   (interactive)
   (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
+(defun tim-go-up-or-create ()
+  "Go up window. If error, create it"
+  (interactive)
+  (condition-case nil
+      (evil-window-up 1)
+    (user-error
+     (+evil-window-split-a)
+     (evil-window-up 1))))
+
+(defun tim-go-down-or-create ()
+  "Go down window. If error, create it"
+  (interactive)
+  (condition-case nil
+      (evil-window-down 1)
+    (user-error
+     (+evil-window-split-a))))
+
+(defun tim-go-left-or-create ()
+  "Go left window. If error, create it"
+  (interactive)
+  (condition-case nil
+      (evil-window-left 1)
+    (user-error
+     (+evil-window-vsplit-a)
+     (evil-window-left 1))))
+
+(defun tim-go-right-or-create ()
+  "Go right window. If error, create it"
+  (interactive)
+  (condition-case nil
+      (evil-window-right 1)
+    (user-error
+     (+evil-window-vsplit-a))))
+
 (defun delete-and-replace-word ()
   "Delete the word and go in insert mode. When word is not found go forward-word"
   (interactive)
@@ -220,6 +254,11 @@
 
       :n "s" #'middle-of-line-forward
       :n "S" #'middle-of-line-backward
+
+      :n "C-<up>" #'tim-go-up-or-create
+      :n "C-<down>" #'tim-go-down-or-create
+      :n "C-<left>" #'tim-go-left-or-create
+      :n "C-<right>" #'tim-go-right-or-create
 
       (:map doom-leader-map "r" #'delete-and-replace-word)
       ;; Temporary disable because doom map project on this
