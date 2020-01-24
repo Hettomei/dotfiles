@@ -64,6 +64,8 @@
       ;; scroll-step 1
       scroll-margin 5)
 
+(setq confirm-kill-emacs nil)
+
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
 
@@ -197,6 +199,14 @@
 (after! smartparens
   (smartparens-global-mode -1))
 
+(after! ivy
+  (setq ivy-wrap nil
+        ivy-count-format "%d/%d "
+        ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected))
+      ;; problem : it always do a case sensitive search. even for C-x C-f but we want this only for rg
+      ;; ivy-case-fold-search nil)
+;; (setq counsel-rg-base-command "")
+
 ;; Will tell you your frequence
 ;; It is possible to filter some pattern.
 ;; To know :
@@ -205,11 +215,6 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
-
-;; (evil-define-key 'normal 'global (kbd "C-<left>") 'evil-window-left)
-;; (evil-define-key 'normal 'global (kbd "C-<down>") 'evil-window-down)
-;; (evil-define-key 'normal 'global (kbd "C-<up>") 'evil-window-up)
-;; (evil-define-key 'normal 'global (kbd "C-<right>") 'evil-window-right)
 
 ;; Redefine syntax for vimrc file.
 ;; Thanks to https://stackoverflow.com/questions/4236808/syntax-highlight-a-vimrc-file-in-emacs
@@ -256,9 +261,16 @@
       :n "S" #'middle-of-line-backward
 
       :n "C-<up>" #'tim-go-up-or-create
+      :n "C-k" #'tim-go-up-or-create
+
       :n "C-<down>" #'tim-go-down-or-create
+      :n "C-j" #'tim-go-down-or-create
+
       :n "C-<left>" #'tim-go-left-or-create
+      ;; :n "C-h" #'tim-go-left-or-create ;; please do not remap on C-h
+
       :n "C-<right>" #'tim-go-right-or-create
+      :n "C-l" #'tim-go-right-or-create
 
       (:map doom-leader-map "r" #'delete-and-replace-word)
       ;; Temporary disable because doom map project on this
@@ -270,6 +282,19 @@
       :n "M-+" #'my-increment-number-decimal
       :n "M--" #'my-decrement-number-decimal)
 
+
+;; This is a mapping when you 1) search with SPC *
+;; Then do a C-c c-o to save in new buffer
+;; This map needs to be IMPROVED.
+;; Exemple : it remove my previous map . maybe :n is not good
+;;
+;; (defun tim-test-test ()
+;;   "Smart case for vim-search"
+;;   (interactive)
+;;   (message "IT WORKS"))
+;;
+;; (map! :map company-mode-map
+;;       :n "C-<right>" #'tim-test-test)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; Tips ;;;;;;;;;;;;;;;;;
@@ -285,6 +310,8 @@
 
 ;; C-u M-! inserts the result of the ‘shell-command’
 
+;; reload a file by reading hard drive :
+;; M-x revert-buffer
 
 
 ;; Extracted from my old custom.el
