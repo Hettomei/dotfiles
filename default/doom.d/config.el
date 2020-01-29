@@ -64,10 +64,13 @@
       ;; scroll-step 1
       scroll-margin 5)
 
-(setq confirm-kill-emacs nil)
+;; Uncomment this line if you don't like having a proimpt that ask to quit
+;; (setq confirm-kill-emacs nil)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
+
+(goto-address-mode -1)
 
 (defun tim/get-file-path ()
   "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
@@ -88,16 +91,6 @@
   (let ((name (tim/get-file-path)))
     (message "Copied: %s" name)
     (kill-new name)))
-
-(defun middle-of-line-forward ()
-  "Put cursor at the middle point of the line. try to mimic vim-skip"
-  (interactive)
-  (goto-char (/ (+ (point) (point-at-eol)) 2)))
-
-(defun middle-of-line-backward ()
-  "Put cursor at the middle point of the line. try to mimic vim-skip"
-  (interactive)
-  (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
 (defun tim-go-up-or-create ()
   "Go up window. If error, create it"
@@ -191,7 +184,18 @@
   (setq evil-ex-search-case (quote sensitive))
   (setq evil-search-wrap nil)
   (setq evil-split-window-below t)
-  (setq evil-vsplit-window-right t))
+  (setq evil-vsplit-window-right t)
+
+  (evil-define-motion tim-middle-of-line ()
+    "Put cursor at the middle point of the line. try to mimic vim-skip"
+    :type inclusive
+    (goto-char (/ (+ (point) (point-at-eol)) 2)))
+
+  (evil-define-motion tim-middle-of-line-backward ()
+    "Put cursor at the middle point of the line. try to mimic vim-skip"
+    (interactive)
+    (goto-char (/ (+ (point) (point-at-bol)) 2))))
+
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
@@ -257,8 +261,8 @@
       :n "C-p" #'+ivy/projectile-find-file
       :n "C-w x" #'window-swap-states
 
-      :n "s" #'middle-of-line-forward
-      :n "S" #'middle-of-line-backward
+      :n "s" #'tim-middle-of-line
+      :n "S" #'tim-middle-of-line-backward
 
       :n "C-<up>" #'tim-go-up-or-create
       :n "C-k" #'tim-go-up-or-create
@@ -324,8 +328,8 @@
 ;;     ("css" . "/*"))))
 ;; '(xterm-mouse-mode t))
 
-;; (global-whitespace-mode)
-;; (setq whitespace-style '(face empty trailing))
+(global-whitespace-mode)
+(setq whitespace-style '(face empty trailing))
 
 
 ;; To save session :

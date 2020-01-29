@@ -99,8 +99,8 @@ if [ "$OS" == "Linux" ]; then
   alias c=chrono_rb
 fi
 
-export EDITOR="TERM=xterm emacs -nw"
-export VISUAL=emacs
+export EDITOR=nvim
+export VISUAL=nvim
 # -R -> display ansi color
 # -X -> sometimes help to not clear the screen
 # -F -> quit if one string
@@ -337,7 +337,7 @@ then
     local filepath
     NAME=${1:-adb}
     filename="$NAME-$(date +"%Y_%m_%d").png"
-    filepath="/home/tgauthier/Pictures/redbullapp/$filename"
+    filepath="/home/tgauthier/Pictures/ecla/$filename"
     adb shell screencap -p /sdcard/screen.png
     adb pull "/sdcard/screen.png" "$filepath"
     echo "xdg-open $filepath"

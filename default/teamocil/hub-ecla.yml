@@ -1,15 +1,15 @@
 windows:
-  - name: server
-    root: ~/grandmgroup/hub-ecla
-    layout: even-horizontal
-    panes:
-      - git status
-  - name: code
+  - name: hub
     root: ~/grandmgroup/hub-ecla
     layout: even-horizontal
     focus: true
     panes:
         - git status
-        - date
+  - name: bosmobile
+    root: ~/grandmgroup/bosmobileapp
+    layout: even-horizontal
+    focus: true
+    panes:
+        - git status
   - name: other
     root: ~/
