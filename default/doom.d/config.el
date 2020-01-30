@@ -1,7 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
-;; refresh' after modifying this file!
+;; sync' after modifying this file!
 
 
 ;; These are used for a number of things, particularly for GPG configuration,
@@ -286,6 +286,8 @@
       :n "M-+" #'my-increment-number-decimal
       :n "M--" #'my-decrement-number-decimal)
 
+(global-whitespace-mode)
+(setq whitespace-style '(face empty trailing))
 
 ;; This is a mapping when you 1) search with SPC *
 ;; Then do a C-c c-o to save in new buffer
@@ -301,7 +303,7 @@
 ;;       :n "C-<right>" #'tim-test-test)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;; Tips ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; To discover default command :
@@ -309,6 +311,7 @@
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
 ;; To manage package
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#package-management
+;; To find help -> go to discord (link in readme)
 
 ;; After updating, please run M-x doom/reload
 
@@ -317,6 +320,14 @@
 ;; reload a file by reading hard drive :
 ;; M-x revert-buffer
 
+;; Their is project - with projectile
+;; and their is workspace with .... workspace.
+;; One of my problem was having a workspace at /hub-ecla
+;; and another at /hub-ecla/admin
+;; projectil does not allow this. Workspace allow it.
+;; To do it :
+;; SPC TAB n
+;; Then swhitch using gt (change tab)
 
 ;; Extracted from my old custom.el
 ;; Maybe I ll have to reinsert this into doom
@@ -327,16 +338,6 @@
 ;;     ("php" . "/*")
 ;;     ("css" . "/*"))))
 ;; '(xterm-mouse-mode t))
-
-(global-whitespace-mode)
-(setq whitespace-style '(face empty trailing))
-
-
-;; To save session :
-;; M-x desktop-save
-;; Then reopen emacs then
-;; M-x desktop-change-dir
-;; And find dir
 
 ;; How to quickly create a new mode :
 ;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a :
