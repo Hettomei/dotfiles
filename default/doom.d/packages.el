@@ -51,9 +51,14 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;; make 's' binded to go to texte
-(package! evil-snipe :disable t)
+;; make 's' binded to go to text
+;; Not disabled here because it enhance f and t
+;; (package! evil-snipe :disable t)
 (package! evil/easymotion :disable t)
+;; tide run tsserver
+;; But always show an annoying minibuffer information
+;; more at https://github.com/ananthakumaran/tide
+(package! tide :disable t)
 (package! keyfreq)
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())

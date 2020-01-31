@@ -289,6 +289,21 @@
 (global-whitespace-mode)
 (setq whitespace-style '(face empty trailing))
 
+(after! projectile
+  (projectile-register-project-type 'npm '("package.json")
+                                    :compile ""
+                                    :test "yarn test"
+                                    :run "yarn start"
+                                    :test-suffix ".spec")
+ ;; my goal is to allow project/sub-project to works
+ (setq projectile-require-project-root nil))
+;; to repaire path :
+;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
+
+;; Keep evil-snipe but disable 's' mapping
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
 ;; This is a mapping when you 1) search with SPC *
 ;; Then do a C-c c-o to save in new buffer
 ;; This map needs to be IMPROVED.
