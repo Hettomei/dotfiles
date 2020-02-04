@@ -55,6 +55,10 @@
 
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
+(custom-set-faces
+ '(line-number ((t (:foreground "dim gray"))))
+ '(line-number-current-line ((t (:foreground "white")))))
+
 (after! undo-tree
   (setq undo-tree-auto-save-history nil))
 

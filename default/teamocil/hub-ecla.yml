@@ -6,7 +6,7 @@ windows:
     panes:
         - git status
   - name: "-"
-    root: ~/grandmgroup/bosmobileapp
+    root: ~/grandmgroup/hub-ecla
     layout: even-horizontal
     focus: true
     panes:
