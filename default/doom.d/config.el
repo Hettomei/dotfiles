@@ -55,9 +55,11 @@
 
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
-(custom-set-faces
- '(line-number ((t (:foreground "dim gray"))))
- '(line-number-current-line ((t (:foreground "white")))))
+(custom-set-faces!
+ '(line-number :foreground "dim gray")
+ '(line-number-current-line :foreground "white")
+ '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+ '(mode-line :background "light gray" :foreground "black" :height 80))
 
 (after! undo-tree
   (setq undo-tree-auto-save-history nil))
@@ -198,7 +200,18 @@
   (evil-define-motion tim-middle-of-line-backward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     (interactive)
-    (goto-char (/ (+ (point) (point-at-bol)) 2))))
+    (goto-char (/ (+ (point) (point-at-bol)) 2)))
+
+  (evil-define-motion tim-re-search-forward (count &optional symbol)
+    "Fix bug when you are on the last search and it tells 'nothing is found'... which is wrong"
+    :jump t
+    :type exclusive
+    (interactive (list (prefix-numeric-value current-prefix-arg)
+                       evil-symbol-word-search))
+
+    ;; temporary override wrap
+    (let ((evil-search-wrap t))
+      (evil-ex-search-word-forward count symbol))))
 
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
@@ -280,6 +293,8 @@
       :n "C-<right>" #'tim-go-right-or-create
       :n "C-l" #'tim-go-right-or-create
 
+      :n "*" #'tim-re-search-forward
+
       (:map doom-leader-map "r" #'delete-and-replace-word)
       ;; Temporary disable because doom map project on this
       ;; (:map doom-leader-map "p" #'replace-with-paste)
@@ -287,6 +302,7 @@
       (:map doom-leader-map "e" #'counsel-find-file)
 
       :v "v" #'er/expand-region
+
       :n "M-+" #'my-increment-number-decimal
       :n "M--" #'my-decrement-number-decimal)
 

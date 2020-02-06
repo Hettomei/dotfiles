@@ -59,6 +59,7 @@
 ;; But always show an annoying minibuffer information
 ;; more at https://github.com/ananthakumaran/tide
 (package! tide :disable t)
+(package! solaire-mode :disable t)
 (package! keyfreq)
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
