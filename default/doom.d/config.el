@@ -18,7 +18,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 14))
+;; (setq doom-font (font-spec :family "monospace" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -61,22 +61,27 @@
  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
  '(mode-line :background "light gray" :foreground "black" :height 80))
 
-(after! undo-tree
-  (setq undo-tree-auto-save-history nil))
+(global-whitespace-mode)
 
-(setq hscroll-margin 15
-      ;; hscroll-step 1
-      ;; scroll-conservatively 10000
-      ;; scroll-step 1
-      scroll-margin 5)
+(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans")
 
-;; Uncomment this line if you don't like having a proimpt that ask to quit
-;; (setq confirm-kill-emacs nil)
+      ;; Uncomment this line if you don't like having a prompt that ask to quit
+      ;; confirm-kill-emacs nil
+
+      ;; Always display 5 lines
+      hscroll-margin 15
+      scroll-margin 5
+      whitespace-style '(face empty trailing)
+
+      ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
+      ;; They're generally unhelpful and only add confusing visual clutter.
+      mode-line-default-help-echo nil
+      show-help-function nil)
+
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
-
-(goto-address-mode -1)
 
 (defun tim/get-file-path ()
   "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
@@ -226,7 +231,18 @@
         ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected))
       ;; problem : it always do a case sensitive search. even for C-x C-f but we want this only for rg
       ;; ivy-case-fold-search nil)
-;; (setq counsel-rg-base-command "")
+
+;; Keep evil-snipe but disable 's' mapping
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+;; I don't want persistent undo
+(after! undo-tree
+  (setq undo-tree-auto-save-history nil))
+
+;; (after! modeline
+;;   (setq doom-modeline-height 5)
+;;   )
 
 ;; Will tell you your frequence
 ;; It is possible to filter some pattern.
@@ -306,25 +322,18 @@
       :n "M-+" #'my-increment-number-decimal
       :n "M--" #'my-decrement-number-decimal)
 
-(global-whitespace-mode)
-(setq whitespace-style '(face empty trailing))
-
-(after! projectile
-  (projectile-register-project-type 'npm '("package.json")
-                                    :compile ""
-                                    :test "yarn test"
-                                    :run "yarn start"
-                                    :test-suffix ".spec")
  ;; my goal is to allow project/sub-project to works
- (setq projectile-require-project-root nil))
+;; (after! projectile
+;;   (projectile-register-project-type 'npm '("package.json")
+;;                                     :compile ""
+;;                                     :test "yarn test"
+;;                                     :run "yarn start"
+;;                                     :test-suffix ".spec")
+ (setq projectile-require-project-root nil)
 ;; to repaire path :
 ;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
 
-;; Keep evil-snipe but disable 's' mapping
-(after! evil-snipe
-  (evil-snipe-mode -1))
-
-;; This is a mapping when you 1) search with SPC *
+;; This is a mapping when you 2) search with SPC *
 ;; Then do a C-c c-o to save in new buffer
 ;; This map needs to be IMPROVED.
 ;; Exemple : it remove my previous map . maybe :n is not good
