@@ -355,6 +355,7 @@
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; To discover default command :
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
@@ -363,6 +364,18 @@
 ;; To find help -> go to discord (link in readme)
 
 ;; After updating, please run M-x doom/reload
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; flexible, simple tools for minibuffer completion in Emacs : https://github.com/abo-abo/swiper
+;; Ivy, a generic completion mechanism for Emacs.
+;; Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+;; Swiper, an Ivy-enhanced alternative to isearch.
+;;
+;; Counsel has a lot of function with projectil; M-x counsel to see list.
+;; Sometimes, I may prefer use simple counsel-* over counsel-projectile-*
+
+;; To get unicode char like λ 👍 🍺 ⚠
+;; run M-x counsel-unicode-char
 
 ;; C-u M-! inserts the result of the ‘shell-command’
 
