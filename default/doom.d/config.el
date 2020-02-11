@@ -240,6 +240,11 @@
 (after! undo-tree
   (setq undo-tree-auto-save-history nil))
 
+(after! counsel
+  :config
+  ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
+  (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --hidden --color never %s"))
+
 ;; (after! modeline
 ;;   (setq doom-modeline-height 5)
 ;;   )
