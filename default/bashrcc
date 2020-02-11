@@ -332,7 +332,7 @@ autologin ()
 
 if [ ! -z "${ANDROID_HOME+x}" ]
 then
-  function oscreenshot {
+  function ooscreenshot {
     local filename
     local filepath
     NAME=${1:-adb}
@@ -344,27 +344,27 @@ then
     xdg-open "$filepath"
   }
 
-function orr {
+function oorr {
   adb shell input text "RR"
 }
 
-function oreboot {
+function ooreboot {
   adb reboot bootloader
 }
 
-function odevmenu {
+function oodevmenu {
   adb shell input keyevent 82
 }
 
-function oinput {
+function ooinput {
   adb shell input text "$1"
 }
 
-function oback {
+function ooback {
   adb shell input keyevent 4
 }
 
-function oclear_app_and_permission {
+function ooclear_app_and_permission {
   adb shell pm clear fr.redbull.batallagallos
 }
 fi

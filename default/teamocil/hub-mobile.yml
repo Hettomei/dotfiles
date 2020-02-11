@@ -1,0 +1,15 @@
+windows:
+  - name: "-"
+    root: ~/grandmgroup/bosmobileapp
+    layout: even-horizontal
+    focus: true
+    panes:
+        - git status
+  - name: "-"
+    root: ~/grandmgroup/bosmobileapp
+    layout: even-horizontal
+    focus: true
+    panes:
+        - git status
+  - name: "-"
+    root: ~/
