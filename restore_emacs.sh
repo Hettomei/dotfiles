@@ -22,6 +22,6 @@ cat <<EOF
 Please go to https://github.com/hlissner/doom-emacs to install it
 
 please run
-~/.emacs.d/bin/doom refresh
+~/.emacs.d/bin/doom sync
 
 EOF

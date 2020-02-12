@@ -28,9 +28,11 @@
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
 
-;; If you want to change the style of line numbers, change this to `relative' or
-;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; If you want to change the style of line numbers,
+;; change this to `relative' or t or `nil' to disable it:
+;; Line numbers are pretty slow all around. The performance boost of
+;; disabling them outweighs the utility of always keeping them on.
+(setq display-line-numbers-type nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -77,7 +79,8 @@
       ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
       ;; They're generally unhelpful and only add confusing visual clutter.
       mode-line-default-help-echo nil
-      show-help-function nil)
+      show-help-function nil
+      company-idle-delay nil)
 
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
@@ -130,14 +133,13 @@
      (evil-window-left 1))))
 
 (defun tim-go-right-or-create ()
-  "Go right window. If error, create it"
   (interactive)
   (condition-case nil
       (evil-window-right 1)
     (user-error
      (+evil-window-vsplit-a))))
 
-(defun delete-and-replace-word ()
+(defun tim-delete-and-replace-word ()
   "Delete the word and go in insert mode. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
@@ -149,9 +151,9 @@
       (progn
         ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
         (forward-word)
-        (delete-and-replace-word)))))
+        (tim-delete-and-replace-word)))))
 
-(defun copy-word ()
+(defun tim-copy-word ()
   "Copy the word. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
@@ -160,9 +162,9 @@
       (progn
         ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
         (forward-word)
-        (copy-word)))))
+        (tim-copy-word)))))
 
-(defun replace-with-paste ()
+(defun tim-replace-with-paste ()
   "Delete the word and Paste another on it. When word is not found go forward-word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
@@ -174,7 +176,7 @@
       (progn
         ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
         (forward-word)
-        (replace-with-paste)))))
+        (tim-replace-with-paste)))))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -198,9 +200,26 @@
          current-prefix-arg))
   (let ((counsel-rg-base-command (concat counsel-rg-base-command " -w")))
     (+default/search-project-for-symbol-at-point symbol arg)))
-;; arggfdgfd
-;; dsffsdfdsarg
-;; azdfssdargfsdfsd
+
+(defun tim-search-word (&optional symbol arg)
+  (interactive
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
+         current-prefix-arg))
+  (+default/search-project-for-symbol-at-point symbol arg))
+;; fdsfdsarg
+;; argdvfgvgfd
+;; vcdxsvfdcxargbvcxdvcdx
+;; arg
+
+
+;; This way, when do a tim-copy-word on entry, it copies 'modify-syntax-entry'
+;; We can change it by mode with :
+;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
+;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
+(add-hook 'after-change-major-mode-hook
+          (lambda ()
+            (modify-syntax-entry ?_ "w")
+            (modify-syntax-entry ?- "w")))
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive))
@@ -288,7 +307,7 @@
 
 ;; increment or decrement numbers
 ;; Taken from : https://www.emacswiki.org/emacs/IncrementNumber
-(defun my-increment-number-decimal (&optional arg)
+(defun tim-increment-number (&optional arg)
   "Increment the number forward from point by 'arg'."
   (interactive "p*")
   (save-excursion
@@ -303,9 +322,10 @@
             (setq answer (+ (expt 10 field-width) answer)))
           (replace-match (format (concat "%0" (int-to-string field-width) "d")
                                  answer)))))))
-(defun my-decrement-number-decimal (&optional arg)
+(defun tim-decrement-number (&optional arg)
+  "Decrement the number forward from point by 'arg'."
   (interactive "p*")
-  (my-increment-number-decimal (if arg (- arg) -1)))
+  (tim-increment-number (if arg (- arg) -1)))
 
 (map! (:map doom-leader-map "SPC" #'save-buffer)
       :n "C-p" #'+ivy/projectile-find-file
@@ -332,17 +352,24 @@
 
       :n "*" #'tim-re-search-forward
       (:map doom-leader-map "*" #'tim-search-only-word)
+      (:map doom-leader-map "/" #'tim-search-word)
 
-      (:map doom-leader-map "r" #'delete-and-replace-word)
+      (:map doom-leader-map "r" #'tim-delete-and-replace-word)
       ;; Temporary disable because doom map project on this
-      ;; (:map doom-leader-map "p" #'replace-with-paste)
-      (:map doom-leader-map "y" #'copy-word)
+      (:map doom-leader-map "p" #'tim-replace-with-paste)
+      (:map doom-leader-map "y" #'tim-copy-word)
       (:map doom-leader-map "e" #'counsel-find-file)
 
       :v "v" #'er/expand-region
 
-      :n "M-+" #'my-increment-number-decimal
-      :n "M--" #'my-decrement-number-decimal)
+      :n "M-+" #'tim-increment-number
+      :n "M--" #'tim-decrement-number)
+
+;; taken from
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
+(map! :leader
+      ;; my goal is to keep doom binding but replace p with d
+      (:prefix-map ("d" . "project")))
 
  ;; my goal is to allow project/sub-project to works
 ;; (after! projectile
