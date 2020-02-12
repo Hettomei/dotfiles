@@ -5,10 +5,10 @@ windows:
     focus: true
     panes:
         - git status
-  - name: "-"
+  - name: " - "
     root: ~/grandmgroup/bosmobileapp
     layout: even-horizontal
     panes:
         - git status
-  - name: "-"
+  - name: "- "
     root: ~/

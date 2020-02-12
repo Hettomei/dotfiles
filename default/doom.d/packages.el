@@ -60,6 +60,8 @@
 ;; more at https://github.com/ananthakumaran/tide
 (package! tide :disable t)
 (package! solaire-mode :disable t)
+
+;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
 (package! keyfreq)
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())

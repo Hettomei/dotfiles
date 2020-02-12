@@ -63,6 +63,10 @@
  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
  '(mode-line :background "light gray" :foreground "black" :height 80))
 
+(unless (display-graphic-p)
+  (custom-set-faces!
+    '(font-lock-doc-face :foreground "#ffffff")))
+
 (global-whitespace-mode)
 
 (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
