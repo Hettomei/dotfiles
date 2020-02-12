@@ -191,6 +191,17 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
+(defun tim-search-only-word (&optional symbol arg)
+  "Go right window. If error, create it"
+  (interactive
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
+         current-prefix-arg))
+  (let ((counsel-rg-base-command (concat counsel-rg-base-command " -w")))
+    (+default/search-project-for-symbol-at-point symbol arg)))
+;; arggfdgfd
+;; dsffsdfdsarg
+;; azdfssdargfsdfsd
+
 (after! evil
   (setq evil-ex-search-case (quote sensitive))
   (setq evil-search-wrap nil)
@@ -243,7 +254,8 @@
 (after! counsel
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-  (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --hidden --color never %s"))
+  ;; (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --hidden --color never %s"))
+  (setq counsel-rg-base-command (concat counsel-rg-base-command " --hidden")))
 
 ;; (after! modeline
 ;;   (setq doom-modeline-height 5)
@@ -303,18 +315,23 @@
       :n "S" #'tim-middle-of-line-backward
 
       :n "C-<up>" #'tim-go-up-or-create
+      :n "M-<up>" #'tim-go-up-or-create
       :n "C-k" #'tim-go-up-or-create
 
       :n "C-<down>" #'tim-go-down-or-create
+      :n "M-<down>" #'tim-go-down-or-create
       :n "C-j" #'tim-go-down-or-create
 
       :n "C-<left>" #'tim-go-left-or-create
+      :n "M-<left>" #'tim-go-left-or-create
       ;; :n "C-h" #'tim-go-left-or-create ;; please do not remap on C-h
 
       :n "C-<right>" #'tim-go-right-or-create
+      :n "M-<right>" #'tim-go-right-or-create
       :n "C-l" #'tim-go-right-or-create
 
       :n "*" #'tim-re-search-forward
+      (:map doom-leader-map "*" #'tim-search-only-word)
 
       (:map doom-leader-map "r" #'delete-and-replace-word)
       ;; Temporary disable because doom map project on this
