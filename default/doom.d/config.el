@@ -261,36 +261,36 @@
 (after! smartparens
   (smartparens-global-mode -1))
 
+(defun tim-reuse-ivy-line-to-open-file (filename)
+  (let ((file (car (split-string filename ":"))))
+    (message "Open | %s | from | %s |" file filename)
+    (find-file file))
+  (ivy-resume))
+
+(defun tim-find-file-right (filename)
+  (split-window-right)
+  (other-window 1)
+  (tim-reuse-ivy-line-to-open-file filename))
+
+(defun tim-find-file-below (filename)
+  (split-window-below)
+  (other-window 1)
+  (tim-reuse-ivy-line-to-open-file filename))
+
 (after! ivy
   (setq ivy-wrap nil
         ivy-count-format "%d/%d "
         ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-  (minibuffer-depth-indicate-mode 99))
+  (minibuffer-depth-indicate-mode 99)
 
-  ;; need more work to make it happen.
-  ;; see https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions
-  ;; and https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
-  ;;
-
-  ;; (defun find-file-right (filename)
-  ;;   (interactive)
-  ;;   (split-window-right)
-  ;;   (other-window 1)
-  ;;   (find-file filename))
-
-  ;; (defun find-file-below (filename)
-  ;;   (interactive)
-  ;;   (split-window-below)
-  ;;   (other-window 1)
-  ;;   (find-file filename))
-  ;;
-  ;; (ivy-set-actions
-  ;;  t
-  ;;  '(("r" find-file-right "open right")
-  ;;    ("b" find-file-below "open below"))))
-
-
+  ;; need more work but thanks to
+  ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
+  ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
+  (ivy-set-actions
+   t
+   '(("%" tim-find-file-right "open right")
+     ("\"" tim-find-file-below "open below"))))
 
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
