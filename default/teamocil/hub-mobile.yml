@@ -1,12 +1,13 @@
 windows:
   - name: "-"
-    root: ~/grandmgroup/bosmobileapp
+    root: ~/grandmgroup/hub-mobile
     layout: even-horizontal
     focus: true
     panes:
-        - git status
+        - echo "yarn start"
+        - echo "react-native run-android"
   - name: " - "
-    root: ~/grandmgroup/bosmobileapp
+    root: ~/grandmgroup/hub-mobile
     layout: even-horizontal
     panes:
         - git status

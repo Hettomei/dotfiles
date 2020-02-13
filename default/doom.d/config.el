@@ -23,7 +23,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-one)
+
+(if (display-graphic-p)
+    (setq doom-theme 'doom-one)
+  (setq doom-theme 'doom-solarized-dark))
+  ;; (setq doom-theme 'doom-one))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -226,10 +230,10 @@
             (modify-syntax-entry ?- "w")))
 
 (after! evil
-  (setq evil-ex-search-case (quote sensitive))
-  (setq evil-search-wrap nil)
-  (setq evil-split-window-below t)
-  (setq evil-vsplit-window-right t)
+  (setq evil-ex-search-case (quote sensitive)
+        evil-search-wrap nil
+        evil-split-window-below t
+        evil-vsplit-window-right t)
 
   (evil-define-motion tim-middle-of-line ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -247,9 +251,7 @@
     :type exclusive
     (interactive (list (prefix-numeric-value current-prefix-arg)
                        evil-symbol-word-search))
-
-    ;; temporary override wrap
-    (let ((evil-search-wrap t))
+    (let ((evil-search-wrap t)) ;; temporary override wrap
       (evil-ex-search-word-forward count symbol))))
 
 
@@ -262,9 +264,33 @@
 (after! ivy
   (setq ivy-wrap nil
         ivy-count-format "%d/%d "
-        ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected))
-      ;; problem : it always do a case sensitive search. even for C-x C-f but we want this only for rg
-      ;; ivy-case-fold-search nil)
+        ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
+  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
+  (minibuffer-depth-indicate-mode 99))
+
+  ;; need more work to make it happen.
+  ;; see https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions
+  ;; and https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
+  ;;
+
+  ;; (defun find-file-right (filename)
+  ;;   (interactive)
+  ;;   (split-window-right)
+  ;;   (other-window 1)
+  ;;   (find-file filename))
+
+  ;; (defun find-file-below (filename)
+  ;;   (interactive)
+  ;;   (split-window-below)
+  ;;   (other-window 1)
+  ;;   (find-file filename))
+  ;;
+  ;; (ivy-set-actions
+  ;;  t
+  ;;  '(("r" find-file-right "open right")
+  ;;    ("b" find-file-below "open below"))))
+
+
 
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
@@ -290,6 +316,14 @@
 ;; M-x keyfreq-show
 (use-package! keyfreq
   :config
+  (setq keyfreq-excluded-commands
+        '(self-insert-command
+          evil-next-line
+          evil-previous-line
+          ivy-next-line
+          evil-forward-char
+          evil-backward-char
+          ivy-backward-delete-char))
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
 
