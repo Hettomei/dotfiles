@@ -191,10 +191,14 @@
   (interactive)
   (setq evil-ex-search-case (quote insensitive)))
 
+(defalias 'set-ignore-case 'set-case-insensitive)
+
 (defun set-case-sensitive ()
   "Consider case for vim-search"
   (interactive)
   (setq evil-ex-search-case (quote sensitive)))
+
+(defalias 'set-no-ignore-case 'set-case-sensitive)
 
 (defun set-case-smart ()
   "Smart case for vim-search"
@@ -263,18 +267,36 @@
 
 (defun tim-reuse-ivy-line-to-open-file (filename)
   (let ((file (car (split-string filename ":"))))
-    (message "Open | %s | from | %s |" file filename)
-    (find-file file))
+    (message "try to open %s by splitting -> %s" file filename)
+    (condition-case err
+        (counsel-projectile-find-file-action file)
+      (void-function ; <- that s the error handler name
+       (message "open fail with projectile, try find-file. Error was: %s" err)
+       (find-file file))))
   (ivy-resume))
 
-(defun tim-find-file-right (filename)
+(defun tim-find-and-open-up (filename)
+  (split-window-below)
+  (tim-reuse-ivy-line-to-open-file filename))
+
+(defun tim-find-and-open-right (filename)
   (split-window-right)
   (other-window 1)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-find-file-below (filename)
+(defun tim-find-and-open-below (filename)
   (split-window-below)
   (other-window 1)
+  (tim-reuse-ivy-line-to-open-file filename))
+
+(defun tim-find-and-open-left (filename)
+  (split-window-right)
+  (tim-reuse-ivy-line-to-open-file filename))
+
+(defun tim-find-and-open-full-right (filename)
+  (split-window-right)
+  (other-window 1)
+  (+evil/window-move-right)
   (tim-reuse-ivy-line-to-open-file filename))
 
 (after! ivy
@@ -284,13 +306,17 @@
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
   (minibuffer-depth-indicate-mode 99)
 
-  ;; need more work but thanks to
+  ;; Thanks to
   ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
   ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
+  ;; I can open any windows using C-o then C-l C-k ....
   (ivy-set-actions
    t
-   '(("%" tim-find-file-right "open right")
-     ("\"" tim-find-file-below "open below"))))
+   '(("C-k" tim-find-and-open-up "open up")
+     ("C-l" tim-find-and-open-right "open right")
+     ("C-L" tim-find-and-open-full-right "open full right")
+     ("C-j" tim-find-and-open-below "open below")
+     ("C-h" tim-find-and-open-left "open left"))))
 
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
@@ -365,6 +391,13 @@
   (interactive "p*")
   (tim-increment-number (if arg (- arg) -1)))
 
+;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
+(defun tim-eslint-fix-file ()
+  (interactive)
+  (message "eslint --fixing the file" (buffer-file-name))
+  (shell-command (concat "yarn eslint --fix " (buffer-file-name)))
+  (revert-buffer t t))
+
 (map! (:map doom-leader-map "SPC" #'save-buffer)
       :n "C-p" #'+ivy/projectile-find-file
       :n "C-w x" #'window-swap-states
@@ -409,14 +442,14 @@
       ;; my goal is to keep doom binding but replace p with d
       (:prefix-map ("d" . "project")))
 
- ;; my goal is to allow project/sub-project to works
+;; my goal is to allow project/sub-project to works
 ;; (after! projectile
-;;   (projectile-register-project-type 'npm '("package.json")
-;;                                     :compile ""
-;;                                     :test "yarn test"
-;;                                     :run "yarn start"
-;;                                     :test-suffix ".spec")
- (setq projectile-require-project-root nil)
+  ;;   (projectile-register-project-type 'npm '("package.json")
+  ;;                                     :compile ""
+  ;;                                     :test "yarn test"
+  ;;                                     :run "yarn start"
+  ;;                                     :test-suffix ".spec")
+  ;; (setq projectile-require-project-root nil))
 ;; to repaire path :
 ;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
 
