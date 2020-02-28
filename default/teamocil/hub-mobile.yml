@@ -5,7 +5,7 @@ windows:
     focus: true
     panes:
         - echo "yarn start"
-        - echo "react-native run-android"
+        - echo "yarn android"
   - name: " - "
     root: ~/grandmgroup/hub-mobile
     layout: even-horizontal

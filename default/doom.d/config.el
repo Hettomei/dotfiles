@@ -64,6 +64,8 @@
 (custom-set-faces!
  '(line-number :foreground "dim gray")
  '(line-number-current-line :foreground "white")
+ '(doom-modeline-project-dir :foreground "blue")
+ '(doom-modeline-buffer-path   :foreground "blue")
  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
  '(mode-line :background "light gray" :foreground "black" :height 80))
 
@@ -210,7 +212,7 @@
   (interactive
    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
          current-prefix-arg))
-  (let ((counsel-rg-base-command (concat counsel-rg-base-command " -w")))
+  (let ((counsel-rg-base-command (concat counsel-rg-base-command " -w --case-sensitive")))
     (+default/search-project-for-symbol-at-point symbol arg)))
 
 (defun tim-search-word (&optional symbol arg)
@@ -230,8 +232,10 @@
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (add-hook 'after-change-major-mode-hook
           (lambda ()
+            (auto-fill-mode -1)
             (modify-syntax-entry ?_ "w")
             (modify-syntax-entry ?- "w")))
+
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -398,6 +402,11 @@
   (shell-command (concat "yarn eslint --fix " (buffer-file-name)))
   (revert-buffer t t))
 
+(defun tim-oorr ()
+  (interactive)
+  (message "will send oorr")
+  (shell-command "adb shell input text \"RR\""))
+
 (map! (:map doom-leader-map "SPC" #'save-buffer)
       :n "C-p" #'+ivy/projectile-find-file
       :n "C-w x" #'window-swap-states
@@ -453,19 +462,6 @@
 ;; to repaire path :
 ;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
 
-;; This is a mapping when you 2) search with SPC *
-;; Then do a C-c c-o to save in new buffer
-;; This map needs to be IMPROVED.
-;; Exemple : it remove my previous map . maybe :n is not good
-;;
-;; (defun tim-test-test ()
-;;   "Smart case for vim-search"
-;;   (interactive)
-;;   (message "IT WORKS"))
-;;
-;; (map! :map company-mode-map
-;;       :n "C-<right>" #'tim-test-test)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -486,7 +482,7 @@
 ;; Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
 ;; Swiper, an Ivy-enhanced alternative to isearch.
 ;;
-;; Counsel has a lot of function with projectil; M-x counsel to see list.
+;; Counsel has a lot of function with projectile; M-x counsel to see list.
 ;; Sometimes, I may prefer use simple counsel-* over counsel-projectile-*
 
 ;; To get unicode char like λ 👍 🍺 ⚠
@@ -497,11 +493,13 @@
 ;; reload a file by reading hard drive :
 ;; M-x revert-buffer
 
-;; Their is project - with projectile
-;; and their is workspace with .... workspace.
+;; Their is ivy, counsel, projectile, workspace
+;; gt -> workspace.
+;; SPC TAB -> workspace
+;; Kill a project/workspace -> SPC TAB d
 ;; One of my problem was having a workspace at /hub-ecla
 ;; and another at /hub-ecla/admin
-;; projectil does not allow this. Workspace allow it.
+;; projectile does not allow this. Workspace allow it.
 ;; To do it :
 ;; SPC TAB n
 ;; Then swhitch using gt (change tab)
