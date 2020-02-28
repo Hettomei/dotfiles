@@ -163,6 +163,18 @@
         (forward-word)
         (tim-delete-and-replace-word)))))
 
+(defun tim-kill-word ()
+  "Delete the word and go in insert mode. When word is not found go forward-word"
+  (interactive)
+  (let ((bounds (bounds-of-thing-at-point 'word)))
+    (if bounds
+          ;; kill-region will save it in kill ring. delete-region just delete
+          (kill-region (car bounds) (cdr bounds))
+      (progn
+        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
+        (forward-word)
+        (tim-kill-word)))))
+
 (defun tim-copy-word ()
   "Copy the word. When word is not found go forward-word"
   (interactive)
@@ -175,7 +187,7 @@
         (tim-copy-word)))))
 
 (defun tim-replace-with-paste ()
-  "Delete the word and Paste another on it. When word is not found go forward-word"
+  "Delete the word and Paste another on it. When word is not found go forward-word. Do not save in register the replaced word"
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
@@ -336,6 +348,11 @@
   ;; (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --hidden --color never %s"))
   (setq counsel-rg-base-command (concat counsel-rg-base-command " --hidden")))
 
+;; I don't want to quit insert mode with jk : remove
+(after! evil-escape
+  :config
+  (setq evil-escape-key-sequence nil))
+
 ;; (after! modeline
 ;;   (setq doom-modeline-height 5)
 ;;   )
@@ -372,28 +389,6 @@
   '((lambda ()
       (modify-syntax-entry ?\" ".")))
   "Generic mode for Vim configuration files.")
-
-;; increment or decrement numbers
-;; Taken from : https://www.emacswiki.org/emacs/IncrementNumber
-(defun tim-increment-number (&optional arg)
-  "Increment the number forward from point by 'arg'."
-  (interactive "p*")
-  (save-excursion
-    (save-match-data
-      (let (inc-by field-width answer)
-        (setq inc-by (if arg arg 1))
-        (skip-chars-backward "0123456789")
-        (when (re-search-forward "[0-9]+" nil t)
-          (setq field-width (- (match-end 0) (match-beginning 0)))
-          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 10 field-width) answer)))
-          (replace-match (format (concat "%0" (int-to-string field-width) "d")
-                                 answer)))))))
-(defun tim-decrement-number (&optional arg)
-  "Decrement the number forward from point by 'arg'."
-  (interactive "p*")
-  (tim-increment-number (if arg (- arg) -1)))
 
 ;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
 (defun tim-eslint-fix-file ()
@@ -436,20 +431,25 @@
 
       (:map doom-leader-map "r" #'tim-delete-and-replace-word)
       ;; Temporary disable because doom map project on this
+      (:map doom-leader-map "d" #'tim-kill-word)
       (:map doom-leader-map "p" #'tim-replace-with-paste)
       (:map doom-leader-map "y" #'tim-copy-word)
       (:map doom-leader-map "e" #'counsel-find-file)
 
       :v "v" #'er/expand-region
 
-      :n "M-+" #'tim-increment-number
-      :n "M--" #'tim-decrement-number)
+      ;; increment / decrement in doom
+      :n  "g+"       #'evil-numbers/inc-at-pt
+      ;; :n  "g="    #'evil-numbers/inc-at-pt
+      ;; :n  "g-"    #'evil-numbers/dec-at-pt
+      )
+
 
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map! :leader
       ;; my goal is to keep doom binding but replace p with d
-      (:prefix-map ("d" . "project")))
+      (:prefix-map ("x" . "project")))
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile
@@ -469,6 +469,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; To discover default command :
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/evil/config.el
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org
 ;; To manage package
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#package-management
