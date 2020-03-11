@@ -1,10 +1,12 @@
 windows:
   - name: "-"
     root: ~/grandmgroup/hub-ecla
-    layout: even-horizontal
+    layout: tiled
     focus: true
     panes:
         - git status
+        - echo ""
+        - echo ""
         - echo ""
   - name: "--"
     root: ~/grandmgroup/hub-ecla
