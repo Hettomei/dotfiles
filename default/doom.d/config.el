@@ -244,7 +244,7 @@
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (add-hook 'after-change-major-mode-hook
           (lambda ()
-            (auto-fill-mode -1)
+            (auto-fill-mode -1) ; automatic break line
             (modify-syntax-entry ?_ "w")
             (modify-syntax-entry ?- "w")))
 
@@ -352,6 +352,11 @@
 (after! evil-escape
   :config
   (setq evil-escape-key-sequence nil))
+
+(after! flycheck
+  :config
+  (setq-default flycheck-disabled-checkers '(python-flake8)))
+
 
 ;; (after! modeline
 ;;   (setq doom-modeline-height 5)
