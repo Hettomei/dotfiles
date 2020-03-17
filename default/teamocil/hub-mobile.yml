@@ -1,11 +1,13 @@
 windows:
   - name: "-"
     root: ~/grandmgroup/hub-mobile
-    layout: even-horizontal
+    layout: tiled
     focus: true
     panes:
         - echo "yarn start"
         - echo "yarn android"
+        - echo ""
+        - echo ""
   - name: " - "
     root: ~/grandmgroup/hub-mobile
     layout: even-horizontal
