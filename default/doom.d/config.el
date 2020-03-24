@@ -147,6 +147,7 @@
      (evil-window-left 1))))
 
 (defun tim-go-right-or-create ()
+  "Go right window. If error, create it"
   (interactive)
   (condition-case nil
       (evil-window-right 1)
@@ -297,36 +298,58 @@
        (find-file file))))
   (ivy-resume))
 
-(defun tim-find-and-open-up (filename)
+(defun tim-ivy-find-and-open-up (filename)
   (split-window-below)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-find-and-open-right (filename)
+(defun tim-ivy-find-and-open-right (filename)
   (split-window-right)
   (other-window 1)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-find-and-open-below (filename)
+(defun tim-ivy-find-and-open-rightr ()
+  (interactive)
+  (ivy-dispatching-call))
+  ;; (split-window-right)
+  ;; (other-window 1))
+
+(defun tim-ivy-find-and-open-rightrr ()
+  (message "open right")
+  (split-window-right)
+  (other-window 1))
+
+(defun tim-ivy-find-and-open-below (filename)
   (split-window-below)
   (other-window 1)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-find-and-open-left (filename)
+(defun tim-ivy-find-and-open-left (filename)
   (split-window-right)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-find-and-open-full-right (filename)
+;; +evil/window-move-right is not mean to do what i want
+(defun tim-ivy-find-and-open-full-right (filename)
   (split-window-right)
   (other-window 1)
   (+evil/window-move-right)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(after! ivy
-  (setq ivy-wrap nil
-        ivy-count-format "%d/%d "
-        ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
+(defun test-test ()
+  (interactive)
+  (message "ok "))
+
+(use-package ivy
+  :bind (:map ivy-minibuffer-map
+          ("C-p" . ivy-previous-history-element)
+          ("S-<right>" . tim-ivy-find-and-open-rightr))
+  :config (setq ivy-wrap nil
+                ivy-count-format "%d/%d "
+                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-  (minibuffer-depth-indicate-mode 99)
+  (minibuffer-depth-indicate-mode 99))
+
+
+(after! ivy
 
   ;; Thanks to
   ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
@@ -334,11 +357,14 @@
   ;; I can open any windows using C-o then C-l C-k ....
   (ivy-set-actions
    t
-   '(("C-k" tim-find-and-open-up "open up")
-     ("C-l" tim-find-and-open-right "open right")
-     ("C-L" tim-find-and-open-full-right "open full right")
-     ("C-j" tim-find-and-open-below "open below")
-     ("C-h" tim-find-and-open-left "open left"))))
+   '(
+     ("C-k" tim-ivy-find-and-open-up "open up")
+     ("C-l" tim-ivy-find-and-open-right "open right")
+     ;; ("C-<right>" tim-ivy-find-and-open-rightrr "open right")
+     ;; ("C-l" tim-ivy-find-and-open-rightrr "open right")
+     ;; ("C-L" tim-ivy-find-and-open-full-right "open full right")
+     ("C-j" tim-ivy-find-and-open-below "open below")
+     ("C-h" tim-ivy-find-and-open-left "open left"))))
 
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
@@ -428,21 +454,25 @@
       :n "s" #'tim-middle-of-line
       :n "S" #'tim-middle-of-line-backward
 
-      :n "C-<up>" #'tim-go-up-or-create
-      :n "M-<up>" #'tim-go-up-or-create
-      :n "C-k" #'tim-go-up-or-create
+      :n "S-<up>" #'tim-go-up-or-create
+      ;; :n "C-<up>" #'tim-go-up-or-create
+      ;; :n "M-<up>" #'tim-go-up-or-create
+      ;; :n "C-k" #'tim-go-up-or-create
 
-      :n "C-<down>" #'tim-go-down-or-create
-      :n "M-<down>" #'tim-go-down-or-create
-      :n "C-j" #'tim-go-down-or-create
+      :n "S-<down>" #'tim-go-down-or-create
+      ;; :n "C-<down>" #'tim-go-down-or-create
+      ;; :n "M-<down>" #'tim-go-down-or-create
+      ;; :n "C-j" #'tim-go-down-or-create
 
-      :n "C-<left>" #'tim-go-left-or-create
-      :n "M-<left>" #'tim-go-left-or-create
+      :n "S-<left>" #'tim-go-left-or-create
+      ;; :n "C-<left>" #'tim-go-left-or-create
+      ;; :n "M-<left>" #'tim-go-left-or-create
       ;; :n "C-h" #'tim-go-left-or-create ;; please do not remap on C-h
 
-      :n "C-<right>" #'tim-go-right-or-create
-      :n "M-<right>" #'tim-go-right-or-create
-      :n "C-l" #'tim-go-right-or-create
+      :n "S-<right>" #'tim-go-right-or-create
+      ;; :n "C-<right>" #'tim-go-right-or-create
+      ;; :n "M-<right>" #'tim-go-right-or-create
+      ;; :n "C-l" #'tim-go-right-or-create
 
       :n "*" #'tim-re-search-forward
       (:map doom-leader-map "*" #'tim-search-only-word)
