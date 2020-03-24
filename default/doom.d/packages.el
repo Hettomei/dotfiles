@@ -62,10 +62,13 @@
 (package! solaire-mode :disable t)
 
 ;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
-(package! keyfreq)
+(package! keyfreq :disable t)
+(package! egg-timer
+  :recipe (:host github :repo "wpcarro/egg-timer.el"))
 
 ;; prefere a simpler yasnippet
 (package! doom-snippets :ignore t)
+
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/

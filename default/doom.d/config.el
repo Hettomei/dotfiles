@@ -75,15 +75,19 @@
 
 (global-whitespace-mode)
 
-(setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+(setq doom-font (font-spec :family "monospace" :size 14 :weight 'semi-light)
       doom-variable-pitch-font (font-spec :family "sans")
 
       ;; Uncomment this line if you don't like having a prompt that ask to quit
       ;; confirm-kill-emacs nil
 
+      ;; Try to disable to see if related with search jump
       ;; Always display 5 lines
-      hscroll-margin 15
+      hscroll-margin 10
+      auto-hscroll-mode 'current-line
       scroll-margin 5
+      ;; Avoid jump when search
+      scroll-preserve-screen-position nil
       whitespace-style '(face empty trailing)
 
       ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
@@ -238,16 +242,18 @@
 ;; arg
 
 
-;; This way, when do a tim-copy-word on entry, it copies 'modify-syntax-entry'
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(add-hook 'after-change-major-mode-hook
-          (lambda ()
-            (auto-fill-mode -1) ; automatic break line
-            (modify-syntax-entry ?_ "w")
-            (modify-syntax-entry ?- "w")))
+(defun improve-word-length ()
+  "This way, when do a tim-copy-word on entry, it copies 'modify-syntax-entry'"
+  (modify-syntax-entry ?_ "w")
+  (modify-syntax-entry ?- "w"))
 
+(add-hook 'after-change-major-mode-hook #'improve-word-length)
+
+;; auto-fill-mode is automatic line break
+(remove-hook 'text-mode-hook #'auto-fill-mode)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -366,18 +372,21 @@
 ;; It is possible to filter some pattern.
 ;; To know :
 ;; M-x keyfreq-show
-(use-package! keyfreq
-  :config
-  (setq keyfreq-excluded-commands
-        '(self-insert-command
-          evil-next-line
-          evil-previous-line
-          ivy-next-line
-          evil-forward-char
-          evil-backward-char
-          ivy-backward-delete-char))
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
+;; To enable it : enable package in package.el and uncomment these next lines
+;; (use-package! keyfreq
+;;   :config
+;;   (setq keyfreq-excluded-commands
+;;         '(self-insert-command
+;;           evil-next-line
+;;           evil-previous-line
+;;           ivy-next-line
+;;           evil-forward-char
+;;           evil-backward-char
+;;           ivy-backward-delete-char))
+;;   (keyfreq-mode 1)
+;;   (keyfreq-autosave-mode 1))
+
+(use-package! egg-timer)
 
 ;; Redefine syntax for vimrc file.
 ;; Thanks to https://stackoverflow.com/questions/4236808/syntax-highlight-a-vimrc-file-in-emacs
@@ -396,11 +405,16 @@
   "Generic mode for Vim configuration files.")
 
 ;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
+;; and to https://stackoverflow.com/questions/11613974/how-can-the-shell-command-output-buffer-be-kept-in-the-background
 (defun tim-eslint-fix-file ()
   (interactive)
-  (message "eslint --fixing the file" (buffer-file-name))
-  (shell-command (concat "yarn eslint --fix " (buffer-file-name)))
+  (message "eslint --fix the file" (buffer-file-name))
+  (call-process-shell-command
+   (concat "yarn eslint --fix " (buffer-file-name))
+   nil "*Shell Command Output*" t
+   )
   (revert-buffer t t))
+
 
 (defun tim-oorr ()
   (interactive)
