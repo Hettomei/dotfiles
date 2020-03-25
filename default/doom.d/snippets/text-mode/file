@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: file name
+# uuid: 543ec7b6-7b68-45a8-ad2a-35b46ca2290a
+# key: file
+# condition: t
+# --
+`(file-name-nondirectory (buffer-file-name))`$0

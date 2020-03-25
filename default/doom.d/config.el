@@ -334,9 +334,9 @@
   (+evil/window-move-right)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun test-test ()
+(defun tim-insert-random-uuid ()
   (interactive)
-  (message "ok "))
+  (shell-command "uuidgen" t))
 
 (use-package ivy
   :bind (:map ivy-minibuffer-map

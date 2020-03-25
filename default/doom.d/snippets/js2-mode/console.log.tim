@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: console.log tim
+# uuid: 06e74cad-4eb6-4fde-999c-abe2e1954421
+# key: clt
+# condition: t
+# --
+console.log('ttiimm', $0);

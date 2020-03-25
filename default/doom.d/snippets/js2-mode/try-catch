@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# contributor: https://github.com/AndreaCrotti/yasnippet-snippets/blob/master/snippets
+# name: try...catch statement
+# key: try
+# --
+try {
+  $1
+} catch (err) {
+  $2
+}${3: finally {
+  $4
+}}
