@@ -370,6 +370,32 @@ function ooclear_app_and_permission {
 }
 fi
 
+function meme {
+  # imagemagick, thanks to https://github.com/ddrscott/convert_meme
+  # meme input.jpg output.jpg "upper text" "bottom text"
+  src=$1
+  dest=$2
+  header=$3
+  footer=$4
+
+  font=Impact
+
+  width=$(identify -format %w "$src")
+  ((caption_height=width/8))
+  ((strokewidth=width/500))
+
+  convert "$src"       \
+    -background none   \
+    -font ${font}      \
+    -fill white        \
+    -stroke black      \
+    -strokewidth ${strokewidth}       \
+    -size "$width"x"$caption_height"  \
+    -gravity north caption:"${header}" -composite \
+    -gravity south caption:"${footer}" -composite \
+    "$dest"
+}
+
 
 # Tips
 #
@@ -478,3 +504,24 @@ fi
 # Automatically mount virtualbox on bash startup :
 # (Need to at first create a shared folder. Need to read virtual box doc. Sorry I forget to link it here
 # [ -f /home/tgauthier/share/.keep_this_file ] || sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) sharevm ~/share
+
+
+###############
+# imagemagick #
+###############
+
+# convert doc: http://www.imagemagick.org/Usage/basics/#convert
+#
+# Only keep the left part (here 643px) of an image
+# convert input.png -crop 643x+0+0 +repage output.png
+
+# resize : it will keep the best ratio. so output.png will not be 1000x1000
+#
+# example :
+# input  is  1920 x 1200
+# output is  1000 x  625
+# convert input.png -resize 1000x1000 output.png
+
+# get image size, use identify
+# identify test.png
+# test.png PNG 1000x625 1000x625+0+0 8-bit sRGB 74924B 0.000u 0:00.000

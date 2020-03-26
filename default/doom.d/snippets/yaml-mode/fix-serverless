@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: package artifact
+# uuid: ce80bb87-0888-4f8d-8d31-fc78d58deb76
+# key: fix
+# condition: t
+# --
+package:
+    artifact:$0
