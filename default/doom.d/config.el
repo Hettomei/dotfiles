@@ -488,11 +488,11 @@
       ;; why gm ? because available and crm cause problem with "c"
       :n "gm" #'string-inflection-all-cycle
       ;; increment / decrement in doom
-      :n  "g+"       #'evil-numbers/inc-at-pt
+      :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
-      :i  "C-n"       #'+company/dabbrev
-      :i  "C-p"       #'+company/dabbrev-code-previous
+      :i  "C-n" #'+company/dabbrev
+      :i  "C-p" #'+company/dabbrev-code-previous
       )
 
 ;; taken from
