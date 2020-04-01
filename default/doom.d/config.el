@@ -37,6 +37,9 @@
 ;; Line numbers are pretty slow all around. The performance boost of
 ;; disabling them outweighs the utility of always keeping them on.
 (setq display-line-numbers-type nil)
+;; To autocomplete text, you can M-/
+;; This variable at nil means "be case sensitive"
+(setq dabbrev-case-fold-search nil)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -93,9 +96,7 @@
       ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
       ;; They're generally unhelpful and only add confusing visual clutter.
       mode-line-default-help-echo nil
-      show-help-function nil
-      company-idle-delay nil)
-
+      show-help-function nil)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
@@ -338,7 +339,24 @@
   (interactive)
   (shell-command "uuidgen" t))
 
-(use-package ivy
+;; Add a space
+(defun tim-company-after-completion-hook (&rest _ignored)
+  (just-one-space))
+
+;; complete anything http://company-mode.github.io/
+(use-package! company
+  :config
+  ;; disable auto popup after x seconds
+  (setq company-idle-delay nil
+        ;; allow code completion inside comments and string
+        company-dabbrev-code-everywhere t)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-common)
+  ;; you can use space to complete word
+  (define-key company-active-map (kbd "SPC") #'company-complete-selection))
+
+(add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
+
+(use-package! ivy
   :bind (:map ivy-minibuffer-map
           ("C-p" . ivy-previous-history-element)
           ("S-<right>" . tim-ivy-find-and-open-rightr))
@@ -389,30 +407,8 @@
   :config
   (setq-default flycheck-disabled-checkers '(python-flake8)))
 
-
-;; (after! modeline
-;;   (setq doom-modeline-height 5)
-;;   )
-
-;; Will tell you your frequence
-;; It is possible to filter some pattern.
-;; To know :
-;; M-x keyfreq-show
-;; To enable it : enable package in package.el and uncomment these next lines
-;; (use-package! keyfreq
-;;   :config
-;;   (setq keyfreq-excluded-commands
-;;         '(self-insert-command
-;;           evil-next-line
-;;           evil-previous-line
-;;           ivy-next-line
-;;           evil-forward-char
-;;           evil-backward-char
-;;           ivy-backward-delete-char))
-;;   (keyfreq-mode 1)
-;;   (keyfreq-autosave-mode 1))
-
 (use-package! egg-timer)
+(use-package! string-inflection)
 
 ;; Redefine syntax for vimrc file.
 ;; Thanks to https://stackoverflow.com/questions/4236808/syntax-highlight-a-vimrc-file-in-emacs
@@ -487,12 +483,17 @@
 
       :v "v" #'er/expand-region
 
+      ;; switch from camelCase snake_case kebab-case ...
+      ;; see https://github.com/akicho8/string-inflection
+      ;; why gm ? because available and crm cause problem with "c"
+      :n "gm" #'string-inflection-all-cycle
       ;; increment / decrement in doom
       :n  "g+"       #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
+      :i  "C-n"       #'+company/dabbrev
+      :i  "C-p"       #'+company/dabbrev-code-previous
       )
-
 
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
@@ -600,3 +601,22 @@
 ;;     (when new-kill-string
 ;;       (message "%s copied" new-kill-string)
 ;;       (kill-new new-kill-string))))
+
+
+;; Will tell you your frequence
+;; It is possible to filter some pattern.
+;; To know :
+;; M-x keyfreq-show
+;; To enable it : enable package in package.el and uncomment these next lines
+;; (use-package! keyfreq
+;;   :config
+;;   (setq keyfreq-excluded-commands
+;;         '(self-insert-command
+;;           evil-next-line
+;;           evil-previous-line
+;;           ivy-next-line
+;;           evil-forward-char
+;;           evil-backward-char
+;;           ivy-backward-delete-char))
+;;   (keyfreq-mode 1)
+;;   (keyfreq-autosave-mode 1))

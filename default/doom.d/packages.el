@@ -60,14 +60,16 @@
 ;; more at https://github.com/ananthakumaran/tide
 (package! tide :disable t)
 (package! solaire-mode :disable t)
+;; prefere a simpler yasnippet
+(package! doom-snippets :ignore t)
 
 ;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
 (package! keyfreq :disable t)
 (package! egg-timer
   :recipe (:host github :repo "wpcarro/egg-timer.el"))
 
-;; prefere a simpler yasnippet
-(package! doom-snippets :ignore t)
+(package! string-inflection
+  :recipe (:host github :repo "akicho8/string-inflection"))
 
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
