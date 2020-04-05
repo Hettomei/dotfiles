@@ -349,12 +349,15 @@
   ;; disable auto popup after x seconds
   (setq company-idle-delay nil
         ;; allow code completion inside comments and string
-        company-dabbrev-code-everywhere t)
+        company-dabbrev-code-everywhere t
+        ;; allow code completion matching all buffer
+        company-dabbrev-code-other-buffers 'all)
   (define-key company-active-map (kbd "<tab>") #'company-complete-common)
   ;; you can use space to complete word
   (define-key company-active-map (kbd "SPC") #'company-complete-selection))
 
-(add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
+;; (add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
+;; (remove-hook! 'company-completion-finished-hook 'tim-company-after-completion-hook)
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
@@ -433,10 +436,10 @@
   (message "eslint --fix the file" (buffer-file-name))
   (call-process-shell-command
    (concat "yarn eslint --fix " (buffer-file-name))
-   nil "*Shell Command Output*" t
-   )
+   nil "*Shell Command Output*" t)
   (revert-buffer t t))
 
+(add-hook! 'after-save-hook #'tim-eslint-fix-file)
 
 (defun tim-oorr ()
   (interactive)
@@ -492,7 +495,7 @@
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
       :i  "C-n" #'+company/dabbrev
-      :i  "C-p" #'+company/dabbrev-code-previous
+      :i  "C-p" #'+company/dabbrev
       )
 
 ;; taken from
