@@ -10,66 +10,78 @@ https://docs.ovh.com/fr/storage/pca/sftp/
 
 # Installation
 
-Besoin de swift-client et d'une sorte de fichier secret.
+Besoin de rclone et un fichier secret.
 
 ```
-sudo apt install swift-client
-
-ou
-
-pip3 install python-swiftclient
-
+brew install rclone
 ```
 
-se connecter sur le compte ovh https://www.ovh.com/manager/cloud/index.html, et telecharger le fichier openrc.sh
-```
-source ./openrc.sh
-```
+se connecter sur le compte ovh https://www.ovh.com/manager/cloud/index.html, et
+dans User et Role https://www.ovh.com/manager/public-cloud/#/pci/projects/7fd9ef0750584d07a81a2e291150143f/users
+telecharger le fichier rclone.sh "Download an Rclone configuration file"
 
-# Exemple 1
+Editer le fichier :
 
-```
-cd desktop
-swift list
-swift post angie # creer conteneur # attention, on veut du a froid, il vaut mieux le creer sur ovh
-swift upload angie Angie --changed
-```
+- modifier la ligne 'PASSWORD' avec keepass 'ovh open stack stockage swift container rclone xubuntu hp'
+- modifier le titre '[BackupStorage]' vers '[ovh]'
 
-# Exemple 2
+Copier la conf de `rclone.sh` vers `~/.config/rclone/rclone.conf`
 
-:warning:, celui-ci va créer un conteneurs
+# Voir les dossiers :
+
+2020/04/06 14:06:20 NOTICE: Received retry after error - sleeping until 2020-04-07T01:16:07.043186046+02:00 (11h9m46.060466188s)
 
 ```
-cd google-6p-fevrier-aout-2017
-swift upload --changed --segment-size 104857600 google-6p-fevrier-aout-2017 .
+$ rclone lsd ovh:
+
+     1219853 2020-04-06 14:14:32        39 autre
+           0 2020-04-06 14:14:32         0 autre_segments
+     2551157 2020-04-06 14:14:32        97 documents
+           0 2020-04-06 14:14:32         0 documents_segments
+ ```
+
+
+ ```
+$ rclone lsd ovh:documents
+           0 2020-04-06 14:14:39        -1 cours
+           0 2020-04-06 14:14:39        -1 travail
+ ```
+
+
+
+# Copy
+
+read https://rclone.org/docs/
+
+```
+rclone copy - Copy files from source to dest, skipping already copied.
+rclone sync - Make source and dest identical, modifying destination only.
+rclone check - Check if the files in the source and destination match.
 ```
 
-# Exemple 3 : synchroniser tout un dossier de photos
+Par exemple, pour telecharger tout le contenu de 'remote documents' vers 'local documents':
 
 ```
-cd /home/tim/programmes/my_computer_conf/swift/
-source openrc.sh
-
-cd /media/sf_timwin/Pictures
-# ou
-cd /mnt/c/Users/tim/Pictures
-
-swift upload --changed --segment-size 104857600 photos-archive .
+rclone copy y ./documents
 ```
 
-# New avec sftp
 
-aller sur https://www.ovh.com/manager/public-cloud/#/pci/projects/7fd9ef0750584d07a81a2e291150143f/storages/cloud-archives/5a47396a6457316c626e527a4c6c4e4352773d3d
+Par exemple, pour uploader tout le contenu de 'local documents' vers 'remote documents':
 
-sftp pca@gateways.storage.sbg.cloud.ovh.net
+```
+rclone copy ./documents ovh:documents
+```
 
-Ensuite, le mot de passe est dans keepass "ovh password sftp photo archive"
+## Delete some file in remote
 
+Suppose we want to delete all .DS_Store in 'ovh:documents'
 
-on peut aussi le faire avec file zilla
+Ensure both source / dest match (using `rclone check` )
 
-On ne peut pas téléchargé les fichiers car il faut 'un frozen' les fichiers.
+When ok, delete local .DS_Store
 
-Comment Degeler / unfreeze :
+then
 
-Telecharger une premiere fois. Ca ne marche pas. Attendre. C'est unfreeze. re telecharger.
+```
+rclone sync ./documents ovh:documents
+```
