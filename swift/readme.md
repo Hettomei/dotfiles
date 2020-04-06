@@ -62,8 +62,15 @@ rclone check - Check if the files in the source and destination match.
 Par exemple, pour telecharger tout le contenu de 'remote documents' vers 'local documents':
 
 ```
-rclone copy y ./documents
+rclone copy ovh:documents ./documents
 ```
+
+lorsque les docs sont frozen, on peut parfois voir :
+```
+2020/04/06 14:06:20 NOTICE: Received retry after error - sleeping until 2020-04-07T01:16:07.043186046+02:00 (11h9m46.060466188s)
+```
+
+On peut relancer la commande tant qu'on veut, la date ne change pas.
 
 
 Par exemple, pour uploader tout le contenu de 'local documents' vers 'remote documents':
