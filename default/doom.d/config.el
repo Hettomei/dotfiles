@@ -439,7 +439,7 @@
    nil "*Shell Command Output*" t)
   (revert-buffer t t))
 
-(add-hook! 'after-save-hook #'tim-eslint-fix-file)
+;; (add-hook! 'after-save-hook #'tim-eslint-fix-file)
 
 (defun tim-oorr ()
   (interactive)
