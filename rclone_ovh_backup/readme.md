@@ -79,16 +79,65 @@ Par exemple, pour uploader tout le contenu de 'local documents' vers 'remote doc
 rclone copy ./documents ovh:documents
 ```
 
+# Copy et destination
+
+given remote :
+```
+documents
+  ./1.txt
+  ./2.txt
+```
+
+Si je fait
+
+```
+rclone copy --progress ovh:documents ./
+```
+
+rclone NE VA PAS CREER le dossier `documents` donc `1.txt` et `2.txt` seront directement `dans ./`
+
+Si je fait
+
+```
+rclone copy ovh:documents ./documents
+```
+
+rclone va CRÉER le dossier `documents` qui copy remote:documents
+
 ## Delete some file in remote
 
 Suppose we want to delete all .DS_Store in 'ovh:documents'
 
 Ensure both source / dest match (using `rclone check` )
 
+```
+$ rclone check ovh:documents ./documents
+2020/04/07 08:13:20 ERROR : travail/amazon/fdcr: Entry doesn't belong in directory "travail/amazon/fdcr" (too short) - ignoring
+2020/04/07 08:13:32 NOTICE: Local file system at /home/tgauthier/documents: 0 differences found
+2020/04/07 08:13:32 NOTICE: Local file system at /home/tgauthier/documents: 296 matching files
+```
+
+
 When ok, delete local .DS_Store
+```
+fd -H .DS_Store --exec rm {}
+```
+
 
 then
 
 ```
 rclone sync ./documents ovh:documents
+```
+
+# Delete a full path (folder and file)
+
+```
+rclone delete -vvvv ovh:"photos/folder with file"
+```
+
+# Remonter un dossier
+
+```
+rclone move --progress ovh:wrong-name/sub-folder ovh:sub-folder
 ```
