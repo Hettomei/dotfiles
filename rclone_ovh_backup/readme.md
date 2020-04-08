@@ -8,6 +8,21 @@ https://docs.ovh.com/fr/public-cloud/recuperer-les-donnees-provenant-de-pca/#ave
 
 https://docs.ovh.com/fr/storage/pca/sftp/
 
+# :warning: a savoir
+
+Attention, il est possible que la creation d un conteneur se fasse dans 'Object Storage' et non
+dans 'Public cloud archive' (pca)
+Object Storage est bcp plus cher.
+
+Une solution, mais pas verifier :
+Ajouter cette ligne dans rclone.conf :
+
+```
+storage_policy = pca
+```
+
+Et apres la creation d un conteneur, aller verifier sur l'interface OVH si dans le bon group.
+
 # Installation
 
 Besoin de rclone et un fichier secret.
