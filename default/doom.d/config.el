@@ -27,7 +27,7 @@
 (if (display-graphic-p)
     (setq doom-theme 'doom-one)
   (setq doom-theme 'doom-solarized-dark))
-  ;; (setq doom-theme 'doom-one))
+;; (setq doom-theme 'doom-one))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -65,12 +65,12 @@
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
 (custom-set-faces!
- '(line-number :foreground "dim gray")
- '(line-number-current-line :foreground "white")
- '(doom-modeline-project-dir :foreground "blue")
- '(doom-modeline-buffer-path   :foreground "blue")
- '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
- '(mode-line :background "light gray" :foreground "black" :height 80))
+  '(line-number :foreground "dim gray")
+  '(line-number-current-line :foreground "white")
+  '(doom-modeline-project-dir :foreground "blue")
+  '(doom-modeline-buffer-path   :foreground "blue")
+  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+  '(mode-line :background "light gray" :foreground "black" :height 80))
 
 (unless (display-graphic-p)
   (custom-set-faces!
@@ -174,8 +174,8 @@
   (interactive)
   (let ((bounds (bounds-of-thing-at-point 'word)))
     (if bounds
-          ;; kill-region will save it in kill ring. delete-region just delete
-          (kill-region (car bounds) (cdr bounds))
+        ;; kill-region will save it in kill ring. delete-region just delete
+        (kill-region (car bounds) (cdr bounds))
       (progn
         ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
         (forward-word)
@@ -255,7 +255,7 @@
 (add-hook 'after-change-major-mode-hook #'improve-word-length)
 
 ;; auto-fill-mode is automatic line break
-(remove-hook 'text-mode-hook #'auto-fill-mode)
+(remove-hook! 'text-mode-hook #'auto-fill-mode)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -311,8 +311,8 @@
 (defun tim-ivy-find-and-open-rightr ()
   (interactive)
   (ivy-dispatching-call))
-  ;; (split-window-right)
-  ;; (other-window 1))
+;; (split-window-right)
+;; (other-window 1))
 
 (defun tim-ivy-find-and-open-rightrr ()
   (message "open right")
@@ -357,7 +357,7 @@
   (define-key company-active-map (kbd "SPC") #'company-complete-selection))
 
 ;; (add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
-;; (remove-hook! 'company-completion-finished-hook 'tim-company-after-completion-hook)
+;; (remove-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
@@ -440,6 +440,11 @@
   (revert-buffer t t))
 
 ;; (add-hook! 'after-save-hook #'tim-eslint-fix-file)
+;;
+;; To enable it, just eval it M-:
+;; (add-hook! 'before-save-hook #'+format/buffer)
+;; (remove-hook! 'before-save-hook #'+format/buffer)
+
 
 (defun tim-oorr ()
   (interactive)
@@ -506,12 +511,12 @@
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile
-  ;;   (projectile-register-project-type 'npm '("package.json")
-  ;;                                     :compile ""
-  ;;                                     :test "yarn test"
-  ;;                                     :run "yarn start"
-  ;;                                     :test-suffix ".spec")
-  ;; (setq projectile-require-project-root nil))
+;;   (projectile-register-project-type 'npm '("package.json")
+;;                                     :compile ""
+;;                                     :test "yarn test"
+;;                                     :run "yarn start"
+;;                                     :test-suffix ".spec")
+;; (setq projectile-require-project-root nil))
 ;; to repaire path :
 ;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
 

@@ -1,0 +1,18 @@
+windows:
+  - name: "-"
+    root: ~/grandmgroup/hub-ecla
+    layout: 5386,206x57,0,0{103x57,0,0[103x14,0,0,0,103x12,0,15,2,103x14,0,28,3,103x14,0,43,4],102x57,104,0[102x37,104,0,1,102x19,104,38,5]}
+    focus: true
+    panes:
+    - commands: ["sleep 1", "cd ../hub-mobile"]
+    - commands: ["sleep 1", "cd ../hub-mobile"]
+    - commands: []
+    - commands: []
+    - commands: []
+    - commands: []
+  - name: "--"
+    root: ~/grandmgroup/hub-ecla
+    panes:
+        - git status
+  - name: "---"
+    root: ~/

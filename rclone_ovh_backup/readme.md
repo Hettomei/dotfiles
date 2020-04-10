@@ -42,6 +42,27 @@ Editer le fichier :
 
 Copier la conf de `rclone.sh` vers `~/.config/rclone/rclone.conf`
 
+# Sauvegarder / backup / copier un nouveau dossier:
+
+Supposons que `photos-2020` n'existe pas sur `ovh:photos-archive`
+
+Pour copier tout ce dossier :
+
+```
+rclone copy -P photos-2020 ovh:photos-archive/photos-2020
+```
+
+cela va automatiquement créé `photos-2020` sur ovh
+
+Si demain j'ajoute des photos dans `photos-2020`, refaire la meme commande, seul les nouveaux éléments vont etre copiés.
+
+et si jamais j ai supprimé des photos en local, elle ne seront pas supprimée à distance.
+
+```
+rclone copy -P photos-2020 ovh:photos-archive/photos-2020
+```
+
+
 # Voir les dossiers :
 
 2020/04/06 14:06:20 NOTICE: Received retry after error - sleeping until 2020-04-07T01:16:07.043186046+02:00 (11h9m46.060466188s)
@@ -155,4 +176,15 @@ rclone delete -vvvv ovh:"photos/folder with file"
 
 ```
 rclone move --progress ovh:wrong-name/sub-folder ovh:sub-folder
+```
+
+# commands
+
+```
+# Filter
+rclone --include "IMG_201708*" move -P ovh:photos-archive/nexus-2017 ovh:photos-archive/nexus-2017-08
+rclone size ovh:a/b/c
+rclone move -P ovh:a/b ovh:a/c
+rclone delete -P ovh:a/b
+rclone tree ovh:a/b
 ```
