@@ -350,11 +350,14 @@
   (setq company-idle-delay nil
         ;; allow code completion inside comments and string
         company-dabbrev-code-everywhere t
+        ;; press M-<digit> to select a given number
+        company-show-numbers t
         ;; allow code completion matching all buffer
         company-dabbrev-code-other-buffers 'all)
+  ;; you can do C-s to perform a search inside completion :)
   (define-key company-active-map (kbd "<tab>") #'company-complete-common)
-  ;; you can use space to complete word
-  (define-key company-active-map (kbd "SPC") #'company-complete-selection))
+  ;; vim mode !!!!!! thank you.
+  (company-tng-configure-default))
 
 ;; (add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
 ;; (remove-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
