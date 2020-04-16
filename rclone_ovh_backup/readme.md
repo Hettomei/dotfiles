@@ -183,6 +183,7 @@ rclone move --progress ovh:wrong-name/sub-folder ovh:sub-folder
 ```
 # Filter
 rclone --include "IMG_201708*" move -P ovh:photos-archive/nexus-2017 ovh:photos-archive/nexus-2017-08
+rclone --dry-run --include "IMG_201708*" move -P ovh:photos-archive/nexus-2017 ovh:photos-archive/nexus-2017-08
 rclone size ovh:a/b/c
 rclone move -P ovh:a/b ovh:a/c
 rclone delete -P ovh:a/b
