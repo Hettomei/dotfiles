@@ -121,40 +121,6 @@
     (message "Copied: %s" name)
     (kill-new name)))
 
-(defun tim-go-up-or-create ()
-  "Go up window. If error, create it"
-  (interactive)
-  (condition-case nil
-      (evil-window-up 1)
-    (user-error
-     (+evil-window-split-a)
-     (evil-window-up 1))))
-
-(defun tim-go-down-or-create ()
-  "Go down window. If error, create it"
-  (interactive)
-  (condition-case nil
-      (evil-window-down 1)
-    (user-error
-     (+evil-window-split-a))))
-
-(defun tim-go-left-or-create ()
-  "Go left window. If error, create it"
-  (interactive)
-  (condition-case nil
-      (evil-window-left 1)
-    (user-error
-     (+evil-window-vsplit-a)
-     (evil-window-left 1))))
-
-(defun tim-go-right-or-create ()
-  "Go right window. If error, create it"
-  (interactive)
-  (condition-case nil
-      (evil-window-right 1)
-    (user-error
-     (+evil-window-vsplit-a))))
-
 (defun tim-delete-and-replace-word ()
   "Delete the word and go in insert mode. When word is not found go forward-word"
   (interactive)
@@ -461,26 +427,6 @@
       :n "s" #'tim-middle-of-line
       :n "S" #'tim-middle-of-line-backward
 
-      :n "S-<up>" #'tim-go-up-or-create
-      ;; :n "C-<up>" #'tim-go-up-or-create
-      ;; :n "M-<up>" #'tim-go-up-or-create
-      ;; :n "C-k" #'tim-go-up-or-create
-
-      :n "S-<down>" #'tim-go-down-or-create
-      ;; :n "C-<down>" #'tim-go-down-or-create
-      ;; :n "M-<down>" #'tim-go-down-or-create
-      ;; :n "C-j" #'tim-go-down-or-create
-
-      :n "S-<left>" #'tim-go-left-or-create
-      ;; :n "C-<left>" #'tim-go-left-or-create
-      ;; :n "M-<left>" #'tim-go-left-or-create
-      ;; :n "C-h" #'tim-go-left-or-create ;; please do not remap on C-h
-
-      :n "S-<right>" #'tim-go-right-or-create
-      ;; :n "C-<right>" #'tim-go-right-or-create
-      ;; :n "M-<right>" #'tim-go-right-or-create
-      ;; :n "C-l" #'tim-go-right-or-create
-
       :n "*" #'tim-re-search-forward
       (:map doom-leader-map "*" #'tim-search-only-word)
       (:map doom-leader-map "/" #'tim-search-word)
@@ -512,6 +458,13 @@
 (map! :leader
       ;; my goal is to keep doom binding but replace p with d
       (:prefix-map ("x" . "project")))
+
+;; Auto create new window
+(setq windmove-create-window t)
+;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
+;; Let me switch windows with shift-arrows instead of "C-x o" all the time
+(windmove-default-keybindings)
+
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile
