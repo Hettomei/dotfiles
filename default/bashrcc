@@ -525,3 +525,26 @@ function meme {
 # get image size, use identify
 # identify test.png
 # test.png PNG 1000x625 1000x625+0+0 8-bit sRGB 74924B 0.000u 0:00.000
+
+######
+# Rename photo based on create exif tag
+# Will convert toto.jpg into 20190508_125833_toto.jpg
+#
+rename_based_on_tag() {
+#   exiftool -T -FileModifyDate -filename . | while read -r d t name
+# do
+  exiftool -T -createdate -filename . | while read -r d t name
+do
+  # echo "d: $d, t: $t, name: $name"
+
+  if [ -z "$name" ]
+  then
+    echo "d: $d, t: $t, name: $name \$name is empty ; no rename"
+    continue
+  fi
+
+  newname=$(echo "${d}_${t}_${name}" | sed 's/://g')
+  mv -v "$name"  "$newname"
+  # echo "$name" "->" "$newname"
+  done
+}

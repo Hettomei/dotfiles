@@ -492,7 +492,8 @@
       (:map doom-leader-map "y" #'tim-copy-word)
       (:map doom-leader-map "e" #'counsel-find-file)
 
-      :v "v" #'er/expand-region
+      ;; try this for a few days, if not good, rebind to :v only
+      :nv "v" #'er/expand-region
 
       ;; switch from camelCase snake_case kebab-case ...
       ;; see https://github.com/akicho8/string-inflection
