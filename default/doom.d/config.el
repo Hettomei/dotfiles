@@ -66,11 +66,11 @@
 
 (custom-set-faces!
   '(line-number :foreground "dim gray")
-  '(line-number-current-line :foreground "white")
-  '(doom-modeline-project-dir :foreground "blue")
-  '(doom-modeline-buffer-path   :foreground "blue")
-  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
-  '(mode-line :background "light gray" :foreground "black" :height 80))
+  '(line-number-current-line :foreground "white"))
+  ;; '(doom-modeline-project-dir :foreground "blue")
+  ;; '(doom-modeline-buffer-path   :foreground "blue")
+  ;; '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+  ;; '(mode-line :background "light gray" :foreground "black" :height 80))
 
 (unless (display-graphic-p)
   (custom-set-faces!
@@ -204,11 +204,6 @@
    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
          current-prefix-arg))
   (+default/search-project-for-symbol-at-point symbol arg))
-;; fdsfdsarg
-;; argdvfgvgfd
-;; vcdxsvfdcxargbvcxdvcdx
-;; arg
-
 
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
@@ -305,10 +300,6 @@
   (interactive)
   (shell-command "uuidgen" t))
 
-;; Add a space
-(defun tim-company-after-completion-hook (&rest _ignored)
-  (just-one-space))
-
 ;; complete anything http://company-mode.github.io/
 (use-package! company
   :config
@@ -325,13 +316,10 @@
   ;; vim mode !!!!!! thank you.
   (company-tng-configure-default))
 
-;; (add-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
-;; (remove-hook! 'company-completion-finished-hook #'tim-company-after-completion-hook)
-
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
-          ("C-p" . ivy-previous-history-element)
-          ("S-<right>" . tim-ivy-find-and-open-rightr))
+          ("C-p" . ivy-previous-history-element))
+          ;; ("S-<right>" . tim-ivy-find-and-open-rightr))
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
@@ -340,7 +328,6 @@
 
 
 (after! ivy
-
   ;; Thanks to
   ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
   ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
@@ -381,22 +368,6 @@
 
 (use-package! egg-timer)
 (use-package! string-inflection)
-
-;; Redefine syntax for vimrc file.
-;; Thanks to https://stackoverflow.com/questions/4236808/syntax-highlight-a-vimrc-file-in-emacs
-(define-generic-mode 'vimrc-generic-mode
-  '()
-  '()
-  '(("^[\t ]*:?\\(!\\|ab\\|map\\|unmap\\)[^\r\n\"]*\"[^\r\n\"]*\\(\"[^\r\n\"]*\"[^\r\n\"]*\\)*$"
-     (0 font-lock-warning-face))
-    ("\\(^\\|[\t ]\\)\\(\".*\\)$"
-     (2 font-lock-comment-face))
-    ("\"\\([^\n\r\"\\]\\|\\.\\)*\""
-     (0 font-lock-string-face)))
-  '("/vimrc\\'" "\\.vim\\(rc\\)?\\'")
-  '((lambda ()
-      (modify-syntax-entry ?\" ".")))
-  "Generic mode for Vim configuration files.")
 
 ;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
 ;; and to https://stackoverflow.com/questions/11613974/how-can-the-shell-command-output-buffer-be-kept-in-the-background
@@ -445,6 +416,7 @@
       ;; see https://github.com/akicho8/string-inflection
       ;; why gm ? because available and crm cause problem with "c"
       :n "gm" #'string-inflection-all-cycle
+
       ;; increment / decrement in doom
       :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
@@ -465,6 +437,7 @@
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
 (windmove-default-keybindings)
 
+(setq evil-cross-lines t)
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile

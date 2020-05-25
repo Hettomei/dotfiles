@@ -548,3 +548,11 @@ do
   # echo "$name" "->" "$newname"
   done
 }
+
+# one line
+# exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
+
+# Find duplicates and delete only the last one
+# fd '.' | xargs -d '\n' md5sum > md5sum.txt
+# sort md5sum.txt | uniq -w 32 -d
+# sort md5sum.txt | uniq -w 32 -d | cut -d' ' -f3 | xargs -I{} sh -c 'rm -v {}'
