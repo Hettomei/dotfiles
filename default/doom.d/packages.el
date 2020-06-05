@@ -59,7 +59,10 @@
 ;; But always show an annoying minibuffer information
 ;; more at https://github.com/ananthakumaran/tide
 (package! tide :disable t)
+
+;; disable solaire because it is not brighter
 (package! solaire-mode :disable t)
+
 ;; prefere a simpler yasnippet
 (package! doom-snippets :ignore t)
 
@@ -70,7 +73,6 @@
 
 (package! string-inflection
   :recipe (:host github :repo "akicho8/string-inflection"))
-
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/

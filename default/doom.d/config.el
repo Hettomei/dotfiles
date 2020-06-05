@@ -24,10 +24,12 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
 
-(if (display-graphic-p)
-    (setq doom-theme 'doom-one)
-  (setq doom-theme 'doom-solarized-dark))
-;; (setq doom-theme 'doom-one))
+;; (if (display-graphic-p)
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-vibrant)
+;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
+;; (setq doom-theme 'doom-solarized-dark))
+(setq doom-theme 'doom-one)
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -66,11 +68,14 @@
 
 (custom-set-faces!
   '(line-number :foreground "dim gray")
-  '(line-number-current-line :foreground "white"))
+  '(line-number-current-line :foreground "white")
   ;; '(doom-modeline-project-dir :foreground "blue")
   ;; '(doom-modeline-buffer-path   :foreground "blue")
-  ;; '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
-  ;; '(mode-line :background "light gray" :foreground "black" :height 80))
+  ;; '(mode-line-inactive :background "dim gray" :height 80)
+  ;; '(mode-line :background "light blue" :height 80))
+  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+  '(mode-line :background "black" :height 80))
+
 
 (unless (display-graphic-p)
   (custom-set-faces!
@@ -87,7 +92,7 @@
       ;; Try to disable to see if related with search jump
       ;; Always display 5 lines
       hscroll-margin 10
-      auto-hscroll-mode 'current-line
+      ;; auto-hscroll-mode 'current-line
       scroll-margin 5
       ;; Avoid jump when search
       scroll-preserve-screen-position nil
@@ -121,56 +126,39 @@
     (message "Copied: %s" name)
     (kill-new name)))
 
-(defun tim-delete-and-replace-word ()
-  "Delete the word and go in insert mode. When word is not found go forward-word"
+(defun tim/delete-and-go-insert ()
+  "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
-  (let ((bounds (bounds-of-thing-at-point 'word)))
-    (if bounds
-        (progn
-          ;; kill-region will save it in kill ring. Delete just delete
-          (delete-region (car bounds) (cdr bounds))
-          (evil-insert 1))
-      (progn
-        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-        (forward-word)
-        (tim-delete-and-replace-word)))))
+  (forward-word)
+  (backward-word)
+  (delete-region (point) (progn (forward-word) (point)))
+  (evil-insert 1))
 
-(defun tim-kill-word ()
-  "Delete the word and go in insert mode. When word is not found go forward-word"
+;; taken at https://github.com/wandersoncferreira/vim-mindset-apply-emacs
+(defun tim/kill-inner-word ()
+  "Kills the entire word your cursor is in. Equivalent to diw in vim."
   (interactive)
-  (let ((bounds (bounds-of-thing-at-point 'word)))
-    (if bounds
-        ;; kill-region will save it in kill ring. delete-region just delete
-        (kill-region (car bounds) (cdr bounds))
-      (progn
-        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-        (forward-word)
-        (tim-kill-word)))))
+  (forward-word)
+  (backward-word)
+  (kill-word 1))
 
-(defun tim-copy-word ()
-  "Copy the word. When word is not found go forward-word"
+(defun tim/copy-word ()
+  "Copy the word. Same as yiw"
   (interactive)
-  (let ((bounds (bounds-of-thing-at-point 'word)))
-    (if bounds
-        (copy-region-as-kill (car bounds) (cdr bounds))
-      (progn
-        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-        (forward-word)
-        (tim-copy-word)))))
+  (save-excursion
+    (forward-word)
+    (backward-word)
+    (copy-region-as-kill (point) (progn (forward-word) (point)))
+    (message "kill: %s" (car kill-ring))))
 
-(defun tim-replace-with-paste ()
-  "Delete the word and Paste another on it. When word is not found go forward-word. Do not save in register the replaced word"
+(defun tim/replace-with-kill-ring ()
+  "Delete the inner word and paste another on it. Do not save in register the replaced word"
   (interactive)
-  (let ((bounds (bounds-of-thing-at-point 'word)))
-    (if bounds
-        (progn
-          ;; kill-region will save it in kill ring. Delete just delete
-          (delete-region (car bounds) (cdr bounds))
-          (yank))
-      (progn
-        ;; When word not found.... continue. It will call this method a maximum of 500 (see max-lisp-eval-depth)
-        (forward-word)
-        (tim-replace-with-paste)))))
+  (save-excursion
+    (forward-word)
+    (backward-word)
+    (delete-region (point) (progn (forward-word) (point)))
+    (yank)))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -209,7 +197,7 @@
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (defun improve-word-length ()
-  "This way, when do a tim-copy-word on entry, it copies 'modify-syntax-entry'"
+  "This way, when do a tim/copy-word on entry, it copies 'modify-syntax-entry'"
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w"))
 
@@ -217,6 +205,9 @@
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
+
+;; I don't want persistent undo https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/undo/README.org#disabling-persistent-undo-history
+(remove-hook 'undo-fu-mode-hook #'global-undo-fu-session-mode)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -248,7 +239,21 @@
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
 ;; update: cannot disable in ./packages.el because it is a core package. Need to disable hook.
 (after! smartparens
+  (smartparens-mode -1)
   (smartparens-global-mode -1))
+
+(defun me/stop-smartparens ()
+  "This is a workaround because the after! is overriden by something else."
+  (smartparens-mode -1)
+  (smartparens-global-mode -1))
+
+;; # temporary workaround
+(add-hook 'after-change-major-mode-hook #'me/stop-smartparens)
+
+;; Try to disable it. Not working
+;; (use-package! smartparens
+;;   :config
+;;   (smartparens-global-mode -1))
 
 (defun tim-reuse-ivy-line-to-open-file (filename)
   (let ((file (car (split-string filename ":"))))
@@ -318,8 +323,8 @@
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
-          ("C-p" . ivy-previous-history-element))
-          ;; ("S-<right>" . tim-ivy-find-and-open-rightr))
+         ("C-p" . ivy-previous-history-element))
+  ;; ("S-<right>" . tim-ivy-find-and-open-rightr))
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
@@ -346,10 +351,6 @@
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
   (evil-snipe-mode -1))
-
-;; I don't want persistent undo
-(after! undo-tree
-  (setq undo-tree-auto-save-history nil))
 
 (after! counsel
   :config
@@ -399,18 +400,19 @@
       :n "S" #'tim-middle-of-line-backward
 
       :n "*" #'tim-re-search-forward
+      :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
+      :n "$" #'doom/forward-to-last-non-comment-or-eol
       (:map doom-leader-map "*" #'tim-search-only-word)
       (:map doom-leader-map "/" #'tim-search-word)
 
-      (:map doom-leader-map "r" #'tim-delete-and-replace-word)
-      ;; Temporary disable because doom map project on this
-      (:map doom-leader-map "d" #'tim-kill-word)
-      (:map doom-leader-map "p" #'tim-replace-with-paste)
-      (:map doom-leader-map "y" #'tim-copy-word)
+      (:map doom-leader-map "r" #'tim/delete-and-go-insert)
+      (:map doom-leader-map "d" #'tim/kill-inner-word)
+      (:map doom-leader-map "p" #'tim/replace-with-kill-ring)
+      (:map doom-leader-map "y" #'tim/copy-word)
       (:map doom-leader-map "e" #'counsel-find-file)
 
-      ;; try this for a few days, if not good, rebind to :v only
-      :nv "v" #'er/expand-region
+      ;; press v multiple time to expand region
+      :v "v" #'er/expand-region
 
       ;; switch from camelCase snake_case kebab-case ...
       ;; see https://github.com/akicho8/string-inflection
@@ -423,12 +425,11 @@
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
       :i  "C-n" #'+company/dabbrev
       :i  "C-p" #'+company/dabbrev
-      )
 
-;; taken from
-;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
-(map! :leader
+      ;; taken from
+      ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
       ;; my goal is to keep doom binding but replace p with d
+      :leader
       (:prefix-map ("x" . "project")))
 
 ;; Auto create new window
