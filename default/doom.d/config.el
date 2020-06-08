@@ -179,19 +179,11 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
-(defun tim-search-only-word (&optional symbol arg)
-  "Go right window. If error, create it"
-  (interactive
-   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
-         current-prefix-arg))
-  (let ((counsel-rg-base-command (concat counsel-rg-base-command " -w --case-sensitive")))
-    (+default/search-project-for-symbol-at-point symbol arg)))
-
-(defun tim-search-word (&optional symbol arg)
-  (interactive
-   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
-         current-prefix-arg))
-  (+default/search-project-for-symbol-at-point symbol arg))
+(defun tim/search-only-word ()
+  "Search only for word under cursor"
+  (interactive)
+  (let ((counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "--case-sensitive" "%s"))))
+    (call-interactively '+default/search-project-for-symbol-at-point)))
 
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
@@ -225,14 +217,13 @@
     (interactive)
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
-  (evil-define-motion tim-re-search-forward (count &optional symbol)
+  (evil-define-motion tim-re-search-forward ()
     "Fix bug when you are on the last search and it tells 'nothing is found'... which is wrong"
     :jump t
     :type exclusive
-    (interactive (list (prefix-numeric-value current-prefix-arg)
-                       evil-symbol-word-search))
+    (interactive)
     (let ((evil-search-wrap t)) ;; temporary override wrap
-      (evil-ex-search-word-forward count symbol))))
+      (call-interactively 'evil-ex-search-word-forward))))
 
 
 ;; disable smartparens that automatically completed " with a second " (same for ''())
@@ -355,8 +346,8 @@
 (after! counsel
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-  ;; (setq counsel-rg-base-command "rg --with-filename --no-heading --line-number --hidden --color never %s"))
-  (setq counsel-rg-base-command (concat counsel-rg-base-command " --hidden")))
+  ;; the --glob is to see .* file that are versionned BUT NOT .git folder
+  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--hidden" "--glob=!.git" "%s"))))
 
 ;; I don't want to quit insert mode with jk : remove
 (after! evil-escape
@@ -402,8 +393,8 @@
       :n "*" #'tim-re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
-      (:map doom-leader-map "*" #'tim-search-only-word)
-      (:map doom-leader-map "/" #'tim-search-word)
+      (:map doom-leader-map "*" #'tim/search-only-word)
+      (:map doom-leader-map "/" #'+default/search-project-for-symbol-at-point)
 
       (:map doom-leader-map "r" #'tim/delete-and-go-insert)
       (:map doom-leader-map "d" #'tim/kill-inner-word)
