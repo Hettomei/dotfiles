@@ -358,6 +358,16 @@
   :config
   (setq-default flycheck-disabled-checkers '(python-flake8)))
 
+(after! org
+  :config
+  ;; Do not change my changing window S-arrow
+  ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
+  ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
+  (define-key org-mode-map (kbd "<S-up>") nil)
+  (define-key org-mode-map (kbd "<S-down>") nil)
+  (define-key org-mode-map (kbd "<S-left>") nil)
+  (define-key org-mode-map (kbd "<S-right>") nil))
+
 (use-package! egg-timer)
 (use-package! string-inflection)
 
