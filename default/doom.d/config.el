@@ -246,34 +246,6 @@
 ;;   :config
 ;;   (smartparens-global-mode -1))
 
-(defun tim-reuse-ivy-line-to-open-file (filename)
-  (let ((file (car (split-string filename ":"))))
-    (message "try to open %s by splitting -> %s" file filename)
-    (condition-case err
-        (counsel-projectile-find-file-action file)
-      (void-function ; <- that s the error handler name
-       (message "open fail with projectile, try find-file. Error was: %s" err)
-       (find-file file))))
-  (ivy-resume))
-
-(defun tim-ivy-find-and-open-up (filename)
-  (split-window-below)
-  (tim-reuse-ivy-line-to-open-file filename))
-
-(defun tim-ivy-find-and-open-right (filename)
-  (split-window-right)
-  (other-window 1)
-  (tim-reuse-ivy-line-to-open-file filename))
-
-(defun tim-ivy-find-and-open-below (filename)
-  (split-window-below)
-  (other-window 1)
-  (tim-reuse-ivy-line-to-open-file filename))
-
-(defun tim-ivy-find-and-open-left (filename)
-  (split-window-right)
-  (tim-reuse-ivy-line-to-open-file filename))
-
 (defun tim-insert-random-uuid ()
   (interactive)
   (shell-command "uuidgen" t))
@@ -323,6 +295,10 @@
   (other-window 1)
   (tim/reuse-open-goto-line ivy-body))
 
+
+;; Thanks to
+;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
+;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
 (defun tim/reuse-open-goto-line (ivy-body)
   (message "reuse-open-goto-line ivy-body: %s" ivy-body)
   (let* ((tim/list (split-string ivy-body ":"))
@@ -338,9 +314,10 @@
     (when tim/number
       ;; goto-line is for interactive use
       (goto-char (point-min))
-      (forward-line (1- (string-to-number tim/number)))))
-  ;; (ivy-resume) # cannot call ivy-done after that when press enter :/
-  )
+      (forward-line (1- (string-to-number tim/number))))))
+  ;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
+  ;; Try, as a workaround , in a timer ; no luck
+  ;; (run-with-timer 0.1 nil 'ivy-resume))
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
@@ -352,18 +329,6 @@
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
-
-  ;; Thanks to
-  ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
-  ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
-  ;; I can open any windows using C-o then C-l C-k ....
-  (ivy-set-actions
-   t
-   '(
-     ("C-k" tim-ivy-find-and-open-up "open up")
-     ("C-l" tim-ivy-find-and-open-right "open right")
-     ("C-j" tim-ivy-find-and-open-below "open below")
-     ("C-h" tim-ivy-find-and-open-left "open left")))
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
   (minibuffer-depth-indicate-mode 99))
 
