@@ -297,64 +297,58 @@
 
 ;; Ugly hack :
 ;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
-(defun tim/ivy-right-async ()
-  (split-window-right)
-  (mode-line-other-buffer)
-  (other-window 1))
-
-(defun tim/ivy-right ()
+(defun tim/ivy-down-other ()
   (interactive)
-  (run-with-timer 0.2 nil 'tim/ivy-right-async)
-  (ivy-done))
-
-(defun tim/ivy-down-async ()
-  (split-window-below)
-  (mode-line-other-buffer)
-  (other-window 1))
-
-(defun tim/ivy-down ()
-  (interactive)
-  (run-with-timer 0.2 nil 'tim/ivy-down-async)
-  (ivy-done))
+  (ivy-exit-with-action #'tim/ivy-down-exit))
 
 (defun tim/ivy-left-other ()
   (interactive)
   (ivy-exit-with-action #'tim/ivy-left-exit))
 
+(defun tim/ivy-right-other ()
+  (interactive)
+  (ivy-exit-with-action #'tim/ivy-right-exit))
+
+(defun tim/ivy-down-exit (ivy-body)
+  (split-window-below)
+  (other-window 1)
+  (tim/reuse-open-goto-line ivy-body))
+
 (defun tim/ivy-left-exit (ivy-body)
-  (let ((file (car (split-string ivy-body ":")))
-        (line-n (string-to-number (car (cdr (split-string ivy-body ":"))))))
-    (message "ttiimm file: %s -- line: %s -- body: %s" file line-n ivy-body)
-    (split-window-right)
-    (other-window 1)
+  (split-window-right)
+  (tim/reuse-open-goto-line ivy-body))
+
+(defun tim/ivy-right-exit (ivy-body)
+  (split-window-right)
+  (other-window 1)
+  (tim/reuse-open-goto-line ivy-body))
+
+(defun tim/reuse-open-goto-line (ivy-body)
+  (message "reuse-open-goto-line ivy-body: %s" ivy-body)
+  (let* ((tim/list (split-string ivy-body ":"))
+         (file (car tim/list))
+         (tim/number (car (cdr tim/list))))
 
     (condition-case err
         (counsel-projectile-find-file-action file)
       (void-function ; <- that s the error handler name
        (message "open fail with projectile, try find-file. Error was: %s" err)
        (find-file file)))
-    (when line-n
+    ;; Thanks to https://stackoverflow.com/questions/3139970/open-a-file-at-line-with-filenameline-syntax
+    (when tim/number
       ;; goto-line is for interactive use
       (goto-char (point-min))
-      (forward-line (1- line-n)))))
-;; (ivy-resume)) # cannot call ivy-done after that when press enter :/
-
-(defun tim/open-file (filename)
-  (let ((file (car (split-string filename ":"))))
-    (message "try to open %s by splitting -> %s" file filename)
-    (condition-case err
-        (counsel-projectile-find-file-action file)
-      (void-function ; <- that s the error handler name
-       (message "open fail with projectile, try find-file. Error was: %s" err)
-       (find-file file))))
-  (ivy-resume))
+      (forward-line (1- (string-to-number tim/number)))))
+  ;; (ivy-resume) # cannot call ivy-done after that when press enter :/
+  )
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
          ("C-p" . ivy-previous-history-element)
-         ("<S-right>" . tim/ivy-right)
-         ("<S-down>" . tim/ivy-down)
-         ("<S-left>" . tim/ivy-left-other))
+         ("<S-down>" . tim/ivy-down-other)
+         ;; no up to avoid changing buffer problems
+         ("<S-left>" . tim/ivy-left-other)
+         ("<S-right>" . tim/ivy-right-other))
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
