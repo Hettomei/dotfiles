@@ -265,17 +265,6 @@
   (other-window 1)
   (tim-reuse-ivy-line-to-open-file filename))
 
-(defun tim-ivy-find-and-open-rightr ()
-  (interactive)
-  (ivy-dispatching-call))
-;; (split-window-right)
-;; (other-window 1))
-
-(defun tim-ivy-find-and-open-rightrr ()
-  (message "open right")
-  (split-window-right)
-  (other-window 1))
-
 (defun tim-ivy-find-and-open-below (filename)
   (split-window-below)
   (other-window 1)
@@ -283,13 +272,6 @@
 
 (defun tim-ivy-find-and-open-left (filename)
   (split-window-right)
-  (tim-reuse-ivy-line-to-open-file filename))
-
-;; +evil/window-move-right is not mean to do what i want
-(defun tim-ivy-find-and-open-full-right (filename)
-  (split-window-right)
-  (other-window 1)
-  (+evil/window-move-right)
   (tim-reuse-ivy-line-to-open-file filename))
 
 (defun tim-insert-random-uuid ()
@@ -312,18 +294,71 @@
   ;; vim mode !!!!!! thank you.
   (company-tng-configure-default))
 
+
+;; Ugly hack :
+;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
+(defun tim/ivy-right-async ()
+  (split-window-right)
+  (mode-line-other-buffer)
+  (other-window 1))
+
+(defun tim/ivy-right ()
+  (interactive)
+  (run-with-timer 0.2 nil 'tim/ivy-right-async)
+  (ivy-done))
+
+(defun tim/ivy-down-async ()
+  (split-window-below)
+  (mode-line-other-buffer)
+  (other-window 1))
+
+(defun tim/ivy-down ()
+  (interactive)
+  (run-with-timer 0.2 nil 'tim/ivy-down-async)
+  (ivy-done))
+
+(defun tim/ivy-left-other ()
+  (interactive)
+  (ivy-exit-with-action #'tim/ivy-left-exit))
+
+(defun tim/ivy-left-exit (ivy-body)
+  (let ((file (car (split-string ivy-body ":")))
+        (line-n (string-to-number (car (cdr (split-string ivy-body ":"))))))
+    (message "ttiimm file: %s -- line: %s -- body: %s" file line-n ivy-body)
+    (split-window-right)
+    (other-window 1)
+
+    (condition-case err
+        (counsel-projectile-find-file-action file)
+      (void-function ; <- that s the error handler name
+       (message "open fail with projectile, try find-file. Error was: %s" err)
+       (find-file file)))
+    (when line-n
+      ;; goto-line is for interactive use
+      (goto-char (point-min))
+      (forward-line (1- line-n)))))
+;; (ivy-resume)) # cannot call ivy-done after that when press enter :/
+
+(defun tim/open-file (filename)
+  (let ((file (car (split-string filename ":"))))
+    (message "try to open %s by splitting -> %s" file filename)
+    (condition-case err
+        (counsel-projectile-find-file-action file)
+      (void-function ; <- that s the error handler name
+       (message "open fail with projectile, try find-file. Error was: %s" err)
+       (find-file file))))
+  (ivy-resume))
+
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
-         ("C-p" . ivy-previous-history-element))
-  ;; ("S-<right>" . tim-ivy-find-and-open-rightr))
+         ("C-p" . ivy-previous-history-element)
+         ("<S-right>" . tim/ivy-right)
+         ("<S-down>" . tim/ivy-down)
+         ("<S-left>" . tim/ivy-left-other))
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
-  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-  (minibuffer-depth-indicate-mode 99))
 
-
-(after! ivy
   ;; Thanks to
   ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
   ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
@@ -333,11 +368,11 @@
    '(
      ("C-k" tim-ivy-find-and-open-up "open up")
      ("C-l" tim-ivy-find-and-open-right "open right")
-     ;; ("C-<right>" tim-ivy-find-and-open-rightrr "open right")
-     ;; ("C-l" tim-ivy-find-and-open-rightrr "open right")
-     ;; ("C-L" tim-ivy-find-and-open-full-right "open full right")
      ("C-j" tim-ivy-find-and-open-below "open below")
-     ("C-h" tim-ivy-find-and-open-left "open left"))))
+     ("C-h" tim-ivy-find-and-open-left "open left")))
+  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
+  (minibuffer-depth-indicate-mode 99))
+
 
 ;; Keep evil-snipe but disable 's' mapping
 (after! evil-snipe
