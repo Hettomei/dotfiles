@@ -83,7 +83,7 @@
 
 (global-whitespace-mode)
 
-(setq doom-font (font-spec :family "monospace" :size 14 :weight 'semi-light)
+(setq doom-font (font-spec :family "monospace" :size 17)
       doom-variable-pitch-font (font-spec :family "sans")
 
       ;; Uncomment this line if you don't like having a prompt that ask to quit
@@ -207,17 +207,17 @@
         evil-split-window-below t
         evil-vsplit-window-right t)
 
-  (evil-define-motion tim-middle-of-line ()
+  (evil-define-motion tim/middle-of-line ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     :type inclusive
     (goto-char (/ (+ (point) (point-at-eol)) 2)))
 
-  (evil-define-motion tim-middle-of-line-backward ()
+  (evil-define-motion tim/middle-of-line-backward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     (interactive)
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
-  (evil-define-motion tim-re-search-forward ()
+  (evil-define-motion tim/re-search-forward ()
     "Fix bug when you are on the last search and it tells 'nothing is found'... which is wrong"
     :jump t
     :type exclusive
@@ -246,7 +246,7 @@
 ;;   :config
 ;;   (smartparens-global-mode -1))
 
-(defun tim-insert-random-uuid ()
+(defun tim/insert-random-uuid ()
   (interactive)
   (shell-command "uuidgen" t))
 
@@ -363,26 +363,15 @@
   (define-key org-mode-map (kbd "<S-right>") nil))
 
 (use-package! egg-timer)
+;; see mapping to gm bellow
 (use-package! string-inflection)
 
-;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
-;; and to https://stackoverflow.com/questions/11613974/how-can-the-shell-command-output-buffer-be-kept-in-the-background
-(defun tim-eslint-fix-file ()
-  (interactive)
-  (message "eslint --fix the file" (buffer-file-name))
-  (call-process-shell-command
-   (concat "yarn eslint --fix " (buffer-file-name))
-   nil "*Shell Command Output*" t)
-  (revert-buffer t t))
-
-;; (add-hook! 'after-save-hook #'tim-eslint-fix-file)
-;;
+;; If auto formating is annoying :
 ;; To enable it, just eval it M-:
 ;; (add-hook! 'before-save-hook #'+format/buffer)
 ;; (remove-hook! 'before-save-hook #'+format/buffer)
 
-
-(defun tim-oorr ()
+(defun tim/oorr ()
   (interactive)
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
@@ -391,10 +380,10 @@
       :n "C-p" #'+ivy/projectile-find-file
       :n "C-w x" #'window-swap-states
 
-      :n "s" #'tim-middle-of-line
-      :n "S" #'tim-middle-of-line-backward
+      :n "s" #'tim/middle-of-line
+      :n "S" #'tim/middle-of-line-backward
 
-      :n "*" #'tim-re-search-forward
+      :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
       (:map doom-leader-map "*" #'tim/search-only-word)
@@ -554,3 +543,8 @@
 ;;           ivy-backward-delete-char))
 ;;   (keyfreq-mode 1)
 ;;   (keyfreq-autosave-mode 1))
+
+
+;; how to let a shell command updating a file :
+;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
+;; and to https://stackoverflow.com/questions/11613974/how-can-the-shell-command-output-buffer-be-kept-in-the-background
