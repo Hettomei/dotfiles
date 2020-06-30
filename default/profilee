@@ -32,3 +32,8 @@ if [ "$(command -v yarn)" ]
 then
   PATH="$(yarn global bin):$PATH"
 fi
+
+if [ "$(command -v gem)" ]
+then
+  PATH="$PATH:$(gem environment gemdir)/bin"
+fi
