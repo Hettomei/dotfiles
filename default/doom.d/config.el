@@ -179,7 +179,7 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
-(defun tim/search-only-word ()
+(defun tim/search-project-only-word ()
   "Search only for word under cursor"
   (interactive)
   (let ((counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "--case-sensitive" "%s"))))
@@ -341,7 +341,9 @@
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--hidden" "--glob=!.git" "%s"))))
+  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--hidden" "--glob=!.git" "%s"))
+        ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
+        counsel-find-file-ignore-regexp nil))
 
 ;; I don't want to quit insert mode with jk : remove
 (after! evil-escape
@@ -377,7 +379,6 @@
   (shell-command "adb shell input text \"RR\""))
 
 (map! (:map doom-leader-map "SPC" #'save-buffer)
-      :n "C-p" #'+ivy/projectile-find-file
       :n "C-w x" #'window-swap-states
 
       :n "s" #'tim/middle-of-line
@@ -386,8 +387,10 @@
       :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
-      (:map doom-leader-map "*" #'tim/search-only-word)
+      (:map doom-leader-map "*" #'tim/search-project-only-word)
       (:map doom-leader-map "/" #'+default/search-project-for-symbol-at-point)
+      :n "S-C-p" #'counsel-projectile-find-file-dwim
+      :n "C-p" #'+ivy/projectile-find-file
 
       (:map doom-leader-map "r" #'tim/delete-and-go-insert)
       (:map doom-leader-map "d" #'tim/kill-inner-word)

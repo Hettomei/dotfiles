@@ -27,10 +27,8 @@
   c  = commit
   cm = commit -m
   ca = commit --amend
-  d = diff
   ; not possible as git run in sub shell; si gg<TAB> in bashrc
   ; root = !cd $(git rev-parse --show-toplevel)
-  dc = diff --cached
   dic = diff --cached
   diw = diff --color-words
   dicw = diff --cached --color-words
