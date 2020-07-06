@@ -185,6 +185,19 @@
   (let ((counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "--case-sensitive" "%s"))))
     (call-interactively '+default/search-project-for-symbol-at-point)))
 
+
+(defun tim/company-dabbrev-open-and-select ()
+  "display popup AND select first one"
+  (interactive)
+  (call-interactively '+company/dabbrev)
+  (call-interactively 'company-select-next))
+
+(defun tim/company-dabbrev-open-and-select-previous ()
+  "display popup AND select first one"
+  (interactive)
+  (call-interactively '+company/dabbrev)
+  (call-interactively 'company-select-previous))
+
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
@@ -422,8 +435,8 @@
       :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
-      :i  "C-n" #'+company/dabbrev
-      :i  "C-p" #'+company/dabbrev
+      :i  "C-n" #'tim/company-dabbrev-open-and-select
+      :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
 
       ;; taken from
       ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
