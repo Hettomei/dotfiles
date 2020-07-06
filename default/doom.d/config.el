@@ -197,9 +197,12 @@
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
+;; Can be enabled when you want with SPC-t-w
+(remove-hook! 'text-mode-hook #'visual-line-mode)
 
 ;; I don't want persistent undo https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/undo/README.org#disabling-persistent-undo-history
 (remove-hook 'undo-fu-mode-hook #'global-undo-fu-session-mode)
+(add-hook 'window-configuration-change-hook 'balance-windows)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -327,8 +330,14 @@
          ("<S-left>" . tim/ivy-left-other)
          ("<S-right>" . tim/ivy-right-other))
   :config (setq ivy-wrap nil
-                ivy-count-format "%d/%d "
-                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
+           ivy-count-format "%d/%d "
+           ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
+           ivy-re-builders-alist '((t . ivy--regex-plus)))
+           ;; Default doom emacs was :
+           ;; ((counsel-rg . ivy--regex-plus)
+           ;;  (swiper . ivy--regex-plus)
+           ;;  (swiper-isearch . ivy--regex-plus)
+           ;;  (t . ivy--regex-ignore-order)))
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
   (minibuffer-depth-indicate-mode 99))
 
