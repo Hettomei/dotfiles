@@ -281,7 +281,8 @@
         company-dabbrev-code-other-buffers 'all
         company-dabbrev-other-buffers 'all)
   ;; you can do C-s to perform a search inside completion :)
-  (define-key company-active-map (kbd "<tab>") #'company-complete-common)
+  (map! :map company-active-map "TAB" #'company-complete-common)
+
   ;; vim mode !!!!!! thank you.
   (company-tng-configure-default))
 
@@ -384,10 +385,10 @@
   ;; Do not change my changing window S-arrow
   ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
   ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
-  (define-key org-mode-map (kbd "<S-up>") nil)
-  (define-key org-mode-map (kbd "<S-down>") nil)
-  (define-key org-mode-map (kbd "<S-left>") nil)
-  (define-key org-mode-map (kbd "<S-right>") nil))
+  (map! :map org-mode-map "<S-up>" nil)
+  (map! :map org-mode-map "<S-down>" nil)
+  (map! :map org-mode-map "<S-left>" nil)
+  (map! :map org-mode-map "<S-right>" nil))
 
 (use-package! egg-timer)
 ;; see mapping to gm bellow
