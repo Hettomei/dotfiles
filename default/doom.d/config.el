@@ -262,8 +262,11 @@
         company-dabbrev-code-everywhere t
         ;; press M-<digit> to select a given number
         company-show-numbers t
+        ;; Go back to first item
+        company-selection-wrap-around t
         ;; allow code completion matching all buffer
-        company-dabbrev-code-other-buffers 'all)
+        company-dabbrev-code-other-buffers 'all
+        company-dabbrev-other-buffers 'all)
   ;; you can do C-s to perform a search inside completion :)
   (define-key company-active-map (kbd "<tab>") #'company-complete-common)
   ;; vim mode !!!!!! thank you.
