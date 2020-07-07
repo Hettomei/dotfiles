@@ -76,7 +76,6 @@
   '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
   '(mode-line :background "black" :height 80))
 
-
 (unless (display-graphic-p)
   (custom-set-faces!
     '(font-lock-doc-face :foreground "#ffffff")))
@@ -102,6 +101,27 @@
       ;; They're generally unhelpful and only add confusing visual clutter.
       mode-line-default-help-echo nil
       show-help-function nil)
+
+;; Taken at https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
+;; this will keep emacs size/fullscreen :)
+(when-let (dims (doom-store-get 'last-frame-size))
+  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+    (setq initial-frame-alist
+          (append initial-frame-alist
+                  `((left . ,left)
+                    (top . ,top)
+                    (width . ,width)
+                    (height . ,height)
+                    (fullscreen . ,fullscreen))))))
+
+(defun save-frame-dimensions ()
+  (doom-store-put 'last-frame-size
+                  (list (frame-position)
+                        (frame-width)
+                        (frame-height)
+                        (frame-parameter nil 'fullscreen))))
+
+(add-hook 'kill-emacs-hook #'save-frame-dimensions)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
