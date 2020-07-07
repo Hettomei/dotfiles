@@ -5,13 +5,13 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 DIR="$CURRENT_DIR/${1:-default}"
 
-mkdir -p $DIR
-echo "Copy file into" $DIR
+mkdir -p "$DIR"
+echo "Copy file into" "$DIR"
 
 # File that start with a '.'
-for file_name in 'gitconfig' 'irbrc' 'gemrc' 'bashrcc' 'profilee' 'tmux.conf'
+for file_name in 'gitconfig' 'irbrc' 'gemrc' 'bashrcc' 'profilee' 'tmux.conf' 'bash_logout'
 do
-  cp -v $HOME/.$file_name $DIR/$file_name
+  cp -v "$HOME/.$file_name" "$DIR/$file_name"
 done
 
 #### Emacs ####
@@ -26,20 +26,20 @@ mv "$DIR/.doom.d" "$DIR/doom.d"
 # done
 
 #### Nvim ####
-rm -r $DIR/nvim
-mkdir $DIR/nvim
+rm -r "$DIR/nvim"
+mkdir "$DIR/nvim"
 
-cp -v $HOME/.config/nvim/init.vim $DIR/nvim/init.vim
-cp -v -R $HOME/.config/nvim/my_snippets $DIR/nvim/
+cp -v "$HOME/.config/nvim/init.vim" "$DIR/nvim/init.vim"
+cp -v -R "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
 
 #### teamocil ####
-rm -r $DIR/teamocil
-mkdir $DIR/teamocil
-cp -v -R $HOME/.teamocil/* $DIR/teamocil
+rm -r "$DIR/teamocil"
+mkdir "$DIR/teamocil"
+cp -v -R $HOME/.teamocil/* "$DIR/teamocil"
 
 
 #### commit ####
-cd $CURRENT_DIR
+cd "$CURRENT_DIR"
 
 git add -p
 git status
