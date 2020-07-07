@@ -13,11 +13,22 @@ cp -v $DIR/gitconfig $HOME/.gitconfig
 
 cat <<-____HERE
 
-On the first install, please do
-
+--- FIRST INSTALL ---
 echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile
 
+--- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'
+If you want a user per project you can edit PROJECT_PATH/.git/config
+or you can run
+git config user.email timothee.gauthier@consertotech.pro
+
+--- HISTORY ---
+Remember on xubuntu there is a problem with history / HISTSIZE....
+and you may need to update /etc/bash.bashrc
+I put a link on top of .bashrcc that explain it
+
+---- LOGOUT ---
+There is a default/bash_logout that save history. It wasn't copied. you have to do it manually
 
 ____HERE
