@@ -556,3 +556,11 @@ do
 # fd '.' | xargs -d '\n' md5sum > md5sum.txt
 # sort md5sum.txt | uniq -w 32 -d
 # sort md5sum.txt | uniq -w 32 -d | cut -d' ' -f3 | xargs -I{} sh -c 'rm -v {}'
+
+# Add midle click emulation :
+# xev | grep button
+# xinput list | grep -e Deat
+# xinput list-props 11 | grep Emul
+# libinput Middle Emulation Enabled (342):        0
+# sudo xinput --set-prop 11 342 1
+

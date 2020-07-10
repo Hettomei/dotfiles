@@ -202,7 +202,11 @@
 (defun tim/search-project-only-word ()
   "Search only for word under cursor"
   (interactive)
-  (let ((counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "--case-sensitive" "%s"))))
+  ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
+  ;; so it override --case-sensitive. But setting it as always, and we mess the search file...
+  (let ((ivy-case-fold-search-default nil)
+        (counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "%s"))))
+
     (call-interactively '+default/search-project-for-symbol-at-point)))
 
 
@@ -235,7 +239,7 @@
 
 ;; I don't want persistent undo https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/undo/README.org#disabling-persistent-undo-history
 (remove-hook 'undo-fu-mode-hook #'global-undo-fu-session-mode)
-(add-hook 'window-configuration-change-hook 'balance-windows)
+; (add-hook 'window-configuration-change-hook 'balance-windows)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -387,7 +391,7 @@
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--hidden" "--glob=!.git" "%s"))
+  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
         counsel-find-file-ignore-regexp nil))
 
@@ -459,11 +463,13 @@
       :i  "C-n" #'tim/company-dabbrev-open-and-select
       :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
 
+      "<f5>" #'tim/oorr
       ;; taken from
       ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
       ;; my goal is to keep doom binding but replace p with d
       :leader
       (:prefix-map ("x" . "project")))
+
 
 ;; Auto create new window
 (setq windmove-create-window t)

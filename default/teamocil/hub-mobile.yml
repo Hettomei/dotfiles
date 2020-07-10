@@ -1,6 +1,6 @@
 windows:
   - name: "-"
-    root: ~/grandmgroup/hub-mobile
+    root: ~/grandmgroup/mobile-app
     layout: tiled
     focus: true
     panes:
@@ -9,7 +9,7 @@ windows:
         - echo ""
         - echo ""
   - name: " - "
-    root: ~/grandmgroup/hub-mobile
+    root: ~/grandmgroup/mobile-app
     layout: even-horizontal
     panes:
         - git status
