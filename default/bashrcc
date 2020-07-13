@@ -27,6 +27,8 @@ alias pps='ps aux | grep'
 # alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
 alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
 alias aglarger="ag --pager less --case-sensitive"
+alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
+
 
 fuzzy(){
   fzf -f "$1"

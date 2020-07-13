@@ -29,6 +29,9 @@ and you may need to update /etc/bash.bashrc
 I put a link on top of .bashrcc that explain it
 
 ---- LOGOUT ---
-There is a default/bash_logout that save history. It wasn't copied. you have to do it manually
+There is a default/bash_logout that save history. It wasn't copied.
+** you have to do it manually : **
+cp default/bash_logout ~/.bash_logout
+mkdir ~/history_backups
 
 ____HERE
