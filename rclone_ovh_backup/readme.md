@@ -189,3 +189,11 @@ rclone move -P ovh:a/b ovh:a/c
 rclone delete -P ovh:a/b
 rclone tree ovh:a/b
 ```
+
+# Du telephone vers ovh :
+
+```
+rclone --include '*202007*' copy -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/' ./need_sync/tim-2020-07
+rclone copy -P need_sync/tim-2020-06 ovh:photos-archive/2020/tim-2020-07
+rclone --include '*202007*' delete -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/'
+```
