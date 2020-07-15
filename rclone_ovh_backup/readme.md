@@ -59,7 +59,7 @@ Si demain j'ajoute des photos dans `photos-2020`, refaire la meme commande, seul
 et si jamais j ai supprimé des photos en local, elle ne seront pas supprimée à distance.
 
 ```
-rclone copy -P photos-2020 ovh:photos-archive/photos-2020
+rclone copy -P photos-2020 ovh:photos-archive/2020/photos-2020
 ```
 
 
