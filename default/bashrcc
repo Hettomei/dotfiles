@@ -13,7 +13,6 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
-# alias v='emacs -nw'
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -22,37 +21,10 @@ alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pps='ps aux | grep'
 
-# alias for ag
-# keep to know how to ignore more than juste .gitignore
-# alias a='ag --pager less --case-sensitive --path-to-ignore ".agignorecustom"'
-alias a="ag --path-to-ignore '$HOME/.agignorecustom' --pager 'less --chop-long-lines' --case-sensitive"
-alias aglarger="ag --pager less --case-sensitive"
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
+alias rglarger='rg -uuuuuu --ignore-case'
 
-
-fuzzy(){
-  fzf -f "$1"
-}
-
-vv(){
-  # xargs keep a running proccess. Find another way
-  # fuzzy "$1" | head -1 | xargs nvim
-  # fuzzy "$1" | head | xargs nvim
-  echo 'please rework this'
-}
-
-
-af(){
-  ag --pager less -ig "$@"
-}
-
-aff(){
-  fzf -f "$@"
-}
-
-# --unrestricted -> ALL fiels (ignore .gitignore and .agignore)
-alias aflarger='ag --pager less --unrestricted -ig'
-
+# Will be replaced by emacs
 alias todo="nvim +Todo"
 alias tod="nvim +Todo"
 alias fait="nvim +Fait"
@@ -98,8 +70,7 @@ if [ "$OS" == "Linux" ]; then
   # will return only what have been COPIED explicitely
   alias pbcopy='xclip -selection clipboard'
   alias pbpaste='xclip -o -sel clipboard'
-  alias n=nautilus
-  alias c=chrono_rb
+  command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
 fi
 
 export EDITOR=nvim
@@ -140,37 +111,35 @@ stty werase undef
 bind '\C-w:backward-kill-word'
 
 command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
-command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
 
 # https://github.com/junegunn/fzf
-# If you use vi mode on bash, you need to add set -o vi before source ~/.fzf.bash in your .bashrc, so that it correctly sets up key bindings for vi mode.
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Commented because ;
+# need to read again how to use and configure fzf
+# need to change ag -l to fd
 
-if [ "$(command -v fzf)" ]
-then
-  complete -F _fzf_path_completion v
-  if [ "$(command -v ag)" ]
-  then
-    # not needed because we changed _fzf_compgen_path to make it works during auto completion
-    export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-    _fzf_compgen_path() {
-      ag --nocolor -i -g "$1"
-    }
-  fi
+# if [ "$(command -v fzf)" ]
+# then
+  # If you use vi mode on bash, you need to add set -o vi before source ~/.fzf.bash in your .bashrc,
+  # so that it correctly sets up key bindings for vi mode.
+  # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  # complete -F _fzf_path_completion v
+  # if [ "$(command -v fd)" ]
+  # then
+  #   # not needed because we changed _fzf_compgen_path to make it works during auto completion
+  #   export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+  #   _fzf_compgen_path() {
+  #     ag --nocolor -i -g "$1"
+  #   }
+  # fi
   # -m : allow multiple select
-  export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
-fi
+  # export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
+# fi
 
 #### PYTHON
 
-if [ -z "$TMUX" ]
-then
-  # Inside bash, we load pyenv, and wont load it inside tmux
-    if [ -d "$HOME/.pyenv/bin" ] ; then
-      export PATH="$HOME/.pyenv/bin:$PATH"
-      eval "$(pyenv init -)"
-      eval "$(pyenv virtualenv-init -)"
-    fi
+if [ -d "$HOME/.pyenv/bin" ] ; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
 
 

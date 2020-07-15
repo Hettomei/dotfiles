@@ -32,3 +32,8 @@ if [ "$(command -v yarn)" ]
 then
   PATH="$(yarn global bin):$PATH"
 fi
+
+if [ -d "$HOME/.pyenv/bin" ] ; then
+  # avoid to load it multiple times
+  export PATH="$PATH:$HOME/.pyenv/bin"
+fi
