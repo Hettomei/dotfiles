@@ -5,12 +5,14 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 DIR="$CURRENT_DIR/${1:-default}"
 
-mkdir "$HOME/.doom.d"
+mkdir -p "$HOME/.doom.d/snippets"
 # Add here a list of file you want to copy
 for file_name in 'init.el' 'config.el' 'packages.el'
 do
   cp -v "$DIR/doom.d/$file_name" "$HOME/.doom.d/$file_name"
 done
+
+cp -v -r "$DIR/doom.d/snippets" "$HOME/.doom.d/"
 
 # Cannot do :
 # cp -v -r "$DIR/doom.d" "$HOME"
