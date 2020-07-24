@@ -414,9 +414,13 @@
   (map! :map org-mode-map "<S-left>" nil)
   (map! :map org-mode-map "<S-right>" nil))
 
-(use-package! egg-timer)
 ;; see mapping to gm bellow
 (use-package! string-inflection)
+
+(use-package! projectile
+  :config
+  ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
+  (setq projectile-enable-caching nil))
 
 ;; If auto formating is annoying :
 ;; To enable it, just eval it M-:

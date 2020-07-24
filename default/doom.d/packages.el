@@ -69,8 +69,6 @@
 
 ;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
 (package! keyfreq :disable t)
-(package! egg-timer
-  :recipe (:host github :repo "wpcarro/egg-timer.el"))
 
 (package! string-inflection
   :recipe (:host github :repo "akicho8/string-inflection"))
