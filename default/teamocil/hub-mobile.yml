@@ -6,8 +6,6 @@ windows:
     panes:
         - echo "yarn start"
         - echo "yarn android"
-        - echo ""
-        - echo ""
   - name: " - "
     root: ~/grandmgroup/mobile-app
     layout: even-horizontal
