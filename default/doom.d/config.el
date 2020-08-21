@@ -142,14 +142,23 @@
   (backward-word)
   (kill-word 1))
 
-(defun tim/copy-word ()
-  "Copy the word. Same as yiw"
+(defun tim/copy-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
   (interactive)
-  (save-excursion
-    (forward-word)
-    (backward-word)
-    (copy-region-as-kill (point) (progn (forward-word) (point)))
-    (message "kill: %s" (car kill-ring))))
+  (let ((thing (thing-at-point 'symbol)))
+    (cond (thing
+           (kill-new thing) (message "kill: %s" thing))
+          (t
+           (forward-char) (tim/copy-symbol)))))
+
+(defun tim/copy-append-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
+  (interactive)
+  (let ((thing (thing-at-point 'symbol 'no-properties)))
+    (cond (thing
+           (kill-append (concat " " thing) nil) (message "In kill: %s" (current-kill 0 'do-not-move)))
+          (t
+           (forward-char) (tim/copy-symbol)))))
 
 (defun tim/replace-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
@@ -469,7 +478,8 @@
       :desc "Delete and go insert" "r" #'tim/delete-and-go-insert
       :desc "Kill word" "d" #'tim/kill-inner-word
       :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
-      :desc "Copy word" "y" #'tim/copy-word
+      :desc "Copy symbol" "y" #'tim/copy-symbol
+      :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
       :desc "Select file" "e" #'counsel-find-file
 
       (:prefix-map ("x" . "project")))
