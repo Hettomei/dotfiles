@@ -123,7 +123,7 @@
   "Copy the buffer full path."
   (interactive)
   (let ((name (tim/get-file-path)))
-    (message "Copied: %s" name)
+    (message "current-kill: %s" name)
     (kill-new name)))
 
 (defun tim/delete-and-go-insert ()
@@ -134,20 +134,19 @@
   (delete-region (point) (progn (forward-word) (point)))
   (evil-insert 1))
 
-;; taken at https://github.com/wandersoncferreira/vim-mindset-apply-emacs
-(defun tim/kill-inner-word ()
-  "Kills the entire word your cursor is in. Equivalent to diw in vim."
+(defun tim/kill-symbol-at-point ()
+  "Kills the entire symbol your cursor is in."
   (interactive)
-  (forward-word)
-  (backward-word)
-  (kill-word 1))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (kill-region (car thing) (cdr thing))
+    (message "current-kill: %s" (current-kill 0 'do-not-move))))
 
 (defun tim/copy-symbol ()
   "Copy the symbol at point. Move forward if nothing found."
   (interactive)
   (let ((thing (thing-at-point 'symbol)))
     (cond (thing
-           (kill-new thing) (message "kill: %s" thing))
+           (kill-new thing) (message "current-kill: %s" thing))
           (t
            (forward-char) (tim/copy-symbol)))))
 
@@ -156,9 +155,9 @@
   (interactive)
   (let ((thing (thing-at-point 'symbol 'no-properties)))
     (cond (thing
-           (kill-append (concat " " thing) nil) (message "In kill: %s" (current-kill 0 'do-not-move)))
+           (kill-append (concat " " thing) nil) (message "current-kill: %s" (current-kill 0 'do-not-move)))
           (t
-           (forward-char) (tim/copy-symbol)))))
+           (forward-char) (tim/copy-append-symbol)))))
 
 (defun tim/replace-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
@@ -476,7 +475,7 @@
       :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
       :desc "Delete and go insert" "r" #'tim/delete-and-go-insert
-      :desc "Kill word" "d" #'tim/kill-inner-word
+      :desc "Kill symbol" "d" #'tim/kill-symbol-at-point
       :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
       :desc "Copy symbol" "y" #'tim/copy-symbol
       :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
