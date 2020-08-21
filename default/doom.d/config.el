@@ -397,15 +397,19 @@
   (map! :map org-mode-map "<S-right>" nil))
 
 (defun force-background ()
-   (set-background-color "gray15"))
+  (message "background changed")
+  (set-background-color "#002b36")) ; solarized theme
+  ;; (set-background-color "gray15"))
+
+;; run-with-timer is an hack because I don t know when or how to call
+;; this because of doom-theme or solaire or i don t know
+(run-with-timer 5 nil 'force-background)
    ;; (set-background-color "#282c34") ;; doom-one theme
 (use-package doom-themes
   :config
-  ;; Global settings (defaults)
-  ;; (setq doom-theme 'doom-city-lights)
-  ;; (setq doom-theme 'doom-one)
-  (setq doom-theme 'doom-solarized-dark))
-  ;; :hook (after-init . force-background))
+  ;; (setq doom-theme 'doom-city-lights))
+  (setq doom-theme 'doom-one))
+  ;; (setq doom-theme 'doom-solarized-dark))
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
@@ -425,7 +429,7 @@
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
 
-(map! (:map doom-leader-map "SPC" #'save-buffer)
+(map!
       :n "C-w x" #'window-swap-states
 
       :n "s" #'tim/middle-of-line
@@ -434,16 +438,8 @@
       ;; :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
-      (:map doom-leader-map "*" #'tim/search-project-only-word)
-      (:map doom-leader-map "/" #'+default/search-project-for-symbol-at-point)
       :n "S-C-p" #'counsel-projectile-find-file-dwim
       :n "C-p" #'+ivy/projectile-find-file
-
-      (:map doom-leader-map "r" #'tim/delete-and-go-insert)
-      (:map doom-leader-map "d" #'tim/kill-inner-word)
-      (:map doom-leader-map "p" #'tim/replace-with-kill-ring)
-      (:map doom-leader-map "y" #'tim/copy-word)
-      (:map doom-leader-map "e" #'counsel-find-file)
 
       ;; press v multiple time to expand region
       :v "v" #'er/expand-region
@@ -465,6 +461,17 @@
       ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
       ;; my goal is to keep doom binding but replace p with d
       :leader
+      :desc "Save file" "SPC" #'save-buffer
+
+      :desc "Search for symbol in project" "*" #'tim/search-project-only-word
+      :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
+
+      :desc "Delete and go insert" "r" #'tim/delete-and-go-insert
+      :desc "Kill word" "d" #'tim/kill-inner-word
+      :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
+      :desc "Copy word" "y" #'tim/copy-word
+      :desc "Select file" "e" #'counsel-find-file
+
       (:prefix-map ("x" . "project")))
 
 
