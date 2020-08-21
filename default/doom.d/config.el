@@ -223,9 +223,11 @@
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
-        evil-search-wrap nil
+        ;; evil-search-wrap nil
         evil-split-window-below t
-        evil-vsplit-window-right t)
+        evil-vsplit-window-right t
+        evil-cross-lines t
+        evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
 
   (evil-define-motion tim/middle-of-line ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -394,6 +396,17 @@
   (map! :map org-mode-map "<S-left>" nil)
   (map! :map org-mode-map "<S-right>" nil))
 
+(defun force-background ()
+   (set-background-color "gray15"))
+   ;; (set-background-color "#282c34") ;; doom-one theme
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  ;; (setq doom-theme 'doom-city-lights)
+  ;; (setq doom-theme 'doom-one)
+  (setq doom-theme 'doom-solarized-dark))
+  ;; :hook (after-init . force-background))
+
 ;; see mapping to gm bellow
 (use-package! string-inflection)
 
@@ -418,7 +431,7 @@
       :n "s" #'tim/middle-of-line
       :n "S" #'tim/middle-of-line-backward
 
-      :n "*" #'tim/re-search-forward
+      ;; :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
       (:map doom-leader-map "*" #'tim/search-project-only-word)
@@ -460,8 +473,6 @@
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
 (windmove-default-keybindings)
-
-(setq evil-cross-lines t)
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile
