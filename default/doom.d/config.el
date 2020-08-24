@@ -126,13 +126,15 @@
     (message "current-kill: %s" name)
     (kill-new name)))
 
-(defun tim/delete-and-go-insert ()
-  "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
+(defun tim/replace-symbol-at-point ()
+  "Delete the symbol and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
-  (forward-word)
-  (backward-word)
-  (delete-region (point) (progn (forward-word) (point)))
-  (evil-insert 1))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (evil-insert 1))
+          (t
+           (forward-char) (tim/replace-symbol-at-point)))))
 
 (defun tim/kill-symbol-at-point ()
   "Kills the entire symbol your cursor is in."
@@ -159,14 +161,15 @@
           (t
            (forward-char) (tim/copy-append-symbol)))))
 
-(defun tim/replace-with-kill-ring ()
+(defun tim/replace-symbol-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
   (interactive)
-  (save-excursion
-    (forward-word)
-    (backward-word)
-    (delete-region (point) (progn (forward-word) (point)))
-    (yank)))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (yank))
+          (t
+           (forward-char) (tim/replace-symbol-with-kill-ring)))))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -187,7 +190,7 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
-(defun tim/search-project-only-word ()
+(defun tim/search-project-bound-symbol ()
   "Search only for word under cursor"
   (interactive)
   ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
@@ -209,16 +212,6 @@
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-previous))
-
-;; We can change it by mode with :
-;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
-;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(defun improve-word-length ()
-  "This way, when do a tim/copy-word on entry, it copies 'modify-syntax-entry'"
-  (modify-syntax-entry ?_ "w")
-  (modify-syntax-entry ?- "w"))
-
-(add-hook 'after-change-major-mode-hook #'improve-word-length)
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -471,14 +464,16 @@
       :leader
       :desc "Save file" "SPC" #'save-buffer
 
-      :desc "Search for symbol in project" "*" #'tim/search-project-only-word
+      :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
       :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
-      :desc "Delete and go insert" "r" #'tim/delete-and-go-insert
+      :desc "Delete and go insert" "r" #'tim/replace-symbol-at-point
       :desc "Kill symbol" "d" #'tim/kill-symbol-at-point
-      :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
+      :desc "Replace with killed" "p" #'tim/replace-symbol-with-kill-ring
+
       :desc "Copy symbol" "y" #'tim/copy-symbol
       :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
+
       :desc "Select file" "e" #'counsel-find-file
 
       (:prefix-map ("x" . "project")))
