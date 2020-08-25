@@ -1,0 +1,15 @@
+windows:
+  - name: "-"
+    root: ~/grandmgroup/mobile-app/EclaCampusIgnite
+    layout: main-vertical
+    focus: true
+    panes:
+      - yarn start
+      - commands:
+        - yarn android
+        focus: true
+      - git status
+  - name: " - "
+    root: ~/grandmgroup/mobile-app
+  - name: "- "
+    root: ~/
