@@ -48,10 +48,10 @@
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
+;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', where Emacs
-;;   looks when you load packages with `require' or `use-package'.
+;;   looks when you load packages with `require' or `use-package!'.
 ;; - `map!' for binding new keys
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
@@ -400,17 +400,15 @@
 (defun force-background ()
   (message "background changed")
   (set-background-color "#002b36")) ; solarized theme
-  ;; (set-background-color "gray15"))
 
 ;; run-with-timer is an hack because I don t know when or how to call
 ;; this because of doom-theme or solaire or i don t know
-(run-with-timer 5 nil 'force-background)
-   ;; (set-background-color "#282c34") ;; doom-one theme
-(use-package doom-themes
-  :config
-  ;; (setq doom-theme 'doom-city-lights))
-  (setq doom-theme 'doom-one))
-  ;; (setq doom-theme 'doom-solarized-dark))
+(run-with-timer 3 nil 'force-background)
+;; (use-package! doom-themes
+;;   :config
+;;   ;; (setq doom-theme 'doom-city-lights))
+;;   ;; (setq doom-theme 'doom-solarized-dark))
+;;   (setq doom-theme 'doom-one))
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
