@@ -30,7 +30,8 @@
 ;; (setq doom-theme 'doom-vibrant)
 ;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
 ;; (setq doom-theme 'doom-solarized-dark))
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-city-lights))
+;; (setq doom-theme 'doom-solarized-dark))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -67,7 +68,7 @@
 
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
-(custom-set-faces!
+(custom-theme-set-faces! 'doom-one
   '(line-number :foreground "dim gray")
   '(line-number-current-line :foreground "white")
   ;; '(doom-modeline-project-dir :foreground "blue")
@@ -75,13 +76,13 @@
   ;; '(mode-line-inactive :background "dim gray" :height 80)
   ;; '(mode-line :background "light blue" :height 80))
   '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
-  '(mode-line :background "black" :height 80))
+  '(mode-line :background "black" :height 80)
+  '(default :background "#002b36"))
+  ;; '(region :background "red"))
 
 (unless (display-graphic-p)
   (custom-set-faces!
     '(font-lock-doc-face :foreground "#ffffff")))
-
-(global-whitespace-mode)
 
 (setq doom-font (font-spec :family "monospace" :size 17)
       doom-variable-pitch-font (font-spec :family "sans")
@@ -102,6 +103,8 @@
       ;; They're generally unhelpful and only add confusing visual clutter.
       mode-line-default-help-echo nil
       show-help-function nil)
+
+(global-whitespace-mode)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
@@ -397,18 +400,6 @@
   (map! :map org-mode-map "<S-left>" nil)
   (map! :map org-mode-map "<S-right>" nil))
 
-(defun force-background ()
-  (message "background changed")
-  (set-background-color "#002b36")) ; solarized theme
-
-;; run-with-timer is an hack because I don t know when or how to call
-;; this because of doom-theme or solaire or i don t know
-(run-with-timer 3 nil 'force-background)
-;; (use-package! doom-themes
-;;   :config
-;;   ;; (setq doom-theme 'doom-city-lights))
-;;   ;; (setq doom-theme 'doom-solarized-dark))
-;;   (setq doom-theme 'doom-one))
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
