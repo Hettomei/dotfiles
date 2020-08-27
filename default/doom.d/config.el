@@ -431,6 +431,18 @@ Even playing with symbol, when inside a string, it becomes a word"
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
 
+(defun tim/increase-width-height ()
+  (interactive)
+  (evil-window-increase-width 20)
+  (evil-window-increase-height 10))
+
+(defun tim/decrease-width-height ()
+  (interactive)
+  (evil-window-decrease-width 20)
+  (evil-window-decrease-height 10))
+
+;; taken from
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
       :n "C-w x" #'window-swap-states
 
@@ -455,13 +467,16 @@ Even playing with symbol, when inside a string, it becomes a word"
       :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
-      :i  "C-n" #'tim/company-dabbrev-open-and-select
-      :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
+      ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
+      ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
 
       "<f5>" #'tim/oorr
-      ;; taken from
-      ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
-      ;; my goal is to keep doom binding but replace p with d
+
+      :map evil-window-map
+      ;; :g is for global, because when :n it doesn t work
+      :g  "+" 'tim/increase-width-height
+      :g  "-" 'tim/decrease-width-height
+
       :leader
       :desc "Save file" "SPC" #'save-buffer
 
@@ -477,6 +492,7 @@ Even playing with symbol, when inside a string, it becomes a word"
 
       :desc "Select file" "e" #'counsel-find-file
 
+      ;; my goal is to keep doom binding but replace p with x
       (:prefix-map ("x" . "project")))
 
 
