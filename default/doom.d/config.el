@@ -216,6 +216,18 @@
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-previous))
 
+;; We can change it by mode with :
+;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
+;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
+(defun improve-word-length ()
+  "This way, when do a 'e' (evil-forward-word-end) it is better.
+Even playing with symbol, when inside a string, it becomes a word"
+  (modify-syntax-entry ?_ "w")
+  (modify-syntax-entry ?- "w"))
+
+(add-hook 'after-change-major-mode-hook #'improve-word-length)
+
+
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
 ;; Can be enabled when you want with SPC-t-w
