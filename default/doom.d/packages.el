@@ -65,7 +65,10 @@
 (package! solaire-mode :disable t)
 
 ;; prefere a simpler yasnippet
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/snippets/README.org
 (package! doom-snippets :ignore t)
+(package! auto-yasnippet :ignore t)
+
 
 ;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
 (package! keyfreq :disable t)

@@ -1,7 +1,7 @@
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: file home path
 # uuid: 660f4e7e-b131-4d94-b673-92a1d7e2bd02
-# key: file
+# key: /file
 # condition: t
 # --
 `(abbreviate-file-name (buffer-file-name))`$0
