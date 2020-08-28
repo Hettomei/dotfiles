@@ -243,7 +243,9 @@ Even playing with symbol, when inside a string, it becomes a word"
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-cross-lines t
-        evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
+        evil-search-module 'isearch ; Try it, I can't find the difference on internet
+        evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
+        case-fold-search nil) ;; always changed by something else. Need to investigate
 
   (evil-define-motion tim/middle-of-line ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -441,6 +443,23 @@ Even playing with symbol, when inside a string, it becomes a word"
   (evil-window-decrease-width 20)
   (evil-window-decrease-height 10))
 
+(defun tim/isearch-forward-symbol-at-point ()
+  (interactive)
+  (let ((case-fold-search nil))
+    (call-interactively 'isearch-forward-symbol-at-point)
+    (call-interactively 'isearch-exit)
+    (call-interactively 'isearch-repeat-forward)))
+
+(defun tim/isearch-forward-word-at-point ()
+  "Reset current isearch to a word-mode search of the word under point."
+  (interactive)
+  (setq isearch-string ""
+        isearch-message ""
+        case-fold-search nil)
+  (tim/copy-symbol)
+  (isearch-yank-kill)
+  (isearch-exit)
+  (isearch-repeat-forward))
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
@@ -469,8 +488,12 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
       ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
       ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
-
       "<f5>" #'tim/oorr
+      :n "/" #'isearch-forward-regexp
+      :n "*" #'tim/isearch-forward-symbol-at-point
+      :n "g*" #'tim/isearch-forward-word-at-point
+      :n "n" #'isearch-repeat-forward
+      :n "N" #'isearch-repeat-backward
 
       :map evil-window-map
       ;; :g is for global, because when :n it doesn t work
