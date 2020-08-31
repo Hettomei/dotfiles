@@ -44,6 +44,7 @@
 ;; To autocomplete text, you can M-/
 ;; This variable at nil means "be case sensitive"
 (setq dabbrev-case-fold-search nil)
+(setq isearch-lazy-count 1)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -499,6 +500,10 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; :g is for global, because when :n it doesn t work
       :g  "+" 'tim/increase-width-height
       :g  "-" 'tim/decrease-width-height
+
+      :map isearch-mode-map
+      :g "<up>" #'isearch-ring-retreat
+      :g "<down>" #'isearch-ring-advance
 
       :leader
       :desc "Save file" "SPC" #'save-buffer
