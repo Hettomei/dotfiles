@@ -44,6 +44,9 @@
 ;; To autocomplete text, you can M-/
 ;; This variable at nil means "be case sensitive"
 (setq dabbrev-case-fold-search nil)
+;; Search case Sensitive; TODO : need tocheck what change this value
+(setq case-fold-search nil)
+;; When done with C-S display a counter
 (setq isearch-lazy-count 1)
 
 
@@ -305,8 +308,6 @@ Even playing with symbol, when inside a string, it becomes a word"
         ;; allow code completion matching all buffer
         company-dabbrev-code-other-buffers 'all
         company-dabbrev-other-buffers 'all)
-  ;; you can do C-s to perform a search inside completion :)
-  (map! :map company-active-map "TAB" #'company-complete-common)
 
   ;; vim mode !!!!!! thank you.
   (company-tng-configure-default))
@@ -388,11 +389,14 @@ Even playing with symbol, when inside a string, it becomes a word"
 (after! evil-snipe
   (evil-snipe-mode -1))
 
-(after! counsel
+(use-package! counsel
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
+  (setq counsel-rg-base-command
+        (append
+         (butlast counsel-rg-base-command)
+         '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
         counsel-find-file-ignore-regexp nil))
 
@@ -451,6 +455,25 @@ Even playing with symbol, when inside a string, it becomes a word"
     (call-interactively 'isearch-exit)
     (call-interactively 'isearch-repeat-forward)))
 
+;; Taken at https://www.gnu.org/software/emacs/manual/html_node/eintr/simplified_002dbeginning_002dof_002dbuffer.html
+(defun tim/simplified-beginning-of-buffer ()
+  "Move point to the beginning of the buffer;
+     leave mark at previous position."
+  (interactive)
+  (push-mark)
+  (goto-char (point-min)))
+
+(defun tim/query-replace ()
+  (interactive)
+  (when-let ((s (thing-at-point 'symbol 'no-property)))
+    (tim/simplified-beginning-of-buffer)
+    (cl-flet ((my-query-replace-read-from (prompt regexp-flag)
+                                          s))
+      (advice-add 'query-replace-read-from :override #'my-query-replace-read-from)
+      (unwind-protect
+          (call-interactively #'query-replace)
+        (advice-remove 'query-replace-read-from #'my-query-replace-read-from)))))
+
 (defun tim/isearch-forward-word-at-point ()
   "Reset current isearch to a word-mode search of the word under point."
   (interactive)
@@ -505,6 +528,9 @@ Even playing with symbol, when inside a string, it becomes a word"
       :g "<up>" #'isearch-ring-retreat
       :g "<down>" #'isearch-ring-advance
 
+      ;; you can do C-s to perform a search inside completion :)
+      :map company-active-map "TAB" #'company-complete-common
+
       :leader
       :desc "Save file" "SPC" #'save-buffer
 
@@ -519,6 +545,7 @@ Even playing with symbol, when inside a string, it becomes a word"
       :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
 
       :desc "Select file" "e" #'counsel-find-file
+      :desc "Query replace symbol" "%" #'tim/query-replace
 
       ;; my goal is to keep doom binding but replace p with x
       (:prefix-map ("x" . "project")))

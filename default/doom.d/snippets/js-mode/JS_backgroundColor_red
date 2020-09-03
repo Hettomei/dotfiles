@@ -1,0 +1,4 @@
+# key: bgr
+# name: JS backgroundColor red
+# --
+backgroundColor: '#ee0000',
