@@ -144,7 +144,7 @@ fi
 
 
 simplehttp(){
-  local command="python -m SimpleHTTPServer 8000"
+  local command="python -m http.server 8000"
   echo $command
   $command
 }
