@@ -1,6 +1,6 @@
 windows:
   - name: "-"
-    root: ~/grandmgroup/mobile-app/EclaCampusIgnite
+    root: ~/grandmgroup/mobile-app
     layout: main-vertical
     focus: true
     panes:

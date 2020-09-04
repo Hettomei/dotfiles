@@ -463,16 +463,29 @@ Even playing with symbol, when inside a string, it becomes a word"
   (push-mark)
   (goto-char (point-min)))
 
+;; From https://www.reddit.com/r/emacs/comments/ikgfxd/weekly_tipstricketc_thread/
+;; (defun tim/query-replace ()
+;; "Populate minibuffer with symbol at point"
+;;   (interactive)
+;;   (when-let ((s (thing-at-point 'symbol 'no-property)))
+;;     (tim/simplified-beginning-of-buffer)
+;;     (cl-flet ((my-query-replace-read-from (prompt regexp-flag)
+;;                                           s))
+;;       (advice-add 'query-replace-read-from :override #'my-query-replace-read-from)
+;;       (unwind-protect
+;;           (call-interactively #'query-replace)
+;;         (advice-remove 'query-replace-read-from #'my-query-replace-read-from)))))
+
 (defun tim/query-replace ()
+  "Populate minibuffer with symbol at point"
   (interactive)
   (when-let ((s (thing-at-point 'symbol 'no-property)))
-    (tim/simplified-beginning-of-buffer)
-    (cl-flet ((my-query-replace-read-from (prompt regexp-flag)
-                                          s))
-      (advice-add 'query-replace-read-from :override #'my-query-replace-read-from)
-      (unwind-protect
-          (call-interactively #'query-replace)
-        (advice-remove 'query-replace-read-from #'my-query-replace-read-from)))))
+    (minibuffer-with-setup-hook
+        (lambda ()
+          (insert s)
+          (run-at-time 0 nil #'exit-minibuffer))
+      (call-interactively #'query-replace))))
+
 
 (defun tim/isearch-forward-word-at-point ()
   "Reset current isearch to a word-mode search of the word under point."
