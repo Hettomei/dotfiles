@@ -197,3 +197,43 @@ rclone --include '*202007*' copy -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3
 rclone copy -P need_sync/tim-2020-06 ovh:photos-archive/2020/tim-2020-07
 rclone --include '*202007*' delete -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/'
 ```
+
+
+# Comment partager de gros fichier
+
+rclone ne fonctionne pas
+
+Il faut swift
+
+swift est un client open stack en python
+pip install python-swiftclient
+
+Ensuite, aller telecharger openrc.sh
+
+source /tmp/openrc.sh
+
+Attention, des fois le comtpe est chez SBG des fois vers SBG1.
+
+La derniere fois, mon conteneur etait chez SBG.
+
+
+Le mot de passe openstack est le meme que pour le compte yn2E95AwjCTB
+
+Si tout ok : `swift stat` devrait donner qqchose
+ou `swift list share`
+'share' étant le nom de mon conteneur.
+
+
+Ensuite, pour partager :
+
+En 1 generer une longue clef :
+Cette clef sera utilisé pour générer la suite
+
+CLEF= date +%s | sha512sum
+swift post -m "Temp-URL-Key: CLEF"
+swift tempurl GET 60 https://storage.sbg.cloud.ovh.net/v1/AUTH_7fd9ef0750584d07a81a2e291150143f/share/tim_gau.sql.zip CLEF
+
+le 60 signifie 60 secondes.
+
+1 journée ->  86400 sec
+1 semaine -> 604800 sec

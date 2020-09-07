@@ -30,7 +30,8 @@
 ;; (setq doom-theme 'doom-vibrant)
 ;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
 ;; (setq doom-theme 'doom-solarized-dark))
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-city-lights))
+;; (setq doom-theme 'doom-solarized-dark))
 
 ;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
@@ -43,15 +44,19 @@
 ;; To autocomplete text, you can M-/
 ;; This variable at nil means "be case sensitive"
 (setq dabbrev-case-fold-search nil)
+;; Search case Sensitive; TODO : need tocheck what change this value
+(setq case-fold-search nil)
+;; When done with C-S display a counter
+(setq isearch-lazy-count 1)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
-;; - `use-package' for configuring packages
+;; - `use-package!' for configuring packages
 ;; - `after!' for running code after a package has loaded
 ;; - `add-load-path!' for adding directories to the `load-path', where Emacs
-;;   looks when you load packages with `require' or `use-package'.
+;;   looks when you load packages with `require' or `use-package!'.
 ;; - `map!' for binding new keys
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
@@ -67,7 +72,7 @@
 
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
-(custom-set-faces!
+(custom-theme-set-faces! 'doom-one
   '(line-number :foreground "dim gray")
   '(line-number-current-line :foreground "white")
   ;; '(doom-modeline-project-dir :foreground "blue")
@@ -75,13 +80,13 @@
   ;; '(mode-line-inactive :background "dim gray" :height 80)
   ;; '(mode-line :background "light blue" :height 80))
   '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
-  '(mode-line :background "black" :height 80))
+  '(mode-line :background "black" :height 80)
+  '(default :background "#002b36"))
+  ;; '(region :background "red"))
 
 (unless (display-graphic-p)
   (custom-set-faces!
     '(font-lock-doc-face :foreground "#ffffff")))
-
-(global-whitespace-mode)
 
 (setq doom-font (font-spec :family "monospace" :size 17)
       doom-variable-pitch-font (font-spec :family "sans")
@@ -103,6 +108,8 @@
       mode-line-default-help-echo nil
       show-help-function nil)
 
+(global-whitespace-mode)
+
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
 
@@ -123,42 +130,53 @@
   "Copy the buffer full path."
   (interactive)
   (let ((name (tim/get-file-path)))
-    (message "Copied: %s" name)
+    (message "current-kill: %s" name)
     (kill-new name)))
 
-(defun tim/delete-and-go-insert ()
-  "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
+(defun tim/replace-symbol-at-point ()
+  "Delete the symbol and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
-  (forward-word)
-  (backward-word)
-  (delete-region (point) (progn (forward-word) (point)))
-  (evil-insert 1))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (evil-insert 1))
+          (t
+           (forward-char) (tim/replace-symbol-at-point)))))
 
-;; taken at https://github.com/wandersoncferreira/vim-mindset-apply-emacs
-(defun tim/kill-inner-word ()
-  "Kills the entire word your cursor is in. Equivalent to diw in vim."
+(defun tim/kill-symbol-at-point ()
+  "Kills the entire symbol your cursor is in."
   (interactive)
-  (forward-word)
-  (backward-word)
-  (kill-word 1))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (kill-region (car thing) (cdr thing))
+    (message "current-kill: %s" (current-kill 0 'do-not-move))))
 
-(defun tim/copy-word ()
-  "Copy the word. Same as yiw"
+(defun tim/copy-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
   (interactive)
-  (save-excursion
-    (forward-word)
-    (backward-word)
-    (copy-region-as-kill (point) (progn (forward-word) (point)))
-    (message "kill: %s" (car kill-ring))))
+  (let ((thing (thing-at-point 'symbol)))
+    (cond (thing
+           (kill-new thing) (message "current-kill: %s" thing))
+          (t
+           (forward-char) (tim/copy-symbol)))))
 
-(defun tim/replace-with-kill-ring ()
+(defun tim/copy-append-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
+  (interactive)
+  (let ((thing (thing-at-point 'symbol 'no-properties)))
+    (cond (thing
+           (kill-append (concat " " thing) nil) (message "current-kill: %s" (current-kill 0 'do-not-move)))
+          (t
+           (forward-char) (tim/copy-append-symbol)))))
+
+(defun tim/replace-symbol-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
   (interactive)
-  (save-excursion
-    (forward-word)
-    (backward-word)
-    (delete-region (point) (progn (forward-word) (point)))
-    (yank)))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (yank))
+          (t
+           (forward-char) (tim/replace-symbol-with-kill-ring)))))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -179,7 +197,7 @@
   (interactive)
   (setq evil-ex-search-case (quote smart)))
 
-(defun tim/search-project-only-word ()
+(defun tim/search-project-bound-symbol ()
   "Search only for word under cursor"
   (interactive)
   ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
@@ -206,11 +224,13 @@
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 (defun improve-word-length ()
-  "This way, when do a tim/copy-word on entry, it copies 'modify-syntax-entry'"
+  "This way, when do a 'e' (evil-forward-word-end) it is better.
+Even playing with symbol, when inside a string, it becomes a word"
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w"))
 
 (add-hook 'after-change-major-mode-hook #'improve-word-length)
+
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -223,9 +243,13 @@
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
-        evil-search-wrap nil
+        ;; evil-search-wrap nil
         evil-split-window-below t
-        evil-vsplit-window-right t)
+        evil-vsplit-window-right t
+        evil-cross-lines t
+        evil-search-module 'isearch ; Try it, I can't find the difference on internet
+        evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
+        case-fold-search nil) ;; always changed by something else. Need to investigate
 
   (evil-define-motion tim/middle-of-line ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -284,8 +308,6 @@
         ;; allow code completion matching all buffer
         company-dabbrev-code-other-buffers 'all
         company-dabbrev-other-buffers 'all)
-  ;; you can do C-s to perform a search inside completion :)
-  (map! :map company-active-map "TAB" #'company-complete-common)
 
   ;; vim mode !!!!!! thank you.
   (company-tng-configure-default))
@@ -367,11 +389,14 @@
 (after! evil-snipe
   (evil-snipe-mode -1))
 
-(after! counsel
+(use-package! counsel
   :config
   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command (append (butlast counsel-rg-base-command) '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
+  (setq counsel-rg-base-command
+        (append
+         (butlast counsel-rg-base-command)
+         '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
         counsel-find-file-ignore-regexp nil))
 
@@ -394,6 +419,7 @@
   (map! :map org-mode-map "<S-left>" nil)
   (map! :map org-mode-map "<S-right>" nil))
 
+
 ;; see mapping to gm bellow
 (use-package! string-inflection)
 
@@ -412,25 +438,78 @@
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
 
-(map! (:map doom-leader-map "SPC" #'save-buffer)
+(defun tim/increase-width-height ()
+  (interactive)
+  (evil-window-increase-width 20)
+  (evil-window-increase-height 10))
+
+(defun tim/decrease-width-height ()
+  (interactive)
+  (evil-window-decrease-width 20)
+  (evil-window-decrease-height 10))
+
+(defun tim/isearch-forward-symbol-at-point ()
+  (interactive)
+  (let ((case-fold-search nil))
+    (call-interactively 'isearch-forward-symbol-at-point)
+    (call-interactively 'isearch-exit)
+    (call-interactively 'isearch-repeat-forward)))
+
+;; Taken at https://www.gnu.org/software/emacs/manual/html_node/eintr/simplified_002dbeginning_002dof_002dbuffer.html
+(defun tim/simplified-beginning-of-buffer ()
+  "Move point to the beginning of the buffer;
+     leave mark at previous position."
+  (interactive)
+  (push-mark)
+  (goto-char (point-min)))
+
+;; From https://www.reddit.com/r/emacs/comments/ikgfxd/weekly_tipstricketc_thread/
+;; (defun tim/query-replace ()
+;; "Populate minibuffer with symbol at point"
+;;   (interactive)
+;;   (when-let ((s (thing-at-point 'symbol 'no-property)))
+;;     (tim/simplified-beginning-of-buffer)
+;;     (cl-flet ((my-query-replace-read-from (prompt regexp-flag)
+;;                                           s))
+;;       (advice-add 'query-replace-read-from :override #'my-query-replace-read-from)
+;;       (unwind-protect
+;;           (call-interactively #'query-replace)
+;;         (advice-remove 'query-replace-read-from #'my-query-replace-read-from)))))
+
+(defun tim/query-replace ()
+  "Populate minibuffer with symbol at point"
+  (interactive)
+  (when-let ((s (thing-at-point 'symbol 'no-property)))
+    (minibuffer-with-setup-hook
+        (lambda ()
+          (insert s)
+          (run-at-time 0 nil #'exit-minibuffer))
+      (call-interactively #'query-replace))))
+
+
+(defun tim/isearch-forward-word-at-point ()
+  "Reset current isearch to a word-mode search of the word under point."
+  (interactive)
+  (setq isearch-string ""
+        isearch-message ""
+        case-fold-search nil)
+  (tim/copy-symbol)
+  (isearch-yank-kill)
+  (isearch-exit)
+  (isearch-repeat-forward))
+;; taken from
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
+(map!
       :n "C-w x" #'window-swap-states
 
       :n "s" #'tim/middle-of-line
       :n "S" #'tim/middle-of-line-backward
 
-      :n "*" #'tim/re-search-forward
+      ;; :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
-      (:map doom-leader-map "*" #'tim/search-project-only-word)
-      (:map doom-leader-map "/" #'+default/search-project-for-symbol-at-point)
       :n "S-C-p" #'counsel-projectile-find-file-dwim
       :n "C-p" #'+ivy/projectile-find-file
-
-      (:map doom-leader-map "r" #'tim/delete-and-go-insert)
-      (:map doom-leader-map "d" #'tim/kill-inner-word)
-      (:map doom-leader-map "p" #'tim/replace-with-kill-ring)
-      (:map doom-leader-map "y" #'tim/copy-word)
-      (:map doom-leader-map "e" #'counsel-find-file)
 
       ;; press v multiple time to expand region
       :v "v" #'er/expand-region
@@ -444,14 +523,44 @@
       :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
-      :i  "C-n" #'tim/company-dabbrev-open-and-select
-      :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
-
+      ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
+      ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
       "<f5>" #'tim/oorr
-      ;; taken from
-      ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
-      ;; my goal is to keep doom binding but replace p with d
+      :n "/" #'isearch-forward-regexp
+      :n "*" #'tim/isearch-forward-symbol-at-point
+      :n "g*" #'tim/isearch-forward-word-at-point
+      :n "n" #'isearch-repeat-forward
+      :n "N" #'isearch-repeat-backward
+
+      :map evil-window-map
+      ;; :g is for global, because when :n it doesn t work
+      :g  "+" 'tim/increase-width-height
+      :g  "-" 'tim/decrease-width-height
+
+      :map isearch-mode-map
+      :g "<up>" #'isearch-ring-retreat
+      :g "<down>" #'isearch-ring-advance
+
+      ;; you can do C-s to perform a search inside completion :)
+      :map company-active-map "TAB" #'company-complete-common
+
       :leader
+      :desc "Save file" "SPC" #'save-buffer
+
+      :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
+      :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
+
+      :desc "Delete and go insert" "r" #'tim/replace-symbol-at-point
+      :desc "Kill symbol" "d" #'tim/kill-symbol-at-point
+      :desc "Replace with killed" "p" #'tim/replace-symbol-with-kill-ring
+
+      :desc "Copy symbol" "y" #'tim/copy-symbol
+      :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
+
+      :desc "Select file" "e" #'counsel-find-file
+      :desc "Query replace symbol" "%" #'tim/query-replace
+
+      ;; my goal is to keep doom binding but replace p with x
       (:prefix-map ("x" . "project")))
 
 
@@ -460,8 +569,6 @@
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
 (windmove-default-keybindings)
-
-(setq evil-cross-lines t)
 
 ;; my goal is to allow project/sub-project to works
 ;; (after! projectile

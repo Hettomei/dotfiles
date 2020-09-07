@@ -2,15 +2,16 @@ windows:
   - name: "-"
     root: ~/grandmgroup/hub-ecla
     layout: even-horizontal
-    focus: true
     panes:
-        - git status
+      - git status
+      - commands:
         - echo ""
+        focus: true
   - name: "--"
     root: ~/grandmgroup/hub-ecla
     layout: even-horizontal
     panes:
-        - git status
-        - echo ""
+      - git status
+      - echo ""
   - name: "---"
     root: ~/

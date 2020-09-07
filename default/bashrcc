@@ -146,7 +146,7 @@ fi
 
 
 simplehttp(){
-  local command="python -m SimpleHTTPServer 8000"
+  local command="python -m http.server 8000"
   echo $command
   $command
 }
@@ -521,6 +521,10 @@ do
   # echo "$name" "->" "$newname"
   done
 }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done

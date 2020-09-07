@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: date fr
+# key: /datefr
+# --
+`(format-time-string "%d/%m/%Y")` $0
