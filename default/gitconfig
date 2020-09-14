@@ -30,8 +30,8 @@
   ; not possible as git run in sub shell; si gg<TAB> in bashrc
   ; root = !cd $(git rev-parse --show-toplevel)
   dic = diff --cached
-  diw = diff --color-words
   dicw = diff --cached --color-words
+  diffw = diff --color-words
   f = fetch --all --prune
   l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   ll  = log -10  --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'

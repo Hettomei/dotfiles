@@ -455,6 +455,14 @@ Even playing with symbol, when inside a string, it becomes a word"
     (call-interactively 'isearch-exit)
     (call-interactively 'isearch-repeat-forward)))
 
+(defun tim/iisearch ()
+  (interactive)
+  (let ((case-fold-search nil))
+    (isearch-forward-regexp nil 1)
+    (isearch-yank-string "point")
+    (isearch-exit)
+    (isearch-repeat-forward)))
+
 ;; Taken at https://www.gnu.org/software/emacs/manual/html_node/eintr/simplified_002dbeginning_002dof_002dbuffer.html
 (defun tim/simplified-beginning-of-buffer ()
   "Move point to the beginning of the buffer;
@@ -526,11 +534,11 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
       ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
       "<f5>" #'tim/oorr
-      :n "/" #'isearch-forward-regexp
-      :n "*" #'tim/isearch-forward-symbol-at-point
-      :n "g*" #'tim/isearch-forward-word-at-point
-      :n "n" #'isearch-repeat-forward
-      :n "N" #'isearch-repeat-backward
+      ;; :n "/" #'isearch-forward-regexp
+      ;; :n "*" #'tim/isearch-forward-symbol-at-point
+      ;; :n "g*" #'tim/isearch-forward-word-at-point
+      ;; :n "n" #'isearch-repeat-forward
+      ;; :n "N" #'isearch-repeat-backward
 
       :map evil-window-map
       ;; :g is for global, because when :n it doesn t work
