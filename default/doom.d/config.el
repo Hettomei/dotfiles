@@ -409,16 +409,6 @@ Even playing with symbol, when inside a string, it becomes a word"
   :config
   (setq-default flycheck-disabled-checkers '(python-flake8)))
 
-(after! org
-  :config
-  ;; Do not change my changing window S-arrow
-  ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
-  ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
-  (map! :map org-mode-map "<S-up>" nil)
-  (map! :map org-mode-map "<S-down>" nil)
-  (map! :map org-mode-map "<S-left>" nil)
-  (map! :map org-mode-map "<S-right>" nil))
-
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
@@ -550,7 +540,18 @@ Even playing with symbol, when inside a string, it becomes a word"
       :g "<down>" #'isearch-ring-advance
 
       ;; you can do C-s to perform a search inside completion :)
-      :map company-active-map "TAB" #'company-complete-common
+      :map company-active-map
+      "TAB" #'company-complete-common
+
+
+      ;; Do not change my changing window S-arrow
+      ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
+      ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
+      :map org-mode-map
+      "<S-up>" nil
+      "<S-down>" nil
+      "<S-left>" nil
+      "<S-right>" nil
 
       :leader
       :desc "Save file" "SPC" #'save-buffer
