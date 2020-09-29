@@ -89,7 +89,7 @@
     '(font-lock-doc-face :foreground "#ffffff")))
 
 (setq doom-font (font-spec :family "monospace" :size 17)
-      doom-variable-pitch-font (font-spec :family "sans")
+      ;; doom-variable-pitch-font (font-spec :family "sans")
 
       ;; Uncomment this line if you don't like having a prompt that ask to quit
       ;; confirm-kill-emacs nil
