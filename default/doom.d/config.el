@@ -2,13 +2,7 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
-
-
-;; These are used for a number of things, particularly for GPG configuration,
-;; some email clients, file templates and snippets.
-(setq user-full-name "Timothée GAUTHIER"
-      user-mail-address "timothee.gauthier@consertotech.pro")
-
+;;
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -23,32 +17,6 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-
-(if (display-graphic-p)
-    (toggle-frame-maximized))
-;; (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-vibrant)
-;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
-;; (setq doom-theme 'doom-solarized-dark))
-;; (setq doom-theme 'doom-city-lights))
-;; (setq doom-theme 'doom-solarized-dark))
-
-;; If you intend to use org, it is recommended you change this!
-(setq org-directory "~/org/")
-
-;; If you want to change the style of line numbers,
-;; change this to `relative' or t or `nil' to disable it:
-;; Line numbers are pretty slow all around. The performance boost of
-;; disabling them outweighs the utility of always keeping them on.
-(setq display-line-numbers-type nil)
-;; To autocomplete text, you can M-/
-;; This variable at nil means "be case sensitive"
-(setq dabbrev-case-fold-search nil)
-;; Search case Sensitive; TODO : need tocheck what change this value
-(setq case-fold-search nil)
-;; When done with C-S display a counter
-(setq isearch-lazy-count 1)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -66,47 +34,85 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;; TIM custom add. ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;; "Prefix argument" is SPC u in doom
+;; example, in normal mode :
+;; press g a -> display info.
+;; press SPC u g a -> display extended info.
+;;
 ;; Please do not add variable using easy custom. Or it will be hard to save configuration.
 
-(custom-theme-set-faces! 'doom-one
-  '(line-number :foreground "dim gray")
-  '(line-number-current-line :foreground "white")
-  ;; '(doom-modeline-project-dir :foreground "blue")
-  ;; '(doom-modeline-buffer-path   :foreground "blue")
-  ;; '(mode-line-inactive :background "dim gray" :height 80)
-  ;; '(mode-line :background "light blue" :height 80))
-  '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
-  '(mode-line :background "black" :height 80)
-  '(default :background "#002b36"))
-  ;; '(region :background "red"))
+;; These are used for a number of things, particularly for GPG configuration,
+;; some email clients, file templates and snippets.
+(setq user-full-name "Timothée GAUTHIER"
+      user-mail-address "timothee.gauthier@consertotech.pro")
 
-(unless (display-graphic-p)
-  (custom-set-faces!
-    '(font-lock-doc-face :foreground "#ffffff")))
+(when (display-graphic-p)
+  (toggle-frame-maximized)
+  (setq doom-font (font-spec :family "monospace" :size 17)
+        doom-variable-pitch-font (font-spec :family "sans"))
+  (custom-theme-set-faces! 'doom-one
+    '(line-number :foreground "dim gray")
+    '(line-number-current-line :foreground "white")
+    ;; '(doom-modeline-project-dir :foreground "blue")
+    ;; '(doom-modeline-buffer-path   :foreground "blue")
+    ;; '(mode-line-inactive :background "dim gray" :height 80)
+    '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+    '(mode-line :background "black" :height 80)
+    '(default :background "#002b36")))
 
-(setq doom-font (font-spec :family "monospace" :size 17)
-      doom-variable-pitch-font (font-spec :family "sans")
+(custom-set-faces!
+  ;; press SPC u g a to know the current face under cursor
+  '(font-lock-doc-face :foreground "#ff8800")
+  '(font-lock-comment-face :foreground "#ff8800"))
 
-      ;; Uncomment this line if you don't like having a prompt that ask to quit
-      ;; confirm-kill-emacs nil
+;; (unless (display-graphic-p)
+;;     (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+;;     (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
-      ;; Try to disable to see if related with search jump
-      ;; Always display 5 lines
-      hscroll-margin 10
-      ;; auto-hscroll-mode 'current-line
-      scroll-margin 5
-      ;; Avoid jump when search
-      scroll-preserve-screen-position nil
-      whitespace-style '(face empty trailing)
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-vibrant)
+;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
+;; (setq doom-theme 'doom-solarized-dark))
+;; (setq doom-theme 'doom-city-lights))
+;; (setq doom-theme 'doom-solarized-dark))
 
-      ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
-      ;; They're generally unhelpful and only add confusing visual clutter.
-      mode-line-default-help-echo nil
-      show-help-function nil)
+(setq
+ ;; Uncomment this line if you don't like having a prompt that ask to quit
+ ;; confirm-kill-emacs nil
+
+ ;; If you intend to use org, it is recommended you change this!
+ org-directory "~/org/"
+
+ ;; If you want to change the style of line numbers,
+ ;; change this to `relative' or t or `nil' to disable it:
+ ;; Line numbers are pretty slow all around. The performance boost of
+ ;; disabling them outweighs the utility of always keeping them on.
+ display-line-numbers-type nil
+
+ ;; To autocomplete text, you can M-/
+ ;; This variable at nil means "be case sensitive"
+ dabbrev-case-fold-search nil
+
+ ;; Search case Sensitive; TODO : need to check what change this value
+ case-fold-search nil
+
+ ;; When done with C-S display a counter
+ isearch-lazy-count 1
+
+ ;; Try to disable to see if related with search jump
+ ;; Always display 5 lines
+ hscroll-margin 10
+ ;; auto-hscroll-mode 'current-line
+ scroll-margin 5
+ ;; Avoid jump when search
+ scroll-preserve-screen-position nil
+
+ whitespace-style '(face empty trailing)
+
+ ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
+ ;; They're generally unhelpful and only add confusing visual clutter.
+ mode-line-default-help-echo nil
+ show-help-function nil)
 
 (global-whitespace-mode)
 
@@ -579,16 +585,37 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
 (windmove-default-keybindings)
 
-;; my goal is to allow project/sub-project to works
-;; (after! projectile
-;;   (projectile-register-project-type 'npm '("package.json")
-;;                                     :compile ""
-;;                                     :test "yarn test"
-;;                                     :run "yarn start"
-;;                                     :test-suffix ".spec")
-;; (setq projectile-require-project-root nil))
-;; to repaire path :
-;; M-: (setq-local projectil-project-root "~/grandmgroup/hub-ecla/admin")
+;; default modeline :
+;; (doom-modeline-def-modeline 'main
+;;   (bar workspace-name window-number modals matches buffer-info remote-host buffer-position word-count parrot selection-info)
+;;   (objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
+
+(after! doom-modeline
+  ;; TODO : cannot find a way to print total line number
+  ;; (setq doom-modeline-percent-position nil)
+  ;; (setq global-mode-string '("add info here"))
+  (doom-modeline-def-modeline 'main
+    ;; left part
+    '(bar matches buffer-info buffer-position word-count selection-info)
+    ;; right part
+    ;; misc-info is what is present in global-mode-string
+    '(misc-info debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
+
+;; Instead of
+;; (doom-modeline-def-modeline 'main ...)
+;; I wanted
+;; (doom-modeline-def-modeline 'tim ...)
+;; (doom-modeline-set-modeline 'tim t)
+;; But does not work. I think some hook always change modeline to main
+
+;; Remove file size in the modeline
+;; But it is changed in modeline
+;; So this is a hack with timer as usual...
+(defun stop-size-indication-mode ()
+  (message "size-indication-mode changed to -1")
+  (size-indication-mode -1))
+(run-with-timer 3 nil 'stop-size-indication-mode)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;

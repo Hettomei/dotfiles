@@ -373,7 +373,7 @@ function meme {
 # Create a hotspot in ubuntu : https://github.com/oblique/create_ap
 # sudo create_ap wlp3s0 enp2s0 conserto-wifi-relou azertyazertylol &
 #
-# youtube-dl --extract-audio --audio-format mp3 $file
+# youtube-dl --extract-audio --audio-format mp3 'http://youtube'
 
 # couper 30 sec de chanson à partir de la 5 ieme minute
 # ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
