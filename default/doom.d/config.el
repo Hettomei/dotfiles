@@ -46,16 +46,29 @@
 (setq user-full-name "Timothée GAUTHIER"
       user-mail-address "timothee.gauthier@consertotech.pro")
 
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-vibrant)
+;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
+;; (setq doom-theme 'doom-solarized-dark)
+;; (setq doom-theme 'doom-city-lights)
+;; (setq doom-theme 'doom-solarized-dark)
+(setq doom-theme 'doom-spacegrey)
+
 (when (display-graphic-p)
   (toggle-frame-maximized)
   (setq doom-font (font-spec :family "monospace" :size 17)
         doom-variable-pitch-font (font-spec :family "sans"))
+
   (custom-theme-set-faces! 'doom-one
     '(line-number :foreground "dim gray")
     '(line-number-current-line :foreground "white")
     ;; '(doom-modeline-project-dir :foreground "blue")
     ;; '(doom-modeline-buffer-path   :foreground "blue")
-    ;; '(mode-line-inactive :background "dim gray" :height 80)
+    '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
+    '(mode-line :background "black" :height 80)
+    '(default :background "#002b36"))
+
+  (custom-theme-set-faces! 'doom-spacegrey
     '(mode-line-inactive :background "dim gray" :foreground "white" :height 80)
     '(mode-line :background "black" :height 80)
     '(default :background "#002b36")))
@@ -68,13 +81,6 @@
 ;; (unless (display-graphic-p)
 ;;     (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
 ;;     (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
-
-;; (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-vibrant)
-;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
-;; (setq doom-theme 'doom-solarized-dark))
-;; (setq doom-theme 'doom-city-lights))
-;; (setq doom-theme 'doom-solarized-dark))
 
 (setq
  ;; Uncomment this line if you don't like having a prompt that ask to quit
@@ -112,7 +118,9 @@
  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
  ;; They're generally unhelpful and only add confusing visual clutter.
  mode-line-default-help-echo nil
- show-help-function nil)
+ show-help-function nil
+
+ confirm-kill-emacs nil)
 
 (global-whitespace-mode)
 
