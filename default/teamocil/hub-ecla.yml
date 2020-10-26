@@ -2,6 +2,7 @@ windows:
   - name: "-"
     root: ~/grandmgroup/hub-ecla
     layout: even-horizontal
+    focus: true
     panes:
       - git status
       - commands:

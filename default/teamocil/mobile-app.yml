@@ -6,7 +6,7 @@ windows:
     panes:
       - yarn start
       - commands:
-        - yarn android
+        - git status
         focus: true
       - git status
   - name: " - "
