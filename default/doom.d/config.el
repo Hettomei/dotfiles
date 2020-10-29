@@ -84,7 +84,7 @@
 
 (setq
  ;; Uncomment this line if you don't like having a prompt that ask to quit
- ;; confirm-kill-emacs nil
+ confirm-kill-emacs nil
 
  ;; If you intend to use org, it is recommended you change this!
  org-directory "~/org/"
@@ -118,9 +118,7 @@
  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
  ;; They're generally unhelpful and only add confusing visual clutter.
  mode-line-default-help-echo nil
- show-help-function nil
-
- confirm-kill-emacs nil)
+ show-help-function nil)
 
 (global-whitespace-mode)
 

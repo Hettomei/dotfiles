@@ -70,7 +70,6 @@
 (package! auto-yasnippet :ignore t)
 
 
-;; (package! emacs-color-theme-solarized :recipe (:host github :repo "sellout/emacs-color-theme-solarized"))
 (package! keyfreq :disable t)
 
 (package! string-inflection
