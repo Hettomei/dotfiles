@@ -101,3 +101,5 @@
   showUntrackedFiles = all
 [credential]
   helper = store
+[pull]
+	rebase = false
