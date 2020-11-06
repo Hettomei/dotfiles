@@ -56,7 +56,7 @@
 
 (when (display-graphic-p)
   (toggle-frame-maximized)
-  (setq doom-font (font-spec :family "monospace" :size 17)
+  (setq doom-font (font-spec :family "monospace" :size 13)
         doom-variable-pitch-font (font-spec :family "sans"))
 
   (custom-theme-set-faces! 'doom-one
@@ -606,6 +606,11 @@ Even playing with symbol, when inside a string, it becomes a word"
     ;; right part
     ;; misc-info is what is present in global-mode-string
     '(misc-info debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
+
+(after! org
+  (setq org-agenda-files '("~/org" "~/poleemploi/org" "~/poleemploi/org/sprint09")
+        org-log-done 'time
+        org-agenda-span 30))
 
 ;; Instead of
 ;; (doom-modeline-def-modeline 'main ...)
