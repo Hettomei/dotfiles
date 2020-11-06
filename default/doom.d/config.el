@@ -610,6 +610,7 @@ Even playing with symbol, when inside a string, it becomes a word"
 (after! org
   (setq org-agenda-files '("~/org" "~/poleemploi/org" "~/poleemploi/org/sprint09")
         org-log-done 'time
+        org-ellipsis "⤵"
         org-agenda-span 30))
 
 ;; Instead of

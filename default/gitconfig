@@ -83,7 +83,7 @@
   # seen at https://gist.github.com/gitaarik/8735255
   submoduleupdate = submodule update --init --recursive
   # from https://thoughtbot.com/blog/dumpster-diving-through-dotfiles-git-branches
-  branches = for-each-ref --sort=-committerdate --format=\"%(color:red)%(objectname:short) %(color:green)%(authordate:iso8601) %(color:cyan)%(authoremail:trim) %(color:white)%(refname:short) %(color:reset)%(contents:subject) \" refs/remotes
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(color:cyan)%(authoremail:trim) %(color:white)%(refname:short) %(color:reset)%(contents:subject) \" refs/remotes
 [push]
   default = simple
 [merge]
