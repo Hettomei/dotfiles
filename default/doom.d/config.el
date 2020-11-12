@@ -625,9 +625,10 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; So this is a hack with timer as usual...
 (defun stop-size-indication-mode ()
   (message "size-indication-mode changed to -1")
-  (size-indication-mode -1))
-(run-with-timer 3 nil 'stop-size-indication-mode)
-
+  (size-indication-mode -1)
+  (when (display-graphic-p)
+    (counsel-recentf)))
+(run-with-timer 2 nil 'stop-size-indication-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
