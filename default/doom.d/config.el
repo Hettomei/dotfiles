@@ -626,9 +626,13 @@ Even playing with symbol, when inside a string, it becomes a word"
 (defun stop-size-indication-mode ()
   (message "size-indication-mode changed to -1")
   (size-indication-mode -1)
-  (when (display-graphic-p)
+  ;; Put here 'after 3 seconds' because if run before doom is started, I have a white screen
+  ;; before opening counsel-recentf
+  ;; (when (buffer-file-name) (message (buffer-file-name)))
+  ;; (when (display-graphic-p)
+  (when (not (buffer-file-name))
     (counsel-recentf)))
-(run-with-timer 2 nil 'stop-size-indication-mode)
+(run-with-timer 3 nil 'stop-size-indication-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
