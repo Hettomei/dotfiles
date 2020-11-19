@@ -178,6 +178,7 @@ rappel(){
     if [ "$1" == "$(date "+%Hh%M")" ]; then
       break
     fi
+    echo "$(date "+%Hh%M")" '!=' "$1" " - $2"
     sleep 30
   done
 
@@ -524,6 +525,20 @@ do
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+a() {
+  echo $(pbpaste) | pbcopy
+}
+
+copyfromroottodoc() {
+  # you must be in doc repo
+  a=$(pwd)
+  current_name=${a:56}
+  echo will copy ../../$current_name
+  cp -v ../../$current_name/documentation/* ./documentation/
+  cp -v ../../$current_name/implementation* ./
+  git status
+}
 
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
