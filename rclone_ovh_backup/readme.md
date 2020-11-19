@@ -163,7 +163,9 @@ fd -H .DS_Store --exec rm {}
 then
 
 ```
-rclone sync ./documents ovh:documents
+rclone sync - Make source and dest identical, modifying destination only.
+rclone sync -P source dest
+rclone sync -P ./documents ovh:documents
 ```
 
 # Delete a full path (folder and file)
@@ -172,7 +174,7 @@ rclone sync ./documents ovh:documents
 rclone delete -vvvv ovh:"photos/folder with file"
 ```
 
-# Remonter un dossier
+# déplacer un dossier
 
 ```
 rclone move --progress ovh:wrong-name/sub-folder ovh:sub-folder
@@ -194,8 +196,16 @@ rclone tree ovh:a/b
 
 ```
 rclone --include '*202007*' copy -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/' ./need_sync/tim-2020-07
+
+cd `VERY LONG PATH TO google camera`
+rclone --include '*_202008*' copy -P ./ ~/Documents/perso/need_sync/tim-2020-08
+
 rclone copy -P need_sync/tim-2020-06 ovh:photos-archive/2020/tim-2020-07
-rclone --include '*202007*' delete -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/'
+rclone --include '*_202007*' delete -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/'
+
+rclone --include '*_202008??_*' ls ./
+rclone --include '*_202008??_*' delete ./
+
 ```
 
 
