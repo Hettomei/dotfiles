@@ -633,8 +633,12 @@ Even playing with symbol, when inside a string, it becomes a word"
   ;; before opening counsel-recentf
   ;; (when (buffer-file-name) (message (buffer-file-name)))
   ;; (when (display-graphic-p)
-  (when (not (buffer-file-name))
-    (counsel-recentf)))
+  ;; Desactivé : si je suis plus rapide et que je suis dans le minibuffer
+  ;; alors ca se déclenche et annule ce que je suis entrian de faire.
+  ;; necessite une amelioration
+  ;; (when (not (buffer-file-name))
+  ;;   (counsel-recentf)))
+  )
 (run-with-timer 3 nil 'stop-size-indication-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

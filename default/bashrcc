@@ -13,8 +13,7 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
-# alias v=nvim
-alias v='emacs -nw'
+alias v=nvim
 alias g=git
 alias ll='ls -alh'
 
