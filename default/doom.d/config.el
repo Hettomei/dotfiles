@@ -563,6 +563,10 @@ Even playing with symbol, when inside a string, it becomes a word"
       "<S-left>" nil
       "<S-right>" nil
 
+      ;; :map csv-mode-map
+      ;; :n "<left>" #'csv-backward-field
+      ;; :n "<right>" #'csv-forward-field
+
       :leader
       :desc "Save file" "SPC" #'save-buffer
 
@@ -640,6 +644,13 @@ Even playing with symbol, when inside a string, it becomes a word"
   ;;   (counsel-recentf)))
   )
 (run-with-timer 3 nil 'stop-size-indication-mode)
+
+;; Need to update this BEFORE openning the CSV.
+;; That strange. I m pretty sure it s because i m bad at emacs
+;; then open the file
+;; go into csv-mode if not already done
+;; SPC-m-a (or csv-align-fields)
+(setq csv-separators '(";" ","))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;

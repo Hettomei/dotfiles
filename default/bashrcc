@@ -13,6 +13,7 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
+alias ee=emacs
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -536,6 +537,15 @@ copyfromroottodoc() {
   echo will copy ../../$current_name
   cp -v ../../$current_name/documentation/* ./documentation/
   cp -v ../../$current_name/implementation* ./
+  git status
+}
+
+copyfromroottotesi() {
+  # you must be in tesi repo
+  a=$(pwd)
+  current_name=${a:47}
+  echo will copy ../../$current_name
+  cp -v ../../$current_name/script_ops/* ./
   git status
 }
 
