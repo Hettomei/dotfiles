@@ -616,10 +616,10 @@ Even playing with symbol, when inside a string, it becomes a word"
         org-agenda-span 30))
 
 ;; when in org file, be case insensitive
-(add-hook 'org-mode-hook
-          (lambda ()
-            (message "tim hook case %s" case-fold-search)
-            (setq case-fold-search t)))
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (message "tim hook case %s" case-fold-search)
+;;             (setq case-fold-search t)))
 ;; Instead of
 ;; (doom-modeline-def-modeline 'main ...)
 ;; I wanted
