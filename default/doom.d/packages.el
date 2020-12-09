@@ -74,6 +74,9 @@
 (package! string-inflection
   :recipe (:host github :repo "akicho8/string-inflection"))
 
+(package! groovy-emacs-modes
+  :recipe (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes"))
+
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
 ;; update: cannot disable because it is a core package. Need to disable hook.
