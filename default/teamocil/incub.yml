@@ -1,0 +1,19 @@
+windows:
+  - name: "-"
+    root: ~/
+    layout: even-horizontal
+    focus: true
+    panes:
+      - ./demarrage.sh
+      - commands:
+        - echo "start google"
+        - sleep 20
+        - google-chrome
+  - name: "--"
+    root: ~/poleemploi
+    layout: even-horizontal
+    panes:
+      - ls
+      - commands:
+        - ls
+        focus: true
