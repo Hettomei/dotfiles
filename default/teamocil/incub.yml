@@ -4,10 +4,13 @@ windows:
     layout: even-horizontal
     focus: true
     panes:
-      - ./demarrage.sh
       - commands:
-        - echo "start google"
-        - sleep 20
+        - echo "let you 5 sec before connecting to vpn"
+        - sleep 5
+        - ./demarrage.sh
+      - commands:
+        - echo "start google in 25 sec"
+        - sleep 25
         - google-chrome
   - name: "--"
     root: ~/poleemploi
