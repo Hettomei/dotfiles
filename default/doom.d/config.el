@@ -656,6 +656,19 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;
+;; To convert a csv into an org table :
+;;
+;; Domaine ENF;TESI Disponibles;TESI Non disponibles;PKS Disponibles ;PKS Non disponibles;PAS Disponibles ;PAS Non disponibles
+;; Architecture;1;0;1;0;2;0   ( le 2 dans cette ligbe n'est as bon)
+;; Exploitabilite;15;0;14;1;13;2
+;;
+;; Select the region
+;; then
+;; SPC-; (or M-:) and write :
+;; (org-table-convert-region (region-beginning) (region-end) ";")
+;;
+;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; To discover default command :
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
