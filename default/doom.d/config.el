@@ -46,13 +46,13 @@
 (setq user-full-name "Timothée GAUTHIER"
       user-mail-address "timothee.gauthier@consertotech.pro")
 
-;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-one)
 ;; (setq doom-theme 'doom-vibrant)
 ;; (setq doom-theme 'doom-material) ;; problem, we didn't see which text is highlighted
 ;; (setq doom-theme 'doom-solarized-dark)
 ;; (setq doom-theme 'doom-city-lights)
 ;; (setq doom-theme 'doom-solarized-dark)
-(setq doom-theme 'doom-spacegrey)
+;; (setq doom-theme 'doom-spacegrey)
 
 (when (display-graphic-p)
   (toggle-frame-maximized)
@@ -113,12 +113,29 @@
  ;; Avoid jump when search
  scroll-preserve-screen-position nil
 
- whitespace-style '(face empty trailing)
+ ;; whitespace-style '(face empty trailing)
+ whitespace-style '(face tabs spaces trailing space-before-tab indentation empty space-after-tab tab-mark)
 
  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
  ;; They're generally unhelpful and only add confusing visual clutter.
  mode-line-default-help-echo nil
- show-help-function nil)
+ show-help-function nil
+
+ ;; Need to update this BEFORE openning the CSV.
+ ;; That strange. I m pretty sure it s because i m bad at emacs
+ ;; then open the file
+ ;; go into csv-mode if not already done
+ ;; SPC-m-a (or csv-align-fields)
+ csv-separators '(";" ",")
+
+ ;; Auto create new window when move to inexistant windows
+ windmove-create-window t)
+
+;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
+;; Let me switch windows with shift-arrows instead of "C-x o" all the time
+(windmove-default-keybindings)
+
+
 
 (global-whitespace-mode)
 
@@ -145,20 +162,20 @@
     (message "current-kill: %s" name)
     (kill-new name)))
 
-(defun tim/replace-symbol-at-point ()
-  "Delete the symbol and go in insert mode. Equivalent to ciw without saving in register"
+(defun tim/replace-at-point ()
+  "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'symbol)))
+  (let ((thing (bounds-of-thing-at-point 'word)))
     (cond (thing
            (delete-region (car thing) (cdr thing))
            (evil-insert 1))
           (t
-           (forward-char) (tim/replace-symbol-at-point)))))
+           (forward-char) (tim/replace-at-point)))))
 
-(defun tim/kill-symbol-at-point ()
-  "Kills the entire symbol your cursor is in."
+(defun tim/kill-at-point ()
+  "Kills the word at point."
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'symbol)))
+  (let ((thing (bounds-of-thing-at-point 'word)))
     (kill-region (car thing) (cdr thing))
     (message "current-kill: %s" (current-kill 0 'do-not-move))))
 
@@ -180,15 +197,15 @@
           (t
            (forward-char) (tim/copy-append-symbol)))))
 
-(defun tim/replace-symbol-with-kill-ring ()
+(defun tim/replace-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'symbol)))
+  (let ((thing (bounds-of-thing-at-point 'word)))
     (cond (thing
            (delete-region (car thing) (cdr thing))
            (yank))
           (t
-           (forward-char) (tim/replace-symbol-with-kill-ring)))))
+           (forward-char) (tim/replace-with-kill-ring)))))
 
 (defun set-case-insensitive ()
   "Ignore case for vim-search"
@@ -243,9 +260,9 @@ Even playing with symbol, when inside a string, it becomes a word"
 
 (add-hook 'after-change-major-mode-hook #'improve-word-length)
 
-
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
+
 ;; Can be enabled when you want with SPC-t-w
 (remove-hook! 'text-mode-hook #'visual-line-mode)
 
@@ -263,7 +280,7 @@ Even playing with symbol, when inside a string, it becomes a word"
         evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
         case-fold-search nil) ;; always changed by something else. Need to investigate
 
-  (evil-define-motion tim/middle-of-line ()
+  (evil-define-motion tim/middle-of-line-forward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     :type inclusive
     (goto-char (/ (+ (point) (point-at-eol)) 2)))
@@ -305,25 +322,6 @@ Even playing with symbol, when inside a string, it becomes a word"
 (defun tim/insert-random-uuid ()
   (interactive)
   (shell-command "uuidgen" t))
-
-;; complete anything http://company-mode.github.io/
-(use-package! company
-  :config
-  ;; disable auto popup after x seconds
-  (setq company-idle-delay nil
-        ;; allow code completion inside comments and string
-        company-dabbrev-code-everywhere t
-        ;; press M-<digit> to select a given number
-        company-show-numbers t
-        ;; Go back to first item
-        company-selection-wrap-around t
-        ;; allow code completion matching all buffer
-        company-dabbrev-code-other-buffers 'all
-        company-dabbrev-other-buffers 'all)
-
-  ;; vim mode !!!!!! thank you.
-  (company-tng-configure-default))
-
 
 ;; Ugly hack :
 ;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
@@ -376,64 +374,6 @@ Even playing with symbol, when inside a string, it becomes a word"
   ;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
   ;; Try, as a workaround , in a timer ; no luck
   ;; (run-with-timer 0.1 nil 'ivy-resume))
-
-(use-package! ivy
-  :bind (:map ivy-minibuffer-map
-         ("C-p" . ivy-previous-history-element)
-         ("<S-down>" . tim/ivy-down-other)
-         ;; no up to avoid changing buffer problems
-         ("<S-left>" . tim/ivy-left-other)
-         ("<S-right>" . tim/ivy-right-other))
-  :config (setq ivy-wrap nil
-           ivy-count-format "%d/%d "
-           ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
-           ivy-re-builders-alist '((t . ivy--regex-plus)))
-           ;; Default doom emacs was :
-           ;; ((counsel-rg . ivy--regex-plus)
-           ;;  (swiper . ivy--regex-plus)
-           ;;  (swiper-isearch . ivy--regex-plus)
-           ;;  (t . ivy--regex-ignore-order)))
-  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-  (minibuffer-depth-indicate-mode 99))
-
-
-;; Keep evil-snipe but disable 's' mapping
-(after! evil-snipe
-  (evil-snipe-mode -1))
-
-(use-package! counsel
-  :config
-  ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-  ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command
-        (append
-         (butlast counsel-rg-base-command)
-         '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
-        ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
-        counsel-find-file-ignore-regexp nil))
-
-;; I don't want to quit insert mode with jk : remove
-(after! evil-escape
-  :config
-  (setq evil-escape-key-sequence nil))
-
-(after! flycheck
-  :config
-  (setq-default flycheck-disabled-checkers '(python-flake8)))
-
-
-;; see mapping to gm bellow
-(use-package! string-inflection)
-
-(use-package! projectile
-  :config
-  ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
-  (setq projectile-enable-caching nil))
-
-;; If auto formating is annoying :
-;; To enable it, just eval it M-:
-;; (add-hook! 'before-save-hook #'+format/buffer)
-;; (remove-hook! 'before-save-hook #'+format/buffer)
 
 (defun tim/oorr ()
   (interactive)
@@ -505,12 +445,89 @@ Even playing with symbol, when inside a string, it becomes a word"
   (isearch-yank-kill)
   (isearch-exit)
   (isearch-repeat-forward))
+
+;; complete anything http://company-mode.github.io/
+(use-package! company
+  :config
+  ;; disable auto popup after x seconds
+  (setq company-idle-delay nil
+        ;; allow code completion inside comments and string
+        company-dabbrev-code-everywhere t
+        ;; press M-<digit> to select a given number
+        company-show-numbers t
+        ;; Go back to first item
+        company-selection-wrap-around t
+        ;; allow code completion matching all buffer
+        company-dabbrev-code-other-buffers 'all
+        company-dabbrev-other-buffers 'all)
+  )
+  ;; vim mode !!!!!! thank you.
+  ;; (company-tng-configure-default))
+
+(use-package! ivy
+  :bind (:map ivy-minibuffer-map
+         ("C-p" . ivy-previous-history-element)
+         ("<S-down>" . tim/ivy-down-other)
+         ;; no up to avoid changing buffer problems
+         ("<S-left>" . tim/ivy-left-other)
+         ("<S-right>" . tim/ivy-right-other))
+  :config (setq ivy-wrap nil
+           ivy-count-format "%d/%d "
+           ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
+           ivy-re-builders-alist '((t . ivy--regex-plus)))
+           ;; Default doom emacs was :
+           ;; ((counsel-rg . ivy--regex-plus)
+           ;;  (swiper . ivy--regex-plus)
+           ;;  (swiper-isearch . ivy--regex-plus)
+           ;;  (t . ivy--regex-ignore-order)))
+  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
+  (minibuffer-depth-indicate-mode 99))
+
+
+;; Keep evil-snipe but disable 's' mapping
+(after! evil-snipe
+  (evil-snipe-mode -1))
+
+(use-package! counsel
+  :config
+  ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
+  ;; the --glob is to see .* file that are versionned BUT NOT .git folder
+  (setq counsel-rg-base-command
+        (append
+         (butlast counsel-rg-base-command)
+         '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
+        ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
+        counsel-find-file-ignore-regexp nil))
+
+;; I don't want to quit insert mode with jk : remove
+(after! evil-escape
+  :config
+  (setq evil-escape-key-sequence nil))
+
+;; (after! flycheck
+;;   :config
+;;   (setq-default flycheck-disabled-checkers '(python-flake8)))
+
+
+;; see mapping to gm bellow
+(use-package! string-inflection)
+
+(use-package! projectile
+  :config
+  ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
+  (setq projectile-enable-caching nil))
+
+;; If auto formating is annoying :
+;; To enable it, just eval it M-:
+;; (add-hook! 'before-save-hook #'+format/buffer)
+;; (remove-hook! 'before-save-hook #'+format/buffer)
+
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
       :n "C-w x" #'window-swap-states
 
-      :n "s" #'tim/middle-of-line
+      :n "s" #'tim/middle-of-line-forward
       :n "S" #'tim/middle-of-line-backward
 
       ;; :n "*" #'tim/re-search-forward
@@ -533,7 +550,7 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
       ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
       ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
-      "<f5>" #'tim/oorr
+      "<f5>" #'tim/oorr ;; needed to restart android react app
       ;; :n "/" #'isearch-forward-regexp
       ;; :n "*" #'tim/isearch-forward-symbol-at-point
       ;; :n "g*" #'tim/isearch-forward-word-at-point
@@ -550,8 +567,8 @@ Even playing with symbol, when inside a string, it becomes a word"
       :g "<down>" #'isearch-ring-advance
 
       ;; you can do C-s to perform a search inside completion :)
-      :map company-active-map
-      "TAB" #'company-complete-common
+      ;; :map company-active-map
+      ;; "TAB" #'company-complete-common
 
 
       ;; Do not change my changing window S-arrow
@@ -573,9 +590,9 @@ Even playing with symbol, when inside a string, it becomes a word"
       :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
       :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
-      :desc "Delete and go insert" "r" #'tim/replace-symbol-at-point
-      :desc "Kill symbol" "d" #'tim/kill-symbol-at-point
-      :desc "Replace with killed" "p" #'tim/replace-symbol-with-kill-ring
+      :desc "Delete and go insert" "r" #'tim/replace-at-point
+      :desc "Kill symbol" "d" #'tim/kill-at-point
+      :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
 
       :desc "Copy symbol" "y" #'tim/copy-symbol
       :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
@@ -586,12 +603,6 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; my goal is to keep doom binding but replace p with x
       (:prefix-map ("x" . "project")))
 
-
-;; Auto create new window
-(setq windmove-create-window t)
-;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
-;; Let me switch windows with shift-arrows instead of "C-x o" all the time
-(windmove-default-keybindings)
 
 ;; default modeline :
 ;; (doom-modeline-def-modeline 'main
@@ -644,13 +655,6 @@ Even playing with symbol, when inside a string, it becomes a word"
   ;;   (counsel-recentf)))
   )
 (run-with-timer 3 nil 'stop-size-indication-mode)
-
-;; Need to update this BEFORE openning the CSV.
-;; That strange. I m pretty sure it s because i m bad at emacs
-;; then open the file
-;; go into csv-mode if not already done
-;; SPC-m-a (or csv-align-fields)
-(setq csv-separators '(";" ","))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
