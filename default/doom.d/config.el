@@ -237,17 +237,24 @@
     (call-interactively '+default/search-project-for-symbol-at-point)))
 
 
-(defun tim/company-dabbrev-open-and-select ()
+(defun tim/company-dabbrev-select-next ()
   "display popup AND select first one"
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-next))
+;; # Ensuite au pres sur espace, selecte et ajoute espace
 
-(defun tim/company-dabbrev-open-and-select-previous ()
-  "display popup AND select first one"
+(defun tim/company-dabbrev-select-previous ()
+  "display popup and select first one"
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-previous))
+
+(defun tim/company-complete-selection ()
+  "select what is showed and add a space"
+  (interactive)
+  (call-interactively 'company-complete-selection)
+  (insert " "))
 
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
@@ -548,9 +555,15 @@ Even playing with symbol, when inside a string, it becomes a word"
       :n  "g+" #'evil-numbers/inc-at-pt
       ;; :n  "g="    #'evil-numbers/inc-at-pt
       ;; :n  "g-"    #'evil-numbers/dec-at-pt
-      ;; :i  "C-n" #'tim/company-dabbrev-open-and-select
-      ;; :i  "C-p" #'tim/company-dabbrev-open-and-select-previous
+
+      ;; Completion
+      ;; :i  "C-n"  #'dabbrev-completion
+      :i  "C-n"  #'tim/company-dabbrev-select-next
+      :i  "C-p"  #'tim/company-dabbrev-select-previous
+
       "<f5>" #'tim/oorr ;; needed to restart android react app
+
+      ;; Search
       ;; :n "/" #'isearch-forward-regexp
       ;; :n "*" #'tim/isearch-forward-symbol-at-point
       ;; :n "g*" #'tim/isearch-forward-word-at-point
@@ -565,6 +578,9 @@ Even playing with symbol, when inside a string, it becomes a word"
       :map isearch-mode-map
       :g "<up>" #'isearch-ring-retreat
       :g "<down>" #'isearch-ring-advance
+
+      :map company-active-map
+      :g "SPC" #'tim/company-complete-selection
 
       ;; you can do C-s to perform a search inside completion :)
       ;; :map company-active-map
