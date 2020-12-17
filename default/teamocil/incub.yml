@@ -9,8 +9,7 @@ windows:
         - sleep 5
         - ./demarrage.sh
       - commands:
-        - echo "start google in 25 sec"
-        - sleep 25
+        - sleep 5
         - google-chrome
   - name: "--"
     root: ~/poleemploi
