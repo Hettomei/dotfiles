@@ -5,17 +5,16 @@ windows:
     focus: true
     panes:
       - commands:
-        - echo "let you 5 sec before connecting to vpn"
-        - sleep 5
+        - sleep 2
         - ./demarrage.sh
       - commands:
         - sleep 5
         - google-chrome
   - name: "--"
-    root: ~/poleemploi
+    root: ~/poleemploi/referentiel_enf
     layout: even-horizontal
     panes:
-      - ls
       - commands:
         - ls
         focus: true
+      - ls

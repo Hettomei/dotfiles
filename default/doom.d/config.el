@@ -321,6 +321,13 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; # temporary workaround
 (add-hook 'after-change-major-mode-hook #'me/stop-smartparens)
 
+(defun me/change-pythonpath ()
+  (if (and (stringp buffer-file-name)
+           (string-match "tableau_de_bord" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts")))
+
+(add-hook 'python-mode-hook #'me/change-pythonpath)
+
 ;; Try to disable it. Not working
 ;; (use-package! smartparens
 ;;   :config
@@ -562,6 +569,7 @@ Even playing with symbol, when inside a string, it becomes a word"
       :i  "C-p"  #'tim/company-dabbrev-select-previous
 
       "<f5>" #'tim/oorr ;; needed to restart android react app
+      "<f9>" #'python-pytest
 
       ;; Search
       ;; :n "/" #'isearch-forward-regexp
@@ -580,7 +588,7 @@ Even playing with symbol, when inside a string, it becomes a word"
       :g "<down>" #'isearch-ring-advance
 
       :map company-active-map
-      :g "SPC" #'tim/company-complete-selection
+      :g "SPC" #'company-complete-selection
 
       ;; you can do C-s to perform a search inside completion :)
       ;; :map company-active-map
