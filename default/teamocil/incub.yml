@@ -7,9 +7,6 @@ windows:
       - commands:
         - sleep 2
         - ./demarrage.sh
-      - commands:
-        - sleep 5
-        - google-chrome
   - name: "--"
     root: ~/poleemploi/referentiel_enf
     layout: even-horizontal

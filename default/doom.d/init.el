@@ -55,7 +55,7 @@
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
-       file-templates    ; auto-snippets for empty files
+       ;; file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
        (format +onsave)  ; automated prettiness ; to disable:  (remove-hook! 'before-save-hook #'+format/buffer)
        ;; (format)  ; automated prettiness; run +format/buffer when you want : or bind hook on save
