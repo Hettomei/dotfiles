@@ -279,7 +279,7 @@ Even playing with symbol, when inside a string, it becomes a word"
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
-        ;; evil-search-wrap nil
+        evil-search-wrap nil
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-cross-lines t
@@ -544,7 +544,6 @@ Even playing with symbol, when inside a string, it becomes a word"
       :n "s" #'tim/middle-of-line-forward
       :n "S" #'tim/middle-of-line-backward
 
-      ;; :n "*" #'tim/re-search-forward
       :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
       :n "$" #'doom/forward-to-last-non-comment-or-eol
       :n "S-C-p" #'counsel-projectile-find-file-dwim
