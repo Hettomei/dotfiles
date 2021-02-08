@@ -8,6 +8,8 @@ https://docs.ovh.com/fr/public-cloud/recuperer-les-donnees-provenant-de-pca/#ave
 
 https://docs.ovh.com/fr/storage/pca/sftp/
 
+read https://rclone.org/docs/
+
 # :warning: a savoir
 
 Attention, il est possible que la creation d un conteneur se fasse dans 'Object Storage' et non
@@ -86,8 +88,6 @@ $ rclone lsd ovh:documents
 
 
 # Copy
-
-read https://rclone.org/docs/
 
 ```
 rclone copy - Copy files from source to dest, skipping already copied.
