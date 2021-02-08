@@ -564,3 +564,13 @@ copyfromroottotesi() {
 # libinput Middle Emulation Enabled (342):        0
 # sudo xinput --set-prop 11 342 1
 
+# Snap :
+
+# sudo snap find emacs
+# sudo snap info emacs
+# sudo snap list emacs --all
+# sudo snap revert emacs --revision 1019
+# sudo snap refresh emacs --channel=latest/edge --classic
+# NE marche pas :
+# latest/edge:      28.0.50-native-comp-79b9a26 2021-01-13 (1029) 222MB classic
+# avant j avais la rev 1019 (a la place de (1029)) mais impossible de la re telecharger

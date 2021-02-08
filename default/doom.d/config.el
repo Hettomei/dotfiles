@@ -525,6 +525,7 @@ Even playing with symbol, when inside a string, it becomes a word"
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
+(use-package! crosshairs)
 
 (use-package! projectile
   :config

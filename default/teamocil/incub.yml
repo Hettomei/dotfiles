@@ -5,8 +5,8 @@ windows:
     focus: true
     panes:
       - commands:
-        - sleep 2
-        - ./demarrage.sh
+        - echo './demarrage.sh'
+      - echo google-chrome
   - name: "--"
     root: ~/poleemploi/referentiel_enf
     layout: even-horizontal

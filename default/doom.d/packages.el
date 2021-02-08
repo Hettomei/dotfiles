@@ -77,7 +77,16 @@
 (package! groovy-emacs-modes
   :recipe (:host github :repo "Groovy-Emacs-Modes/groovy-emacs-modes"))
 
+(package! crosshairs
+  :recipe (:host github
+           :repo "emacsmirror/emacswiki.org"
+           ;; Need to force master, or else it is on 'readme'
+           :branch "master"
+           :files ("crosshairs.el")))
+
 ;; disable smartparens that automatically completed " with a second " (same for ''())
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
 ;; update: cannot disable because it is a core package. Need to disable hook.
 ;; (package! smartparens :disable t)
+
+; sometimes, doom sync is not enough, need to do `doom sync -u`
