@@ -25,11 +25,7 @@ alias pps='ps aux | grep'
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuuuuu --ignore-case'
 
-# Will be replaced by emacs
-alias todo="nvim +Todo"
-alias tod="nvim +Todo"
-alias fait="nvim +Fait"
-alias notes="nvim +Notes"
+alias fd=fdfind
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
@@ -564,13 +560,3 @@ copyfromroottotesi() {
 # libinput Middle Emulation Enabled (342):        0
 # sudo xinput --set-prop 11 342 1
 
-# Snap :
-
-# sudo snap find emacs
-# sudo snap info emacs
-# sudo snap list emacs --all
-# sudo snap revert emacs --revision 1019
-# sudo snap refresh emacs --channel=latest/edge --classic
-# NE marche pas :
-# latest/edge:      28.0.50-native-comp-79b9a26 2021-01-13 (1029) 222MB classic
-# avant j avais la rev 1019 (a la place de (1029)) mais impossible de la re telecharger

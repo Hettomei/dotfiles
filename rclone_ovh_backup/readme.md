@@ -64,6 +64,15 @@ et si jamais j ai supprimé des photos en local, elle ne seront pas supprimée �
 rclone copy -P photos-2020 ovh:photos-archive/2020/photos-2020
 ```
 
+# Quick, efficace 
+
+Recopier l arrborescence dans le dossier need_sync (avec dossier par annee
+puis dossuer par mois) puis :
+
+```
+rclone copy --progress need_sync/ ovh:photos-archive
+```
+
 
 # Voir les dossiers :
 
