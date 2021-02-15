@@ -217,6 +217,12 @@ rclone --include '*_202008??_*' delete ./
 
 ```
 
+# De ovh vers ovh:
+
+```
+rclone --include "*_201712??_*" move -P ovh:photos-archive/angie-2017-12--2018-08 ovh:photos-archive/2017/angie-2017-12
+```
+
 
 # Comment partager de gros fichier
 

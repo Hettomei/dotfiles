@@ -20,6 +20,10 @@ if [ -d "$HOME/programmes/android-studio/jre" ] ; then
   PATH=$PATH:$JAVA_HOME/bin
 fi
 
+if [ -d "/home/linuxbrew/.linuxbrew/opt/openjdk/bin" ] ; then
+  export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk/bin:$PATH"
+fi
+
 if [ -d "$HOME/programmes/Android" ] ; then
   export ANDROID_HOME=$HOME/programmes/Android
   PATH=$PATH:$ANDROID_HOME/emulator
