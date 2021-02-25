@@ -562,6 +562,9 @@ copyfromroottotesi() {
 
 # Snap :
 
+# Refresh que le dernier samedi du mois :
+# sudo snap set system refresh.timer=sat5
+# snap refresh --time
 # sudo snap find emacs
 # sudo snap info emacs
 # sudo snap list emacs --all

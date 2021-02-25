@@ -14,12 +14,6 @@ if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
     # done
 fi
 
-# already package by android studio
-if [ -d "$HOME/programmes/android-studio/jre" ] ; then
-  export JAVA_HOME="$HOME/programmes/android-studio/jre";
-  PATH=$PATH:$JAVA_HOME/bin
-fi
-
 if [ -d "/home/linuxbrew/.linuxbrew/opt/openjdk/bin" ] ; then
   export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk/bin:$PATH"
 fi
@@ -35,9 +29,4 @@ fi
 if [ "$(command -v yarn)" ]
 then
   PATH="$(yarn global bin):$PATH"
-fi
-
-if [ -d "$HOME/.pyenv/bin" ] ; then
-  # avoid to load it multiple times
-  export PATH="$PATH:$HOME/.pyenv/bin"
 fi
