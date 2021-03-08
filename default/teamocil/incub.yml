@@ -4,9 +4,9 @@ windows:
     layout: even-horizontal
     focus: true
     panes:
-      - commands:
-        - echo './demarrage.sh'
-      - echo google-chrome
+      - echo './demarrage.sh'
+      - echo 'google-chrome'
+      - rappel "09h25" "DAILY"
   - name: "--"
     root: ~/poleemploi/referentiel_enf
     layout: even-horizontal
