@@ -18,6 +18,10 @@ if [ -d "/home/linuxbrew/.linuxbrew/opt/openjdk/bin" ] ; then
   export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk/bin:$PATH"
 fi
 
+if [ -d "$HOME/.rbenv" ] ; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+fi
+
 if [ -d "$HOME/programmes/Android" ] ; then
   export ANDROID_HOME=$HOME/programmes/Android
   PATH=$PATH:$ANDROID_HOME/emulator
