@@ -168,12 +168,8 @@
     (message "Copied: %s" name)
     (kill-new name)))
 
-(defun copy-file-path ()
-  "Copy the buffer full path."
-  (interactive)
-  (let ((name (tim/get-file-path)))
-    (message "current-kill: %s" name)
-    (kill-new name)))
+(defalias 'copy-file-path '+default/yank-buffer-path)
+(defalias 'copy-file-path-relative-to-project '+default/yank-buffer-path-relative-to-project)
 
 (defun tim/replace-at-point ()
   "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
@@ -418,11 +414,26 @@ Even playing with symbol, when inside a string, it becomes a word"
   (evil-window-decrease-height 10))
 
 (defun tim/isearch-forward-symbol-at-point ()
+  "Same as vim *"
   (interactive)
   (let ((case-fold-search nil))
     (call-interactively 'isearch-forward-symbol-at-point)
     (call-interactively 'isearch-exit)
     (call-interactively 'isearch-repeat-forward)))
+
+(defun tim/isearch-at-point ()
+  "Reset current isearch to a word-mode search of the word under point."
+  (interactive)
+  (let ((case-fold-search nil))
+    (call-interactively 'isearch-forward-symbol-at-point)
+    (call-interactively 'isearch-exit)
+    (call-interactively 'isearch-toggle-symbol)
+    (call-interactively 'isearch-repeat-forward)))
+
+(defun my-search-word ()
+  (interactive)
+  (isearch-forward nil 1)
+  (isearch-yank-string "aa"))
 
 (defun tim/iisearch ()
   (interactive)
@@ -461,17 +472,6 @@ Even playing with symbol, when inside a string, it becomes a word"
         (query-replace s to 'delimited (point-min) (point-max) nil nil)
         ))))
 
-
-(defun tim/isearch-forward-word-at-point ()
-  "Reset current isearch to a word-mode search of the word under point."
-  (interactive)
-  (setq isearch-string ""
-        isearch-message ""
-        case-fold-search nil)
-  (tim/copy-symbol)
-  (isearch-yank-kill)
-  (isearch-exit)
-  (isearch-repeat-forward))
 
 ;; complete anything http://company-mode.github.io/
 (use-package! company
@@ -585,11 +585,13 @@ Even playing with symbol, when inside a string, it becomes a word"
       "<f9>" #'python-pytest
 
       ;; Search
-      ;; :n "/" #'isearch-forward-regexp
-      ;; :n "*" #'tim/isearch-forward-symbol-at-point
-      ;; :n "g*" #'tim/isearch-forward-word-at-point
-      ;; :n "n" #'isearch-repeat-forward
-      ;; :n "N" #'isearch-repeat-backward
+      ;; SearchSearch search
+      :n "/" #'isearch-forward
+      :n "*" #'tim/isearch-forward-symbol-at-point
+      ;; :n "*" #'isearch-forward-symbol-at-point
+      :n "g*" #'tim/isearch-at-point
+      :n "n" #'isearch-repeat-forward
+      :n "N" #'isearch-repeat-backward
 
       :map evil-window-map
       ;; :g is for global, because when :n it doesn t work
