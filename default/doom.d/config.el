@@ -421,27 +421,22 @@ Even playing with symbol, when inside a string, it becomes a word"
     (call-interactively 'isearch-exit)
     (call-interactively 'isearch-repeat-forward)))
 
+
 (defun tim/isearch-at-point ()
   "Reset current isearch to a word-mode search of the word under point."
   (interactive)
-  (let ((case-fold-search nil))
-    (call-interactively 'isearch-forward-symbol-at-point)
-    (call-interactively 'isearch-exit)
-    (call-interactively 'isearch-toggle-symbol)
-    (call-interactively 'isearch-repeat-forward)))
-
-(defun my-search-word ()
-  (interactive)
-  (isearch-forward nil 1)
-  (isearch-yank-string "aa"))
-
-(defun tim/iisearch ()
-  (interactive)
-  (let ((case-fold-search nil))
-    (isearch-forward-regexp nil 1)
-    (isearch-yank-string "point")
-    (isearch-exit)
-    (isearch-repeat-forward)))
+  (let ((thing (thing-at-point 'word 'no-properties)))
+        (cond (thing
+               ;; it behaves differently when cursor is at the beginning of word or in the middle
+               ;; so to avoid going too far during isearch-repeat-forward
+               ;; we save-excursion
+               (save-excursion
+                (isearch-forward nil 1)
+                (isearch-yank-string thing)
+                (isearch-exit))
+               (isearch-repeat-forward))
+              (t
+               (forward-char) (tim/isearch-at-point)))))
 
 ;; Taken at https://www.gnu.org/software/emacs/manual/html_node/eintr/simplified_002dbeginning_002dof_002dbuffer.html
 (defun tim/simplified-beginning-of-buffer ()
@@ -701,6 +696,9 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; go into csv-mode if not already done
 ;; SPC-m-a (or csv-align-fields)
 (setq csv-separators '(";" ","))
+
+(if (file-exists-p "~/poleemploi/org/notes.org")
+    (find-file "~/poleemploi/org/notes.org"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
