@@ -419,7 +419,7 @@ Even playing with symbol, when inside a string, it becomes a word"
   (let ((case-fold-search nil))
     (call-interactively 'isearch-forward-symbol-at-point)
     (call-interactively 'isearch-exit)
-    (call-interactively 'isearch-repeat-forward)))
+    (call-interactively 'tim/isearch-repeat-forward)))
 
 
 (defun tim/isearch-at-point ()
@@ -434,17 +434,15 @@ Even playing with symbol, when inside a string, it becomes a word"
                 (isearch-forward nil 1)
                 (isearch-yank-string thing)
                 (isearch-exit))
-               (isearch-repeat-forward))
+               (tim/isearch-repeat-forward))
               (t
                (forward-char) (tim/isearch-at-point)))))
 
-;; Taken at https://www.gnu.org/software/emacs/manual/html_node/eintr/simplified_002dbeginning_002dof_002dbuffer.html
-(defun tim/simplified-beginning-of-buffer ()
-  "Move point to the beginning of the buffer;
-     leave mark at previous position."
+(defun tim/isearch-repeat-forward ()
+  "go back at the start of search"
   (interactive)
-  (push-mark)
-  (goto-char (point-min)))
+  (isearch-repeat-forward)
+  (goto-char isearch-other-end))
 
 ;; From https://www.reddit.com/r/emacs/comments/ikgfxd/weekly_tipstricketc_thread/
 ;; (defun tim/query-replace ()
@@ -580,12 +578,15 @@ Even playing with symbol, when inside a string, it becomes a word"
       "<f9>" #'python-pytest
 
       ;; Search
-      ;; SearchSearch search
+      ;; By using isearch instead of evil,
+      ;; I can now paste search
+      ;; in normal mode: " / p
+      ;; in insert mode: C-R /
       :n "/" #'isearch-forward
       :n "*" #'tim/isearch-forward-symbol-at-point
       ;; :n "*" #'isearch-forward-symbol-at-point
       :n "g*" #'tim/isearch-at-point
-      :n "n" #'isearch-repeat-forward
+      :n "n" #'tim/isearch-repeat-forward
       :n "N" #'isearch-repeat-backward
 
       :map evil-window-map
