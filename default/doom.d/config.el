@@ -382,7 +382,7 @@ Even playing with symbol, when inside a string, it becomes a word"
   (message "reuse-open-goto-line ivy-body: %s" ivy-body)
   (let* ((tim/list (split-string ivy-body ":"))
          (file (car tim/list))
-         (tim/number (car (cdr tim/list))))
+         (tim/number (cadr tim/list)))
 
     (condition-case err
         (counsel-projectile-find-file-action file)
@@ -444,25 +444,17 @@ Even playing with symbol, when inside a string, it becomes a word"
   (isearch-repeat-forward)
   (goto-char isearch-other-end))
 
-;; From https://www.reddit.com/r/emacs/comments/ikgfxd/weekly_tipstricketc_thread/
-;; (defun tim/query-replace ()
-;;   "Populate minibuffer with symbol at point"
-;;   (interactive)
-;;   (when-let ((s (thing-at-point 'symbol 'no-property)))
-;;     (minibuffer-with-setup-hook
-;;         (lambda ()
-;;           (insert s)
-;;           (run-at-time 0 nil #'exit-minibuffer))
-;;       (call-interactively #'query-replace))))
-
 
 (defun tim/query-replace ()
   "Populate minibuffer with symbol at point"
   (interactive)
-  (when-let ((s (thing-at-point 'symbol 'no-property)))
-    (let ((to (read-string (concat "Replace delimited |" s "| with: ") s)))
+  (when-let ((start-with-word (thing-at-point 'symbol 'no-property)))
+    (let* ((replacement (read-string (concat "Replace, word boundary: ") (concat start-with-word " -> " start-with-word)))
+           (cut-read (split-string replacement " -> "))
+           (word-to-replace (car cut-read))
+           (new-word (cadr cut-read)))
       (save-excursion
-        (query-replace s to 'delimited (point-min) (point-max) nil nil)
+        (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
         ))))
 
 
