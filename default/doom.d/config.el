@@ -590,6 +590,10 @@ Even playing with symbol, when inside a string, it becomes a word"
       :g "<up>" #'isearch-ring-retreat
       :g "<down>" #'isearch-ring-advance
 
+      :map ivy-occur-mode-map
+      :g "n" #'tim/isearch-repeat-forward
+      :g "N" #'isearch-repeat-backward
+
       :map company-active-map
       :g "SPC" #'company-complete-selection
 
