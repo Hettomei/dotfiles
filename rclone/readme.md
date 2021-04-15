@@ -34,11 +34,11 @@ Si tout va bien
 
 ```
 aws s3 ls tim
-                           PRE angie/
                            PRE documents/
-                           PRE photos-pas-triees/
                            PRE photos/
 ```
+
+Des exemples de fichiers de conf se trouve dans ce dossier.
 
 
 # Restauration de GLACIER vers STANDARD
