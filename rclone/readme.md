@@ -45,6 +45,51 @@ Des exemples de fichiers de conf se trouve dans ce dossier.
 
 https://www.scaleway.com/en/docs/object-storage-glacier/
 
+on ne peut pas faire en recursif, on fait fichier par fichier
+
+```
+aws s3 ls tim/documents --recursive |  sed 's/^[0-9-]\+ [0-9:]\+ \+[0-9]\+ \(.\+\)$/"\1"/g'
+aws s3api restore-object --bucket tim  --restore-request Days=7 --key "documents/2016-salaires.pdf"
+> aucune sortie
+
+aws s3api head-object --bucket tim  --restore-request Days=7 --key "documents/2016-salaires.pdf"
+> {
+    "AcceptRanges": "bytes",
+    "Restore": "ongoing-request=\"false\", expiry-date=\"Thu, 22 Apr 2021 00:00:00 GMT\"",
+    "LastModified": "Thu, 15 Apr 2021 22:04:05 GMT",
+....
+}
+```
+
+Si ongoing-request=false alors il a ete restauré
+
+pour info, les trucs dans glacier :
+
+```
+$ aws s3api head-object --bucket tim --key "documents/2017-salaires.pdf"
+{
+    "ContentType": "application/pdf",
+    ...
+    "StorageClass": "GLACIER"
+}
+```
+
+
+donc :
+
+```
+aws s3 ls tim/photos --recursive |  sed 's/^[0-9-]\+ [0-9:]\+ \+[0-9]\+ \(.\+\)$/"\1"/g' >> tmp/list_to_restore
+```
+
+attention, ca retourne tim/photos/truc.jpg et tim/photos-lolilol/machin.jpg
+
+apres :
+```
+cat tmp/liste_reduite | xargs -L1 aws s3api restore-object --bucket tim  --restore-request Days=7 --key
+rclone copy -P sg:tim/angie ./
+```
+
+
 # Sauvegarder / backup / copier un nouveau dossier:
 
 Pour copier tout ce dossier :
