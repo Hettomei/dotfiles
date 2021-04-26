@@ -28,12 +28,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-; (setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-; (setq display-line-numbers-type t)
-
+;; (setq org-directory "~/org/")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -112,9 +107,6 @@
  ;; This variable at nil means "be case sensitive"
  dabbrev-case-fold-search nil
 
- ;; Search case Sensitive; TODO : need to check what change this value
- case-fold-search nil
-
  ;; When done with C-S display a counter
  isearch-lazy-count 1
 
@@ -142,7 +134,14 @@
  csv-separators '(";" ",")
 
  ;; Auto create new window when move to inexistant windows
- windmove-create-window t)
+ windmove-create-window t
+
+ ;; Stop asking for which word commes after ``` when editing markdown
+ markdown-gfm-use-electric-backquote nil
+
+ ;; Stop at the end of file when no other words are found
+ isearch-wrap-function '(lambda nil))
+
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
@@ -161,7 +160,7 @@
       (dired-get-filename)
     (or (buffer-file-name) "")))
 
-(defun copy-file-name ()
+(defun tim/copy-file-name ()
   "Copy the buffer file name."
   (interactive)
   (let ((name (file-name-nondirectory (tim/get-file-path))))
@@ -216,25 +215,6 @@
           (t
            (forward-char) (tim/replace-with-kill-ring)))))
 
-(defun set-case-insensitive ()
-  "Ignore case for vim-search"
-  (interactive)
-  (setq evil-ex-search-case (quote insensitive)))
-
-(defalias 'set-ignore-case 'set-case-insensitive)
-
-(defun set-case-sensitive ()
-  "Consider case for vim-search"
-  (interactive)
-  (setq evil-ex-search-case (quote sensitive)))
-
-(defalias 'set-no-ignore-case 'set-case-sensitive)
-
-(defun set-case-smart ()
-  "Smart case for vim-search"
-  (interactive)
-  (setq evil-ex-search-case (quote smart)))
-
 (defun tim/search-project-bound-symbol ()
   "Search only for word under cursor"
   (interactive)
@@ -268,13 +248,25 @@
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(defun improve-word-length ()
+(defun tim/improve-word-length ()
   "This way, when do a 'e' (evil-forward-word-end) it is better.
 Even playing with symbol, when inside a string, it becomes a word"
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w"))
 
-(add-hook 'after-change-major-mode-hook #'improve-word-length)
+(defun tim/search-case-sensitive ()
+  "Search case Sensitive
+it is local to buffer, so we need to change it everytime a mode change"
+  (setq case-fold-search nil))
+
+(defun tim/search-case-insensitive ()
+  "Search case Sensitive
+it is local to buffer, so we need to change it everytime a mode change"
+  (setq case-fold-search t))
+
+(add-hook 'after-change-major-mode-hook #'tim/improve-word-length)
+(add-hook 'text-mode-hook #'tim/search-case-insensitive)
+(add-hook 'prog-mode-hook #'tim/search-case-sensitive)
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -284,7 +276,7 @@ Even playing with symbol, when inside a string, it becomes a word"
 
 ;; I don't want persistent undo https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/undo/README.org#disabling-persistent-undo-history
 (remove-hook 'undo-fu-mode-hook #'global-undo-fu-session-mode)
-; (add-hook 'window-configuration-change-hook 'balance-windows)
+;; (add-hook 'window-configuration-change-hook 'balance-windows)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -293,8 +285,7 @@ Even playing with symbol, when inside a string, it becomes a word"
         evil-vsplit-window-right t
         evil-cross-lines t
         evil-search-module 'isearch ; Try it, I can't find the difference on internet
-        evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
-        case-fold-search nil) ;; always changed by something else. Need to investigate
+        evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
 
   (evil-define-motion tim/middle-of-line-forward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -306,41 +297,35 @@ Even playing with symbol, when inside a string, it becomes a word"
     (interactive)
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
-  (evil-define-motion tim/re-search-forward ()
-    "Fix bug when you are on the last search and it tells 'nothing is found'... which is wrong"
-    :jump t
-    :type exclusive
-    (interactive)
-    (let ((evil-search-wrap t)) ;; temporary override wrap
-      (call-interactively 'evil-ex-search-word-forward))))
+  ;; do not repeat these command when use "."
+  (evil-declare-motion 'tim/isearch-repeat-forward)
+  (evil-declare-motion 'isearch-repeat-backward))
 
-
-;; disable smartparens that automatically completed " with a second " (same for ''())
+;; Disable smartparens that automatically completed " with a second " (same for '',() ...)
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
-;; update: cannot disable in ./packages.el because it is a core package. Need to disable hook.
+;;
+;; Cannot disable in ./packages.el because it is a core package. Need to disable hook.
+;; (use-package! smartparens
+;;   :config
+;;   (smartparens-global-mode -1))
+
 (after! smartparens
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
-(defun me/stop-smartparens ()
+(defun tim/stop-smartparens ()
   "This is a workaround because the after! is overriden by something else."
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
-;; # temporary workaround
-(add-hook 'after-change-major-mode-hook #'me/stop-smartparens)
+(add-hook 'after-change-major-mode-hook #'tim/stop-smartparens)
 
-(defun me/change-pythonpath ()
+(defun tim/change-pythonpath ()
   (if (and (stringp buffer-file-name)
            (string-match "tableau_de_bord" buffer-file-name))
       (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts")))
 
-(add-hook 'python-mode-hook #'me/change-pythonpath)
-
-;; Try to disable it. Not working
-;; (use-package! smartparens
-;;   :config
-;;   (smartparens-global-mode -1))
+(add-hook 'python-mode-hook #'tim/change-pythonpath)
 
 (defun tim/insert-random-uuid ()
   (interactive)
@@ -394,9 +379,9 @@ Even playing with symbol, when inside a string, it becomes a word"
       ;; goto-line is for interactive use
       (goto-char (point-min))
       (forward-line (1- (string-to-number tim/number))))))
-  ;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
-  ;; Try, as a workaround , in a timer ; no luck
-  ;; (run-with-timer 0.1 nil 'ivy-resume))
+;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
+;; Try, as a workaround , in a timer ; no luck
+;; (run-with-timer 0.1 nil 'ivy-resume))
 
 (defun tim/oorr ()
   (interactive)
@@ -416,27 +401,26 @@ Even playing with symbol, when inside a string, it becomes a word"
 (defun tim/isearch-forward-symbol-at-point ()
   "Same as vim *"
   (interactive)
-  (let ((case-fold-search nil))
-    (call-interactively 'isearch-forward-symbol-at-point)
-    (call-interactively 'isearch-exit)
-    (call-interactively 'tim/isearch-repeat-forward)))
+  (call-interactively 'isearch-forward-symbol-at-point)
+  (call-interactively 'isearch-exit)
+  (call-interactively 'tim/isearch-repeat-forward))
 
 
 (defun tim/isearch-at-point ()
   "Reset current isearch to a word-mode search of the word under point."
   (interactive)
   (let ((thing (thing-at-point 'word 'no-properties)))
-        (cond (thing
-               ;; it behaves differently when cursor is at the beginning of word or in the middle
-               ;; so to avoid going too far during isearch-repeat-forward
-               ;; we save-excursion
-               (save-excursion
-                (isearch-forward nil 1)
-                (isearch-yank-string thing)
-                (isearch-exit))
-               (tim/isearch-repeat-forward))
-              (t
-               (forward-char) (tim/isearch-at-point)))))
+    (cond (thing
+           ;; it behaves differently when cursor is at the beginning of word or in the middle
+           ;; so to avoid going too far during isearch-repeat-forward
+           ;; we save-excursion
+           (save-excursion
+             (isearch-forward nil 1)
+             (isearch-yank-string thing)
+             (isearch-exit))
+           (tim/isearch-repeat-forward))
+          (t
+           (forward-char) (tim/isearch-at-point)))))
 
 (defun tim/isearch-repeat-forward ()
   "go back at the start of search"
@@ -473,8 +457,8 @@ Even playing with symbol, when inside a string, it becomes a word"
         company-dabbrev-code-other-buffers 'all
         company-dabbrev-other-buffers 'all)
   )
-  ;; vim mode !!!!!! thank you.
-  ;; (company-tng-configure-default))
+;; vim mode !!!!!! thank you.
+;; (company-tng-configure-default))
 
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
@@ -484,14 +468,14 @@ Even playing with symbol, when inside a string, it becomes a word"
          ("<S-left>" . tim/ivy-left-other)
          ("<S-right>" . tim/ivy-right-other))
   :config (setq ivy-wrap nil
-           ivy-count-format "%d/%d "
-           ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
-           ivy-re-builders-alist '((t . ivy--regex-plus)))
-           ;; Default doom emacs was :
-           ;; ((counsel-rg . ivy--regex-plus)
-           ;;  (swiper . ivy--regex-plus)
-           ;;  (swiper-isearch . ivy--regex-plus)
-           ;;  (t . ivy--regex-ignore-order)))
+                ivy-count-format "%d/%d "
+                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
+                ivy-re-builders-alist '((t . ivy--regex-plus)))
+  ;; Default doom emacs was :
+  ;; ((counsel-rg . ivy--regex-plus)
+  ;;  (swiper . ivy--regex-plus)
+  ;;  (swiper-isearch . ivy--regex-plus)
+  ;;  (t . ivy--regex-ignore-order)))
   ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
   (minibuffer-depth-indicate-mode 99))
 
@@ -538,101 +522,101 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
-      :n "C-w x" #'window-swap-states
+ :n "C-w x" #'window-swap-states
 
-      :n "s" #'tim/middle-of-line-forward
-      :n "S" #'tim/middle-of-line-backward
+ :n "s" #'tim/middle-of-line-forward
+ :n "S" #'tim/middle-of-line-backward
 
-      :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
-      :n "$" #'doom/forward-to-last-non-comment-or-eol
-      :n "S-C-p" #'counsel-projectile-find-file-dwim
-      :n "C-p" #'+ivy/projectile-find-file
+ :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
+ :n "$" #'doom/forward-to-last-non-comment-or-eol
+ :n "S-C-p" #'counsel-projectile-find-file-dwim
+ :n "C-p" #'+ivy/projectile-find-file
 
-      ;; press v multiple time to expand region
-      :v "v" #'er/expand-region
+ ;; press v multiple time to expand region
+ :v "v" #'er/expand-region
 
-      ;; switch from camelCase snake_case kebab-case ...
-      ;; see https://github.com/akicho8/string-inflection
-      ;; why gm ? because available and crm cause problem with "c"
-      :n "gm" #'string-inflection-all-cycle
+ ;; switch from camelCase snake_case kebab-case ...
+ ;; see https://github.com/akicho8/string-inflection
+ ;; why gm ? because available and crm cause problem with "c"
+ :n "gm" #'string-inflection-all-cycle
 
-      ;; increment / decrement in doom
-      :n  "g+" #'evil-numbers/inc-at-pt
-      ;; :n  "g="    #'evil-numbers/inc-at-pt
-      ;; :n  "g-"    #'evil-numbers/dec-at-pt
+ ;; increment / decrement in doom
+ :n  "g+" #'evil-numbers/inc-at-pt
+ ;; :n  "g="    #'evil-numbers/inc-at-pt
+ ;; :n  "g-"    #'evil-numbers/dec-at-pt
 
-      ;; Completion
-      ;; :i  "C-n"  #'dabbrev-completion
-      :i  "C-n"  #'tim/company-dabbrev-select-next
-      :i  "C-p"  #'tim/company-dabbrev-select-previous
+ ;; Completion
+ ;; :i  "C-n"  #'dabbrev-completion
+ :i  "C-n"  #'tim/company-dabbrev-select-next
+ :i  "C-p"  #'tim/company-dabbrev-select-previous
 
-      "<f5>" #'tim/oorr ;; needed to restart android react app
-      "<f9>" #'python-pytest
+ "<f5>" #'tim/oorr ;; needed to restart android react app
+ "<f9>" #'python-pytest
 
-      ;; Search
-      ;; By using isearch instead of evil,
-      ;; I can now paste search
-      ;; in normal mode: " / p
-      ;; in insert mode: C-R /
-      :n "/" #'isearch-forward
-      :n "*" #'tim/isearch-forward-symbol-at-point
-      ;; :n "*" #'isearch-forward-symbol-at-point
-      :n "g*" #'tim/isearch-at-point
-      :n "n" #'tim/isearch-repeat-forward
-      :n "N" #'isearch-repeat-backward
+ ;; Search
+ ;; By using isearch instead of evil,
+ ;; I can now paste search
+ ;; in normal mode: " / p
+ ;; in insert mode: C-R /
+ :n "/" #'isearch-forward
+ :n "*" #'tim/isearch-forward-symbol-at-point
+ ;; :n "*" #'isearch-forward-symbol-at-point
+ :n "g*" #'tim/isearch-at-point
+ :n "n" #'tim/isearch-repeat-forward
+ :n "N" #'isearch-repeat-backward
 
-      :map evil-window-map
-      ;; :g is for global, because when :n it doesn t work
-      :g  "+" 'tim/increase-width-height
-      :g  "-" 'tim/decrease-width-height
+ :map evil-window-map
+ ;; :g is for global, because when :n it doesn t work
+ :g  "+" 'tim/increase-width-height
+ :g  "-" 'tim/decrease-width-height
 
-      :map isearch-mode-map
-      :g "<up>" #'isearch-ring-retreat
-      :g "<down>" #'isearch-ring-advance
+ :map isearch-mode-map
+ :g "<up>" #'isearch-ring-retreat
+ :g "<down>" #'isearch-ring-advance
 
-      :map ivy-occur-mode-map
-      :g "n" #'tim/isearch-repeat-forward
-      :g "N" #'isearch-repeat-backward
+ :map ivy-occur-mode-map
+ :g "n" #'tim/isearch-repeat-forward
+ :g "N" #'isearch-repeat-backward
 
-      :map company-active-map
-      :g "SPC" #'company-complete-selection
+ :map company-active-map
+ :g "SPC" #'company-complete-selection
 
-      ;; you can do C-s to perform a search inside completion :)
-      ;; :map company-active-map
-      ;; "TAB" #'company-complete-common
+ ;; you can do C-s to perform a search inside completion :)
+ ;; :map company-active-map
+ ;; "TAB" #'company-complete-common
 
 
-      ;; Do not change my changing window S-arrow
-      ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
-      ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
-      :map org-mode-map
-      "<S-up>" nil
-      "<S-down>" nil
-      "<S-left>" nil
-      "<S-right>" nil
+ ;; Do not change my changing window S-arrow
+ ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
+ ;; Sometimes S-C-h brings the doc, sometimes it works, keep searching
+ :map org-mode-map
+ "<S-up>" nil
+ "<S-down>" nil
+ "<S-left>" nil
+ "<S-right>" nil
 
-      ;; :map csv-mode-map
-      ;; :n "<left>" #'csv-backward-field
-      ;; :n "<right>" #'csv-forward-field
+ ;; :map csv-mode-map
+ ;; :n "<left>" #'csv-backward-field
+ ;; :n "<right>" #'csv-forward-field
 
-      :leader
-      :desc "Save file" "SPC" #'save-buffer
+ :leader
+ :desc "Save file" "SPC" #'save-buffer
 
-      :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
-      :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
+ :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
+ :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
-      :desc "Delete and go insert" "r" #'tim/replace-at-point
-      :desc "Kill symbol" "d" #'tim/kill-at-point
-      :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
+ :desc "Delete and go insert" "r" #'tim/replace-at-point
+ :desc "Kill symbol" "d" #'tim/kill-at-point
+ :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
 
-      :desc "Copy symbol" "y" #'tim/copy-symbol
-      :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
+ :desc "Copy symbol" "y" #'tim/copy-symbol
+ :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
 
-      :desc "Select file" "e" #'counsel-find-file
-      :desc "Query replace symbol" "%" #'tim/query-replace
+ :desc "Select file" "e" #'counsel-find-file
+ :desc "Query replace symbol" "%" #'tim/query-replace
 
-      ;; my goal is to keep doom binding but replace p with x
-      (:prefix-map ("x" . "project")))
+ ;; my goal is to keep doom binding but replace p with x
+ (:prefix-map ("x" . "project")))
 
 
 ;; default modeline :
@@ -657,11 +641,6 @@ Even playing with symbol, when inside a string, it becomes a word"
         org-ellipsis "⤵"
         org-agenda-span 30))
 
-;; when in org file, be case insensitive
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (message "tim hook case %s" case-fold-search)
-;;             (setq case-fold-search t)))
 ;; Instead of
 ;; (doom-modeline-def-modeline 'main ...)
 ;; I wanted
@@ -672,8 +651,8 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; Remove file size in the modeline
 ;; But it is changed in modeline
 ;; So this is a hack with timer as usual...
-(defun stop-size-indication-mode ()
-  (message "size-indication-mode changed to -1")
+(defun tim/stop-size-indication-mode ()
+  ;; (message "size-indication-mode changed to -1")
   (size-indication-mode -1)
   ;; Put here 'after 3 seconds' because if run before doom is started, I have a white screen
   ;; before opening counsel-recentf
@@ -685,7 +664,7 @@ Even playing with symbol, when inside a string, it becomes a word"
   ;; (when (not (buffer-file-name))
   ;;   (counsel-recentf)))
   )
-(run-with-timer 3 nil 'stop-size-indication-mode)
+(run-with-timer 3 nil 'tim/stop-size-indication-mode)
 
 ;; Need to update this BEFORE openning the CSV.
 ;; That strange. I m pretty sure it s because i m bad at emacs
@@ -694,9 +673,26 @@ Even playing with symbol, when inside a string, it becomes a word"
 ;; SPC-m-a (or csv-align-fields)
 (setq csv-separators '(";" ","))
 
-(if (file-exists-p "~/poleemploi/org/notes.org")
-    (find-file "~/poleemploi/org/notes.org"))
+(after! projectile
+  (when (file-exists-p "~/poleemploi/org/notes.org")
+    (+workspace/new "notes")
+    (find-file "~/poleemploi/org/notes.org")
+    (+workspace/swap-left)
+    (+workspace/new "tesivm")
+    (find-file "~/poleemploi/referentiel_enf/tesi-vm/README.md")
+    (+workspace/swap-left)
+    (+workspace/switch-to-0)))
 
+;; Display a new page that list project, and open it when press ENTER
+;; (defun show-projects ()
+;;   (interactive)
+;;   (switch-to-buffer "*projects*")
+;;   (org-mode)
+;;   (insert "#+TITLE: Projects\n\n")
+;;   (dolist (project (projectile-relevant-known-projects))
+;;     (insert (concat "* " project " [[" project "]] " "\n")))
+;;   (goto-char (point-min)))
+;; (show-projects)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
