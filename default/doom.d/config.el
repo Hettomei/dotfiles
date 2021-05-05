@@ -573,6 +573,7 @@ it is local to buffer, so we need to change it everytime a mode change"
  :map isearch-mode-map
  :g "<up>" #'isearch-ring-retreat
  :g "<down>" #'isearch-ring-advance
+ :g "S-C-v" #'isearch-yank-kill
 
  :map ivy-occur-mode-map
  :g "n" #'tim/isearch-repeat-forward
@@ -580,9 +581,7 @@ it is local to buffer, so we need to change it everytime a mode change"
 
  :map company-active-map
  :g "SPC" #'company-complete-selection
-
  ;; you can do C-s to perform a search inside completion :)
- ;; :map company-active-map
  ;; "TAB" #'company-complete-common
 
 
@@ -603,6 +602,8 @@ it is local to buffer, so we need to change it everytime a mode change"
  :desc "Save file" "SPC" #'save-buffer
 
  :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
+ ;; recherche dans le projet sans etre limité au word boundary (malgré le nom symbol)
+ ;; "URL" trouvera "coucou_URL_toto"
  :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
  :desc "Delete and go insert" "r" #'tim/replace-at-point
@@ -673,15 +674,21 @@ it is local to buffer, so we need to change it everytime a mode change"
 ;; SPC-m-a (or csv-align-fields)
 (setq csv-separators '(";" ","))
 
-(after! projectile
-  (when (file-exists-p "~/poleemploi/org/notes.org")
-    (+workspace/new "notes")
-    (find-file "~/poleemploi/org/notes.org")
-    (+workspace/swap-left)
-    (+workspace/new "tesivm")
-    (find-file "~/poleemploi/referentiel_enf/tesi-vm/README.md")
-    (+workspace/swap-left)
-    (+workspace/switch-to-0)))
+;; (after! projectile
+;;   (when (file-exists-p "~/poleemploi/org/notes.org")
+;;     (+workspace/new "notes")
+;;     (find-file "~/poleemploi/org/notes.org")
+;;     (+workspace/swap-left)
+;;     (+workspace/new "cd200")
+;;     (find-file "~/poleemploi/referentiel_enf/cd200-utilisation_des_caches_http/README.md")
+;;     (+workspace/swap-left)
+;;     (+workspace/switch-to-0)))
+;; Need to create it first :
+;; open your emacs,
+;; create the session you love
+;; then SPC q S
+(doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
+;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")
 
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()

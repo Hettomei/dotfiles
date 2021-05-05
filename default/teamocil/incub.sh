@@ -4,19 +4,19 @@
 # ./.teamocil/incub.sh
 # :D
 tmux new-session \; \
-  send-keys './demarrage.sh' \; \
+  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 3 && incub proxy authentifier' \; \
   \
   split-window -v \; \
   send-keys 'google-chrome' \; \
   \
   split-window -h \; \
-  send-keys 'rappel "09h25" "DAILY"' C-m \; \
+  send-keys 'rappel "09h25" "Skype"' C-m \; \
   \
   new-window \; \
-  send-keys 'cd ~/poleemploi/referentiel_enf' C-m \; \
+  send-keys 'cd ~/poleemploi/referentiel_enf/tesi-vm' C-m \; \
   \
   split-window -h \; \
-  send-keys 'cd ~/poleemploi/referentiel_enf' C-m \; \
+  send-keys 'cd ~/poleemploi/referentiel_enf/tesi-vm' C-m \; \
   \
   select-window -t 0 \; \
   select-pane -t 0 \;
