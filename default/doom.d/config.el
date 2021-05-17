@@ -84,7 +84,8 @@
 (custom-set-faces!
   ;; press SPC u g a to know the current face under cursor
   '(font-lock-doc-face :foreground "#ff8800")
-  '(font-lock-comment-face :foreground "#ff8800"))
+  '(font-lock-comment-face :foreground "#ff8800")
+  '(org-ellipsis :foreground "#FFFFFF"))
 
 ;; (unless (display-graphic-p)
 ;;     (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
@@ -639,7 +640,7 @@ it is local to buffer, so we need to change it everytime a mode change"
 (after! org
   (setq org-agenda-files '("~/org" "~/poleemploi/org" "~/poleemploi/org/sprint09")
         org-log-done 'time
-        org-ellipsis "⤵"
+        org-ellipsis " ⤵"
         org-agenda-span 30))
 
 ;; Instead of
@@ -687,7 +688,7 @@ it is local to buffer, so we need to change it everytime a mode change"
 ;; open your emacs,
 ;; create the session you love
 ;; then SPC q S
-(doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
+;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
 ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")
 
 ;; Display a new page that list project, and open it when press ENTER
