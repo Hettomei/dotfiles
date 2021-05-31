@@ -141,7 +141,13 @@
  markdown-gfm-use-electric-backquote nil
 
  ;; Stop at the end of file when no other words are found
- isearch-wrap-function '(lambda nil))
+ isearch-wrap-function '(lambda nil)
+
+ ;; unfo-fu use 'unconstrained mode' when pressing C-g before u or C-r.
+ ;; The problem is it also works with ESC. And I press Esc every time.
+ ;; So I m often lost with this unconstrained mode.
+ ;; This remove unconstrained mode to have a simplistic undo redo
+ undo-fu-ignore-keyboard-quit t)
 
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
@@ -265,9 +271,21 @@ it is local to buffer, so we need to change it everytime a mode change"
 it is local to buffer, so we need to change it everytime a mode change"
   (setq case-fold-search t))
 
-(add-hook 'after-change-major-mode-hook #'tim/improve-word-length)
-(add-hook 'text-mode-hook #'tim/search-case-insensitive)
-(add-hook 'prog-mode-hook #'tim/search-case-sensitive)
+(defun tim/format-prettify-indent-on-save ()
+  "Will prettify on everything except for
+sh-mode and gfm-mode (markdown files)"
+  (if (not (member major-mode '(sh-mode gfm-mode)))
+      (+format/buffer)))
+
+;; If auto formating is annoying :
+;; To enable it, just eval it M-:
+(add-hook! 'before-save-hook #'tim/format-prettify-indent-on-save)
+;; (remove-hook! 'before-save-hook #'tim/format-prettify-indent-on-save)
+
+(add-hook! 'after-change-major-mode-hook #'tim/improve-word-length)
+(add-hook! 'text-mode-hook #'tim/search-case-insensitive)
+(add-hook! 'prog-mode-hook #'tim/search-case-sensitive)
+(add-hook! 'prog-mode-hook #'tim/search-case-sensitive)
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -276,8 +294,9 @@ it is local to buffer, so we need to change it everytime a mode change"
 (remove-hook! 'text-mode-hook #'visual-line-mode)
 
 ;; I don't want persistent undo https://github.com/hlissner/doom-emacs/blob/develop/modules/emacs/undo/README.org#disabling-persistent-undo-history
-(remove-hook 'undo-fu-mode-hook #'global-undo-fu-session-mode)
-;; (add-hook 'window-configuration-change-hook 'balance-windows)
+(remove-hook! 'undo-fu-mode-hook #'global-undo-fu-session-mode)
+
+;; (add-hook! 'window-configuration-change-hook 'balance-windows)
 
 (after! evil
   (setq evil-ex-search-case (quote sensitive)
@@ -319,14 +338,14 @@ it is local to buffer, so we need to change it everytime a mode change"
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
-(add-hook 'after-change-major-mode-hook #'tim/stop-smartparens)
+(add-hook! 'after-change-major-mode-hook #'tim/stop-smartparens)
 
 (defun tim/change-pythonpath ()
   (if (and (stringp buffer-file-name)
            (string-match "tableau_de_bord" buffer-file-name))
       (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts")))
 
-(add-hook 'python-mode-hook #'tim/change-pythonpath)
+(add-hook! 'python-mode-hook #'tim/change-pythonpath)
 
 (defun tim/insert-random-uuid ()
   (interactive)
@@ -442,6 +461,28 @@ it is local to buffer, so we need to change it everytime a mode change"
         (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
         ))))
 
+(defun tim/get-column-number-first-char ()
+  "Return column number at POINT."
+  (save-excursion
+    (back-to-indentation)
+    (1+ (current-column))))
+
+;; tags: fold indent
+(defun tim/set-selective-display-dlw (&optional level)
+  "Fold text indented same of more than the cursor.
+
+If level is set, set the indent level to LEVEL.
+
+If 'selective-display' is already set to LEVEL,
+calling again will unset 'selective-display' by setting it to 0.
+
+Thank you https://stackoverflow.com/a/27749009/1614763"
+  (interactive "P")
+  (let ((col (tim/get-column-number-first-char)))
+    (if (eq selective-display col)
+        (set-selective-display 0)
+      (set-selective-display (or level col)))))
+
 
 ;; complete anything http://company-mode.github.io/
 (use-package! company
@@ -515,14 +556,11 @@ it is local to buffer, so we need to change it everytime a mode change"
   ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
   (setq projectile-enable-caching nil))
 
-;; If auto formating is annoying :
-;; To enable it, just eval it M-:
-;; (add-hook! 'before-save-hook #'+format/buffer)
-;; (remove-hook! 'before-save-hook #'+format/buffer)
-
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
+ :n "za" #'tim/set-selective-display-dlw
+
  :n "C-w x" #'window-swap-states
 
  :n "s" #'tim/middle-of-line-forward

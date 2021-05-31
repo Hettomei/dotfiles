@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: import pprint
+# uuid: f7054a6b-917c-4d57-883d-705fa32839b9
+# key: pprint
+# condition: t
+# --
+from pprint import pprint
