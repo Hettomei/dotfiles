@@ -4,10 +4,10 @@
 # ./.teamocil/incub.sh
 # :D
 tmux new-session \; \
-  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 3 && incub proxy authentifier' \; \
+  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 3 && firefox' \; \
   \
   split-window -v \; \
-  send-keys 'google-chrome' \; \
+  send-keys 'incub proxy authentifier' \; \
   \
   split-window -h \; \
   send-keys 'rappel "09h25" "Skype"' C-m \; \
