@@ -726,8 +726,11 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 ;; open your emacs,
 ;; create the session you love
 ;; then SPC q S
-;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
-;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")
+(defun tim/load-session ()
+  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
+  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start_notes")
+  (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi"))
+(run-with-timer 2 nil 'tim/load-session)
 
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()
