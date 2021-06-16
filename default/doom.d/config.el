@@ -676,7 +676,7 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
     '(misc-info debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process checker)))
 
 (after! org
-  (setq org-agenda-files '("~/org" "~/poleemploi/org" "~/poleemploi/org/sprint09")
+  (setq org-agenda-files '("~/org" "~/poleemploi/org")
         org-log-done 'time
         org-ellipsis " ⤵"
         org-agenda-span 30))
@@ -688,23 +688,6 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 ;; (doom-modeline-set-modeline 'tim t)
 ;; But does not work. I think some hook always change modeline to main
 
-;; Remove file size in the modeline
-;; But it is changed in modeline
-;; So this is a hack with timer as usual...
-(defun tim/stop-size-indication-mode ()
-  ;; (message "size-indication-mode changed to -1")
-  (size-indication-mode -1)
-  ;; Put here 'after 3 seconds' because if run before doom is started, I have a white screen
-  ;; before opening counsel-recentf
-  ;; (when (buffer-file-name) (message (buffer-file-name)))
-  ;; (when (display-graphic-p)
-  ;; Desactivé : si je suis plus rapide et que je suis dans le minibuffer
-  ;; alors ca se déclenche et annule ce que je suis entrian de faire.
-  ;; necessite une amelioration
-  ;; (when (not (buffer-file-name))
-  ;;   (counsel-recentf)))
-  )
-(run-with-timer 3 nil 'tim/stop-size-indication-mode)
 
 ;; Need to update this BEFORE openning the CSV.
 ;; That strange. I m pretty sure it s because i m bad at emacs
@@ -713,24 +696,22 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 ;; SPC-m-a (or csv-align-fields)
 (setq csv-separators '(";" ","))
 
-;; (after! projectile
-;;   (when (file-exists-p "~/poleemploi/org/notes.org")
-;;     (+workspace/new "notes")
-;;     (find-file "~/poleemploi/org/notes.org")
-;;     (+workspace/swap-left)
-;;     (+workspace/new "cd200")
-;;     (find-file "~/poleemploi/referentiel_enf/cd200-utilisation_des_caches_http/README.md")
-;;     (+workspace/swap-left)
-;;     (+workspace/switch-to-0)))
 ;; Need to create it first :
 ;; open your emacs,
 ;; create the session you love
 ;; then SPC q S
 (defun tim/load-session ()
-  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
-  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start_notes")
-  (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi"))
-(run-with-timer 2 nil 'tim/load-session)
+  (if (not buffer-file-name)
+      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
+      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start_notes")
+      (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
+
+(defun tim/run-after-emacs-is-loaded ()
+  (tim/load-session)
+  ;; remove this info from modeline
+  (size-indication-mode -1))
+
+(add-hook 'window-setup-hook #'tim/run-after-emacs-is-loaded)
 
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()
