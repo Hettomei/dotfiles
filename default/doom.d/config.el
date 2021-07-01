@@ -274,7 +274,7 @@ it is local to buffer, so we need to change it everytime a mode change"
 (defun tim/format-prettify-indent-on-save ()
   "Will prettify on everything except for
 sh-mode and gfm-mode (markdown files)"
-  (if (not (member major-mode '(sh-mode gfm-mode)))
+  (if (not (member major-mode '(sh-mode gfm-mode markdown-mode)))
       (+format/buffer)))
 
 ;; If auto formating is annoying :
@@ -343,7 +343,10 @@ sh-mode and gfm-mode (markdown files)"
 (defun tim/change-pythonpath ()
   (if (and (stringp buffer-file-name)
            (string-match "tableau_de_bord" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts")))
+      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
+  (if (and (stringp buffer-file-name)
+           (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tesi-vm/outillage_commun")))
 
 (add-hook! 'python-mode-hook #'tim/change-pythonpath)
 
@@ -461,6 +464,11 @@ sh-mode and gfm-mode (markdown files)"
         (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
         ))))
 
+(defun tim/jump20line ()
+  "jump 20 line"
+  (interactive)
+  (evil-next-line 20))
+
 (defun tim/get-column-number-first-char ()
   "Return column number at POINT."
   (save-excursion
@@ -570,6 +578,7 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
  :n "$" #'doom/forward-to-last-non-comment-or-eol
  :n "S-C-p" #'counsel-projectile-find-file-dwim
  :n "C-p" #'+ivy/projectile-find-file
+ :n ")" #'tim/jump20line
 
  ;; press v multiple time to expand region
  :v "v" #'er/expand-region
@@ -712,6 +721,15 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
   (size-indication-mode -1))
 
 (add-hook 'window-setup-hook #'tim/run-after-emacs-is-loaded)
+
+(defun tim/code-en-html ()
+  (interactive)
+  (message "Pour afficher le code dans le navigateur, faire :
+M-x htmlize-buffer
+M-x browse-url-of-buffer
+(or C-c C-v if you are in html-mode)
+Si le copier coller ne marche pas avec les couleurs, ouvrir le fichier temporaire dans chrome"))
+
 
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()
