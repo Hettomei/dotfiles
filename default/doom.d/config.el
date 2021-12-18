@@ -318,7 +318,8 @@ sh-mode and gfm-mode (markdown files)"
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-cross-lines t
-        evil-search-module 'isearch ; Try it, I can't find the difference on internet
+        evil-echo-state nil ; do not display "insert"
+        ;; evil-search-module 'isearch ; Try it, I can't find the difference on internet
         evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
 
   ;; before this, having "some_var_name", cursor on o, pressing "ciw" it becomes "_var_name"
@@ -336,8 +337,10 @@ sh-mode and gfm-mode (markdown files)"
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
   ;; do not repeat these command when use "."
-  (evil-declare-motion 'me/isearch-repeat-forward)
-  (evil-declare-motion 'isearch-repeat-backward))
+  ;; (evil-declare-motion 'me/isearch-repeat-forward)
+  ;; (evil-declare-motion 'isearch-repeat-backward))
+
+  )
 
 ;; Disable smartparens that automatically completed " with a second " (same for '',() ...)
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
@@ -552,9 +555,11 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
  :n "S-C-p" #'projectile-find-file-dwim ;; try to be smart to open file
  ;; :n ")" #'me/jump20line
+ :n "M-y" #'consult-yank-from-kill-ring
 
  ;; press v multiple time to expand region
  :v "v" #'er/expand-region
+
 
  ;; switch from camelCase snake_case kebab-case ...
  ;; see https://github.com/akicho8/string-inflection
@@ -587,11 +592,11 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; I can now paste search
  ;; in normal mode: " / p
  ;; in insert mode: C-R /
- :n "/" #'isearch-forward
- :n "*" #'me/isearch-forward-symbol-at-point
- :n "g*" #'me/isearch-forward-thing-at-point
- :n "n" #'me/isearch-repeat-forward
- :n "N" #'isearch-repeat-backward
+ ;; :n "/" #'isearch-forward
+ ;; :n "*" #'me/isearch-forward-symbol-at-point
+ ;; :n "g*" #'me/isearch-forward-thing-at-point
+ ;; :n "n" #'me/isearch-repeat-forward
+ ;; :n "N" #'isearch-repeat-backward
  ;; can press shift Ctrl V like in vim
  :i "S-C-v" #'evil-paste-after
 
@@ -606,10 +611,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g  "+" 'me/increase-width-height
  :g  "-" 'me/decrease-width-height
 
- :map isearch-mode-map
- :g "<up>" #'isearch-ring-retreat
- :g "<down>" #'isearch-ring-advance
- :g "S-C-v" #'isearch-yank-kill
+ ;; :map isearch-mode-map
+ ;; :g "<up>" #'isearch-ring-retreat
+ ;; :g "<down>" #'isearch-ring-advance
+ ;; :g "S-C-v" #'isearch-yank-kill
 
  ;; If vertico is ok, can be deleted
  ;; :map ivy-occur-mode-map
@@ -707,7 +712,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; then SPC q S
 (defun me/load-session ()
   (if (not buffer-file-name)
-      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
+      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
       (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
 
 (defun me/run-after-emacs-is-loaded ()
@@ -796,6 +801,23 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 (defun me/yaml-show-path-to-point ()
   (interactive)
   (message (me/yaml-path-to-point)))
+
+;; / in visual mode will start search immediately
+(defun moon-evil-ex-start-search-with-region-string ()
+  (let ((selection (with-current-buffer (other-buffer (current-buffer) 1)
+                     (when (evil-visual-state-p)
+                       (let ((selection (buffer-substring-no-properties (region-beginning)
+                                                                        (1+ (region-end)))))
+                         (evil-normal-state)
+                         selection)))))
+    (when selection
+      (evil-ex-remove-default)
+      (insert selection)
+      (evil-ex-search-activate-highlight (list selection
+                                               evil-ex-search-count
+                                               evil-ex-search-direction)))))
+
+(advice-add #'evil-ex-search-setup :after #'moon-evil-ex-start-search-with-region-string)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
