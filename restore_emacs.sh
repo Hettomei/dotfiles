@@ -21,6 +21,12 @@ cp -v -r "$DIR/doom.d/snippets" "$HOME/.doom.d/"
 
 cat <<EOF
 
+# install emacs
+sudo add-apt-repository ppa:kelleyk/emacs
+sudo apt install emacs27
+sudo apt install emacs27-el
+
+# install doom
 Please go to https://github.com/hlissner/doom-emacs to install it
 
 please run
