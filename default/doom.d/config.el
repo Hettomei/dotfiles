@@ -150,7 +150,7 @@
  undo-fu-ignore-keyboard-quit t
 
  ;; See https://github.com/justbur/emacs-which-key
- which-key-idle-delay 0.01
+ which-key-idle-delay 0.2
  which-key-separator " ")
 
 
