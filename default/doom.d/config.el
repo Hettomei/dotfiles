@@ -157,6 +157,8 @@
  which-key-separator " "
 
  split-width-threshold 22
+ ;; When pressing M-x, vertico remember history-length last command, I just want this amount
+ history-length 15
  )
 
 
@@ -408,7 +410,7 @@ is overriden by something else."
   (goto-char isearch-other-end))
 
 
-(defun me/query-replace ()
+(defun me/query-replace-isearch ()
   "Populate minibuffer with symbol at point"
   (interactive)
   (when-let ((start-with-word (thing-at-point 'symbol 'no-property)))
@@ -419,6 +421,15 @@ is overriden by something else."
       (save-excursion
         (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
         ))))
+
+(defun me/replace-with-evil ()
+  "Will start an evil search and replace with symbol at point"
+  (interactive)
+  (let* ((thing (thing-at-point 'symbol 'no-properties))
+         (escaped-thing (string-replace "/" "\\/" thing)))
+    (if thing
+        ;; escape / to keep it working with %s/a/b
+        (evil-ex (concat "%s/\\<" escaped-thing "\\>/" escaped-thing)))))
 
 (defun me/jump20line ()
   "jump 20 line"
@@ -511,7 +522,9 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
         ))
 
 (use-package! vertico
-  :config (setq vertico-cycle nil)
+  :config (setq vertico-cycle nil
+                vertico-sort-function 'vertico-sort-history-alpha
+                )
   (vertico-mouse-mode))
 
 ;; Keep evil-snipe but disable 's' mapping
@@ -662,7 +675,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :desc "Copy and append symbol" "Y" #'me/copy-append-symbol
 
  :desc "Select file" "e" #'find-file
- :desc "Query replace symbol" "%" #'me/query-replace
+ :desc "Query replace symbol" "%" #'me/replace-with-evil
+ :desc "Display functions or header or ... try it" "j" #'consult-imenu
 
  ;; my goal is to keep doom binding but replace p with x
  ;; :prefix-map should not be use in private config says the doc ... I don t know
@@ -802,8 +816,8 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
   (interactive)
   (message (me/yaml-path-to-point)))
 
-;; / in visual mode will start search immediately
-(defun moon-evil-ex-start-search-with-region-string ()
+(defun me/evil-ex-start-search-with-region-string ()
+  "In visual mode pressing '/' will start search immediately"
   (let ((selection (with-current-buffer (other-buffer (current-buffer) 1)
                      (when (evil-visual-state-p)
                        (let ((selection (buffer-substring-no-properties (region-beginning)
@@ -817,7 +831,7 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
                                                evil-ex-search-count
                                                evil-ex-search-direction)))))
 
-(advice-add #'evil-ex-search-setup :after #'moon-evil-ex-start-search-with-region-string)
+(advice-add #'evil-ex-search-setup :after #'me/evil-ex-start-search-with-region-string)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
