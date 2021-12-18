@@ -25,7 +25,7 @@ alias pps='ps aux | grep'
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuuuuu --ignore-case'
 
-# alias fd=fdfind
+alias fd=fdfind
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
@@ -135,6 +135,7 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
 #### PYTHON
 
 if [ -d "$HOME/.pyenv/bin" ] ; then
+  export PATH="$HOME/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
@@ -556,3 +557,7 @@ a() {
 # NE marche pas :
 # latest/edge:      28.0.50-native-comp-79b9a26 2021-01-13 (1029) 222MB classic
 # avant j avais la rev 1019 (a la place de (1029)) mais impossible de la re telecharger
+
+# install emacs 28 via apt
+# sudo add-apt-repository ppa:ubuntu-elisp/ppa; sudo apt-get update
+# sudo apt install emacs-snapshot emacs-snapshot-common emacs-snapshot-el
