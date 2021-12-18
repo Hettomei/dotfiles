@@ -111,13 +111,14 @@ rclone copy -P sg:tim/angie ./
 Pour copier tout ce dossier :
 
 ```
-rclone copy -P sync_to_all/ s:tim/
+rclone copy -P sync_to_all/ sg:tim/
+rclone sync -P 2021/ sg:tim/photos/2021
 ```
 
 # Voir les dossiers :
 
 ```
-$ rclone lsd s:tim
+$ rclone lsd sg:tim
 
      1219853 2020-04-06 14:14:32        39 autre
            0 2020-04-06 14:14:32         0 autre_segments
