@@ -571,9 +571,6 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 
  :n "C-w x" #'window-swap-states
 
- :n "s" #'tim/middle-of-line-forward
- :n "S" #'tim/middle-of-line-backward
-
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
  :n "S-C-p" #'counsel-projectile-find-file-dwim
@@ -612,6 +609,12 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
  :n "g*" #'tim/isearch-at-point
  :n "n" #'tim/isearch-repeat-forward
  :n "N" #'isearch-repeat-backward
+
+ ;; After a doom upgrade, I need to add this 'general-override-mode-map
+ ;; to make it works
+ :map general-override-mode-map
+ :n "s" #'tim/middle-of-line-forward
+ :n "S" #'tim/middle-of-line-backward
 
  :map evil-window-map
  ;; :g is for global, because when :n it doesn t work
@@ -712,7 +715,6 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 (defun tim/load-session ()
   (if (not buffer-file-name)
       ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
-      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start_notes")
       (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
 
 (defun tim/run-after-emacs-is-loaded ()
