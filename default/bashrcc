@@ -366,7 +366,7 @@ function meme {
     "$dest"
 }
 
-function histo_search {
+function histosearch {
   (cd ~/history_backups;
   rg -M 240 --max-columns-preview --sort path "$@")
 }

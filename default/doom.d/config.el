@@ -184,9 +184,9 @@
 (defalias 'copy-file-path-relative-to-project '+default/yank-buffer-path-relative-to-project)
 
 (defun me/replace-at-point ()
-  "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
+  "Delete the symbol and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'word)))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
     (cond (thing
            (delete-region (car thing) (cdr thing))
            (evil-insert 1))
@@ -194,9 +194,9 @@
            (forward-char) (me/replace-at-point)))))
 
 (defun me/kill-at-point ()
-  "Kills the word at point."
+  "Kills the symbol at point."
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'word)))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
     (kill-region (car thing) (cdr thing))
     (message "current-kill: %s" (current-kill 0 'do-not-move))))
 
@@ -219,9 +219,9 @@
            (forward-char) (me/copy-append-symbol)))))
 
 (defun me/replace-with-kill-ring ()
-  "Delete the inner word and paste another on it. Do not save in register the replaced word"
+  "Delete the inner symbol and paste another on it. Do not save in register the replaced symbol"
   (interactive)
-  (let ((thing (bounds-of-thing-at-point 'word)))
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
     (cond (thing
            (delete-region (car thing) (cdr thing))
            (yank))
@@ -229,7 +229,7 @@
            (forward-char) (me/replace-with-kill-ring)))))
 
 (defun me/search-project-bound-symbol ()
-  "Search only for word under cursor"
+  "Search only for symbol under cursor"
   (interactive)
   ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
   ;; so it override --case-sensitive. But setting it as always, and we mess the search file...
@@ -258,14 +258,44 @@
   (call-interactively 'company-complete-selection)
   (insert " "))
 
+;; Temporary comment this part that change _ and - as part of word because we can do it
+;; based on each mode
 ;; We can change it by mode with :
+;; ----------- disabled part -------
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(defun me/improve-word-length ()
-  "This way, when do a 'e' (evil-forward-word-end) it is better.
-Even playing with symbol, when inside a string, it becomes a word"
-  (modify-syntax-entry ?_ "w")
-  (modify-syntax-entry ?- "w"))
+;; (defun me/improve-word-length ()
+;;   "This way, when do a 'e' (evil-forward-word-end) it is better.
+;; Even playing with symbol, when inside a string, it becomes a word"
+;; (modify-syntax-entry ?_ "w")
+;; (modify-syntax-entry ?- "w"))
+
+;; (add-hook! 'after-change-major-mode-hook #'me/improve-word-length)
+;; ----------- //disabled part -------
+
+;; thanks to https://www.emacswiki.org/emacs/EmacsSyntaxTable :
+;; we start from a syntax table
+;; we update it and to for each char (after ?) we tell which type it is
+;; C-h s to see a table per mode
+(add-hook 'sh-mode-hook (lambda ()
+                          (let ((table (make-syntax-table sh-mode-syntax-table)))
+                            ;; We tell that : is part of punctuation (the ".").
+                            ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
+                            (modify-syntax-entry ?: "." table)
+                            ;; (modify-syntax-entry ?\] "w" table)
+                            (set-syntax-table table))
+                          ))
+
+
+(add-hook 'python-mode-hook (lambda ()
+                              (let ((table (make-syntax-table sh-mode-syntax-table)))
+                                ;; We tell that : is part of punctuation (the ".").
+                                ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
+                                (modify-syntax-entry ?: "." table)
+                                ;; (modify-syntax-entry ?\] "w" table)
+                                (set-syntax-table table))
+                              ))
+
 
 (defun me/search-case-sensitive ()
   "Search case Sensitive
@@ -288,7 +318,6 @@ sh-mode and gfm-mode (markdown files)"
 (add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 ;; (remove-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 
-(add-hook! 'after-change-major-mode-hook #'me/improve-word-length)
 (add-hook! 'text-mode-hook #'me/search-case-insensitive)
 (add-hook! 'prog-mode-hook #'me/search-case-sensitive)
 (add-hook! 'prog-mode-hook #'me/search-case-sensitive)
@@ -312,6 +341,10 @@ sh-mode and gfm-mode (markdown files)"
         evil-cross-lines t
         evil-search-module 'isearch ; Try it, I can't find the difference on internet
         evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
+
+  ;; before this, having "some_var_name", cursor on o, pressing "ciw" it becomes "_var_name"
+  ;; now, it properly change all
+  (defalias #'forward-evil-word #'forward-evil-symbol)
 
   (evil-define-motion me/middle-of-line-forward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
@@ -445,9 +478,9 @@ sh-mode and gfm-mode (markdown files)"
 
 
 (defun me/isearch-at-point ()
-  "Reset current isearch to a word-mode search of the word under point."
+  "Reset current isearch to a word-mode search of the symbol under point."
   (interactive)
-  (let ((thing (thing-at-point 'word 'no-properties)))
+  (let ((thing (thing-at-point 'symbol 'no-properties)))
     (cond (thing
            ;; it behaves differently when cursor is at the beginning of word or in the middle
            ;; so to avoid going too far during isearch-repeat-forward
@@ -558,8 +591,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 (use-package! ivy
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
-                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
-                ivy-re-builders-alist '((t . ivy--regex-plus)))
+                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
   ;; Default doom emacs was :
   ;; ((counsel-rg . ivy--regex-plus)
   ;;  (swiper . ivy--regex-plus)
@@ -648,7 +680,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "n" #'me/isearch-repeat-forward
  :n "N" #'isearch-repeat-backward
  ;; can press shift Ctrl V like in vim
- :i "S-C-v" #'evil-paste-before
+ :i "S-C-v" #'evil-paste-after
 
  ;; After a doom upgrade, I need to add this 'general-override-mode-map
  ;; to make it works
@@ -704,7 +736,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :desc "Save file" "SPC" #'save-buffer
 
  :desc "Search for symbol in project" "*" #'me/search-project-bound-symbol
- ;; recherche dans le projet sans etre limité au word boundary (malgré le nom symbol)
+ ;; recherche dans le projet sans etre limité au symbol boundary
  ;; "URL" trouvera "coucou_URL_toto"
  :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
