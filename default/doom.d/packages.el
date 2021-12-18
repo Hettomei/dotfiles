@@ -53,6 +53,7 @@
 ;; make 's' binded to go to text
 ;; Not disabled here because it enhance f and t
 ;; (package! evil-snipe :disable t)
+
 (package! evil/easymotion :disable t)
 
 ;; tide run tsserver
@@ -67,7 +68,6 @@
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/snippets/README.org
 (package! doom-snippets :ignore t)
 (package! auto-yasnippet :ignore t)
-
 
 (package! keyfreq :disable t)
 

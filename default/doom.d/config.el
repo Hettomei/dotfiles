@@ -147,7 +147,11 @@
  ;; The problem is it also works with ESC. And I press Esc every time.
  ;; So I m often lost with this unconstrained mode.
  ;; This remove unconstrained mode to have a simplistic undo redo
- undo-fu-ignore-keyboard-quit t)
+ undo-fu-ignore-keyboard-quit t
+
+ ;; See https://github.com/justbur/emacs-which-key
+ which-key-idle-delay 0.01
+ which-key-separator " ")
 
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
@@ -491,6 +495,36 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
         (set-selective-display 0)
       (set-selective-display (or level col)))))
 
+(defvar tim/common-url-regexp
+  (concat
+   "\\b\\(\\(www\\.\\|\\(s?https?\\|ftp\\|file\\|gopher\\|"
+   "nntp\\|news\\|telnet\\|wais\\|mailto\\|info\\):\\)"
+   "\\(//[-a-z0-9_.]+:[0-9]*\\)?"
+   (let ((chars "-a-z0-9_=#$@~%&*+\\/[:word:]")
+	 (punct "!?:;.,"))
+     (concat
+      "\\(?:"
+      ;; Match paired parentheses, e.g. in Wikipedia URLs:
+      ;; http://thread.gmane.org/47B4E3B2.3050402@gmail.com
+      "[" chars punct "]+" "(" "[" chars punct "]+" ")"
+      "\\(?:" "[" chars punct "]+" "[" chars "]" "\\)?"
+      "\\|"
+      "[" chars punct "]+" "[" chars "]"
+      "\\)"))
+   "\\)")
+  "Regular expression that matches URLs.
+Copy of variable `browse-url-button-regexp'.
+Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/")
+
+(defun tim/search-occur-urls ()
+  "Produce buttonised list of all URLs in the current buffer.
+Press C-c RET to open it.
+Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/"
+  (interactive)
+  (let ((buf-name (format "*links in <%s>*" (buffer-name))))
+    (add-hook 'occur-hook #'goto-address-mode)
+    (occur-1 tim/common-url-regexp "\\&" (list (current-buffer)) buf-name)
+    (remove-hook 'occur-hook #'goto-address-mode)))
 
 ;; complete anything http://company-mode.github.io/
 (use-package! company
@@ -513,10 +547,12 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 (use-package! ivy
   :bind (:map ivy-minibuffer-map
          ("C-p" . ivy-previous-history-element)
-         ("<S-down>" . tim/ivy-down-other)
+         ;; Temporary disable S-down/left/right because does not work anymore
+         ;; ("<S-down>" . tim/ivy-down-other)
          ;; no up to avoid changing buffer problems
-         ("<S-left>" . tim/ivy-left-other)
-         ("<S-right>" . tim/ivy-right-other))
+         ;; ("<S-left>" . tim/ivy-left-other)
+         ;; ("<S-right>" . tim/ivy-right-other)
+         )
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
@@ -531,8 +567,7 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 
 
 ;; Keep evil-snipe but disable 's' mapping
-(after! evil-snipe
-  (evil-snipe-mode -1))
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 (use-package! counsel
   :config
@@ -609,6 +644,8 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
  :n "g*" #'tim/isearch-at-point
  :n "n" #'tim/isearch-repeat-forward
  :n "N" #'isearch-repeat-backward
+ ;; can press shift Ctrl V like in vim
+ :i "S-C-v" #'evil-paste-before
 
  ;; After a doom upgrade, I need to add this 'general-override-mode-map
  ;; to make it works
@@ -648,6 +685,8 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
  ;; :map csv-mode-map
  ;; :n "<left>" #'csv-backward-field
  ;; :n "<right>" #'csv-forward-field
+ :map doom-leader-file-map
+ "R" #'tim/simple-rename-file-and-buffer
 
  :leader
  :desc "Save file" "SPC" #'save-buffer
@@ -668,8 +707,16 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
  :desc "Query replace symbol" "%" #'tim/query-replace
 
  ;; my goal is to keep doom binding but replace p with x
+ ;; :prefix-map should not be use in private config says the doc ... I don t know
  (:prefix-map ("x" . "project")))
 
+;; This is linked to map!
+;; Because I changed SPC f R, I need a way to update the which key text
+(general-define-key
+ :prefix "SPC f"
+ :keymaps 'normal
+ ;; bind nothing but give SPC f R a description for which-key
+ "R" '(:ignore t :which-key "Rename file"))
 
 ;; default modeline :
 ;; (doom-modeline-def-modeline 'main
@@ -701,13 +748,6 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 ;; But does not work. I think some hook always change modeline to main
 
 
-;; Need to update this BEFORE openning the CSV.
-;; That strange. I m pretty sure it s because i m bad at emacs
-;; then open the file
-;; go into csv-mode if not already done
-;; SPC-m-a (or csv-align-fields)
-(setq csv-separators '(";" ","))
-
 ;; Need to create it first :
 ;; open your emacs,
 ;; create the session you love
@@ -732,6 +772,18 @@ M-x browse-url-of-buffer
 (or C-c C-v if you are in html-mode)
 Si le copier coller ne marche pas avec les couleurs, ouvrir le fichier temporaire dans chrome"))
 
+(defun tim/simple-rename-file-and-buffer (name)
+  "Apply NAME to current file and rename its buffer.
+Do not try to make a new directory or anything fancy.
+
+taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/"
+  (interactive
+   (list (read-string "Rename current file: " (buffer-file-name))))
+  (let ((file (buffer-file-name)))
+    (if (vc-registered file)
+        (vc-rename-file file name)
+      (rename-file file name))
+    (set-visited-file-name name t t)))
 
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()
