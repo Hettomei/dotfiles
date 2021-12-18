@@ -40,6 +40,23 @@ aws s3 ls tim
 
 Des exemples de fichiers de conf se trouve dans ce dossier.
 
+# Scaleway, comment recuperer des fichier 'glacier'
+
+Ex, j'ai ce dossier :
+
+```
+rclone lsd s:tim/photos/2020
+           0 2021-04-10 17:54:31        -1 angie-2020-07
+           0 2021-04-10 17:54:31        -1 angie-2020-08
+           0 2021-04-10 17:54:31        -1 angie-2020-09
+           0 2021-04-10 17:54:31        -1 angie-2020-10
+           0 2021-04-10 17:54:31        -1 tim-2020-10
+           0 2021-04-10 17:54:31        -1 tim-2020-11
+           0 2021-04-10 17:54:31        -1 tim-2020-12
+```
+je veux les recuperer
+
+1) les migrer de GLACIER vers l object storage STANDARD :
 
 # Restauration de GLACIER vers STANDARD
 
@@ -88,7 +105,6 @@ apres :
 cat tmp/liste_reduite | xargs -L1 aws s3api restore-object --bucket tim  --restore-request Days=7 --key
 rclone copy -P sg:tim/angie ./
 ```
-
 
 # Sauvegarder / backup / copier un nouveau dossier:
 
@@ -242,24 +258,3 @@ rclone --include '*_202008??_*' delete ./
 ```
 rclone --include "*_201712??_*" move -P s:photos/angie-2017-12--2018-08 s:photos/2017/angie-2017-12
 ```
-
-
-# Scaleway, comment recuperer des fichier 'glacier'
-
-Ex, j'ai ce dossier :
-
-```
-rclone lsd s:tim/photos/2020
-           0 2021-04-10 17:54:31        -1 angie-2020-07
-           0 2021-04-10 17:54:31        -1 angie-2020-08
-           0 2021-04-10 17:54:31        -1 angie-2020-09
-           0 2021-04-10 17:54:31        -1 angie-2020-10
-           0 2021-04-10 17:54:31        -1 tim-2020-10
-           0 2021-04-10 17:54:31        -1 tim-2020-11
-           0 2021-04-10 17:54:31        -1 tim-2020-12
-```
-je veux les recuperer
-
-1) les migrer de GLACIER vers l object storage STANDARD :
-
-# TODO
