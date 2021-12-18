@@ -148,12 +148,6 @@ simplehttp(){
   $command
 }
 
-rtest(){
-  echo "ls $1 | entr bash -c \"date; bin/ruby -I\"lib:test\" $1\""
-  echo
-  ls $1 | entr bash -c "date; bin/ruby -I\"lib:test\" $1"
-}
-
 rappel(){
   if [ $# -lt 2 ]
   then

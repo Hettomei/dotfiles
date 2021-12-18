@@ -228,15 +228,22 @@
           (t
            (forward-char) (me/replace-with-kill-ring)))))
 
-(defun me/search-project-bound-symbol ()
+(defun me/search-project-bound-symbol (&optional symbol arg)
   "Search only for symbol under cursor"
-  (interactive)
-  ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
-  ;; so it override --case-sensitive. But setting it as always, and we mess the search file...
-  (let ((ivy-case-fold-search-default nil)
-        (counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "%s"))))
+  ;; this interactive has been stolen from ~/.emacs.d/modules/config/default/autoload/search.el
+  (interactive
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
+         current-prefix-arg))
+  ;; \b to force word boundaries
+  (+vertico/project-search nil (concat "\\b" symbol "\\b")))
 
-    (call-interactively '+default/search-project-for-symbol-at-point)))
+;; Old default for ivy
+;;
+;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
+;; so it override --case-sensitive. But setting it as always, and we mess the search file...
+;; (let ((ivy-case-fold-search-default nil)
+;;       (counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "%s"))))
+;; (call-interactively '+default/search-project-for-symbol-at-point)))
 
 
 (defun me/company-dabbrev-select-next ()
@@ -395,6 +402,8 @@ sh-mode and gfm-mode (markdown files)"
 
 ;; Ugly hack :
 ;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
+;;
+;; If vertico fullfill the needs, can be deleted
 (defun me/ivy-up-other ()
   (interactive)
   (ivy-exit-with-action #'me/ivy-up-exit))
@@ -477,21 +486,12 @@ sh-mode and gfm-mode (markdown files)"
   (call-interactively 'me/isearch-repeat-forward))
 
 
-(defun me/isearch-at-point ()
+(defun me/isearch-forward-thing-at-point ()
   "Reset current isearch to a word-mode search of the symbol under point."
   (interactive)
-  (let ((thing (thing-at-point 'symbol 'no-properties)))
-    (cond (thing
-           ;; it behaves differently when cursor is at the beginning of word or in the middle
-           ;; so to avoid going too far during isearch-repeat-forward
-           ;; we save-excursion
-           (save-excursion
-             (isearch-forward nil 1)
-             (isearch-yank-string thing)
-             (isearch-exit))
-           (me/isearch-repeat-forward))
-          (t
-           (forward-char) (me/isearch-at-point)))))
+  (call-interactively 'isearch-forward-thing-at-point)
+  (call-interactively 'isearch-exit)
+  (call-interactively 'me/isearch-repeat-forward))
 
 (defun me/isearch-repeat-forward ()
   "go back at the start of search"
@@ -588,32 +588,31 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; vim mode !!!!!! thank you.
 ;; (company-tng-configure-default))
 
-(use-package! ivy
-  :config (setq ivy-wrap nil
-                ivy-count-format "%d/%d "
-                ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected)
-  ;; Default doom emacs was :
-  ;; ((counsel-rg . ivy--regex-plus)
-  ;;  (swiper . ivy--regex-plus)
-  ;;  (swiper-isearch . ivy--regex-plus)
-  ;;  (t . ivy--regex-ignore-order)))
-  ;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-  (minibuffer-depth-indicate-mode 99))
+(use-package! vertico
+  :config (setq vertico-cycle nil)
+  (vertico-mouse-mode))
+;; Default doom emacs was :
+;; ((counsel-rg . ivy--regex-plus)
+;;  (swiper . ivy--regex-plus)
+;;  (swiper-isearch . ivy--regex-plus)
+;;  (t . ivy--regex-ignore-order)))
+;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
+;; (minibuffer-depth-indicate-mode 99))
 
 
 ;; Keep evil-snipe but disable 's' mapping
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-(use-package! counsel
-  :config
-  ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-  ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-  (setq counsel-rg-base-command
-        (append
-         (butlast counsel-rg-base-command)
-         '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
-        ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
-        counsel-find-file-ignore-regexp nil))
+;; (use-package! counsel
+;;   :config
+;;   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
+;;   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
+;;   (setq counsel-rg-base-command
+;;         (append
+;;          (butlast counsel-rg-base-command)
+;;          '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
+;;         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
+;;         counsel-find-file-ignore-regexp nil))
 
 ;; I don't want to quit insert mode with jk : remove
 (after! evil-escape
@@ -643,9 +642,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
- :n "S-C-p" #'counsel-projectile-find-file-dwim
- :n "C-p" #'+ivy/projectile-find-file
- :n ")" #'me/jump20line
+ :n "C-p" #'projectile-find-file
+ :n "S-C-p" #'projectile-find-file-dwim-other-window ;; try to be smart to open file
+ :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
+ ;; :n ")" #'me/jump20line
 
  ;; press v multiple time to expand region
  :v "v" #'er/expand-region
@@ -675,8 +675,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; in insert mode: C-R /
  :n "/" #'isearch-forward
  :n "*" #'me/isearch-forward-symbol-at-point
- ;; :n "*" #'isearch-forward-symbol-at-point
- :n "g*" #'me/isearch-at-point
+ :n "g*" #'me/isearch-forward-thing-at-point
  :n "n" #'me/isearch-repeat-forward
  :n "N" #'isearch-repeat-backward
  ;; can press shift Ctrl V like in vim
@@ -689,7 +688,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "S" #'me/middle-of-line-backward
 
  :map evil-window-map
- ;; :g is for global, because when :n it doesn t work
+ ;; :g is for global, because when :n doesn't work
  :g  "+" 'me/increase-width-height
  :g  "-" 'me/decrease-width-height
 
@@ -698,9 +697,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g "<down>" #'isearch-ring-advance
  :g "S-C-v" #'isearch-yank-kill
 
- :map ivy-occur-mode-map
- :g "n" #'me/isearch-repeat-forward
- :g "N" #'isearch-repeat-backward
+ ;; If vertico is ok, can be deleted
+ ;; :map ivy-occur-mode-map
+ ;; :g "n" #'me/isearch-repeat-forward
+ ;; :g "N" #'isearch-repeat-backward
 
  :map company-active-map
  :g "SPC" #'company-complete-selection
@@ -717,13 +717,14 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  "<S-left>" nil
  "<S-right>" nil
 
- :map ivy-minibuffer-map
- "C-p"   #'ivy-previous-history-element
- ;; Temporary disable S-down/left/right because does not work anymore
- "<M-up>"   #'me/ivy-up-other
- "<M-down>"   #'me/ivy-down-other
- "<M-left>"   #'me/ivy-left-other
- "<M-right>"   #'me/ivy-right-other
+ ;; If vertico is ok, can be deleted
+ ;; :map ivy-minibuffer-map
+ ;; "C-p"   #'ivy-previous-history-element
+ ;; ;; Temporary disable S-down/left/right because does not work anymore
+ ;; "<M-up>"   #'me/ivy-up-other
+ ;; "<M-down>"   #'me/ivy-down-other
+ ;; "<M-left>"   #'me/ivy-left-other
+ ;; "<M-right>"   #'me/ivy-right-other
 
 
  ;; :map csv-mode-map
@@ -738,7 +739,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :desc "Search for symbol in project" "*" #'me/search-project-bound-symbol
  ;; recherche dans le projet sans etre limité au symbol boundary
  ;; "URL" trouvera "coucou_URL_toto"
- :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
+ :desc "Search in project no word boundaries" "/" #'+default/search-project-for-symbol-at-point
 
  :desc "Delete and go insert" "r" #'me/replace-at-point
  :desc "Kill symbol" "d" #'me/kill-at-point
@@ -747,7 +748,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :desc "Copy symbol" "y" #'me/copy-symbol
  :desc "Copy and append symbol" "Y" #'me/copy-append-symbol
 
- :desc "Select file" "e" #'counsel-find-file
+ :desc "Select file" "e" #'find-file
  :desc "Query replace symbol" "%" #'me/query-replace
 
  ;; my goal is to keep doom binding but replace p with x
@@ -755,7 +756,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  (:prefix-map ("x" . "project")))
 
 ;; This is linked to map!
-;; Because I changed SPC f R, I need a way to update the which key text
+;; Because I changed SPC f R, I need a way to update the "which key" text
 (general-define-key
  :prefix "SPC f"
  :keymaps 'normal
@@ -1014,7 +1015,11 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 
 ;; load all project :
 ;; #1 : set var
-;; (setq projectile-project-search-path '("~/folder_a" "~/folder_b"))
+;; (setq projectile-project-search-path '(("~/poleemploi/" . 3)))
+;; (setq projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))
 ;;
 ;; #2 : load
-;; M-x +default/discover-projects
+;; M-x projectile-discover-projects-in-search-path
+
+;; pour voir en gros / presentation / zoom / stream / teams
+;; M-x doom-big-font-mode
