@@ -22,3 +22,4 @@ done
 echo 'to install vim-plug see https://github.com/junegunn/vim-plug#installation'
 echo "curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 echo 'nvim +PlugInstall'
+echo 'nvim +PlugUpdate'
