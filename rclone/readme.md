@@ -258,3 +258,9 @@ rclone --include '*_202008??_*' delete ./
 ```
 rclone --include "*_201712??_*" move -P s:photos/angie-2017-12--2018-08 s:photos/2017/angie-2017-12
 ```
+
+# tl;dr
+
+cd '/media/tgauthier/3809E1F82A15E1BA/sync_to_all/'
+rclone sync -P ./documents sg:tim/documents
+rclone sync -P ./photos sg:tim/photos
