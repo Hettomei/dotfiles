@@ -143,7 +143,8 @@
  markdown-gfm-use-electric-backquote nil
 
  ;; Stop at the end of file when no other words are found
- isearch-wrap-function '(lambda nil)
+ ;; the "error" (instead of nil) prevent emacs to highlight non related region
+ isearch-wrap-function (lambda () (error "no more matches"))
 
  ;; unfo-fu use 'unconstrained mode' when pressing C-g before u or C-r.
  ;; The problem is it also works with ESC. And I press Esc every time.
@@ -153,7 +154,10 @@
 
  ;; See https://github.com/justbur/emacs-which-key
  which-key-idle-delay 0.2
- which-key-separator " ")
+ which-key-separator " "
+
+ split-width-threshold 22
+ )
 
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
@@ -237,33 +241,12 @@
   ;; \b to force word boundaries
   (+vertico/project-search nil (concat "\\b" symbol "\\b")))
 
-;; Old default for ivy
-;;
-;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
-;; so it override --case-sensitive. But setting it as always, and we mess the search file...
-;; (let ((ivy-case-fold-search-default nil)
-;;       (counsel-rg-base-command (append (butlast counsel-rg-base-command) '("-w" "%s"))))
-;; (call-interactively '+default/search-project-for-symbol-at-point)))
-
-
-(defun me/company-dabbrev-select-next ()
-  "display popup AND select first one"
-  (interactive)
-  (call-interactively '+company/dabbrev)
-  (call-interactively 'company-select-next))
-;; # Ensuite au pres sur espace, selecte et ajoute espace
 
 (defun me/company-dabbrev-select-previous ()
   "display popup and select first one"
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-previous))
-
-(defun me/company-complete-selection ()
-  "select what is showed and add a space"
-  (interactive)
-  (call-interactively 'company-complete-selection)
-  (insert " "))
 
 ;; Temporary comment this part that change _ and - as part of word because we can do it
 ;; based on each mode
@@ -292,17 +275,6 @@
                             ;; (modify-syntax-entry ?\] "w" table)
                             (set-syntax-table table))
                           ))
-
-
-;; (add-hook 'python-mode-hook (lambda ()
-;;                               (let ((table (make-syntax-table sh-mode-syntax-table)))
-;;                                 ;; We tell that : is part of punctuation (the ".").
-;;                                 ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
-;;                                 (modify-syntax-entry ?: "." table)
-;;                                 ;; (modify-syntax-entry ?\] "w" table)
-;;                                 (set-syntax-table table))
-;;                               ))
-
 
 (defun me/search-case-sensitive ()
   "Search case Sensitive
@@ -369,18 +341,14 @@ sh-mode and gfm-mode (markdown files)"
 
 ;; Disable smartparens that automatically completed " with a second " (same for '',() ...)
 ;; It also do a good job dealing with () movement, see https://smartparens.readthedocs.io/en/latest/
-;;
-;; Cannot disable in ./packages.el because it is a core package. Need to disable hook.
+;; (after! smartparens
 ;; (use-package! smartparens
-;;   :config
+;;   (smartparens-mode -1)
 ;;   (smartparens-global-mode -1))
 
-(after! smartparens
-  (smartparens-mode -1)
-  (smartparens-global-mode -1))
-
 (defun me/stop-smartparens ()
-  "This is a workaround because the after! is overriden by something else."
+  "This is a workaround because the after! or use-package! or disable-packages!
+is overriden by something else."
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
@@ -399,69 +367,6 @@ sh-mode and gfm-mode (markdown files)"
 (defun me/insert-random-uuid ()
   (interactive)
   (shell-command "uuidgen" t))
-
-;; Ugly hack :
-;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
-;;
-;; If vertico fullfill the needs, can be deleted
-(defun me/ivy-up-other ()
-  (interactive)
-  (ivy-exit-with-action #'me/ivy-up-exit))
-
-(defun me/ivy-down-other ()
-  (interactive)
-  (ivy-exit-with-action #'me/ivy-down-exit))
-
-(defun me/ivy-left-other ()
-  (interactive)
-  (ivy-exit-with-action #'me/ivy-left-exit))
-
-(defun me/ivy-right-other ()
-  (interactive)
-  (ivy-exit-with-action #'me/ivy-right-exit))
-
-(defun me/ivy-up-exit (ivy-body)
-  (split-window-below)
-  (me/reuse-open-goto-line ivy-body))
-
-(defun me/ivy-down-exit (ivy-body)
-  (split-window-below)
-  (other-window 1)
-  (me/reuse-open-goto-line ivy-body))
-
-(defun me/ivy-left-exit (ivy-body)
-  (split-window-right)
-  (me/reuse-open-goto-line ivy-body))
-
-(defun me/ivy-right-exit (ivy-body)
-  (split-window-right)
-  (other-window 1)
-  (me/reuse-open-goto-line ivy-body))
-
-
-;; Thanks to
-;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
-;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
-(defun me/reuse-open-goto-line (ivy-body)
-  "try to parse ivy-body and execute code"
-  (message "reuse-open-goto-line ivy-body: %s" ivy-body)
-  (let* ((me/list (split-string ivy-body ":"))
-         (file (car me/list))
-         (me/number (cadr me/list)))
-
-    (condition-case err
-        (counsel-projectile-find-file-action file)
-      (void-function ; <- that s the error handler name
-       (message "open fail with projectile, try find-file. Error was: %s" err)
-       (find-file file)))
-    ;; Thanks to https://stackoverflow.com/questions/3139970/open-a-file-at-line-with-filenameline-syntax
-    (when me/number
-      ;; goto-line is for interactive use
-      (goto-char (point-min))
-      (forward-line (1- (string-to-number me/number))))))
-;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
-;; seems to work with timer
-;; (run-with-timer 0.1 nil 'ivy-resume))
 
 (defun me/oorr ()
   (interactive)
@@ -496,7 +401,7 @@ sh-mode and gfm-mode (markdown files)"
 (defun me/isearch-repeat-forward ()
   "go back at the start of search"
   (interactive)
-  (isearch-repeat-forward)
+  (call-interactively 'isearch-repeat-forward)
   (goto-char isearch-other-end))
 
 
@@ -570,7 +475,9 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
     (occur-1 me/common-url-regexp "\\&" (list (current-buffer)) buf-name)
     (remove-hook 'occur-hook #'goto-address-mode)))
 
+
 ;; complete anything http://company-mode.github.io/
+;; you can do C-s to perform a search inside completion :)
 (use-package! company
   :config
   ;; disable auto popup after x seconds
@@ -579,26 +486,30 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
         company-dabbrev-code-everywhere t
         ;; press M-<digit> to select a given number
         company-show-quick-access t
-        ;; Go back to first item
+        ;; Go back to first item when at the end
         company-selection-wrap-around t
-        ;; allow code completion matching all buffer
-        company-dabbrev-code-other-buffers 'all
-        company-dabbrev-other-buffers 'all)
-  )
-;; vim mode !!!!!! thank you.
-;; (company-tng-configure-default))
+
+        ;; allow code completion matching all buffer...
+        ;; but strangely it invokes something like ispell
+        ;; so, disabled
+        ;; company-dabbrev-code-other-buffers 'all
+        ;; company-dabbrev-other-buffers 'all
+
+        ;; on some key press, like SPC, . ) ! , it autocomplete
+        ;; See company-auto-commit-char for a list of char
+        company-auto-commit t
+        company-auto-commit-chars '(33 34 39 40 41 42 43 46 59 32 60 61 62 63) ;; ! " ' ( ) * + . ; < = > ? "SPC"
+        ;; Found at : https://github.com/company-mode/company-mode/wiki/Switching-from-Vim
+        ;; disable because the first selection is not good, also not cxompatible with childframe
+        ;; (company-tng-configure-default))
+        ;;
+        ;; To properly set company backend per mode, see
+        ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/company/README.org#enable-company-backends-in-certain-modes
+        ))
 
 (use-package! vertico
   :config (setq vertico-cycle nil)
   (vertico-mouse-mode))
-;; Default doom emacs was :
-;; ((counsel-rg . ivy--regex-plus)
-;;  (swiper . ivy--regex-plus)
-;;  (swiper-isearch . ivy--regex-plus)
-;;  (t . ivy--regex-ignore-order)))
-;; Display on top left something like [3] to tell you are 3 recursing minibuffer depth
-;; (minibuffer-depth-indicate-mode 99))
-
 
 ;; Keep evil-snipe but disable 's' mapping
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
@@ -614,15 +525,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;;         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
 ;;         counsel-find-file-ignore-regexp nil))
 
-;; I don't want to quit insert mode with jk : remove
-(after! evil-escape
-  :config
-  (setq evil-escape-key-sequence nil))
 
 ;; (after! flycheck
 ;;   :config
 ;;   (setq-default flycheck-disabled-checkers '(python-flake8)))
-
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
@@ -643,8 +549,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
  :n "C-p" #'projectile-find-file
- :n "S-C-p" #'projectile-find-file-dwim-other-window ;; try to be smart to open file
  :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
+ :n "S-C-p" #'projectile-find-file-dwim ;; try to be smart to open file
  ;; :n ")" #'me/jump20line
 
  ;; press v multiple time to expand region
@@ -662,8 +568,16 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  ;; Completion
  ;; :i  "C-n"  #'dabbrev-completion
- :i  "C-n"  #'me/company-dabbrev-select-next
- :i  "C-p"  #'me/company-dabbrev-select-previous
+ :i  "C-n"  #'+company/dabbrev
+ :i  "C-SPC"  #'company-complete-common
+ :i  "C-x C-n"  #'+company/whole-lines
+ ;; :i  "C-p"  #'me/company-dabbrev-select-previous
+ :i  "C-p"  (make-hippie-expand-function
+             '(try-expand-dabbrev-visible
+               try-expand-dabbrev
+               try-expand-dabbrev-all-buffers) t)
+ ;; to complete the next word like vim C-x C-n, you must first complete the current word, then space, then C-p
+ ;; :i  "C-p"  #'dabbrev-expand
 
  "<f5>" #'me/oorr ;; needed to restart android react app
  "<f9>" #'python-pytest
@@ -701,12 +615,6 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :map ivy-occur-mode-map
  ;; :g "n" #'me/isearch-repeat-forward
  ;; :g "N" #'isearch-repeat-backward
-
- :map company-active-map
- :g "SPC" #'company-complete-selection
- ;; you can do C-s to perform a search inside completion :)
- ;; "TAB" #'company-complete-common
-
 
  ;; Do not change my changing window S-arrow
  ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
@@ -806,6 +714,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (me/load-session)
   ;; remove this info from modeline
   (size-indication-mode -1))
+
 
 (add-hook 'window-setup-hook #'me/run-after-emacs-is-loaded)
 
