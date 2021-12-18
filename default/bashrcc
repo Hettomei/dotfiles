@@ -34,6 +34,8 @@ alias fd=fdfind
 # go to git root
 alias ggr='cd $(git rev-parse --show-toplevel)'
 
+alias jenkins="cd ~/poleemploi/referentiel_enf/outils_jenkins/jenkins_search/"
+
 # go to next commit on a given branch
 ggnext() {
   _BRANCH_=$1
@@ -107,7 +109,8 @@ bind '"\e[B": history-search-forward' # search only next string on key down
 stty werase undef
 bind '\C-w:backward-kill-word'
 
-command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
+
 
 # https://github.com/junegunn/fzf
 # Commented because ;
@@ -132,12 +135,10 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
   # export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
 # fi
 
-#### PYTHON
-
-if [ -d "$HOME/.pyenv/bin" ] ; then
-  export PATH="$HOME/.pyenv/bin:$PATH"
+# Must be executed at every session, so can't be in .profile
+if [ -d "$HOME/.pyenv" ] ; then
   eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  # eval "$(pyenv virtualenv-init -)"
 fi
 
 
@@ -365,6 +366,11 @@ function meme {
     "$dest"
 }
 
+function histo_search {
+  (cd ~/history_backups;
+  rg -M 240 --max-columns-preview --sort path "$@")
+}
+
 
 # Tips
 #
@@ -528,6 +534,7 @@ export NVM_DIR="$HOME/.nvm"
 a() {
   echo $(pbpaste) | pbcopy
 }
+
 
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done

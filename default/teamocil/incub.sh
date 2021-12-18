@@ -4,7 +4,7 @@
 # ./.teamocil/incub.sh
 # :D
 tmux new-session \; \
-  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 3 && firefox' \; \
+  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 1 && firefox' \; \
   \
   split-window -v \; \
   send-keys './stoppage.sh' \; \

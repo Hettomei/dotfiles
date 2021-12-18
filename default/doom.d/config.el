@@ -97,6 +97,8 @@
 
  ;; If you intend to use org, it is recommended you change this!
  org-directory "~/org/"
+ ;; So the notification stay forever when using org-timer-set-timer
+ org-show-notification-timeout 0
 
  ;; If you want to change the style of line numbers,
  ;; change this to `relative' or t or `nil' to disable it:
@@ -165,23 +167,23 @@
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
 
-(defun tim/get-file-path ()
+(defun me/get-file-path ()
   "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
   (if (eq major-mode 'dired-mode)
       (dired-get-filename)
     (or (buffer-file-name) "")))
 
-(defun tim/copy-file-name ()
+(defun me/copy-file-name ()
   "Copy the buffer file name."
   (interactive)
-  (let ((name (file-name-nondirectory (tim/get-file-path))))
+  (let ((name (file-name-nondirectory (me/get-file-path))))
     (message "Copied: %s" name)
     (kill-new name)))
 
 (defalias 'copy-file-path '+default/yank-buffer-path)
 (defalias 'copy-file-path-relative-to-project '+default/yank-buffer-path-relative-to-project)
 
-(defun tim/replace-at-point ()
+(defun me/replace-at-point ()
   "Delete the word and go in insert mode. Equivalent to ciw without saving in register"
   (interactive)
   (let ((thing (bounds-of-thing-at-point 'word)))
@@ -189,34 +191,34 @@
            (delete-region (car thing) (cdr thing))
            (evil-insert 1))
           (t
-           (forward-char) (tim/replace-at-point)))))
+           (forward-char) (me/replace-at-point)))))
 
-(defun tim/kill-at-point ()
+(defun me/kill-at-point ()
   "Kills the word at point."
   (interactive)
   (let ((thing (bounds-of-thing-at-point 'word)))
     (kill-region (car thing) (cdr thing))
     (message "current-kill: %s" (current-kill 0 'do-not-move))))
 
-(defun tim/copy-symbol ()
+(defun me/copy-symbol ()
   "Copy the symbol at point. Move forward if nothing found."
   (interactive)
   (let ((thing (thing-at-point 'symbol)))
     (cond (thing
            (kill-new thing) (message "current-kill: %s" thing))
           (t
-           (forward-char) (tim/copy-symbol)))))
+           (forward-char) (me/copy-symbol)))))
 
-(defun tim/copy-append-symbol ()
+(defun me/copy-append-symbol ()
   "Copy the symbol at point. Move forward if nothing found."
   (interactive)
   (let ((thing (thing-at-point 'symbol 'no-properties)))
     (cond (thing
            (kill-append (concat " " thing) nil) (message "current-kill: %s" (current-kill 0 'do-not-move)))
           (t
-           (forward-char) (tim/copy-append-symbol)))))
+           (forward-char) (me/copy-append-symbol)))))
 
-(defun tim/replace-with-kill-ring ()
+(defun me/replace-with-kill-ring ()
   "Delete the inner word and paste another on it. Do not save in register the replaced word"
   (interactive)
   (let ((thing (bounds-of-thing-at-point 'word)))
@@ -224,9 +226,9 @@
            (delete-region (car thing) (cdr thing))
            (yank))
           (t
-           (forward-char) (tim/replace-with-kill-ring)))))
+           (forward-char) (me/replace-with-kill-ring)))))
 
-(defun tim/search-project-bound-symbol ()
+(defun me/search-project-bound-symbol ()
   "Search only for word under cursor"
   (interactive)
   ;; ivy-case-fold-search-default var change the params passed through counsel-rg-base-command
@@ -237,20 +239,20 @@
     (call-interactively '+default/search-project-for-symbol-at-point)))
 
 
-(defun tim/company-dabbrev-select-next ()
+(defun me/company-dabbrev-select-next ()
   "display popup AND select first one"
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-next))
 ;; # Ensuite au pres sur espace, selecte et ajoute espace
 
-(defun tim/company-dabbrev-select-previous ()
+(defun me/company-dabbrev-select-previous ()
   "display popup and select first one"
   (interactive)
   (call-interactively '+company/dabbrev)
   (call-interactively 'company-select-previous))
 
-(defun tim/company-complete-selection ()
+(defun me/company-complete-selection ()
   "select what is showed and add a space"
   (interactive)
   (call-interactively 'company-complete-selection)
@@ -259,23 +261,23 @@
 ;; We can change it by mode with :
 ;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
-(defun tim/improve-word-length ()
+(defun me/improve-word-length ()
   "This way, when do a 'e' (evil-forward-word-end) it is better.
 Even playing with symbol, when inside a string, it becomes a word"
   (modify-syntax-entry ?_ "w")
   (modify-syntax-entry ?- "w"))
 
-(defun tim/search-case-sensitive ()
+(defun me/search-case-sensitive ()
   "Search case Sensitive
 it is local to buffer, so we need to change it everytime a mode change"
   (setq case-fold-search nil))
 
-(defun tim/search-case-insensitive ()
+(defun me/search-case-insensitive ()
   "Search case Sensitive
 it is local to buffer, so we need to change it everytime a mode change"
   (setq case-fold-search t))
 
-(defun tim/format-prettify-indent-on-save ()
+(defun me/format-prettify-indent-on-save ()
   "Will prettify on everything except for
 sh-mode and gfm-mode (markdown files)"
   (if (not (member major-mode '(sh-mode gfm-mode markdown-mode)))
@@ -283,13 +285,13 @@ sh-mode and gfm-mode (markdown files)"
 
 ;; If auto formating is annoying :
 ;; To enable it, just eval it M-:
-(add-hook! 'before-save-hook #'tim/format-prettify-indent-on-save)
-;; (remove-hook! 'before-save-hook #'tim/format-prettify-indent-on-save)
+(add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
+;; (remove-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 
-(add-hook! 'after-change-major-mode-hook #'tim/improve-word-length)
-(add-hook! 'text-mode-hook #'tim/search-case-insensitive)
-(add-hook! 'prog-mode-hook #'tim/search-case-sensitive)
-(add-hook! 'prog-mode-hook #'tim/search-case-sensitive)
+(add-hook! 'after-change-major-mode-hook #'me/improve-word-length)
+(add-hook! 'text-mode-hook #'me/search-case-insensitive)
+(add-hook! 'prog-mode-hook #'me/search-case-sensitive)
+(add-hook! 'prog-mode-hook #'me/search-case-sensitive)
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -311,18 +313,18 @@ sh-mode and gfm-mode (markdown files)"
         evil-search-module 'isearch ; Try it, I can't find the difference on internet
         evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
 
-  (evil-define-motion tim/middle-of-line-forward ()
+  (evil-define-motion me/middle-of-line-forward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     :type inclusive
     (goto-char (/ (+ (point) (point-at-eol)) 2)))
 
-  (evil-define-motion tim/middle-of-line-backward ()
+  (evil-define-motion me/middle-of-line-backward ()
     "Put cursor at the middle point of the line. try to mimic vim-skip"
     (interactive)
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
   ;; do not repeat these command when use "."
-  (evil-declare-motion 'tim/isearch-repeat-forward)
+  (evil-declare-motion 'me/isearch-repeat-forward)
   (evil-declare-motion 'isearch-repeat-backward))
 
 ;; Disable smartparens that automatically completed " with a second " (same for '',() ...)
@@ -337,14 +339,14 @@ sh-mode and gfm-mode (markdown files)"
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
-(defun tim/stop-smartparens ()
+(defun me/stop-smartparens ()
   "This is a workaround because the after! is overriden by something else."
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
-(add-hook! 'after-change-major-mode-hook #'tim/stop-smartparens)
+(add-hook! 'after-change-major-mode-hook #'me/stop-smartparens)
 
-(defun tim/change-pythonpath ()
+(defun me/change-pythonpath ()
   (if (and (stringp buffer-file-name)
            (string-match "tableau_de_bord" buffer-file-name))
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
@@ -352,58 +354,58 @@ sh-mode and gfm-mode (markdown files)"
            (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/outillage_commun")))
 
-(add-hook! 'python-mode-hook #'tim/change-pythonpath)
+(add-hook! 'python-mode-hook #'me/change-pythonpath)
 
-(defun tim/insert-random-uuid ()
+(defun me/insert-random-uuid ()
   (interactive)
   (shell-command "uuidgen" t))
 
 ;; Ugly hack :
 ;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
-(defun tim/ivy-up-other ()
+(defun me/ivy-up-other ()
   (interactive)
-  (ivy-exit-with-action #'tim/ivy-up-exit))
+  (ivy-exit-with-action #'me/ivy-up-exit))
 
-(defun tim/ivy-down-other ()
+(defun me/ivy-down-other ()
   (interactive)
-  (ivy-exit-with-action #'tim/ivy-down-exit))
+  (ivy-exit-with-action #'me/ivy-down-exit))
 
-(defun tim/ivy-left-other ()
+(defun me/ivy-left-other ()
   (interactive)
-  (ivy-exit-with-action #'tim/ivy-left-exit))
+  (ivy-exit-with-action #'me/ivy-left-exit))
 
-(defun tim/ivy-right-other ()
+(defun me/ivy-right-other ()
   (interactive)
-  (ivy-exit-with-action #'tim/ivy-right-exit))
+  (ivy-exit-with-action #'me/ivy-right-exit))
 
-(defun tim/ivy-up-exit (ivy-body)
+(defun me/ivy-up-exit (ivy-body)
   (split-window-below)
-  (tim/reuse-open-goto-line ivy-body))
+  (me/reuse-open-goto-line ivy-body))
 
-(defun tim/ivy-down-exit (ivy-body)
+(defun me/ivy-down-exit (ivy-body)
   (split-window-below)
   (other-window 1)
-  (tim/reuse-open-goto-line ivy-body))
+  (me/reuse-open-goto-line ivy-body))
 
-(defun tim/ivy-left-exit (ivy-body)
+(defun me/ivy-left-exit (ivy-body)
   (split-window-right)
-  (tim/reuse-open-goto-line ivy-body))
+  (me/reuse-open-goto-line ivy-body))
 
-(defun tim/ivy-right-exit (ivy-body)
+(defun me/ivy-right-exit (ivy-body)
   (split-window-right)
   (other-window 1)
-  (tim/reuse-open-goto-line ivy-body))
+  (me/reuse-open-goto-line ivy-body))
 
 
 ;; Thanks to
 ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
 ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
-(defun tim/reuse-open-goto-line (ivy-body)
+(defun me/reuse-open-goto-line (ivy-body)
   "try to parse ivy-body and execute code"
   (message "reuse-open-goto-line ivy-body: %s" ivy-body)
-  (let* ((tim/list (split-string ivy-body ":"))
-         (file (car tim/list))
-         (tim/number (cadr tim/list)))
+  (let* ((me/list (split-string ivy-body ":"))
+         (file (car me/list))
+         (me/number (cadr me/list)))
 
     (condition-case err
         (counsel-projectile-find-file-action file)
@@ -411,39 +413,38 @@ sh-mode and gfm-mode (markdown files)"
        (message "open fail with projectile, try find-file. Error was: %s" err)
        (find-file file)))
     ;; Thanks to https://stackoverflow.com/questions/3139970/open-a-file-at-line-with-filenameline-syntax
-    (when tim/number
+    (when me/number
       ;; goto-line is for interactive use
       (goto-char (point-min))
-      (forward-line (1- (string-to-number tim/number)))))
-  ;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
-  ;; Try, as a workaround , in a timer ; no luck
-  ;; update, retry it with a timer
-  (run-with-timer 0.1 nil 'ivy-resume))
+      (forward-line (1- (string-to-number me/number))))))
+;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
+;; seems to work with timer
+;; (run-with-timer 0.1 nil 'ivy-resume))
 
-(defun tim/oorr ()
+(defun me/oorr ()
   (interactive)
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
 
-(defun tim/increase-width-height ()
+(defun me/increase-width-height ()
   (interactive)
   (evil-window-increase-width 20)
   (evil-window-increase-height 10))
 
-(defun tim/decrease-width-height ()
+(defun me/decrease-width-height ()
   (interactive)
   (evil-window-decrease-width 20)
   (evil-window-decrease-height 10))
 
-(defun tim/isearch-forward-symbol-at-point ()
+(defun me/isearch-forward-symbol-at-point ()
   "Same as vim *"
   (interactive)
   (call-interactively 'isearch-forward-symbol-at-point)
   (call-interactively 'isearch-exit)
-  (call-interactively 'tim/isearch-repeat-forward))
+  (call-interactively 'me/isearch-repeat-forward))
 
 
-(defun tim/isearch-at-point ()
+(defun me/isearch-at-point ()
   "Reset current isearch to a word-mode search of the word under point."
   (interactive)
   (let ((thing (thing-at-point 'word 'no-properties)))
@@ -455,18 +456,18 @@ sh-mode and gfm-mode (markdown files)"
              (isearch-forward nil 1)
              (isearch-yank-string thing)
              (isearch-exit))
-           (tim/isearch-repeat-forward))
+           (me/isearch-repeat-forward))
           (t
-           (forward-char) (tim/isearch-at-point)))))
+           (forward-char) (me/isearch-at-point)))))
 
-(defun tim/isearch-repeat-forward ()
+(defun me/isearch-repeat-forward ()
   "go back at the start of search"
   (interactive)
   (isearch-repeat-forward)
   (goto-char isearch-other-end))
 
 
-(defun tim/query-replace ()
+(defun me/query-replace ()
   "Populate minibuffer with symbol at point"
   (interactive)
   (when-let ((start-with-word (thing-at-point 'symbol 'no-property)))
@@ -478,19 +479,19 @@ sh-mode and gfm-mode (markdown files)"
         (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
         ))))
 
-(defun tim/jump20line ()
+(defun me/jump20line ()
   "jump 20 line"
   (interactive)
   (evil-next-line 20))
 
-(defun tim/get-column-number-first-char ()
+(defun me/get-column-number-first-char ()
   "Return column number at POINT."
   (save-excursion
     (back-to-indentation)
     (1+ (current-column))))
 
 ;; tags: fold indent
-(defun tim/set-selective-display-dlw (&optional level)
+(defun me/set-selective-display-dlw (&optional level)
   "Fold text indented same of more than the cursor.
 
 If level is set, set the indent level to LEVEL.
@@ -500,12 +501,12 @@ calling again will unset 'selective-display' by setting it to 0.
 
 Thank you https://stackoverflow.com/a/27749009/1614763"
   (interactive "P")
-  (let ((col (tim/get-column-number-first-char)))
+  (let ((col (me/get-column-number-first-char)))
     (if (eq selective-display col)
         (set-selective-display 0)
       (set-selective-display (or level col)))))
 
-(defvar tim/common-url-regexp
+(defvar me/common-url-regexp
   (concat
    "\\b\\(\\(www\\.\\|\\(s?https?\\|ftp\\|file\\|gopher\\|"
    "nntp\\|news\\|telnet\\|wais\\|mailto\\|info\\):\\)"
@@ -526,14 +527,14 @@ Thank you https://stackoverflow.com/a/27749009/1614763"
 Copy of variable `browse-url-button-regexp'.
 Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/")
 
-(defun tim/search-occur-urls ()
+(defun me/search-occur-urls ()
   "Produce buttonised list of all URLs in the current buffer.
 Press C-c RET to open it.
 Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/"
   (interactive)
   (let ((buf-name (format "*links in <%s>*" (buffer-name))))
     (add-hook 'occur-hook #'goto-address-mode)
-    (occur-1 tim/common-url-regexp "\\&" (list (current-buffer)) buf-name)
+    (occur-1 me/common-url-regexp "\\&" (list (current-buffer)) buf-name)
     (remove-hook 'occur-hook #'goto-address-mode)))
 
 ;; complete anything http://company-mode.github.io/
@@ -544,7 +545,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
         ;; allow code completion inside comments and string
         company-dabbrev-code-everywhere t
         ;; press M-<digit> to select a given number
-        company-show-numbers t
+        company-show-quick-access t
         ;; Go back to first item
         company-selection-wrap-around t
         ;; allow code completion matching all buffer
@@ -604,7 +605,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
- :n "za" #'tim/set-selective-display-dlw
+ :n "za" #'me/set-selective-display-dlw
 
  :n "C-w x" #'window-swap-states
 
@@ -612,7 +613,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "$" #'doom/forward-to-last-non-comment-or-eol
  :n "S-C-p" #'counsel-projectile-find-file-dwim
  :n "C-p" #'+ivy/projectile-find-file
- :n ")" #'tim/jump20line
+ :n ")" #'me/jump20line
 
  ;; press v multiple time to expand region
  :v "v" #'er/expand-region
@@ -629,10 +630,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  ;; Completion
  ;; :i  "C-n"  #'dabbrev-completion
- :i  "C-n"  #'tim/company-dabbrev-select-next
- :i  "C-p"  #'tim/company-dabbrev-select-previous
+ :i  "C-n"  #'me/company-dabbrev-select-next
+ :i  "C-p"  #'me/company-dabbrev-select-previous
 
- "<f5>" #'tim/oorr ;; needed to restart android react app
+ "<f5>" #'me/oorr ;; needed to restart android react app
  "<f9>" #'python-pytest
 
  ;; Search
@@ -641,10 +642,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; in normal mode: " / p
  ;; in insert mode: C-R /
  :n "/" #'isearch-forward
- :n "*" #'tim/isearch-forward-symbol-at-point
+ :n "*" #'me/isearch-forward-symbol-at-point
  ;; :n "*" #'isearch-forward-symbol-at-point
- :n "g*" #'tim/isearch-at-point
- :n "n" #'tim/isearch-repeat-forward
+ :n "g*" #'me/isearch-at-point
+ :n "n" #'me/isearch-repeat-forward
  :n "N" #'isearch-repeat-backward
  ;; can press shift Ctrl V like in vim
  :i "S-C-v" #'evil-paste-before
@@ -652,13 +653,13 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; After a doom upgrade, I need to add this 'general-override-mode-map
  ;; to make it works
  :map general-override-mode-map
- :n "s" #'tim/middle-of-line-forward
- :n "S" #'tim/middle-of-line-backward
+ :n "s" #'me/middle-of-line-forward
+ :n "S" #'me/middle-of-line-backward
 
  :map evil-window-map
  ;; :g is for global, because when :n it doesn t work
- :g  "+" 'tim/increase-width-height
- :g  "-" 'tim/decrease-width-height
+ :g  "+" 'me/increase-width-height
+ :g  "-" 'me/decrease-width-height
 
  :map isearch-mode-map
  :g "<up>" #'isearch-ring-retreat
@@ -666,7 +667,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g "S-C-v" #'isearch-yank-kill
 
  :map ivy-occur-mode-map
- :g "n" #'tim/isearch-repeat-forward
+ :g "n" #'me/isearch-repeat-forward
  :g "N" #'isearch-repeat-backward
 
  :map company-active-map
@@ -687,35 +688,35 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :map ivy-minibuffer-map
  "C-p"   #'ivy-previous-history-element
  ;; Temporary disable S-down/left/right because does not work anymore
- "<M-up>"   #'tim/ivy-up-other
- "<M-down>"   #'tim/ivy-down-other
- "<M-left>"   #'tim/ivy-left-other
- "<M-right>"   #'tim/ivy-right-other
+ "<M-up>"   #'me/ivy-up-other
+ "<M-down>"   #'me/ivy-down-other
+ "<M-left>"   #'me/ivy-left-other
+ "<M-right>"   #'me/ivy-right-other
 
 
  ;; :map csv-mode-map
  ;; :n "<left>" #'csv-backward-field
  ;; :n "<right>" #'csv-forward-field
  :map doom-leader-file-map
- "R" #'tim/simple-rename-file-and-buffer
+ "R" #'me/simple-rename-file-and-buffer
 
  :leader
  :desc "Save file" "SPC" #'save-buffer
 
- :desc "Search for symbol in project" "*" #'tim/search-project-bound-symbol
+ :desc "Search for symbol in project" "*" #'me/search-project-bound-symbol
  ;; recherche dans le projet sans etre limité au word boundary (malgré le nom symbol)
  ;; "URL" trouvera "coucou_URL_toto"
  :desc "Search in project" "/" #'+default/search-project-for-symbol-at-point
 
- :desc "Delete and go insert" "r" #'tim/replace-at-point
- :desc "Kill symbol" "d" #'tim/kill-at-point
- :desc "Replace with killed" "p" #'tim/replace-with-kill-ring
+ :desc "Delete and go insert" "r" #'me/replace-at-point
+ :desc "Kill symbol" "d" #'me/kill-at-point
+ :desc "Replace with killed" "p" #'me/replace-with-kill-ring
 
- :desc "Copy symbol" "y" #'tim/copy-symbol
- :desc "Copy and append symbol" "Y" #'tim/copy-append-symbol
+ :desc "Copy symbol" "y" #'me/copy-symbol
+ :desc "Copy and append symbol" "Y" #'me/copy-append-symbol
 
  :desc "Select file" "e" #'counsel-find-file
- :desc "Query replace symbol" "%" #'tim/query-replace
+ :desc "Query replace symbol" "%" #'me/query-replace
 
  ;; my goal is to keep doom binding but replace p with x
  ;; :prefix-map should not be use in private config says the doc ... I don t know
@@ -763,19 +764,19 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; open your emacs,
 ;; create the session you love
 ;; then SPC q S
-(defun tim/load-session ()
+(defun me/load-session ()
   (if (not buffer-file-name)
       ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-cd200")
       (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
 
-(defun tim/run-after-emacs-is-loaded ()
-  (tim/load-session)
+(defun me/run-after-emacs-is-loaded ()
+  (me/load-session)
   ;; remove this info from modeline
   (size-indication-mode -1))
 
-(add-hook 'window-setup-hook #'tim/run-after-emacs-is-loaded)
+(add-hook 'window-setup-hook #'me/run-after-emacs-is-loaded)
 
-(defun tim/code-en-html ()
+(defun me/code-en-html ()
   (interactive)
   (message "Pour afficher le code dans le navigateur, faire :
 M-x htmlize-buffer
@@ -783,7 +784,7 @@ M-x browse-url-of-buffer
 (or C-c C-v if you are in html-mode)
 Si le copier coller ne marche pas avec les couleurs, ouvrir le fichier temporaire dans chrome"))
 
-(defun tim/simple-rename-file-and-buffer (name)
+(defun me/simple-rename-file-and-buffer (name)
   "Apply NAME to current file and rename its buffer.
 Do not try to make a new directory or anything fancy.
 
@@ -796,7 +797,7 @@ taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
       (rename-file file name))
     (set-visited-file-name name t t)))
 
-(defun nxml-where ()
+(defun me/nxml-where ()
   "Display the hierarchy of XML elements the point is on as a path.
 Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
   (interactive)
@@ -815,8 +816,51 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
             (message "/%s" (mapconcat 'identity path "/"))
           (format "/%s" (mapconcat 'identity path "/")))))))
 
-;; Display a new page that list project, and open it when press ENTER
+
+(defun me/yaml-indentation-level (s)
+  (if (string-match "^ " s)
+      (+ 1 (me/yaml-indentation-level (substring s 1)))
+    0))
+
+(defun me/yaml-current-line ()
+  (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
+
+(defun me/yaml-clean-string (s)
+  (let* ((s (replace-regexp-in-string "^[ -:]*" "" s))
+         (s (replace-regexp-in-string ":$" "" s)))
+    s))
+
+(defun me/yaml-not-blank-p (s)
+  (string-match "[^[:blank:]]" s))
+
+(defun me/yaml-path-to-point ()
+  (save-excursion
+    (let* ((line (me/yaml-current-line))
+           (level (me/yaml-indentation-level line))
+           result)
+      (while (> (point) (point-min))
+        (beginning-of-line 0)
+        (setq line (me/yaml-current-line))
+
+        (let ((new-level (me/yaml-indentation-level line)))
+          (when (and (me/yaml-not-blank-p line)
+                     (< new-level level))
+
+            (setq level new-level)
+            (setq result (push (me/yaml-clean-string line) result)))))
+
+      (mapconcat 'identity result " => "))))
+
+(defun me/yaml-show-path-to-point ()
+  (interactive)
+  (message (me/yaml-path-to-point)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; (defun show-projects ()
+;; "Display a new page that list project, and open it when press ENTER"
 ;;   (interactive)
 ;;   (switch-to-buffer "*projects*")
 ;;   (org-mode)
@@ -825,11 +869,8 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;;     (insert (concat "* " project " [[" project "]] " "\n")))
 ;;   (goto-char (point-min)))
 ;; (show-projects)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;
+
 ;; To convert a csv into an org table :
 ;;
 ;; Domaine ENF;TESI Disponibles;TESI Non disponibles;PKS Disponibles ;PKS Non disponibles;PAS Disponibles ;PAS Non disponibles
@@ -840,9 +881,8 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; then
 ;; SPC-; (or M-:) and write :
 ;; (org-table-convert-region (region-beginning) (region-end) ";")
-;;
-;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;; To discover default command :
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/editor/evil/config.el
@@ -851,8 +891,6 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#package-management
 ;; To find help -> go to discord (link in readme)
 
-;; After updating, please run M-x doom/reload
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; flexible, simple tools for minibuffer completion in Emacs : https://github.com/abo-abo/swiper
 ;; Ivy, a generic completion mechanism for Emacs.
@@ -880,16 +918,6 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; To do it :
 ;; SPC TAB n
 ;; Then swhitch using gt (change tab)
-
-;; Extracted from my old custom.el
-;; Maybe I ll have to reinsert this into doom
-;; '(web-mode-comment-formats
-;;   (quote
-;;    (("java" . "/*")
-;;     ("javascript" . "//")
-;;     ("php" . "/*")
-;;     ("css" . "/*"))))
-;; '(xterm-mouse-mode t))
 
 ;; How to quickly create a new mode :
 ;; https://emacs.stackexchange.com/questions/2533/how-can-i-prevent-flycheck-mode-from-checking-certain-files/2541#2541?newreg=6182441417524097a0075ad78c8b187a :
@@ -951,3 +979,10 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; how to let a shell command updating a file :
 ;; Thanks to https://gist.github.com/ustun/73321bfcb01a8657e5b8
 ;; and to https://stackoverflow.com/questions/11613974/how-can-the-shell-command-output-buffer-be-kept-in-the-background
+
+;; load all project :
+;; #1 : set var
+;; (setq projectile-project-search-path '("~/folder_a" "~/folder_b"))
+;;
+;; #2 : load
+;; M-x +default/discover-projects
