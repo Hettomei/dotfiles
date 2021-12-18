@@ -785,6 +785,25 @@ taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
       (rename-file file name))
     (set-visited-file-name name t t)))
 
+(defun nxml-where ()
+  "Display the hierarchy of XML elements the point is on as a path.
+Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
+  (interactive)
+  (let ((path nil))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (< (point-min) (point)) ;; Doesn't error if point is at beginning of buffer
+                    (condition-case nil
+                        (progn
+                          (nxml-backward-up-element) ; always returns nil
+                          t)
+                      (error nil)))
+          (setq path (cons (xmltok-start-tag-local-name) path)))
+        (if (called-interactively-p t)
+            (message "/%s" (mapconcat 'identity path "/"))
+          (format "/%s" (mapconcat 'identity path "/")))))))
+
 ;; Display a new page that list project, and open it when press ENTER
 ;; (defun show-projects ()
 ;;   (interactive)
