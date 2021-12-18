@@ -521,27 +521,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Fix : VMWARE vers windows
+# permet de passer de texte enrichit
+# en texte brut pour paster sous windows
 a() {
   echo $(pbpaste) | pbcopy
-}
-
-copyfromroottodoc() {
-  # you must be in doc repo
-  a=$(pwd)
-  current_name=${a:56}
-  echo will copy ../../$current_name
-  cp -v ../../$current_name/documentation/* ./documentation/
-  cp -v ../../$current_name/implementation* ./
-  git status
-}
-
-copyfromroottotesi() {
-  # you must be in tesi repo
-  a=$(pwd)
-  current_name=${a:47}
-  echo will copy ../../$current_name
-  cp -v ../../$current_name/script_ops/* ./
-  git status
 }
 
 # one line

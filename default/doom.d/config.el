@@ -343,10 +343,10 @@ sh-mode and gfm-mode (markdown files)"
 (defun tim/change-pythonpath ()
   (if (and (stringp buffer-file-name)
            (string-match "tableau_de_bord" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
   (if (and (stringp buffer-file-name)
            (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tesi-vm/outillage_commun")))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/outillage_commun")))
 
 (add-hook! 'python-mode-hook #'tim/change-pythonpath)
 
