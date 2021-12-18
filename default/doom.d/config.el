@@ -244,6 +244,29 @@
   (+vertico/project-search nil (concat "\\b" symbol "\\b")))
 
 
+(defun me/search-project-bound-function (&optional symbol arg)
+  "Search only for symbol as a function under cursor.
+
+In the futur, it should check current minor mode,
+so in python it looks for def, in javascript function..."
+  ;; this interactive has been stolen from ~/.emacs.d/modules/config/default/autoload/search.el
+  (interactive
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
+         current-prefix-arg))
+  (+vertico/project-search nil (concat "def\\ \\b" symbol "\\b")))
+
+(defun me/consult-imenu-symbol-at-point (&optional symbol arg)
+  "Search only for symbol under cursor but consult imenu only return headers or function which is great."
+  (interactive
+   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
+         current-prefix-arg))
+  ;; Should check current minor mode, so in python it looks for def, in javascript function...
+  (call-interactively 'consult-imenu)
+  (message "this function doies not work for the moment. Need redit to get help. You can press Alt-n to get word")
+  ;; (next-matching-history-element symbol)
+  )
+
+
 (defun me/company-dabbrev-select-previous ()
   "display popup and select first one"
   (interactive)
@@ -676,7 +699,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  :desc "Select file" "e" #'find-file
  :desc "Query replace symbol" "%" #'me/replace-with-evil
- :desc "Display functions or header or ... try it" "j" #'consult-imenu
+ :desc "Display functions or header or ... try it" "j" #'me/consult-imenu-symbol-at-point
+ :desc "Search functions through the codebase" "J" #'me/search-project-bound-function
 
  ;; my goal is to keep doom binding but replace p with x
  ;; :prefix-map should not be use in private config says the doc ... I don t know
@@ -727,6 +751,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 (defun me/load-session ()
   (if (not buffer-file-name)
       ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
+      ;; ()))
       (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
 
 (defun me/run-after-emacs-is-loaded ()

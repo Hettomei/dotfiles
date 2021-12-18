@@ -34,8 +34,6 @@ alias fd=fdfind
 # go to git root
 alias ggr='cd $(git rev-parse --show-toplevel)'
 
-alias jenkins="cd ~/poleemploi/referentiel_enf/outils_jenkins/jenkins_search/"
-
 # go to next commit on a given branch
 ggnext() {
   _BRANCH_=$1
