@@ -287,14 +287,14 @@
                           ))
 
 
-(add-hook 'python-mode-hook (lambda ()
-                              (let ((table (make-syntax-table sh-mode-syntax-table)))
-                                ;; We tell that : is part of punctuation (the ".").
-                                ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
-                                (modify-syntax-entry ?: "." table)
-                                ;; (modify-syntax-entry ?\] "w" table)
-                                (set-syntax-table table))
-                              ))
+;; (add-hook 'python-mode-hook (lambda ()
+;;                               (let ((table (make-syntax-table sh-mode-syntax-table)))
+;;                                 ;; We tell that : is part of punctuation (the ".").
+;;                                 ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
+;;                                 (modify-syntax-entry ?: "." table)
+;;                                 ;; (modify-syntax-entry ?\] "w" table)
+;;                                 (set-syntax-table table))
+;;                               ))
 
 
 (defun me/search-case-sensitive ()

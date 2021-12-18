@@ -10,7 +10,7 @@ tmux new-session \; \
   send-keys './stoppage.sh' \; \
   \
   split-window -h \; \
-  send-keys 'rappel "09h25" "Skype"' C-m \; \
+  send-keys 'rappel "09h25" "Teams"' C-m \; \
   \
   new-window \; \
   send-keys 'cd ~/poleemploi/referentiel_enf/tesi-vm' C-m \; \
