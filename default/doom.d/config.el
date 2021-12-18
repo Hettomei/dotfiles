@@ -360,6 +360,10 @@ sh-mode and gfm-mode (markdown files)"
 
 ;; Ugly hack :
 ;; What I want is to Shift arrow, then it open the selection on a new splitted window (up left right, down)
+(defun tim/ivy-up-other ()
+  (interactive)
+  (ivy-exit-with-action #'tim/ivy-up-exit))
+
 (defun tim/ivy-down-other ()
   (interactive)
   (ivy-exit-with-action #'tim/ivy-down-exit))
@@ -371,6 +375,10 @@ sh-mode and gfm-mode (markdown files)"
 (defun tim/ivy-right-other ()
   (interactive)
   (ivy-exit-with-action #'tim/ivy-right-exit))
+
+(defun tim/ivy-up-exit (ivy-body)
+  (split-window-below)
+  (tim/reuse-open-goto-line ivy-body))
 
 (defun tim/ivy-down-exit (ivy-body)
   (split-window-below)
@@ -391,6 +399,7 @@ sh-mode and gfm-mode (markdown files)"
 ;; https://github.com/abo-abo/swiper/blob/master/doc/ivy.org#actions and
 ;; https://www.reddit.com/r/emacs/comments/efg362/ivy_open_selection_vertically_or_horizontally/
 (defun tim/reuse-open-goto-line (ivy-body)
+  "try to parse ivy-body and execute code"
   (message "reuse-open-goto-line ivy-body: %s" ivy-body)
   (let* ((tim/list (split-string ivy-body ":"))
          (file (car tim/list))
@@ -405,10 +414,11 @@ sh-mode and gfm-mode (markdown files)"
     (when tim/number
       ;; goto-line is for interactive use
       (goto-char (point-min))
-      (forward-line (1- (string-to-number tim/number))))))
-;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
-;; Try, as a workaround , in a timer ; no luck
-;; (run-with-timer 0.1 nil 'ivy-resume))
+      (forward-line (1- (string-to-number tim/number)))))
+  ;; (ivy-resume)) ; It s strange but ivy-resume here change the way that 'ENTER' or ivy-done works afterwards
+  ;; Try, as a workaround , in a timer ; no luck
+  ;; update, retry it with a timer
+  (run-with-timer 0.1 nil 'ivy-resume))
 
 (defun tim/oorr ()
   (interactive)
@@ -545,14 +555,6 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; (company-tng-configure-default))
 
 (use-package! ivy
-  :bind (:map ivy-minibuffer-map
-         ("C-p" . ivy-previous-history-element)
-         ;; Temporary disable S-down/left/right because does not work anymore
-         ;; ("<S-down>" . tim/ivy-down-other)
-         ;; no up to avoid changing buffer problems
-         ;; ("<S-left>" . tim/ivy-left-other)
-         ;; ("<S-right>" . tim/ivy-right-other)
-         )
   :config (setq ivy-wrap nil
                 ivy-count-format "%d/%d "
                 ivy-magic-slash-non-match-action 'ivy-magic-slash-non-match-cd-selected
@@ -681,6 +683,15 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  "<S-down>" nil
  "<S-left>" nil
  "<S-right>" nil
+
+ :map ivy-minibuffer-map
+ "C-p"   #'ivy-previous-history-element
+ ;; Temporary disable S-down/left/right because does not work anymore
+ "<M-up>"   #'tim/ivy-up-other
+ "<M-down>"   #'tim/ivy-down-other
+ "<M-left>"   #'tim/ivy-left-other
+ "<M-right>"   #'tim/ivy-right-other
+
 
  ;; :map csv-mode-map
  ;; :n "<left>" #'csv-backward-field
