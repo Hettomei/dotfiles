@@ -84,6 +84,9 @@
            :branch "master"
            :files ("crosshairs.el")))
 
+(package! tree-sitter)
+(package! tree-sitter-langs)
+
 ;; I don't want to quit insert mode with jk : remove
 (disable-packages! evil-escape)
 
