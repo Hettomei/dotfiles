@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: logger.info
+# uuid: 38241487-ee13-4c31-a223-e3b47a5e217f
+# key: cl
+# condition: t
+# --
+logger.info($0)
