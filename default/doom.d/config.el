@@ -759,7 +759,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (if (not buffer-file-name)
       ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
       ;; ()))
-      (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-tesi")))
+      (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start")))
 
 (defun me/run-after-emacs-is-loaded ()
   (me/load-session)
