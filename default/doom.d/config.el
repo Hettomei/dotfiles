@@ -397,9 +397,9 @@ is overriden by something else."
   (shell-command "adb shell input text \"RR\""))
 
 (defun me/add-lazy-flex-search ()
-  (save-excursion
-    (beginning-of-line 0)
-    (insert "~")))
+  (move-beginning-of-line nil)
+  (insert "~")
+  (move-end-of-line nil))
 
 (defun me/cape-dabbrev ()
   (interactive)
