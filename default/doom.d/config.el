@@ -397,10 +397,15 @@ is overriden by something else."
   (shell-command "adb shell input text \"RR\""))
 
 (defun me/add-lazy-flex-search ()
-  (interactive)
   (save-excursion
     (beginning-of-line 0)
     (insert "~")))
+
+(defun me/cape-dabbrev ()
+  (interactive)
+  (minibuffer-with-setup-hook
+      'me/add-lazy-flex-search
+    (call-interactively #'cape-dabbrev)))
 
 (defun me/increase-width-height ()
   (interactive)
@@ -542,7 +547,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :n  "g-"    #'evil-numbers/dec-at-pt
 
  ;; Completion
- :i  "C-n"      #'cape-dabbrev
+ :i  "C-n"      #'me/cape-dabbrev
  :i  "C-p"      #'dabbrev-expand
  :i  "C-x C-j"  #'cape-keyword
  :i  "C-x C-l"  #'cape-line
