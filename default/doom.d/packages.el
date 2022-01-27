@@ -53,7 +53,6 @@
 ;; make 's' binded to go to text
 ;; Not disabled here because it enhance f and t
 ;; (package! evil-snipe :disable t)
-
 (package! evil/easymotion :disable t)
 
 ;; tide run tsserver
@@ -86,6 +85,12 @@
 
 (package! tree-sitter)
 (package! tree-sitter-langs)
+
+;; completion
+;; like hippi expand dabbrev company
+;; By minad, creator of vertico
+(package! cape
+  :recipe (:host github :repo "minad/cape"))
 
 ;; I don't want to quit insert mode with jk : remove
 (disable-packages! evil-escape)

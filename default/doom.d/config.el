@@ -85,7 +85,8 @@
   ;; press SPC u g a to know the current face under cursor
   '(font-lock-doc-face :foreground "#ff8800")
   '(font-lock-comment-face :foreground "#ff8800")
-  '(org-ellipsis :foreground "#FFFFFF"))
+  '(org-ellipsis :foreground "#FFFFFF")
+  '(corfu-default :background "#000000" :foreground "#FFFFFF"))
 
 ;; (unless (display-graphic-p)
 ;;     (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
@@ -267,12 +268,6 @@ so in python it looks for def, in javascript function..."
   )
 
 
-(defun me/company-dabbrev-select-previous ()
-  "display popup and select first one"
-  (interactive)
-  (call-interactively '+company/dabbrev)
-  (call-interactively 'company-select-previous))
-
 ;; Temporary comment this part that change _ and - as part of word because we can do it
 ;; based on each mode
 ;; We can change it by mode with :
@@ -362,8 +357,8 @@ sh-mode and gfm-mode (markdown files)"
     (goto-char (/ (+ (point) (point-at-bol)) 2)))
 
   ;; do not repeat these command when use "."
+  ;; keep here for demo
   ;; (evil-declare-motion 'me/isearch-repeat-forward)
-  ;; (evil-declare-motion 'isearch-repeat-backward))
 
   )
 
@@ -401,6 +396,12 @@ is overriden by something else."
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
 
+(defun me/add-lazy-flex-search ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (insert "~")))
+
 (defun me/increase-width-height ()
   (interactive)
   (evil-window-increase-width 20)
@@ -410,40 +411,6 @@ is overriden by something else."
   (interactive)
   (evil-window-decrease-width 20)
   (evil-window-decrease-height 10))
-
-(defun me/isearch-forward-symbol-at-point ()
-  "Same as vim *"
-  (interactive)
-  (call-interactively 'isearch-forward-symbol-at-point)
-  (call-interactively 'isearch-exit)
-  (call-interactively 'me/isearch-repeat-forward))
-
-
-(defun me/isearch-forward-thing-at-point ()
-  "Reset current isearch to a word-mode search of the symbol under point."
-  (interactive)
-  (call-interactively 'isearch-forward-thing-at-point)
-  (call-interactively 'isearch-exit)
-  (call-interactively 'me/isearch-repeat-forward))
-
-(defun me/isearch-repeat-forward ()
-  "go back at the start of search"
-  (interactive)
-  (call-interactively 'isearch-repeat-forward)
-  (goto-char isearch-other-end))
-
-
-(defun me/query-replace-isearch ()
-  "Populate minibuffer with symbol at point"
-  (interactive)
-  (when-let ((start-with-word (thing-at-point 'symbol 'no-property)))
-    (let* ((replacement (read-string (concat "Replace, word boundary: ") (concat start-with-word " -> " start-with-word)))
-           (cut-read (split-string replacement " -> "))
-           (word-to-replace (car cut-read))
-           (new-word (cadr cut-read)))
-      (save-excursion
-        (query-replace word-to-replace new-word 'delimited (point-min) (point-max) nil nil)
-        ))))
 
 (defun me/replace-with-evil ()
   "Will start an evil search and replace with symbol at point"
@@ -513,36 +480,13 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
     (remove-hook 'occur-hook #'goto-address-mode)))
 
 
-;; complete anything http://company-mode.github.io/
-;; you can do C-s to perform a search inside completion :)
-(use-package! company
-  :config
-  ;; disable auto popup after x seconds
-  (setq company-idle-delay nil
-        ;; allow code completion inside comments and string
-        company-dabbrev-code-everywhere t
-        ;; press M-<digit> to select a given number
-        company-show-quick-access t
-        ;; Go back to first item when at the end
-        company-selection-wrap-around t
+;; Keep evil-snipe but disable 's' mapping
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-        ;; allow code completion matching all buffer...
-        ;; but strangely it invokes something like ispell
-        ;; so, disabled
-        ;; company-dabbrev-code-other-buffers 'all
-        ;; company-dabbrev-other-buffers 'all
+;; (after! flycheck
+;;   :config
+;;   (setq-default flycheck-disabled-checkers '(python-flake8)))
 
-        ;; on some key press, like SPC, . ) ! , it autocomplete
-        ;; See company-auto-commit-char for a list of char
-        company-auto-commit t
-        company-auto-commit-chars '(33 34 39 40 41 42 43 46 59 32 60 61 62 63) ;; ! " ' ( ) * + . ; < = > ? "SPC"
-        ;; Found at : https://github.com/company-mode/company-mode/wiki/Switching-from-Vim
-        ;; disable because the first selection is not good, also not cxompatible with childframe
-        ;; (company-tng-configure-default))
-        ;;
-        ;; To properly set company backend per mode, see
-        ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/company/README.org#enable-company-backends-in-certain-modes
-        ))
 
 (use-package! vertico
   :config (setq vertico-cycle nil
@@ -550,24 +494,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
                 )
   (vertico-mouse-mode))
 
-;; Keep evil-snipe but disable 's' mapping
-(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-
-;; (use-package! counsel
-;;   :config
-;;   ;; Thanks to https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-counsel.el
-;;   ;; the --glob is to see .* file that are versionned BUT NOT .git folder
-;;   (setq counsel-rg-base-command
-;;         (append
-;;          (butlast counsel-rg-base-command)
-;;          '("--sort" "path" "--hidden" "--glob" "!.git" "%s"))
-;;         ;; This way, when C-x C-f we see 'dot file' or 'hidden files'
-;;         counsel-find-file-ignore-regexp nil))
-
-
-;; (after! flycheck
-;;   :config
-;;   (setq-default flycheck-disabled-checkers '(python-flake8)))
+;; See call starting wwith cap in map!
+(use-package! cape)
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
@@ -603,7 +531,6 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; press v multiple time to expand region
  :v "v" #'er/expand-region
 
-
  ;; switch from camelCase snake_case kebab-case ...
  ;; see https://github.com/akicho8/string-inflection
  ;; why gm ? because available and crm cause problem with "c"
@@ -615,31 +542,17 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :n  "g-"    #'evil-numbers/dec-at-pt
 
  ;; Completion
- ;; :i  "C-n"  #'dabbrev-completion
- :i  "C-n"  #'+company/dabbrev
- :i  "C-SPC"  #'company-complete-common
- :i  "C-x C-n"  #'+company/whole-lines
- ;; :i  "C-p"  #'me/company-dabbrev-select-previous
- :i  "C-p"  (make-hippie-expand-function
-             '(try-expand-dabbrev-visible
-               try-expand-dabbrev
-               try-expand-dabbrev-all-buffers) t)
+ :i  "C-n"      #'cape-dabbrev
+ :i  "C-p"      #'dabbrev-expand
+ :i  "C-x C-j"  #'cape-keyword
+ :i  "C-x C-l"  #'cape-line
+ :i  "C-x C-f"  #'cape-file
  ;; to complete the next word like vim C-x C-n, you must first complete the current word, then space, then C-p
- ;; :i  "C-p"  #'dabbrev-expand
+
 
  "<f5>" #'me/oorr ;; needed to restart android react app
  "<f9>" #'python-pytest
 
- ;; Search
- ;; By using isearch instead of evil,
- ;; I can now paste search
- ;; in normal mode: " / p
- ;; in insert mode: C-R /
- ;; :n "/" #'isearch-forward
- ;; :n "*" #'me/isearch-forward-symbol-at-point
- ;; :n "g*" #'me/isearch-forward-thing-at-point
- ;; :n "n" #'me/isearch-repeat-forward
- ;; :n "N" #'isearch-repeat-backward
  ;; can press shift Ctrl V like in vim
  :i "S-C-v" #'evil-paste-after
 
@@ -654,15 +567,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g  "+" 'me/increase-width-height
  :g  "-" 'me/decrease-width-height
 
- ;; :map isearch-mode-map
- ;; :g "<up>" #'isearch-ring-retreat
- ;; :g "<down>" #'isearch-ring-advance
- ;; :g "S-C-v" #'isearch-yank-kill
-
- ;; If vertico is ok, can be deleted
- ;; :map ivy-occur-mode-map
- ;; :g "n" #'me/isearch-repeat-forward
- ;; :g "N" #'isearch-repeat-backward
+ :map vertico-map
+ :g "<f4>" #'me/add-lazy-flex-search
 
  ;; Do not change my changing window S-arrow
  ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)
@@ -673,19 +579,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  "<S-left>" nil
  "<S-right>" nil
 
- ;; If vertico is ok, can be deleted
- ;; :map ivy-minibuffer-map
- ;; "C-p"   #'ivy-previous-history-element
- ;; ;; Temporary disable S-down/left/right because does not work anymore
- ;; "<M-up>"   #'me/ivy-up-other
- ;; "<M-down>"   #'me/ivy-down-other
- ;; "<M-left>"   #'me/ivy-left-other
- ;; "<M-right>"   #'me/ivy-right-other
-
-
  ;; :map csv-mode-map
  ;; :n "<left>" #'csv-backward-field
  ;; :n "<right>" #'csv-forward-field
+
  :map doom-leader-file-map
  "R" #'me/simple-rename-file-and-buffer
 
@@ -757,15 +654,14 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; then SPC q S
 (defun me/load-session ()
   (if (not buffer-file-name)
-      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
-      ;; ()))
-      (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start")))
+      (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
+;; ()))
+;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start")))
 
 (defun me/run-after-emacs-is-loaded ()
   (me/load-session)
   ;; remove this info from modeline
   (size-indication-mode -1))
-
 
 (add-hook 'window-setup-hook #'me/run-after-emacs-is-loaded)
 
@@ -862,9 +758,7 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
       (evil-ex-search-activate-highlight (list selection
                                                evil-ex-search-count
                                                evil-ex-search-direction)))))
-
 (advice-add #'evil-ex-search-setup :after #'me/evil-ex-start-search-with-region-string)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -902,7 +796,7 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; To find help -> go to discord (link in readme)
 
 
-;; flexible, simple tools for minibuffer completion in Emacs : https://github.com/abo-abo/swiper
+;; https://github.com/abo-abo/swiper : flexible, simple tools for minibuffer completion in Emacs
 ;; Ivy, a generic completion mechanism for Emacs.
 ;; Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
 ;; Swiper, an Ivy-enhanced alternative to isearch.
