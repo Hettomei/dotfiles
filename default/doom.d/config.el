@@ -407,6 +407,12 @@ is overriden by something else."
       'me/add-lazy-flex-search
     (call-interactively #'cape-dabbrev)))
 
+(defun me/projectile-find-file ()
+  (interactive)
+  (minibuffer-with-setup-hook
+      'me/add-lazy-flex-search
+    (call-interactively #'projectile-find-file)))
+
 (defun me/increase-width-height ()
   (interactive)
   (evil-window-increase-width 20)
@@ -527,7 +533,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
- :n "C-p" #'projectile-find-file
+ :n "C-p" #'me/projectile-find-file
  :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
  :n "S-C-p" #'projectile-find-file-dwim ;; try to be smart to open file
  ;; :n ")" #'me/jump20line
