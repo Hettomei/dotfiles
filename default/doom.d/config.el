@@ -258,14 +258,10 @@ so in python it looks for def, in javascript function..."
 
 (defun me/consult-imenu-symbol-at-point (&optional symbol arg)
   "Search only for symbol under cursor but consult imenu only return headers or function which is great."
-  (interactive
-   (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
-         current-prefix-arg))
-  ;; Should check current minor mode, so in python it looks for def, in javascript function...
-  (call-interactively 'consult-imenu)
-  (message "this function doies not work for the moment. Need redit to get help. You can press Alt-n to get word")
-  ;; (next-matching-history-element symbol)
-  )
+  (interactive)
+  (minibuffer-with-setup-hook
+      'me/add-lazy-flex-search
+    (call-interactively #'consult-imenu)))
 
 
 ;; Temporary comment this part that change _ and - as part of word because we can do it
@@ -395,6 +391,11 @@ is overriden by something else."
   (interactive)
   (message "will send oorr")
   (shell-command "adb shell input text \"RR\""))
+
+(defun me/symbole-at-point-and-lazy-flex ()
+  (let ((thing (thing-at-point 'symbol 'no-properties)))
+    (if thing
+        (insert thing))))
 
 (defun me/add-lazy-flex-search ()
   (move-beginning-of-line nil)
@@ -665,9 +666,9 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; then SPC q S
 (defun me/load-session ()
   (if (not buffer-file-name)
-      (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")))
-;; ()))
-;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start")))
+      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config"))
+      (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start"))
+  )
 
 (defun me/run-after-emacs-is-loaded ()
   (me/load-session)
