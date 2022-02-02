@@ -823,8 +823,10 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 ;; Counsel has a lot of function with projectile; M-x counsel to see list.
 ;; Sometimes, I may prefer use simple counsel-* over counsel-projectile-*
 
-;; To get unicode char like λ 👍 🍺 ⚠
-;; run M-x counsel-unicode-char
+;; To get unicode char like λ 👍 🍺 ⚠ 🥊 💙 💔 🖤 💓 🎔 💚 💗 💟 💘 💝 ❤ 🧡 🂱 💜 💞 💖 💕:
+;; run M-x insert-char
+;; run SPC-i u ;unicode
+;; run SPC-i e ;emoji
 
 ;; C-u M-! inserts the result of the ‘shell-command’
 
