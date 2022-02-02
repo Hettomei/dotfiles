@@ -86,6 +86,7 @@
   '(font-lock-doc-face :foreground "#ff8800")
   '(font-lock-comment-face :foreground "#ff8800")
   '(org-ellipsis :foreground "#FFFFFF")
+  '(whitespace-hspace :foreground "#FF0000" :background "#FFFFFF")
   '(corfu-default :background "#000000" :foreground "#FFFFFF"))
 
 ;; (unless (display-graphic-p)
@@ -167,8 +168,7 @@
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
 (windmove-default-keybindings)
 
-
-
+;; display blank whitespace non breakable space
 (global-whitespace-mode)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
@@ -402,17 +402,17 @@ is overriden by something else."
   (insert "~")
   (move-end-of-line nil))
 
+(defun me/add-regex-to-bypass-orderless ()
+  "This need to be interactive to work in projectile-map"
+  (interactive)
+  (self-insert-command 1 ?.)
+  (self-insert-command 1 ?+))
+
 (defun me/cape-dabbrev ()
   (interactive)
   (minibuffer-with-setup-hook
       'me/add-lazy-flex-search
     (call-interactively #'cape-dabbrev)))
-
-(defun me/projectile-find-file ()
-  (interactive)
-  (minibuffer-with-setup-hook
-      'me/add-lazy-flex-search
-    (call-interactively #'projectile-find-file)))
 
 (defun me/increase-width-height ()
   (interactive)
@@ -534,7 +534,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
- :n "C-p" #'me/projectile-find-file
+ :n "C-p" #'projectile-find-file
  :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
  :n "S-C-p" #'projectile-find-file-dwim ;; try to be smart to open file
  ;; :n ")" #'me/jump20line
@@ -579,8 +579,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g  "+" 'me/increase-width-height
  :g  "-" 'me/decrease-width-height
 
- :map vertico-map
- :g "<f4>" #'me/add-lazy-flex-search
+ ;; trouvé grace à C-B k dans le minibuffer
+ ;; :map minibuffer-local-filename-completion-map
+ :map projectile-mode-map
+ "S-SPC" #'me/add-regex-to-bypass-orderless
 
  ;; Do not change my changing window S-arrow
  ;; If you want to act on org, use S-C-{hjkl} (shift - control and vim's hjkl)

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: print
+# uuid: 38241487-ee13-4c31-a223-e3b47a5e485a
+# key: pp
+# condition: t
+# --
+print($0)
