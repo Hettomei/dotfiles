@@ -86,7 +86,8 @@
   '(font-lock-doc-face :foreground "#ff8800")
   '(font-lock-comment-face :foreground "#ff8800")
   '(org-ellipsis :foreground "#FFFFFF")
-  '(whitespace-hspace :foreground "#FF0000" :background "#FFFFFF")
+  '(whitespace-hspace :foreground "#FF0000" :background "#FFFFFF") ; hard space, non breakable space, used with whitespace.el
+  '(whitespace-tab :foreground "#FFFFFF" :background "#000000") ; tab face
   '(corfu-default :background "#000000" :foreground "#FFFFFF"))
 
 ;; (unless (display-graphic-p)
@@ -123,8 +124,13 @@
  ;; Avoid jump when search
  scroll-preserve-screen-position nil
 
- ;; whitespace-style '(face empty trailing)
- whitespace-style '(face tabs spaces trailing space-before-tab indentation empty space-after-tab tab-mark)
+ whitespace-style '(face tabs spaces trailing space-before-tab indentation empty space-after-tab tab-mark space-mark)
+ whitespace-display-mappings
+ '((space-mark   ?\    [? ]        [? ]) ; space     see here < >
+   (space-mark   ?\xA0 [?\xA4]     [?_]) ; hardspace see here < >
+   (tab-mark     ?\t   [187 9]   [92 9]) ; tab       see here <	>
+   (newline-mark ?\n   [?\xB6 ?\n] [?$ ?\n]); end-of-line <no demo>
+   )
 
  ;; Disable help mouse-overs for mode-line segments (i.e. :help-echo text).
  ;; They're generally unhelpful and only add confusing visual clutter.
@@ -162,7 +168,6 @@
  ;; When pressing M-x, vertico remember history-length last command, I just want this amount
  history-length 15
  )
-
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
