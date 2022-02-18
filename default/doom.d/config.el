@@ -384,7 +384,13 @@ is overriden by something else."
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
   (if (and (stringp buffer-file-name)
            (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/outillage_commun")))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/outillage_commun"))
+  (if (and (stringp buffer-file-name)
+           (string-match "poleemploi/referentiel_enf/tkgi-pre" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tkgi-pre"))
+  (if (and (stringp buffer-file-name)
+           (string-match "poleemploi/referentiel_enf/tkgi-post" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tkgi-post")))
 
 (add-hook! 'python-mode-hook #'me/change-pythonpath)
 
@@ -510,6 +516,11 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
                 vertico-sort-function 'vertico-sort-history-alpha
                 )
   (vertico-mouse-mode))
+
+;; Not working for the moment
+;; (use-package! consult
+;;   :config (consult-customize
+;;            consult-grep consult-ripgrep consult-git-grep :group nil))
 
 ;; See call starting wwith cap in map!
 (use-package! cape)
