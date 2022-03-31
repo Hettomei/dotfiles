@@ -2,12 +2,12 @@
 # Pour démarrer cette session : ne pas lancer tmux.
 # juste le bash, puis faire
 # ./.teamocil/incub.sh
-# :D
+
 tmux new-session \; \
-  send-keys 'docker run --rm hello-world && ./demarrage.sh && sleep 1 && firefox' \; \
+  send-keys './demarrage.sh' \; \
   \
   split-window -v \; \
-  send-keys './stoppage.sh' \; \
+  send-keys 'incub vpn deconnecter # ./stoppage.sh' \; \
   \
   split-window -h \; \
   send-keys 'rappel "09h25" "Teams"' C-m \; \

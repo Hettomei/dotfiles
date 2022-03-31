@@ -167,6 +167,9 @@
  split-width-threshold 22
  ;; When pressing M-x, vertico remember history-length last command, I just want this amount
  history-length 15
+
+ ;; thanks to https://tecosaur.github.io/emacs-config/config.html
+ window-combination-resize t ;take new window space from all other windows (not just current)
  )
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
@@ -178,6 +181,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
 
 (defun me/get-file-path ()
   "Get file path even when in dired-mode. Taken from https://stackoverflow.com/questions/2416655/file-path-to-clipboard-in-emacs"
@@ -584,6 +588,9 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; can press shift Ctrl V like in vim
  :i "S-C-v" #'evil-paste-after
 
+ ;; :map evil-ex-search-keymap
+ ;; :i "S-C-v" #'evil-paste-after # not working
+
  ;; After a doom upgrade, I need to add this 'general-override-mode-map
  ;; to make it works
  :map general-override-mode-map
@@ -686,6 +693,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (if (not buffer-file-name)
       ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config"))
       (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start"))
+  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/formation-react"))
   )
 
 (defun me/run-after-emacs-is-loaded ()
