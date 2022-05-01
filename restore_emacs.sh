@@ -23,8 +23,11 @@ cat <<EOF
 
 # install emacs
 sudo add-apt-repository ppa:kelleyk/emacs
-sudo apt install emacs27
-sudo apt install emacs27-el
+sudo apt install emacs27 emacs27-el
+# ######### OR
+sudo add-apt-repository ppa:ubuntu-elisp/ppa
+sudo apt-get install emacs-snapshot emacs-snapshot-el
+
 
 # install doom
 Please go to https://github.com/hlissner/doom-emacs to install it
