@@ -12,7 +12,7 @@ do
   cp -v "$DIR/doom.d/$file_name" "$HOME/.doom.d/$file_name"
 done
 
-cp -v -r "$DIR/doom.d/snippets" "$HOME/.doom.d/"
+cp -r "$DIR/doom.d/snippets" "$HOME/.doom.d/"
 
 # Cannot do :
 # cp -v -r "$DIR/doom.d" "$HOME"

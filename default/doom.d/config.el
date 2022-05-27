@@ -5,32 +5,58 @@
 
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
-(setq user-full-name "name lastname"
-      user-mail-address "a@b.c")
+;; clients, file templates and snippets. It is optional.
+(setq user-full-name "John Doe"
+      user-mail-address "john@doe.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
+;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+;; (setq doom-theme 'doom-one)
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+;; (setq display-line-numbers-type t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 ;; (setq org-directory "~/org/")
 
-;; Here are some additional functions/macros that could help you configure Doom:
+
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
 ;;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
@@ -43,6 +69,8 @@
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
 ;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
@@ -170,7 +198,24 @@
 
  ;; thanks to https://tecosaur.github.io/emacs-config/config.html
  window-combination-resize t ;take new window space from all other windows (not just current)
+
+ company-idle-delay nil
  )
+
+(defun me/dabbrev-use-ALL-buffers (obuff)
+  "So I can search in every buffer, including help buffer"
+  ;; (message "me/dabbrev-use-ALL-buffers: %s" obuff)
+  t
+  )
+
+;; By default, dabbrev-friend-buffer-function use dabbrev--same-major-mode-p which is very restricting
+(setq dabbrev-friend-buffer-function 'me/dabbrev-use-ALL-buffers)
+(defun me/dabbrev-completion ()
+  (interactive)
+  (minibuffer-with-setup-hook
+      'me/add-lazy-flex-search
+    (let ((current-prefix-arg '(4))) ;; thanks to https://emacs.stackexchange.com/questions/60822/how-to-specify-prefix-argument-in-key-binding; in doom SPC-u trigger "current-prefix-arg '(4)"
+      (call-interactively #'dabbrev-completion))))
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
 ;; Let me switch windows with shift-arrows instead of "C-x o" all the time
@@ -426,11 +471,11 @@ is overriden by something else."
   (self-insert-command 1 ?.)
   (self-insert-command 1 ?+))
 
-(defun me/cape-dabbrev ()
-  (interactive)
-  (minibuffer-with-setup-hook
-      'me/add-lazy-flex-search
-    (call-interactively #'cape-dabbrev)))
+;; (defun me/cape-dabbrev ()
+;;   (interactive)
+;;   (minibuffer-with-setup-hook
+;;       'me/add-lazy-flex-search
+;;     (call-interactively #'cape-dabbrev)))
 
 (defun me/increase-width-height ()
   (interactive)
@@ -530,7 +575,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;;            consult-grep consult-ripgrep consult-git-grep :group nil))
 
 ;; See call starting wwith cap in map!
-(use-package! cape)
+;; (use-package! cape)
 
 ;; see mapping to gm bellow
 (use-package! string-inflection)
@@ -546,7 +591,6 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (require 'tree-sitter-langs)
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
 
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
@@ -576,14 +620,24 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :n  "g="    #'evil-numbers/inc-at-pt
  ;; :n  "g-"    #'evil-numbers/dec-at-pt
 
- ;; Completion
- :i  "C-n"      #'me/cape-dabbrev
- :i  "C-p"      #'dabbrev-expand
- :i  "C-x C-j"  #'cape-keyword
- :i  "C-x C-l"  #'cape-line
- :i  "C-x C-f"  #'cape-file
+ ;; Completion with vertico + cape
+ ;; :i  "C-n"      #'me/cape-dabbrev
+ ;; :i  "C-p"      #'dabbrev-expand
+ ;; :i  "C-x C-j"  #'cape-keyword
+ ;; :i  "C-x C-l"  #'cape-line
+ ;; :i  "C-x C-f"  #'cape-file
+ ;;
+ ;; completion with company - too cumbersome but I keep one in case
+ :i  "C-SPC" #'+company/dabbrev ;; to try to find code related completion
+ ;;
+ ;; completion hippi expand
+ ;; I want to see in a popup or minibuffer, so not really using it
+ :i  "C-p"   #'hippie-expand ;; maybe we can try it sometimes
+ ;;
+ ;; completion dabbrev
+ ;; :i  "C-n" #'dabbrev-completion ;; we need interactive mode to enable "all buffers"
+ :i  "C-n" #'me/dabbrev-completion
  ;; to complete the next word like vim C-x C-n, you must first complete the current word, then space, then C-p
-
 
  "<f5>" #'me/oorr ;; needed to restart android react app
  "<f9>" #'python-pytest
