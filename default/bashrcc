@@ -276,16 +276,14 @@ PGPASSWORD='changeThis' psql -h localhost -p 5433 -U changethisUSer -c \
 }
 
 # display all comitter for a given file
-# $ committers src/domain-models/OnDemandRedirect.DomainModel.js
-#     113 author-mail <rmelnyk@libertyglobal.com>
-#      79 author-mail <bardelli.enrico@gmail.com>
+# $ committers src/file.js
 committers() {
   git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
 }
 
 autologin ()
 {
-    echo "bernard.dupond@laposte.fr" | xclip -selection clipboard;
+    echo "bernard.dupond@abcd.ef" | xclip -selection clipboard;
     sleep 1;
     echo "too_easy_password" | xclip -selection clipboard;
 }
@@ -459,13 +457,6 @@ function histosearch {
 #     return 2
 #   fi
 # }
-
-
-# ssh -p 29418 timothee-gauthier-wiztivi@gerrit.onemw.net gerrit set-reviewers --project onemw-js  \
-# -a nicolas.le-mellec@wiztivi.com \
-# -a nicolas.thebaud@wiztivi.com \
-# -a romain.chery@wiztivi.com \
-# 39563
 
 
 # Automatically mount virtualbox on bash startup :

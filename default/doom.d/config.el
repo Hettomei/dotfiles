@@ -263,7 +263,7 @@ so in python it looks for def, in javascript function..."
   (interactive
    (list (rxt-quote-pcre (or (doom-thing-at-point-or-region) ""))
          current-prefix-arg))
-  (+vertico/project-search nil (concat "def\\ \\b" symbol "\\b")))
+  (+vertico/project-search nil (concat "def\\ " symbol)))
 
 (defun me/consult-imenu-symbol-at-point (&optional symbol arg)
   "Search only for symbol under cursor but consult imenu only return headers or function which is great."
@@ -284,6 +284,8 @@ so in python it looks for def, in javascript function..."
 ;; Even playing with symbol, when inside a string, it becomes a word"
 ;; (modify-syntax-entry ?_ "w")
 ;; (modify-syntax-entry ?- "w"))
+(modify-syntax-entry ?: ".")
+(modify-syntax-entry ?/ ".")
 
 ;; (add-hook! 'after-change-major-mode-hook #'me/improve-word-length)
 ;; ----------- //disabled part -------
@@ -300,6 +302,7 @@ so in python it looks for def, in javascript function..."
                             ;; (modify-syntax-entry ?\] "w" table)
                             (set-syntax-table table))
                           ))
+
 
 (defun me/search-case-sensitive ()
   "Search case Sensitive

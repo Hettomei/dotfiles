@@ -21,7 +21,9 @@
   untracked = cyan
 [alias]
   st = status
-  br = branch -vv
+  br = branch -vv -a
+  b = branch -vv
+  bd = branch -vv -d
   co = checkout
   cod = checkout --detach
   com = checkout master
@@ -74,7 +76,6 @@
   resetoriginmaster = "! git l -1 && echo "" && git reset --hard origin/master && echo "" && git l -1"
   # edit config : open this file :)
   ec = config --global -e
-  branchauthors = "! for branch in `git branch -r | grep -v HEAD`;do echo `git show --format=\"%ai - %an - \" $branch | head -n 1` \t$branch; done | sort -r"
   prev = checkout HEAD^
   dpull = svn rebase
   dpush = svn dcommit
@@ -83,7 +84,7 @@
   # seen at https://gist.github.com/gitaarik/8735255
   submoduleupdate = submodule update --init --recursive
   # from https://thoughtbot.com/blog/dumpster-diving-through-dotfiles-git-branches
-  branches = for-each-ref --sort=-committerdate --format=\"%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(color:cyan)%(authoremail:trim) %(color:white)%(refname:short) %(color:reset)%(contents:subject) \" refs/remotes
+  branches = for-each-ref --sort=-committerdate --format=\"%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(color:cyan)%(authoremail) %(color:white)%(refname:short) %(color:reset)%(contents:subject) \" refs/remotes
 [push]
   default = simple
 [merge]
