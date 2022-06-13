@@ -747,11 +747,12 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; create the session you love
 ;; then SPC q S
 (defun me/load-session ()
-  (if (not buffer-file-name)
-      ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config"))
-      (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start"))
-  ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/formation-react"))
-  )
+  (when (display-graphic-p)
+    ;; (if (not buffer-file-name)
+    ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/start-config")
+    (doom/load-session "~/.emacs.d/.local/etc/workspaces/me-start")
+    ;; (doom/load-session "~/.emacs.d/.local/etc/workspaces/formation-react")
+    ))
 
 (defun me/run-after-emacs-is-loaded ()
   (me/load-session)
