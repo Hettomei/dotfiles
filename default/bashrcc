@@ -417,46 +417,8 @@ function histosearch {
 # Rename in file string -> newString
 # ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
 
-# stop led on razer
-# sudo razercfg -l Scrollwheel:off
-
 # compare two commit. And only the content :
 # v -d <(g show 11111111) <(g show 22222222)
-
-# parse what is in pbpaste
-# How to use :
-# go on gerrit
-# click on 'copy'
-# then open bash and type
-# cher
-# cher is for cherry-picking
-# function cher() {
-#   pbpaste
-#   echo
-#   echo
-#
-#   pbpaste | grep -q -P '^git fetch.+onemw-js.+ && git cherry-pick FETCH_HEAD$'
-#
-#   RESULT=$?
-#   if [ $RESULT -eq 0 ]; then
-#     echo -n '>>>>>>>>> '
-#     parse_git_branch
-#     echo
-#
-#     gerrit_part=$(pbpaste | sed 's/git fetch \(.\+\) && git cherry-pick FETCH_HEAD$/\1/')
-#     echo will fetch $gerrit_part
-#     echo
-#
-#     git fetch $gerrit_part
-#     echo
-#
-#     git checkout --detach
-#     git cherry-pick FETCH_HEAD
-#   else
-#     echo failed to match a gerrit cherry pick
-#     return 2
-#   fi
-# }
 
 
 # Automatically mount virtualbox on bash startup :

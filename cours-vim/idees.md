@@ -62,7 +62,7 @@ http://walking-without-crutches.herokuapp.com/image/images/vi-vim-cheat-sheet.pn
 
 # Jeux
 http://vim-adventures.com/
-www.vimgolf.com
+https://www.vimgolf.com
 
 # Fin
 Honteusement pompé sur http://yannesposito.com/Scratch/fr/blog/Learn-Vim-Progressively

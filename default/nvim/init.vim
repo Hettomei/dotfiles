@@ -398,9 +398,13 @@ inoremap %% <C-R>=expand("%:p") <CR>
 inoremap %f <C-R>=expand("%:t") <CR>
 nnoremap <F2> a<C-R>=expand("%:p") <CR><esc>
 nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
-
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
+
+" slides à gauche
+nnoremap <F5> ?#####page_de_slide$<CR>zz10<C-Y>
+" slides à droite
+nnoremap <F6> /#####page_de_slide$<CR>zz10<C-E>
 
 " format the entire file,
 " mf   -> mark line inside f,
