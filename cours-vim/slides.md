@@ -39,7 +39,7 @@ F7 create a new one
 
 #########################page_de_slide
 
-Vim ?
+# Vim ?
 
 Vi  -> Initial release 1976
 
@@ -79,7 +79,7 @@ insert
 
 #########################page_de_slide
 
-# mouvements
+# Mouvements
 
 se déplacer avec f, t, s, ?, /, ^, $, s
 
@@ -88,13 +88,64 @@ gg
 G
 :number
 
+ebw
+EBW
+
 sur un fichier, une class, un partial => gf
 
 ]m -> se deplace de méthode en méthode. Ex : 3]m
 
-au dessus d'une url gx https://en.wikipedia.org/wiki/Vim_(text_editor)
-besoin de fetch     gf https://pokeapi.co/api/v2/berry/3
--> :%!jq .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################page_de_slide
+
+# Copy Paste
+
+y
+yy
+p
+P
+Y
+d
+dd
+D
+d$
+
+***********************
+*                     *
+*        dtc          *
+*                     *
+***********************
+
+
+
+
+
+
+
+
 
 
 
@@ -129,8 +180,6 @@ gJ
 C-v I toto -> esc
 Dessiner un carré : C-v 10l 5j r #
 
-dtc
-d$
 c^
 
 di"
@@ -146,13 +195,151 @@ snippet -> bmbm
 vvvvvc
 ( aaa ( bbb cccc ( ddd "eeee fff 'gggg' hhhh" iiii) jjjjj) kkkkkk)
 
+Pour changer de sens
+vvvvvo
+
+C-a 5
+C-x 20
+
+200 C-a -100
+
+#########################page_de_slide
+
+# Search and replace
+
+:%s/a/b
+:%s/a/&ccc
+:%s/a/&ccc/c
+:%s/\d\d/& - nombre a 2 chiffres /c
+
+v .... lignes
+:s/a/&ccc/c
+search and replace
+spc sr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################page_de_slide
+
+# Les fenetres
+
+C-j
+C-k
+C-l
+C-m
+
+Split
+C-w s
+C-w v
+
+Move
+C-w L
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################page_de_slide
+
+# Macro
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################page_de_slide
+
+# Avec des fichiers
+
+spc e
+
+affichage du nom
+%f
+
+affichage du path
+%%
+
+
+C-p bien entendu
+
+
+aller sur le fichier gf
+au dessus d'une url gx https://en.wikipedia.org/wiki/Vim_(text_editor)
+besoin de fetch     gf https://pokeapi.co/api/v2/berry/3
+-> :%!jq .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #########################page_de_slide
 #########################page_de_slide
 #########################page_de_slide
 #########################page_de_slide
-#########################page_de_slide
-#########################page_de_slide
-#########################page_de_slide
+
+# Aller plus loing
+
+:help
+https://www.vimgolf.com/
 
 Lire un fichier tar.gz
 lire un zip
