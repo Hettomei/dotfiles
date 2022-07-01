@@ -203,6 +203,17 @@ C-x 20
 
 200 C-a -100
 
+
+
+
+
+
+
+
+
+
+
+
 #########################page_de_slide
 
 # Search and replace
@@ -216,6 +227,11 @@ v .... lignes
 :s/a/&ccc/c
 search and replace
 spc sr
+
+
+
+
+
 
 
 
@@ -282,6 +298,29 @@ C-w L
 
 # Macro
 
+Comme tous les editeurs
+
+qa
+@a
+@@
+10@@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -320,6 +359,17 @@ besoin de fetch     gf https://pokeapi.co/api/v2/berry/3
 
 
 
+mksession
+vim -S
+
+
+
+
+
+
+
+
+
 
 
 
@@ -332,18 +382,103 @@ besoin de fetch     gf https://pokeapi.co/api/v2/berry/3
 
 
 #########################page_de_slide
-#########################page_de_slide
-#########################page_de_slide
+
+# Pourquoi investir ?
+
+
+Pour la culture, le ssh, la vitesse
+
+gmail
+9gag
+sed
+
+ultime en bash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #########################page_de_slide
 
-# Aller plus loing
+# Aller plus loin
 
 :help
 https://www.vimgolf.com/
 
+CSV to MD format
+http://www.vimgolf.com/challenges/6030936d3f9325000c6aa0aa
+
+I forgot quotes
+http://www.vimgolf.com/challenges/5462e3f41198b80002512673
+
+:Vimrc
+
+
+lire la config des autres
+
+
+
 Lire un fichier tar.gz
 lire un zip
 lire une log de 10go long_file.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #########################page_de_slide
 
