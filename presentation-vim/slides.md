@@ -1,5 +1,5 @@
 #########################page_de_slide
-
+                              - 0/11 -
 1 ... 38 lignes doivent etre affichées
 
 contrast day -> edit preference, solarized light
