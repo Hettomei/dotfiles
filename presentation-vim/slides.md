@@ -345,11 +345,11 @@ mksession
 vim -S
 
 
+vim -O
 
+vim -d
 
-
-
-
+vim test.file +255
 
 
 
