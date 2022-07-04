@@ -402,9 +402,12 @@ nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 
 " slides à gauche
-nnoremap <F5> ?#####page_de_slide$<CR>zz10<C-Y>
+" nnoremap <F5> ?#####page_de_slide$<CR>zz21<C-Y>
+nnoremap <F5> /#####page_de_slide$<CR>NNzz19<C-E>
 " slides à droite
-nnoremap <F6> /#####page_de_slide$<CR>zz10<C-E>
+nnoremap <F6> /#####page_de_slide$<CR>zz19<C-E>
+" new slide
+nnoremap <F7> i#########################page_de_slide<CR>slide n<esc>39o<esc>
 
 " format the entire file,
 " mf   -> mark line inside f,
