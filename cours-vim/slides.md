@@ -6,7 +6,7 @@ contrast day -> edit preference, solarized light
 :set background=light
 
 F5 back, F6, next
-F7 create a new one
+F9 create a new one
 
 
 ..................|....................
@@ -117,8 +117,6 @@ sur un fichier, une class, un partial => gf
 
 
 
-
-
 #########################page_de_slide
 
 # Copy Paste
@@ -138,14 +136,6 @@ d$
 *        dtc          *
 *                     *
 ***********************
-
-
-
-
-
-
-
-
 
 
 
@@ -195,7 +185,7 @@ snippet -> bmbm
 vvvvvc
 ( aaa ( bbb cccc ( ddd "eeee fff 'gggg' hhhh" iiii) jjjjj) kkkkkk)
 
-Pour changer de sens
+Pour changer de sens : o
 vvvvvo
 
 C-a 5
@@ -203,15 +193,8 @@ C-x 20
 
 200 C-a -100
 
-
-
-
-
-
-
-
-
-
+C-n C-l # mot du buffer
+C-x C-n # ligne entiere
 
 
 #########################page_de_slide
@@ -334,7 +317,6 @@ qa
 
 
 
-
 #########################page_de_slide
 
 # Avec des fichiers
@@ -375,12 +357,6 @@ vim -S
 
 
 
-
-
-
-
-
-
 #########################page_de_slide
 
 # Pourquoi investir ?
@@ -393,9 +369,6 @@ gmail
 sed
 
 ultime en bash
-
-
-
 
 
 
@@ -464,6 +437,30 @@ lire une log de 10go long_file.log
 
 
 
+#########################page_de_slide
+
+# The End ?
+
+On a survolé 1%
+
+-> enter Emacs.
+Vim x 1000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -482,9 +479,4 @@ lire une log de 10go long_file.log
 
 #########################page_de_slide
 
-The End ?
 
-On a survolé 1%
-
--> enter Emacs.
-Vim x 1000
