@@ -38,6 +38,7 @@ F9 create a new one
 
 
 #########################page_de_slide
+                              - 1/11 -
 
 # Vim ?
 
@@ -78,6 +79,7 @@ insert
 
 
 #########################page_de_slide
+                              - 2/11 -
 
 # Mouvements
 
@@ -118,6 +120,7 @@ sur un fichier, une class, un partial => gf
 
 
 #########################page_de_slide
+                              - 3/11 -
 
 # Copy Paste
 
@@ -158,6 +161,7 @@ d$
 
 
 #########################page_de_slide
+                              - 4/11 -
 
 # Insertion
 
@@ -188,16 +192,17 @@ vvvvvc
 Pour changer de sens : o
 vvvvvo
 
-C-a 5
-C-x 20
+C-a 28
+C-x 9
 
-200 C-a -100
+200 C-a 243
 
 C-n C-l # mot du buffer
 C-x C-n # ligne entiere
 
 
 #########################page_de_slide
+                              - 5/11 -
 
 # Search and replace
 
@@ -238,6 +243,7 @@ spc sr
 
 
 #########################page_de_slide
+                              - 6/11 -
 
 # Les fenetres
 
@@ -278,6 +284,7 @@ C-w L
 
 
 #########################page_de_slide
+                              - 7/11 -
 
 # Macro
 
@@ -289,10 +296,11 @@ qa
 10@@
 
 
-
-
-
-
+ex : paginer mes slides
+gg
+y      - slide 0/11-
+page_de_slide *
+                              - 8/11 -
 
 
 
@@ -318,6 +326,7 @@ qa
 
 
 #########################page_de_slide
+                              - 9/11 -
 
 # Avec des fichiers
 
@@ -358,6 +367,7 @@ vim test.file +255
 
 
 #########################page_de_slide
+                              - 10/11 -
 
 # Pourquoi investir ?
 
@@ -398,6 +408,7 @@ ultime en bash
 
 
 #########################page_de_slide
+                              - 11/11 -
 
 # Aller plus loin
 
@@ -438,6 +449,7 @@ lire une log de 10go long_file.log
 
 
 #########################page_de_slide
+                              - 12/11 -
 
 # The End ?
 
@@ -478,5 +490,6 @@ Vim x 1000
 
 
 #########################page_de_slide
+                              - 13/11 -
 
 

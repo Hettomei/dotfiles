@@ -10,7 +10,7 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'altercation/vim-colors-solarized'
 " Plug 'scrooloose/syntastic'
 " this replace syntastic. Keep here because I test ale
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 " Special :Command
 Plug 'godlygeek/tabular' " Make multiple things aligned
@@ -407,7 +407,7 @@ nnoremap <F5> /#####page_de_slide$<CR>NNzz19<C-E>
 " slides à droite
 nnoremap <F6> /#####page_de_slide$<CR>zz19<C-E>
 " new slide
-nnoremap <F7> i#########################page_de_slide<CR>slide n<esc>39o<esc>
+nnoremap <F9> i#########################page_de_slide<CR>slide n<esc>39o<esc>
 
 " format the entire file,
 " mf   -> mark line inside f,
@@ -825,10 +825,17 @@ func! WinMove(key)
   endif
 endfu
 
-nnoremap <silent> <C-h> :call WinMove('h')<cr>
-nnoremap <silent> <C-j> :call WinMove('j')<cr>
 nnoremap <silent> <C-k> :call WinMove('k')<cr>
+nnoremap <silent> <Leader><Up> :call WinMove('k')<cr>
+
+nnoremap <silent> <C-j> :call WinMove('j')<cr>
+nnoremap <silent> <Leader><Down> :call WinMove('j')<cr>
+
+nnoremap <silent> <C-h> :call WinMove('h')<cr>
+nnoremap <silent> <Leader><Left> :call WinMove('h')<cr>
+
 nnoremap <silent> <C-l> :call WinMove('l')<cr>
+nnoremap <silent> <Leader><Right> :call WinMove('l')<cr>
 
 " Switch directly to the new splitted window
 nnoremap <C-w>v :vsplit<CR>
@@ -891,6 +898,7 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
 " always open
 let g:ale_open_list = 1
+" let g:ale_sign_column_always = 1
 nnoremap <Leader>f :ALEFix<CR>
 nnoremap <Leader>w :FixWhitespace<CR>
 
