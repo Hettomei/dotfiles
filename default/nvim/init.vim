@@ -579,7 +579,7 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 
 " Like * but on all repo :)
 " Search what is inside register "/" only words
-nnoremap <silent> <Leader>* *:Rg "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
+nnoremap <silent> <Leader>* yiw:Rg "<C-R>""<CR>
 
 " search the filename without extension/home/tgauthier/.config/nvim/init.vim
 " /home/tgauthier/.config/nvim/init /home/tgauthier/.config/nvim/init init.vim
