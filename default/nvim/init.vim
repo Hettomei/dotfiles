@@ -19,6 +19,7 @@ Plug 'tpope/vim-projectionist' " Allow to use :A on any project
 Plug 'tpope/vim-characterize' " Add more display when press ga on a char
 Plug 'tpope/vim-vinegar' " better :Explore
 Plug 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
+Plug 'jremmen/vim-ripgrep'
 
 " Special map
 Plug 'tpope/vim-commentary' " use gcc
@@ -576,23 +577,9 @@ inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<CR>
 cnoremap          <C-R>/ <C-R>=Del_word_delims()<CR>
 nnoremap          "/p "=Del_word_delims()<C-M>p
 
-" The Silver Searcher
-" thanks to https://robots.thoughtbot.com/faster-grepping-in-vim
-if executable('ag')
-  " Use ag over grep
-  " set grepprg=ag\ -Q\ --nogroup\ --nocolor\ --case-sensitive\ --path-to-ignore\ $HOME/.agignorecustom
-  set grepformat=%f:%l:%c:%m
-  " set grepprg=ag\ --vimgrep\ --case-sensitive\ $*
-  set grepprg=ag\ --vimgrep\ --ignore\ '**.spec.ts'\ --case-sensitive\ $*
-endif
-
 " Like * but on all repo :)
-" call histadd("cmd", "e $MYVIMRC")
-"
 " Search what is inside register "/" only words
-nnoremap <silent> <Leader>* :grep! -w "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
-" Search what is inside register "/"
-nnoremap <silent> <Leader>/ :grep! "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
+nnoremap <silent> <Leader>* :Rg "<C-R>=Del_word_delims()<CR>"<CR>:cw<CR>
 
 " search the filename without extension/home/tgauthier/.config/nvim/init.vim
 " /home/tgauthier/.config/nvim/init /home/tgauthier/.config/nvim/init init.vim
@@ -881,6 +868,7 @@ let g:ale_linters = {
 \  'json': ['prettier'],
 \  'html': ['prettier'],
 \  'typescript': ['prettier'],
+\  'python': ['pylint'],
 \}
 let g:ale_fixers = {
 \  'javascript': ['prettier', 'eslint'],
@@ -888,10 +876,11 @@ let g:ale_fixers = {
 \  'json': ['prettier'],
 \  'html': ['prettier'],
 \  'typescript': ['prettier'],
+\  'python': ['black'],
 \}
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '>'
-" let g:ale_fix_on_save=1
+let g:ale_fix_on_save= 1
 let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_enter = 0
