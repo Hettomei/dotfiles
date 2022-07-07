@@ -586,12 +586,6 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
   (setq projectile-enable-caching nil))
 
-(use-package! tree-sitter
-  :config
-  (require 'tree-sitter-langs)
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!

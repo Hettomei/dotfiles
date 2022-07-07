@@ -83,9 +83,6 @@
            :branch "master"
            :files ("crosshairs.el")))
 
-(package! tree-sitter)
-(package! tree-sitter-langs)
-
 ;; completion
 ;; like hippi expand dabbrev company
 ;; By minad, creator of vertico
