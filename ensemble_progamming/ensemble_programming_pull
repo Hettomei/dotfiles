@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# cd path to your project
+# ensemble_programming_pull
+# or
+# ensemble_programming_pull 20 # will wait 20sec
+set -eu
+
+wait_time_in_sec="${1-10}"
+
+echo "starting, pull every $wait_time_in_sec seconds"
+echo
+while true; do
+      git pull
+      # git show
+      sleep "$wait_time_in_sec"
+done
