@@ -579,15 +579,11 @@ nnoremap          "/p "=Del_word_delims()<C-M>p
 
 " Like * but on all repo :)
 " Search what is inside register "/" only words
-nnoremap <silent> <Leader>* yiw:Rg "<C-R>""<CR>
+nnoremap <silent> <Leader>* yiw:Rg -w "<C-R>""<CR>
+nnoremap <silent> <Leader>/ yiw:Rg "<C-R>""<CR>
+" pour python
+nnoremap <silent> <Leader>j yiw:Rg "def .*<C-R>""<CR>
 
-" search the filename without extension/home/tgauthier/.config/nvim/init.vim
-" /home/tgauthier/.config/nvim/init /home/tgauthier/.config/nvim/init init.vim
-" leader o because I don t know
-nnoremap <silent> <Leader>o :grep! -w "<C-R>=expand("%:t:r")<CR>"<CR>:cw<CR>
-
-" Search what is selected
-vnoremap <silent> <Leader>/ y:exe "grep! " . shellescape("<C-r>0")<CR><CR>:cw<CR>
 " Count selected search
 command! Count :%s///gn
 
@@ -827,11 +823,6 @@ nnoremap <silent> <Leader><Right> :call WinMove('l')<cr>
 " Switch directly to the new splitted window
 nnoremap <C-w>v :vsplit<CR>
 nnoremap <C-w>s :split<CR>
-
-nnoremap <silent> <Leader>j :exe "resize " . (winheight(0) * 2/3)<CR>
-nnoremap <silent> <Leader>k :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>h :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
-nnoremap <silent> <Leader>l :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
 " split under
 set splitbelow

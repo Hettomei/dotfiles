@@ -214,7 +214,9 @@
   (interactive)
   (minibuffer-with-setup-hook
       'me/add-lazy-flex-search
-    (let ((current-prefix-arg '(4))) ;; thanks to https://emacs.stackexchange.com/questions/60822/how-to-specify-prefix-argument-in-key-binding; in doom SPC-u trigger "current-prefix-arg '(4)"
+    ;; thanks to https://emacs.stackexchange.com/questions/60822/how-to-specify-prefix-argument-in-key-binding :
+    ;; in doom SPC-u trigger "current-prefix-arg '(4)"
+    (let ((current-prefix-arg '(4)))
       (call-interactively #'dabbrev-completion))))
 
 ;; thanks to https://people.gnome.org/~federico/blog/bringing-my-emacs-from-the-past.html
@@ -596,8 +598,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :n "^" #'doom/backward-to-bol-or-indent ;; smarter, go at 0 on second press
  :n "$" #'doom/forward-to-last-non-comment-or-eol
  :n "C-p" #'projectile-find-file
- :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
  :n "S-C-p" #'projectile-find-file-dwim ;; try to be smart to open file
+ :n "C-M-p" #'doom/find-file-in-other-project ;; when you want to read source code of another project easily
  ;; :n ")" #'me/jump20line
  :n "M-y" #'consult-yank-from-kill-ring
 
