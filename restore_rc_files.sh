@@ -16,9 +16,6 @@ cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
 ### tmux
 cp -v "$DIR/tmux.conf" "$HOME/.tmux.conf"
 
-mkdir -p "$HOME/.teamocil"
-cp -v -r "$DIR/teamocil/*" "$HOME/.teamocil"
-
 ### nvim
 mkdir -p "$HOME/.config/nvim/bundle"
 cp -v "$DIR/nvim/init.vim" "$HOME/.config/nvim/init.vim"
@@ -67,9 +64,7 @@ to update tmux plugin :
 prefix + U
 then type 'all'
 
-teamocil http://www.teamocil.com/ :
+To start a tmux instance pre configured :
+./programmes/dotfiles/default/tmux-env/formation.sh
 
-gem install teamocil
-tmux
-teamocil --here horo
 ____HERE

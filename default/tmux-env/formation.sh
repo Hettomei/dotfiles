@@ -1,7 +1,7 @@
 #!/bin/sh
 # Pour démarrer cette session : ne pas lancer tmux.
 # juste le bash, puis faire
-# ./.teamocil/incub.sh
+# ./programmes/dotfiles/default/tmux-env/formation.sh
 
 tmux new-session \; \
   send-keys 'cd ~/programmes/formation-react/cours-react' C-m \; \
