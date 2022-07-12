@@ -1,21 +1,30 @@
 #! /bin/bash
 
 #get the dir where this script is launched
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
 DIR="$CURRENT_DIR/${1:-default}"
 
-cp -v $DIR/irbrc $HOME/.irbrc
-cp -v $DIR/gemrc $HOME/.gemrc
-cp -v $DIR/bashrcc $HOME/.bashrcc
-cp -v $DIR/profilee $HOME/.profilee
-cp -v $DIR/gitconfig $HOME/.gitconfig
+cp -v "$DIR/irbrc" "$HOME/.irbrc"
+cp -v "$DIR/gemrc" "$HOME/.gemrc"
+cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
+cp -v "$DIR/profilee" "$HOME/.profilee"
+cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
+cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"
+cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
+
+### tmux
+cp -v "$DIR/tmux.conf" "$HOME/.tmux.conf"
+
+mkdir -p "$HOME/.teamocil"
+cp -v -r "$DIR/teamocil/*" "$HOME/.teamocil"
 
 cat <<-____HERE
 
 --- FIRST INSTALL ---
 echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile
+chmod +x ~/bin/ensemble_programming_*
 
 --- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'
@@ -34,4 +43,20 @@ There is a default/bash_logout that save history. It wasn't copied.
 cp default/bash_logout ~/.bash_logout
 mkdir ~/history_backups
 
+---- TMUX ---
+to install tmux plugin :
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux kill-server
+open tmux, then prefix + I
+and again prefix + I
+
+to update tmux plugin :
+prefix + U
+then type 'all'
+
+teamocil http://www.teamocil.com/ :
+
+gem install teamocil
+tmux
+teamocil --here horo
 ____HERE

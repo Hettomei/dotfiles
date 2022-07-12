@@ -25,6 +25,12 @@ mv "$DIR/.doom.d" "$DIR/doom.d"
 #   cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/
 # done
 
+#### ensemble programming ####
+rm "$DIR/ensemble_programming_pull"
+rm "$DIR/ensemble_programming_push"
+cp -v "$HOME/bin/ensemble_programming_pull" "$DIR/ensemble_programming_pull"
+cp -v "$HOME/bin/ensemble_programming_push" "$DIR/ensemble_programming_push"
+
 #### Nvim ####
 rm -r "$DIR/nvim"
 mkdir "$DIR/nvim"
