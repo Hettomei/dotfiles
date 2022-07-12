@@ -19,6 +19,13 @@ cp -v "$DIR/tmux.conf" "$HOME/.tmux.conf"
 mkdir -p "$HOME/.teamocil"
 cp -v -r "$DIR/teamocil/*" "$HOME/.teamocil"
 
+### nvim
+mkdir -p "$HOME/.config/nvim/bundle"
+cp -v "$DIR/nvim/init.vim" "$HOME/.config/nvim/init.vim"
+
+mkdir -p "$HOME/.config/nvim/my_snippets"
+cp -v -R "$DIR/nvim/my_snippets" "$HOME/.config/nvim/"
+
 cat <<-____HERE
 
 --- FIRST INSTALL ---
@@ -42,6 +49,12 @@ There is a default/bash_logout that save history. It wasn't copied.
 ** you have to do it manually : **
 cp default/bash_logout ~/.bash_logout
 mkdir ~/history_backups
+
+---- NVIM ---
+to install vim-plug see https://github.com/junegunn/vim-plug#installation
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall
+nvim +PlugUpdate
 
 ---- TMUX ---
 to install tmux plugin :
