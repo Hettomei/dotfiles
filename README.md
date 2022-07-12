@@ -35,3 +35,35 @@ You can pass an argument to `./restore*` and `./copy_here.sh` and it will create
 # Starting to automate vps installation
 
 Look at vps.sh
+
+# Ensemble programming / mob programming
+
+Merci pour cette video : https://www.youtube.com/watch?v=c_oW0yJWveQ
+
+besoin d installer :
+```
+sudo apt install fd-find entr
+```
+
+Je vous conseil de mettre ces deux fichier dans:
+
+```
+mv default/ensemble_programming_* ~/bin/
+chmod +x ~/bin/ensemble_programming_*
+```
+
+puis
+
+```
+ensemble_programming_pull 15
+```
+
+ou
+
+```
+# surveille tous les fichiers
+ensemble_programming_push . "WIP new feature"
+
+# surveille les fichiers avec "py"
+ensemble_programming_push py "WIP new feature"
+```
