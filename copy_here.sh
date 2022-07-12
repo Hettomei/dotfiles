@@ -17,13 +17,8 @@ done
 #### Emacs ####
 rm -r "$DIR/doom.d"
 
-cp -v -r "$HOME/.doom.d" "$DIR"
-mv "$DIR/.doom.d" "$DIR/doom.d"
-
-# for folder_name in 'elisp' 'snippets'
-# do
-#   cp -v -r $HOME/.emacs.d/$folder_name $DIR/emacs.d/
-# done
+cp -r "$HOME/.doom.d" "$DIR"
+mv -v "$DIR/.doom.d" "$DIR/doom.d"
 
 #### ensemble programming ####
 rm "$DIR/ensemble_programming_pull"
@@ -36,7 +31,7 @@ rm -r "$DIR/nvim"
 mkdir "$DIR/nvim"
 
 cp -v "$HOME/.config/nvim/init.vim" "$DIR/nvim/init.vim"
-cp -v -R "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
+cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
 
 #### commit ####
 cd "$CURRENT_DIR"
