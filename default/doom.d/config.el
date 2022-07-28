@@ -200,7 +200,12 @@
  window-combination-resize t ;take new window space from all other windows (not just current)
 
  company-idle-delay nil
+ flycheck-check-syntax-automatically '(save)
  )
+
+;; Thanks to https://tech.toryanderson.com/2022/07/18/stop-find-file-from-ignoring-.git/
+;; display .git folder
+;; (completion-ignored-extensions nil)
 
 (defun me/dabbrev-use-ALL-buffers (obuff)
   "So I can search in every buffer, including help buffer"
@@ -447,6 +452,23 @@ is overriden by something else."
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tkgi-post")))
 
 (add-hook! 'python-mode-hook #'me/change-pythonpath)
+
+;; Thanks to https://stackoverflow.com/questions/67091936/how-can-i-disable-web-beautify-errors-from-the-emacs-web-beautify-package
+;; Avoid displaying the *format-all-errors* buffer when save python file with syntax error
+;;
+;;This does not work in config file
+;;I tested :
+;;- alone without hook
+;;- after emacs completely loaded
+;;- python hook
+;;- flycheck hook
+;;
+;;the only things that works is when I evaluate it by hand
+(add-hook! 'flycheck-mode-hook (lambda ()
+                                 (add-to-list 'display-buffer-alist
+                                              (cons "\\*format-all-errors\\*"
+                                                    (cons 'display-buffer-no-window
+                                                          '((allow-no-window . t)))))))
 
 (defun me/insert-random-uuid ()
   (interactive)
@@ -754,6 +776,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (me/load-session)
   ;; remove this info from modeline
   (size-indication-mode -1))
+
 
 (add-hook 'window-setup-hook #'me/run-after-emacs-is-loaded)
 
