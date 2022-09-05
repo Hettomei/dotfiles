@@ -1,7 +1,7 @@
 [gui]
 [user]
   name = Timothée Gauthier
-  email = timothee.gauthier-ext@pole-emploi.fr
+  email = 2079042+Hettomei@users.noreply.github.com
 [core]
   editor = nvim
   # editor = emacs -nw
@@ -21,10 +21,12 @@
   untracked = cyan
 [alias]
   st = status
-  br = branch -vv -a
-  b = branch -vv
+  s  = st
+  ba = branch -vv -a
+  br = branch -vv
   bd = branch -vv -d
-  co = checkout
+  b  = br
+  co  = checkout
   cod = checkout --detach
   com = checkout master
   c  = commit
@@ -32,8 +34,8 @@
   ca = commit --amend
   ; not possible as git run in sub shell; si gg<TAB> in bashrc
   ; root = !cd $(git rev-parse --show-toplevel)
-  dic = diff --cached
-  dicw = diff --cached --color-words
+  dic   = diff --cached
+  dicw  = diff --cached --color-words
   diffw = diff --color-words
   f = fetch --all --prune
   l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'

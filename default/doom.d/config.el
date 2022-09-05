@@ -443,7 +443,7 @@ is overriden by something else."
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tableau_de_bord/Scripts"))
   (if (and (stringp buffer-file-name)
            (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/outillage_commun"))
+      (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tesi-vm/app"))
   (if (and (stringp buffer-file-name)
            (string-match "poleemploi/referentiel_enf/tkgi-pre" buffer-file-name))
       (setenv "PYTHONPATH" "/home/tgauthier/poleemploi/referentiel_enf/tkgi-pre"))
