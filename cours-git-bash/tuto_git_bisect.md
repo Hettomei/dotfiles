@@ -78,13 +78,22 @@ git bisect view
 git bisect log
 ```
 
-C'est une première approche.
-Maintenant imaginons que votre application a besoin de se lancer dans un environnement
-de staging pour reproduire le bug. Chaque commit peux prendre plusieurs minutes.
-LA solution : `git bisect run`
-
-```
-```
-
-
 Pensez toujours à `git bisect reset` quand vous avez terminé.
+
+Ce `git bisect` est semi automatique, il faut rester derriere le clavier. On peut faire mieux.
+
+Imaginons que votre application a besoin de se lancer dans un environnement
+de staging pour reproduire le bug et que chaque commit peux prendre plusieurs minutes.
+
+LA solution : `git bisect run ~/script.sh`
+
+ex :
+
+```
+git checkout master
+git bisect start
+git bisect bad
+git checkout HEAD~300
+git bisect good
+git bisect run ./test-bisect.sh
+```

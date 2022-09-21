@@ -39,6 +39,7 @@
   diffw = diff --color-words
   f = fetch --all --prune
   l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
+  ltag = log     --format='%ci   %d %s'
   ll  = log -10  --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   lll = log -25 --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   # Print current branch graph
