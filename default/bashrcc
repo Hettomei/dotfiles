@@ -525,3 +525,9 @@ formatJSONInPbpaste() {
 # install emacs 28 via apt
 # sudo add-apt-repository ppa:ubuntu-elisp/ppa; sudo apt-get update
 # sudo apt install emacs-snapshot emacs-snapshot-common emacs-snapshot-el
+
+# or
+
+# sudo add-apt-repository ppa:kelleyk/emacs
+# sudo apt update
+# sudo apt install emacs28-nativecomp
