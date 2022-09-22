@@ -6,11 +6,8 @@
   editor = nvim
   # editor = emacs -nw
   excludesfile = ~/.gitignore_global
-  pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
-  ui = true
-[color "diff"]
-  meta = yellow
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -95,15 +92,11 @@
   ; conflictstyle = diff3
 [difftool]
   prompt = false
-[pager]
-  # brew install diff-so-fancy
-  # or https://github.com/so-fancy/diff-so-fancy
-  ; diff = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
-  ; show = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
-  ; whatchanged = $HOME/programmes/diff-so-fancy/diff-so-fancy | less --tabs=4 -RFX
 [status]
   showUntrackedFiles = all
 [credential]
   helper = store
 [pull]
   rebase = false
+[interactive]
+	diffFilter = diff-so-fancy --patch

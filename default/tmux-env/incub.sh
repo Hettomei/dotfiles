@@ -13,10 +13,7 @@ tmux new-session \; \
   send-keys 'rappel "09h28" "Teams"' C-m \; \
   \
   new-window \; \
-  send-keys 'cd ~/poleemploi/referentiel_enf/tesi-vm' C-m \; \
-  \
-  split-window -h \; \
-  send-keys 'cd ~/poleemploi/referentiel_enf/tesi-vm' C-m \; \
+  send-keys 'cd ~/poleemploi/referentiel_enf' C-m \; \
   \
   select-window -t 0 \; \
   select-pane -t 0 \;

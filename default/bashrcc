@@ -135,8 +135,9 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
 
 # Must be executed at every session, so can't be in .profile
 if [ -d "$HOME/.pyenv" ] ; then
-  eval "$(pyenv init -)"
-  # eval "$(pyenv virtualenv-init -)"
+	export PYENV_ROOT="$HOME/.pyenv"
+	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init -)"
 fi
 
 
@@ -422,8 +423,8 @@ function histosearch {
 
 
 # Automatically mount virtualbox on bash startup :
-# (Need to at first create a shared folder. Need to read virtual box doc. Sorry I forget to link it here
-# [ -f /home/tgauthier/share/.keep_this_file ] || sudo mount -t vboxsf -o uid=$UID,gid=$(id -g) sharevm ~/share
+# You need to be in this group : (cf: https://stackoverflow.com/questions/26740113/virtualbox-shared-folder-permissions)
+# sudo adduser $USER vboxsf
 
 
 ###############
