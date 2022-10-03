@@ -329,7 +329,6 @@ so in python it looks for def, in javascript function..."
 ;; based on each mode
 ;; We can change it by mode with :
 ;; ----------- disabled part -------
-;; (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
 ;; or read https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
 ;; (defun me/improve-word-length ()
 ;;   "This way, when do a 'e' (evil-forward-word-end) it is better.
@@ -346,25 +345,50 @@ so in python it looks for def, in javascript function..."
 ;; we start from a syntax table
 ;; we update it and to for each char (after ?) we tell which type it is
 ;; C-h s to see a table per mode
-(add-hook 'sh-mode-hook (lambda ()
-                          (let ((table (make-syntax-table sh-mode-syntax-table)))
-                            ;; We tell that : is part of punctuation (the ".").
-                            ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
-                            (modify-syntax-entry ?: "." table)
-                            ;; (modify-syntax-entry ?\] "w" table)
-                            (set-syntax-table table))
-                          ))
+(add-hook! 'sh-mode-hook (lambda ()
+                           (let ((table (make-syntax-table sh-mode-syntax-table)))
+                             ;; We tell that : is part of punctuation (the ".").
+                             ;; So when I press * when I m on A in "${VAR_ENV:2}" it search for VAR_ENV
+                             (modify-syntax-entry ?: "." table)
+                             ;; (modify-syntax-entry ?\] "w" table)
+                             (set-syntax-table table))
+                           ))
 
 
 (defun me/search-case-sensitive ()
   "Search case Sensitive
 it is local to buffer, so we need to change it everytime a mode change"
-  (setq case-fold-search nil))
+  (interactive)
+  (setq case-fold-search nil
+        evil-ex-search-case 'sensitive)
+  (message "evil search case is %s , isearch is %s" evil-ex-search-case case-fold-search))
 
 (defun me/search-case-insensitive ()
   "Search case Sensitive
 it is local to buffer, so we need to change it everytime a mode change"
-  (setq case-fold-search t))
+  (interactive)
+  (setq case-fold-search t
+        evil-ex-search-case 'insensitive)
+  (message "evil search case is %s , isearch is %s" evil-ex-search-case case-fold-search))
+
+(defun me/change-search-case ()
+  "Search case Sensitive
+it is local to buffer, so we need to change it everytime a mode change"
+  (interactive)
+  (catch 'my-early-return
+    (if (member major-mode '(minibuffer-inactive-mode minibuffer-mode dired-mode))
+        (throw 'my-early-return "this is the short-circuit result of catch"))
+
+    (if (derived-mode-p 'text-mode) ;; works well, but it looks like we always go to minibuffer mode
+        ;; So I want to be more precise
+        ;; (if (member major-mode '(markdown-mode text-mode org-mode))
+        (progn (setq case-fold-search t
+                     evil-ex-search-case 'insensitive))
+      (progn
+        (setq case-fold-search nil
+              evil-ex-search-case 'sensitive)))
+
+    (message "---> major-mode: %s, evil-ex-search-case: %s, case-fold-search: %s" major-mode evil-ex-search-case case-fold-search)))
 
 (defun me/format-prettify-indent-on-save ()
   "Will prettify on everything except for
@@ -377,9 +401,11 @@ sh-mode and gfm-mode (markdown files)"
 (add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 ;; (remove-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 
-(add-hook! 'text-mode-hook #'me/search-case-insensitive)
-(add-hook! 'prog-mode-hook #'me/search-case-sensitive)
-(add-hook! 'prog-mode-hook #'me/search-case-sensitive)
+;; (add-hook! 'text-mode-hook #'me/search-case-insensitive)
+;; (add-hook! 'org-mode-hook #'me/search-case-insensitive)
+;; (add-hook! 'prog-mode-hook #'me/search-case-sensitive)
+(add-hook! 'buffer-list-update-hook #'me/change-search-case)
+
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -432,6 +458,7 @@ sh-mode and gfm-mode (markdown files)"
 (defun me/stop-smartparens ()
   "This is a workaround because the after! or use-package! or disable-packages!
 is overriden by something else."
+  (message "Major mode is %s" major-mode)
   (smartparens-mode -1)
   (smartparens-global-mode -1))
 
@@ -574,7 +601,7 @@ Press C-c RET to open it.
 Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands/"
   (interactive)
   (let ((buf-name (format "*links in <%s>*" (buffer-name))))
-    (add-hook 'occur-hook #'goto-address-mode)
+    (add-hook! 'occur-hook #'goto-address-mode)
     (occur-1 me/common-url-regexp "\\&" (list (current-buffer)) buf-name)
     (remove-hook 'occur-hook #'goto-address-mode)))
 
@@ -778,7 +805,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (size-indication-mode -1))
 
 
-(add-hook 'window-setup-hook #'me/run-after-emacs-is-loaded)
+(add-hook! 'window-setup-hook #'me/run-after-emacs-is-loaded)
 
 (defun me/code-en-html ()
   (interactive)

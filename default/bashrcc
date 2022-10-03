@@ -25,8 +25,6 @@ alias pps='ps aux | grep'
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuuuuu --ignore-case'
 
-alias fd=fdfind
-
 ### git alias
 # Why start with 'gg' to simulate 'g command'
 # also, I always forget the command,
@@ -113,7 +111,7 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
 # https://github.com/junegunn/fzf
 # Commented because ;
 # need to read again how to use and configure fzf
-# need to change ag -l to fd
+# need to change ag -l to fdfind
 
 # if [ "$(command -v fzf)" ]
 # then
@@ -121,7 +119,7 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
   # so that it correctly sets up key bindings for vi mode.
   # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
   # complete -F _fzf_path_completion v
-  # if [ "$(command -v fd)" ]
+  # if [ "$(command -v fdfind)" ]
   # then
   #   # not needed because we changed _fzf_compgen_path to make it works during auto completion
   #   export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
@@ -497,7 +495,7 @@ formatJSONInPbpaste() {
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
 
 # Find duplicates and delete only the last one
-# fd '.' | xargs -d '\n' md5sum > md5sum.txt
+# fdfind '.' | xargs -d '\n' md5sum > md5sum.txt
 # sort md5sum.txt | uniq -w 32 -d
 # sort md5sum.txt | uniq -w 32 -d | cut -d' ' -f3 | xargs -I{} sh -c 'rm -v {}'
 

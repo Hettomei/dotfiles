@@ -47,13 +47,6 @@ fi
 
 if [ -d "$HOME/.pyenv" ] ; then
   export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init --path)"
-fi
-
-
-if [ -d "/usr/local/lib/nodejs" ]; then
-  VERSIONNNN=v16.13.1
-  DISTROOOOO=linux-x64
-  export PATH=/usr/local/lib/nodejs/node-$VERSIONNNN-$DISTROOOOO/bin:$PATH
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
 fi
