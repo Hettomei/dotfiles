@@ -673,7 +673,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :i  "C-x C-f"  #'cape-file
  ;;
  ;; completion with company - too cumbersome but I keep one in case
- :i  "C-SPC" #'+company/dabbrev ;; to try to find code related completion
+ :i  "C-SPC" #'company-complete-common-or-cycle ;; to try to find code related completion
  ;;
  ;; completion hippi expand
  ;; I want to see in a popup or minibuffer, so not really using it
@@ -706,7 +706,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  ;; trouvé grace à C-B k dans le minibuffer
  ;; :map minibuffer-local-filename-completion-map
- :map projectile-mode-map
+ :map minibuffer-mode-map
  "S-SPC" #'me/add-regex-to-bypass-orderless
 
  ;; Do not change my changing window S-arrow
