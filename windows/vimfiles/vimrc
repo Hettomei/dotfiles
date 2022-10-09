@@ -616,6 +616,8 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
   set t_Co=16
 endif
 
+nnoremap s :call cursor(0, getcurpos()[2]+(virtcol('$') - getcurpos()[2])/2)<CR>
+nnoremap S :call cursor(0, getcurpos()[2] / 2)<CR>
 
 " Tips and tricks {
 
