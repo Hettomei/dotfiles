@@ -30,6 +30,11 @@
     (package-refresh-contents)
     (package-install 'evil)))
 
+(unless (package-installed-p 'undo-fu)
+  (progn
+    (package-refresh-contents)
+    (package-install 'undo-fu)))
+
 ;; Enable Evil
 (require 'evil)
 (evil-mode 1)
@@ -52,3 +57,17 @@
 (setq make-backup-files nil) ; stop creating ~ files
 (global-display-line-numbers-mode)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+
+(setq evil-ex-search-case (quote sensitive)
+      evil-search-wrap nil
+      evil-split-window-below t
+      evil-vsplit-window-right t
+      evil-cross-lines t
+      evil-echo-state nil ; do not display "insert"
+      ;; evil-search-module 'isearch ; Try it, I can't find the difference on internet
+      evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
+      evil-undo-system 'undo-fu) ; Or C-r will not work
