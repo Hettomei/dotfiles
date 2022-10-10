@@ -3,9 +3,33 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (set-language-environment "UTF-8")
+(set-charset-priority 'unicode)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(cond
+ ((string-equal system-type "windows-nt")
+  (progn
+    (setq default-process-coding-system '(utf-8-dos . utf-8-dos)))))
 
 (setq inhibit-startup-screen t)
 (setq make-backup-files nil) ; stop creating ~ files
+(cond
+ ((string-equal system-type "windows-nt")
+  (progn
+    (setq chocolatey-root "c:/ProgramData/chocolatey")
+    (setq chocolatey-lib
+          (concat chocolatey-root "/" "lib"))
+    (setq chocolatey-bin
+          (concat chocolatey-root "/" "bin")))))
+(cond
+ ((string-equal system-type "windows-nt") 
+  (progn
+    (setq ispell-program-name 
+          (concat chocolatey-lib "/" "hunspell.portable/tools/bin/hunspell"))))
+ )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auto load 'use-package so it can autoload other packages
@@ -64,6 +88,25 @@
 (use-package org
   :ensure t)
 
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+
+(use-package flyspell
+  :ensure t)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;;(load-theme 'doom-one t)
+  (load-theme 'doom-solarized-dark t)
+
+
+  (doom-themes-org-config))
 ;;;;;;;;;;;;;;;;;;
 ;; Other config
 ;;;;;;;;;;;;;;;;;;
@@ -77,6 +120,12 @@
 ;;(global-set-key (kbd "C-c l") #'org-store-link)
 ;;(global-set-key (kbd "C-c a") #'org-agenda)
 ;;(global-set-key (kbd "C-c c") #'org-capture)
+
+;; stolen at https://github.com/tompurl/dot-emacs/blob/master/emacs-init.org
+(defun me/encoding/dos2unix ()
+  "Not exactly but it's easier to remember"
+  (interactive)
+  (set-buffer-file-coding-system 'utf-8-unix 't))
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Automatically added
