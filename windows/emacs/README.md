@@ -1,5 +1,7 @@
 Where this file must goes in windows ?
 
+For the moment, only works in emacs 27 stable, not on emacs 28 snapshot
+
 Must go there.
 
 C:\Users\tim\AppData\Roaming\.emacs.d\init.el

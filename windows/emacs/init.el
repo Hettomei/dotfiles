@@ -49,8 +49,17 @@
 	      evil-echo-state nil ; do not display "insert"
 	      ;; evil-search-module 'isearch ; Try it, I can't find the difference on internet
 	      evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
-	      evil-undo-system 'undo-fu)
-  :config (evil-mode 1)) ; Or C-r will not work
+	      evil-undo-system 'undo-fu); Or C-r will not work
+  :config (evil-mode 1) 
+  ;; thanks to https://github.com/noctuid/evil-guide
+  ;; set leader key in all states
+  (evil-set-leader nil (kbd "C-SPC"))
+  ;; set leader key in normal state
+  (evil-set-leader 'normal (kbd "SPC"))
+  ;; set local leader
+  (evil-set-leader 'normal "," t)
+  (evil-define-key 'normal 'global (kbd "<leader>SPC") 'save-buffer))
+
 
 (use-package org
   :ensure t)
