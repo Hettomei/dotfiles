@@ -401,11 +401,7 @@ sh-mode and gfm-mode (markdown files)"
 (add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 ;; (remove-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 
-;; (add-hook! 'text-mode-hook #'me/search-case-insensitive)
-;; (add-hook! 'org-mode-hook #'me/search-case-insensitive)
-;; (add-hook! 'prog-mode-hook #'me/search-case-sensitive)
-(add-hook! 'buffer-list-update-hook #'me/change-search-case)
-
+(add-hook! 'window-state-change-hook #'me/change-search-case)
 
 ;; auto-fill-mode is automatic line break
 (remove-hook! 'text-mode-hook #'auto-fill-mode)
@@ -491,11 +487,11 @@ is overriden by something else."
 ;;- flycheck hook
 ;;
 ;;the only things that works is when I evaluate it by hand
-(add-hook! 'flycheck-mode-hook (lambda ()
-                                 (add-to-list 'display-buffer-alist
-                                              (cons "\\*format-all-errors\\*"
-                                                    (cons 'display-buffer-no-window
-                                                          '((allow-no-window . t)))))))
+(add-hook! 'python-mode-hook  (lambda ()
+                                (add-to-list 'display-buffer-alist
+                                             (cons "\\*format-all-errors\\*"
+                                                   (cons 'display-buffer-no-window
+                                                         '((allow-no-window . t)))))))
 
 (defun me/insert-random-uuid ()
   (interactive)
@@ -612,7 +608,7 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; (after! flycheck
 ;;   :config
 ;;   (setq-default flycheck-disabled-checkers '(python-flake8)))
-
+;;
 
 (use-package! vertico
   :config (setq vertico-cycle nil
@@ -901,6 +897,18 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
                                                evil-ex-search-count
                                                evil-ex-search-direction)))))
 (advice-add #'evil-ex-search-setup :after #'me/evil-ex-start-search-with-region-string)
+
+(defun me/save-and-kill-this-buffer()
+  "Save and quits the buffer"
+  (interactive)
+  (save-buffer)
+  (+workspace/close-window-or-workspace))
+
+;; stolen and adapted from https://github.com/kavulox/emacs
+(evil-ex-define-cmd "wq" 'me/save-and-kill-this-buffer)
+(evil-ex-define-cmd "q" '+workspace/close-window-or-workspace)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
