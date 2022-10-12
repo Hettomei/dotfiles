@@ -52,6 +52,55 @@
   (require 'use-package))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; defun me/my-functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun me/replace-at-point ()
+  "Delete the symbol and go in insert mode. Equivalent to ciw without saving in register"
+  (interactive)
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (evil-insert 1))
+          (t
+           (forward-char) (me/replace-at-point)))))
+
+(defun me/kill-at-point ()
+  "Kills the symbol at point."
+  (interactive)
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (kill-region (car thing) (cdr thing))
+    (message "current-kill: %s" (current-kill 0 'do-not-move))))
+
+(defun me/copy-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
+  (interactive)
+  (let ((thing (thing-at-point 'symbol)))
+    (cond (thing
+           (kill-new thing) (message "current-kill: %s" thing))
+          (t
+           (forward-char) (me/copy-symbol)))))
+
+(defun me/copy-append-symbol ()
+  "Copy the symbol at point. Move forward if nothing found."
+  (interactive)
+  (let ((thing (thing-at-point 'symbol 'no-properties)))
+    (cond (thing
+           (kill-append (concat " " thing) nil) (message "current-kill: %s" (current-kill 0 'do-not-move)))
+          (t
+           (forward-char) (me/copy-append-symbol)))))
+
+(defun me/replace-with-kill-ring ()
+  "Delete the inner symbol and paste another on it. Do not save in register the replaced symbol"
+  (interactive)
+  (let ((thing (bounds-of-thing-at-point 'symbol)))
+    (cond (thing
+           (delete-region (car thing) (cdr thing))
+           (yank))
+          (t
+           (forward-char) (me/replace-with-kill-ring)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Install everything with use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -75,6 +124,19 @@
 	      evil-ex-substitute-global t ; automatic g in :s/aa/bb/g
 	      evil-undo-system 'undo-fu); Or C-r will not work
   :config (evil-mode 1) 
+
+  (defalias #'forward-evil-word #'forward-evil-symbol)
+
+  (evil-define-motion me/middle-of-line-forward ()
+    "Put cursor at the middle point of the line. try to mimic vim-skip"
+    :type inclusive
+    (goto-char (/ (+ (point) (point-at-eol)) 2)))
+
+  (evil-define-motion me/middle-of-line-backward ()
+    "Put cursor at the middle point of the line. try to mimic vim-skip"
+    :type inclusive
+    (goto-char (/ (+ (point) (point-at-bol)) 2)))
+
   ;; thanks to https://github.com/noctuid/evil-guide
   ;; set leader key in all states
   (evil-set-leader nil (kbd "C-SPC"))
@@ -82,7 +144,14 @@
   (evil-set-leader 'normal (kbd "SPC"))
   ;; set local leader
   (evil-set-leader 'normal "," t)
-  (evil-define-key 'normal 'global (kbd "<leader>SPC") 'save-buffer))
+  (evil-define-key 'normal 'global (kbd "<leader>SPC") 'save-buffer)
+  (evil-define-key 'normal 'global (kbd "s") #'me/middle-of-line-forward)
+  (evil-define-key 'normal 'global (kbd "S") #'me/middle-of-line-backward)
+  (evil-define-key 'normal 'global (kbd "<leader>r") #'me/replace-at-point) ;; "Delete and go insert"
+  (evil-define-key 'normal 'global (kbd "<leader>d") #'me/kill-at-point) ;; ""
+  (evil-define-key 'normal 'global (kbd "<leader>p") #'me/replace-with-kill-ring) ;; "Replace with killed"
+  (evil-define-key 'normal 'global (kbd "<leader>e") #'find-file) ;; "select file"
+  )
 
 
 (use-package org
@@ -126,6 +195,10 @@
   "Not exactly but it's easier to remember"
   (interactive)
   (set-buffer-file-coding-system 'utf-8-unix 't))
+;; Automatically cut long lines.
+;; Maybe I should use it only in text-mode
+(setq-default fill-column 100)
+(setq-default auto-fill-function 'do-auto-fill)
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; Automatically added
