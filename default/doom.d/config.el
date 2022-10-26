@@ -386,9 +386,9 @@ it is local to buffer, so we need to change it everytime a mode change"
                      evil-ex-search-case 'insensitive))
       (progn
         (setq case-fold-search nil
-              evil-ex-search-case 'sensitive)))
+              evil-ex-search-case 'sensitive)))))
 
-    (message "---> major-mode: %s, evil-ex-search-case: %s, case-fold-search: %s" major-mode evil-ex-search-case case-fold-search)))
+;; (message "---> major-mode: %s, evil-ex-search-case: %s, case-fold-search: %s" major-mode evil-ex-search-case case-fold-search)))
 
 (defun me/format-prettify-indent-on-save ()
   "Will prettify on everything except for
@@ -468,11 +468,11 @@ is overriden by something else."
            (string-match "poleemploi/referentiel_enf/tesi-vm" buffer-file-name))
       (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tesi-vm/app"))
   (if (and (stringp buffer-file-name)
-           (string-match "poleemploi/referentiel_enf/tkgi-pre" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tkgi-pre"))
+           (string-match "poleemploi/referentiel_enf/tkgi" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tkgi"))
   (if (and (stringp buffer-file-name)
-           (string-match "poleemploi/referentiel_enf/tkgi-post" buffer-file-name))
-      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tkgi-post")))
+           (string-match "poleemploi/referentiel_enf/tae-api" buffer-file-name))
+      (setenv "PYTHONPATH" "/home/etga9120/poleemploi/referentiel_enf/tae-api/src")))
 
 (add-hook! 'python-mode-hook #'me/change-pythonpath)
 
@@ -700,6 +700,8 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  :g  "+" 'me/increase-width-height
  :g  "-" 'me/decrease-width-height
 
+ :map markdown-mode-map
+ :n "za" #'markdown-cycle
  ;; trouvé grace à C-B k dans le minibuffer
  ;; :map minibuffer-local-filename-completion-map
  :map minibuffer-mode-map

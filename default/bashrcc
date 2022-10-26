@@ -24,6 +24,7 @@ alias pps='ps aux | grep'
 
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuuuuu --ignore-case'
+alias f=fdfind
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
