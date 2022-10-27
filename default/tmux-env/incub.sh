@@ -10,7 +10,7 @@ tmux new-session \; \
   send-keys 'incub vpn deconnecter # ./stoppage.sh' \; \
   \
   split-window -h \; \
-  send-keys 'rappel "09h28" "Teams"' C-m \; \
+  send-keys 'rappel "09h39" "Teams"' C-m \; \
   \
   new-window \; \
   send-keys 'cd ~/poleemploi/referentiel_enf' C-m \; \
