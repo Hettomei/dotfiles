@@ -206,7 +206,7 @@
 ;; Other config
 ;;;;;;;;;;;;;;;;;;
 (menu-bar-mode -1)
-(scroll-bar-mode -1)
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (tool-bar-mode -1) 
 (windmove-default-keybindings)
 (setq windmove-create-window t)
