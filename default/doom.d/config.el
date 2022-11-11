@@ -232,6 +232,7 @@
 (global-whitespace-mode)
 
 (add-to-list 'auto-mode-alist '("\\.bashrcc\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.ps1\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.profilee\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs\\'" . html-mode))
 
@@ -287,7 +288,8 @@
            (forward-char) (me/copy-append-symbol)))))
 
 (defun me/replace-with-kill-ring ()
-  "Delete the inner symbol and paste another on it. Do not save in register the replaced symbol"
+  "Delete the inner symbol and paste another on it.
+   Do not save in register the replaced symbol"
   (interactive)
   (let ((thing (bounds-of-thing-at-point 'symbol)))
     (cond (thing
@@ -633,6 +635,11 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   ;; fd is fast. No need to cache or you have to SPC-x i to invalidate it multiple times
   (setq projectile-enable-caching nil))
 
+(defun me/dired-view-file ()
+  (interactive)
+  (dired-view-file)
+  (local-set-key (kbd "<f6>") 'View-quit))
+
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
@@ -715,6 +722,10 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  "<S-down>" nil
  "<S-left>" nil
  "<S-right>" nil
+
+ ;; just press f6 repeateadly to open and close file in dired. A preview.
+ :map dired-mode-map
+ "<f6>" #'me/dired-view-file
 
  ;; :map csv-mode-map
  ;; :n "<left>" #'csv-backward-field
