@@ -6,7 +6,6 @@ Just run
 
 ```
 ./restore_rc_files.sh
-./restore_tmux.sh
 ./restore_emacs.sh
 ```
 
@@ -28,13 +27,13 @@ You can pass an argument to `./restore*` and `./copy_here.sh` and it will create
 ./copy_here.sh windows
 # Will save configuration in dotfiles/windows
 
-./restore_emacs.sh windows window
+./restore_emacs.sh windows
 # Will restore from dotfiles/windows
 ```
 
 # Starting to automate vps installation
 
-Look at vps.sh
+Look at first_install.md
 
 # Ensemble programming / mob programming
 
