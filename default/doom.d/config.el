@@ -643,6 +643,12 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
+ ;; needf to invert + and =
+ ;; and also need to be consistant because C-- was on text-scale-decrease
+ :n "C-+" #'doom/increase-font-size
+ :n "C--" #'doom/decrease-font-size
+ :n "C-=" #'doom/reset-font-size
+
  :n "za" #'me/set-selective-display-dlw
 
  :n "C-w x" #'window-swap-states
@@ -921,22 +927,23 @@ Taken at https://www.emacswiki.org/emacs/NxmlMode#toc11"
 (evil-ex-define-cmd "wq" 'me/save-and-kill-this-buffer)
 (evil-ex-define-cmd "q" '+workspace/close-window-or-workspace)
 
+;; taken from internet. Can t remember where. Thank you people.
+(defun me/show-projects ()
+  "Display a new page that list project, and open it when press ENTER"
+  (interactive)
+  (switch-to-buffer "*projects*")
+  (org-mode)
+  (insert "#+TITLE: Projects\n\n")
+  (dolist (project (projectile-relevant-known-projects))
+    (insert (concat "* " project " [[" project "]] " "\n")))
+  (goto-char (point-min)))
+;; (me/show-projects)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; TIPS ;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (defun show-projects ()
-;; "Display a new page that list project, and open it when press ENTER"
-;;   (interactive)
-;;   (switch-to-buffer "*projects*")
-;;   (org-mode)
-;;   (insert "#+TITLE: Projects\n\n")
-;;   (dolist (project (projectile-relevant-known-projects))
-;;     (insert (concat "* " project " [[" project "]] " "\n")))
-;;   (goto-char (point-min)))
-;; (show-projects)
-
 
 ;; To convert a csv into an org table :
 ;;

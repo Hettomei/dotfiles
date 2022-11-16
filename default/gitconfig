@@ -100,3 +100,5 @@
   rebase = false
 [interactive]
 	diffFilter = diff-so-fancy --patch
+[init]
+	defaultBranch = master
