@@ -642,6 +642,19 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
   (dired-view-file)
   (local-set-key (kbd "<f6>") 'View-quit))
 
+(defun me/insert-line-before-and-3-backtick ()
+  (interactive)
+  (save-excursion
+    (back-to-indentation)
+    (insert "```\n")))
+
+(defun me/insert-line-after-and-3-backtick ()
+  (interactive)
+  (save-excursion
+    (forward-line 1)
+    (back-to-indentation)
+    (insert "```\n")))
+
 ;; taken from
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/config/default/+evil-bindings.el
 (map!
@@ -694,6 +707,12 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
  ;; :i  "C-n" #'dabbrev-completion ;; we need interactive mode to enable "all buffers"
  :i  "C-n" #'me/dabbrev-completion
  ;; to complete the next word like vim C-x C-n, you must first complete the current word, then space, then C-p
+
+ ;; in markdown, ``` will create a block of code.
+ ;; It s too long.
+ ;; Also, two ££ to be consistent because in french keyboard ` needs to be pressed 2 times
+ :n  "££" #'me/insert-line-before-and-3-backtick
+ :n  "`" #'me/insert-line-after-and-3-backtick
 
  "<f5>" #'me/oorr ;; needed to restart android react app
  "<f9>" #'python-pytest
