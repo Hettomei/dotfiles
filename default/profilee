@@ -3,9 +3,9 @@ then
   # Inside tmux, we don't want to reload this file
   return 0
 fi
-export LC_ALL=C
-export LANG=fr_FR.UTF-8
-export LC_MESSAGES=fr_FR.UTF-8
+# export LC_ALL=C
+# export LANG=fr_FR.UTF-8
+# export LC_MESSAGES=fr_FR.UTF-8
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
