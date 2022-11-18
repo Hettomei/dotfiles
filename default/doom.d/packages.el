@@ -49,6 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 
+;;;;;;;;;;;;;;;;;;;;; end of doom config.example.el ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; make 's' binded to go to text
 ;; Not disabled here because it enhance f and t

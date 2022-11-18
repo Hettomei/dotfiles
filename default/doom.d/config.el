@@ -75,6 +75,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;;;;;;;;;;;;;;;;;;;;; end of doom config.example.el ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; "Prefix argument" is SPC u in doom
 ;; example, in normal mode :
 ;; press g a -> display info.
