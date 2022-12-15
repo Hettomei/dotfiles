@@ -425,8 +425,12 @@ sh-mode and gfm-mode (markdown files)"
         evil-vsplit-window-right t
         evil-cross-lines t
         evil-echo-state nil ; do not display "insert"
-        ;; evil-search-module 'isearch ; Try it, I can't find the difference on internet
         evil-ex-substitute-global t) ; automatic g in :s/aa/bb/g
+
+  ;; when org file is folded, with evil search it does not search inside
+  ;; so switch to emacs search
+  ;; found at https://github.com/doomemacs/doomemacs/issues/6478#issuecomment-1219582005
+  (evil-select-search-module 'evil-search-module 'isearch)
 
   ;; before this, having "some_var_name", cursor on o, pressing "ciw" it becomes "_var_name"
   ;; now, it properly change all
@@ -760,6 +764,11 @@ Taken from https://protesilaos.com/codelog/2021-07-24-emacs-misc-custom-commands
 
  :map doom-leader-file-map
  "R" #'me/simple-rename-file-and-buffer
+
+ ;; in this mode when pressing / in evil
+ :map isearch-mode-map
+ "<up>" 'isearch-ring-retreat ; Because of this line, 'down' automagically works
+ "<left>" 'left-char ; Because of this line, 'right' automagically works
 
  :leader
  :desc "Save file" "SPC" #'save-buffer
