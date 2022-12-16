@@ -143,9 +143,6 @@
  ;; This variable at nil means "be case sensitive"
  dabbrev-case-fold-search nil
 
- ;; When done with C-S display a counter
- isearch-lazy-count 1
-
  ;; Try to disable to see if related with search jump
  ;; Always display 5 lines
  hscroll-margin 10
@@ -181,8 +178,17 @@
  markdown-gfm-use-electric-backquote nil
 
  ;; Stop at the end of file when no other words are found
- ;; the "error" (instead of nil) prevent emacs to highlight non related region
- isearch-wrap-function (lambda () (error "no more matches"))
+ isearch-wrap-pause nil
+ ;; When done with C-S display a counter
+ isearch-lazy-count 1
+ isearch-allow-scroll t           ; continue the search even though we're scrolling
+ isearch-allow-motion t
+ lazy-highlight t                 ; highlight occurrences
+ lazy-highlight-cleanup nil       ; keep search term highlighted
+ lazy-highlight-max-at-a-time nil ; all occurences in file
+ lazy-highlight-buffer t
+ lazy-highlight-buffer-max-at-a-time  nil
+ ;; lazy-highlight-interval
 
  ;; unfo-fu use 'unconstrained mode' when pressing C-g before u or C-r.
  ;; The problem is it also works with ESC. And I press Esc every time.
@@ -394,16 +400,26 @@ it is local to buffer, so we need to change it everytime a mode change"
 
 ;; (message "---> major-mode: %s, evil-ex-search-case: %s, case-fold-search: %s" major-mode evil-ex-search-case case-fold-search)))
 
-(defun me/format-prettify-indent-on-save ()
-  "Will prettify on everything except for
-sh-mode and gfm-mode (markdown files)"
-  (if (not (member major-mode '(sh-mode gfm-mode markdown-mode)))
-      (+format/buffer)))
-
-;; If auto formating is annoying :
-;; To enable it, just eval it M-:
-(add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
+;; Temporary comment to format all
+;;
+;; (defun me/format-prettify-indent-on-save ()
+;;   "Will prettify on everything except for
+;; sh-mode and gfm-mode (markdown files)"
+;;   (if (not (member major-mode '(sh-mode gfm-mode markdown-mode)))
+;;       (+format/buffer)))
+;; (add-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
 ;; (remove-hook! 'before-save-hook #'me/format-prettify-indent-on-save)
+
+(defun me/add-hook-format-on-save ()
+  "Should not be really usefull, but it is to keep consistent with remove-hook"
+  (interactive)
+  (add-hook! 'before-save-hook #'+format/buffer))
+(call-interactively #'me/add-hook-format-on-save)
+
+(defun me/remove-hook-format-on-save ()
+  "Should not be really usefull, but it is to keep consistent with remove-hook"
+  (interactive)
+  (remove-hook! 'before-save-hook #'+format/buffer))
 
 (add-hook! 'window-state-change-hook #'me/change-search-case)
 
