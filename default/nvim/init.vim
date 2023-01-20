@@ -468,7 +468,7 @@ nnoremap YY :call SavePosAndDo('^"+y$')<cr>
 "    call setpos(".", save_pos)
 " endfu
 " nnoremap <Leader><Leader> :call SavePosAndSave()<cr>
-noremap <Leader><Leader> :write<CR>
+nnoremap <Leader><Leader> :write<CR>
 
 " Make Y behave like C and D.
 " taken from https://github.com/tpope/vim-sensible

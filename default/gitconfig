@@ -34,7 +34,7 @@
   dic   = diff --cached
   dicw  = diff --cached --color-words
   diffw = diff --color-words
-  f = fetch --all --prune
+  f = fetch --all --prune --prune-tags
   l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   ltag = log     --format='%ci   %d %s'
   ll  = log -10  --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
