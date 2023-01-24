@@ -10,8 +10,11 @@ cp -v "$DIR/gemrc" "$HOME/.gemrc"
 cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
+
+mkdir "$HOME/bin"
 cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"
 cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
+chmod +x ~/bin/ensemble_programming_*
 
 ### tmux
 cp -v "$DIR/tmux.conf" "$HOME/.tmux.conf"
@@ -28,7 +31,6 @@ cat <<-____HERE
 --- FIRST INSTALL ---
 echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile
-chmod +x ~/bin/ensemble_programming_*
 
 --- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'

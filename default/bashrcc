@@ -3,6 +3,9 @@
 HISTSIZE=20000
 HISTFILESIZE=999999
 HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+# HISTCONTROL=ignoreboth
 
 # histappend :
 # bash history is only saved when close terminal, not after each command and this fixes it
@@ -521,7 +524,7 @@ formatJSONInPbpaste() {
 # latest/edge:      28.0.50-native-comp-79b9a26 2021-01-13 (1029) 222MB classic
 # avant j avais la rev 1019 (a la place de (1029)) mais impossible de la re telecharger
 
-# install emacs 28 via apt
+# install emacs 30 via apt
 # sudo add-apt-repository ppa:ubuntu-elisp/ppa; sudo apt-get update
 # sudo apt install emacs-snapshot emacs-snapshot-common emacs-snapshot-el
 
@@ -530,3 +533,7 @@ formatJSONInPbpaste() {
 # sudo add-apt-repository ppa:kelleyk/emacs
 # sudo apt update
 # sudo apt install emacs28-nativecomp
+
+# or
+# compile it, see
+# https://emacs.stackexchange.com/questions/75048/using-emacs-snapshot-from-ppaubuntu-elisp-ppa-on-22-04 
