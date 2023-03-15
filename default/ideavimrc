@@ -36,6 +36,7 @@ set argtextobj
 set textobj-entire
 set ReplaceWithRegister
 set which-key
+"set sneak
 
 
 """ Plugin settings -------------------------
@@ -62,11 +63,12 @@ set idearefactormode=keep
 """ Mappings --------------------------------
 nnoremap Y y$
 nnoremap x "_x
-nnoremap s 3e
+nnoremap s 20l
+nnoremap S 10h
 " I can t use azerty
-nnoremap £ *
-nnoremap § +
-nnoremap = -
+" nnoremap £ *
+" nnoremap § +
+" nnoremap = -
 " /azerty problem
 
 nnoremap <leader>y yiw
@@ -78,19 +80,31 @@ sethandler <c-p> a:vim
 
 map <leader><leader> <Action>(SaveDocument)
 map <leader>R <Action>(RenameElement)
+map = <Action>(ReformatCode)
 
 map <c-p> <Action>(GotoFile)
-map <leader>z <Action>(HideAllWindows)
+map <leader>h <Action>(ToggleDistractionFreeMode)
 " use ctrl + f normaly
 sethandler <c-f> a:ide
 
 map <leader>j <Action>(FileStructurePopup)
-map <c-t> <Action>(Terminal.OpenInTerminal)
-"map <c-T> <Action>(ActivateTerminalToolWindow)
+map <leader>q <Action>(CloseEditor)
+map <leader>/ <Action>(EditorSelectWord)<Action>(FindInPath)
+vmap v <Action>(EditorSelectWord)
+map <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)
+map <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
+map <c-w>m <Action>(MaximizeEditorInSplit)
+map <leader>m <Action>(MaximizeEditorInSplit)
+" controle + enter, like Ctrl + b in intellig
+" map <c-cr> <Action>(GotoDeclaration)
+
+"map <c-t> <Action>(Terminal.OpenInTerminal)
+map <c-t> <Action>(ActivateTerminalToolWindow)
 
 " Idea already map ctrl + + and ctrl + - to collapse expand
-map <Tab> <Action>(ExpandRegion)
-map <S-Tab> <Action>(CollapseRegion)
+"map <Tab> <Action>(ExpandRegion)
+map za <Action>(ExpandCollapseToggleAction)
+"map <S-Tab> <Action>(CollapseRegion)
 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
