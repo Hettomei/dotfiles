@@ -36,7 +36,7 @@ echo 'source \$HOME/.profilee' >> $HOME/.profile
 Also, read  ~/.gitconfig to ensure 'user'
 If you want a user per project you can edit PROJECT_PATH/.git/config
 or you can run
-git config user.email timothee.gauthier@consertotech.pro
+git config user.email 2079042+Hettomei@users.noreply.github.com
 
 --- HISTORY ---
 Remember on xubuntu there is a problem with history / HISTSIZE....

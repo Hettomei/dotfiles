@@ -4,7 +4,7 @@ set -eu
 #get the dir where this script is launched
 CURRENT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
-DIR="$CURRENT_DIR/${1:-windows}"
+DIR="$CURRENT_DIR/msys2_config"
 
 cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 cp -v "$DIR/profilee" "$HOME/.profilee"
@@ -34,22 +34,16 @@ echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
 echo 'source \$HOME/.profilee' >> $HOME/.profile
 chmod +x ~/bin/ensemble_programming_*
 
+--- COULEUR DU TERMINAL ---
+copier les fichiers suivant : 
+cp $DIR/sol.dark $HOME
+cp $DIR/minttyrc $HOME/.minttyrc
+
 --- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'
 If you want a user per project you can edit PROJECT_PATH/.git/config
 or you can run
 git config user.email 2079042+Hettomei@users.noreply.github.com
-
---- HISTORY ---
-Remember on xubuntu there is a problem with history / HISTSIZE....
-and you may need to update /etc/bash.bashrc
-I put a link on top of .bashrcc that explain it
-
----- LOGOUT ---
-There is a default/bash_logout that save history. It wasn't copied.
-** you have to do it manually : **
-cp default/bash_logout ~/.bash_logout
-mkdir ~/history_backups
 
 ---- NVIM ---
 to install vim-plug see https://github.com/junegunn/vim-plug#installation
