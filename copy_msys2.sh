@@ -15,10 +15,6 @@ cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
 cp -v "$HOME/.minttyrc" "$DIR/minttyrc"
 cp -v "$HOME/sol.dark" "$DIR/sol.dark"
 
-#### Emacs ####
-mkdir -p "$DIR/emacs.d"
-cp "$APPDATA/.emacs.d/init.el" "$DIR/emacs.d/"
-
 #### ensemble programming ####
 rm "$DIR/ensemble_programming_pull"
 rm "$DIR/ensemble_programming_push"

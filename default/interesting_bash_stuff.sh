@@ -129,7 +129,7 @@ function oocompare_backport() {
   then
     cat <<EOF
 Use it this way :
-First time with soimething to match comlmit number
+First time with something to match commit number
 
 oocompare_backport ARRISEOS-123
 

@@ -4,17 +4,21 @@ set -eu
 #get the dir where this script is launched
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-DIR="$CURRENT_DIR/${1:-windows}"
+DIR="$CURRENT_DIR/windows"
 
+cp -v $USERPROFILE/.ideavimrc $DIR/ideavimrc
+
+#### Emacs ####
+mkdir -p "$DIR/emacs.d"
+cp "$APPDATA/.emacs.d/init.el" "$DIR/emacs.d/"
 
 cat <<-____HERE
 
-Ce script est à réécrire : 
-le but c'est qu'il prenne les dossier windows (donc \$APPDATA & co)
+Ce script est pour les utilitaires windows
 
-et qu on fasse la separation msys de windows wui lui peut avoir une autre conf
+Si c est de la conf "msys2" alors il faut utilsier copy_msys2
 
 ____HERE
 
-# git add -p
-# git status
+git add -p
+git status

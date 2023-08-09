@@ -1,4 +1,5 @@
 #! /bin/bash
+set -eu
 
 #get the dir where this script is launched
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
