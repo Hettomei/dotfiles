@@ -1,0 +1,64 @@
+if [ -n "$TMUX" ];
+then
+  # Inside tmux, we don't want to reload this file
+  return 0
+fi
+# export LC_ALL=C
+# export LANG=fr_FR.UTF-8
+# export LC_MESSAGES=fr_FR.UTF-8
+export JAVA_HOME="/C/Program Files/Java/jdk1.8.0_202"
+export MAVEN_HOME="/C/Users/Dev.PC-CONSERTO/programmes/apache-maven-3.3.9"
+export GROOVY_HOME="/C/Program Files (x86)/Groovy/"
+
+PATH="$MAVEN_HOME/bin:$PATH"
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.emacs.d/bin" ] ; then
+    PATH="$HOME/.emacs.d/bin:$PATH"
+fi
+
+if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+    [[ -r "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh" ]] && . "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh"
+
+    # for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+    #   [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    # done
+fi
+
+if [ -d "/home/linuxbrew/.linuxbrew/opt/openjdk/bin" ] ; then
+  export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk/bin:$PATH"
+fi
+
+if [ -d "$HOME/.rbenv" ] ; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+fi
+
+if [ -d "$HOME/programmes/Android" ] ; then
+  export ANDROID_HOME=$HOME/programmes/Android
+  PATH=$PATH:$ANDROID_HOME/emulator
+  PATH=$PATH:$ANDROID_HOME/tools
+  PATH=$PATH:$ANDROID_HOME/tools/bin
+  PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
+
+if [ "$(command -v yarn)" ]
+then
+  PATH="$(yarn global bin):$PATH"
+fi
+
+if [ -d "$HOME/.pyenv" ] ; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi

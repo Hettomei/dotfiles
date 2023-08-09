@@ -1,0 +1,564 @@
+# https://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize/19454838#19454838
+# For xubuntu terminal please write this in /etc/bash.bashrc
+HISTSIZE=20000
+HISTFILESIZE=999999
+HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+# HISTCONTROL=ignoreboth
+
+# histappend :
+# bash history is only saved when close terminal, not after each command and this fixes it
+
+# histverify https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html :
+# If set, and Readline is being used, the results of history substitution are not immediately passed to the shell parser.
+# Instead, the resulting line is loaded into the Readline editing buffer, allowing further modification.
+shopt -s histappend histverify
+
+alias e='emacs -nw'
+alias ee=emacs
+alias v=nvim
+alias g=git
+alias ll='ls -alh'
+
+alias bc="echo 'bc -l' && bc -l"
+alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
+alias pps='ps aux | grep'
+
+alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
+alias rglarger='rg -uuuuuu --ignore-case'
+alias f=fd
+
+### git alias
+# Why start with 'gg' to simulate 'g command'
+# also, I always forget the command,
+# if I press gg<Tab> I know...
+# go to git root
+alias ggr='cd $(git rev-parse --show-toplevel)'
+
+# go to next commit on a given branch
+ggnext() {
+  _BRANCH_=$1
+  if [ -z "$_BRANCH_" ]; then
+    _BRANCH_=master
+    echo branch is $_BRANCH_
+    echo
+  fi
+  __CURRENT_COMMIT__=$(git rev-parse HEAD)
+  git checkout $(git log --format='%H' $_BRANCH_ | grep -B1 $__CURRENT_COMMIT__ | grep -v $__CURRENT_COMMIT__ || echo $_BRANCH_)
+}
+
+ggprev() {
+  git checkout HEAD^
+}
+
+# gg -> git
+# v -> vim
+# take all file present in git status and edit it
+ggv() {
+  nvim -O $(git status --porcelain | awk '{ print $2 }')
+}
+
+OS=$(uname) # Linux , Darwin for mac
+if [ "$OS" == "Linux" ]; then
+  # -> go on chrome, select text (DO NOT ctrl-C)
+  # 'xclip -o -sel primary'
+  # -> will return the selected text :)
+
+  # 'xclip -o -sel clipboard'
+  # will return only what have been COPIED explicitely
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -o -sel clipboard'
+  command -v xdg-open >/dev/null 2>&1 && alias xdg=xdg-open
+fi
+
+export EDITOR=nvim
+export VISUAL=nvim
+# -R -> display ansi color
+# -X -> sometimes help to not clear the screen
+# -F -> quit if one string
+# --chop-long-lines -> do not wrap to next line # Sometimes usefull
+export LESS='-R -X -F'
+
+# because of bash-completion (a file given with git) allow us to use completion when pressing 'g' instead of 'git'
+# need to `brew install bash-completion`
+[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
+__git_complete g __git_main
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
+}
+
+PS1='\[\e[34m\]\w \[\e[31m\]`parse_git_branch`\[\e[33m\]\t\n\[\e[0m\]\$ '
+# display in title
+PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
+
+set -b        # causes output from background processes to be output right away, not on wait for next primary prompt
+set -o notify # notify when jobs running in background terminate
+
+[ -f $HOME/.bashrc_not_in_git ] && source $HOME/.bashrc_not_in_git
+
+set -o vi
+bind 'set completion-ignore-case on'
+bind '"\C-a": beginning-of-line' # ctrl-a in insert mode
+bind '"\C-e": end-of-line' # ctrl-e in insert mode
+bind '"\e[A": history-search-backward' # search only previous string on key up
+bind '"\e[B": history-search-forward' # search only next string on key down
+# This next 2 commands allow me to erase word on ctrl-w
+# found on http://unix.stackexchange.com/questions/27927/is-it-possible-to-configure-ctrl-w-delete-word
+stty werase undef
+bind '\C-w:backward-kill-word'
+
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
+
+
+# https://github.com/junegunn/fzf
+# Commented because ;
+# need to read again how to use and configure fzf
+# need to change ag -l to fdfind
+
+# if [ "$(command -v fzf)" ]
+# then
+  # If you use vi mode on bash, you need to add set -o vi before source ~/.fzf.bash in your .bashrc,
+  # so that it correctly sets up key bindings for vi mode.
+  # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  # complete -F _fzf_path_completion v
+  # if [ "$(command -v fdfind)" ]
+  # then
+  #   # not needed because we changed _fzf_compgen_path to make it works during auto completion
+  #   export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+  #   _fzf_compgen_path() {
+  #     ag --nocolor -i -g "$1"
+  #   }
+  # fi
+  # -m : allow multiple select
+  # export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
+# fi
+
+# Must be executed at every session, so can't be in .profile
+if [ -d "$HOME/.pyenv" ] ; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
+
+
+simplehttp(){
+  local command="python -m http.server 8000"
+  echo $command
+  $command
+}
+
+rappel(){
+  if [ $# -lt 2 ]
+  then
+    echo "Need to be run like this"
+    echo "$FUNCNAME 09h03 'Va manger'"
+    echo "$FUNCNAME 16h13 'Va manger'"
+    a="$FUNCNAME $(date "+%Hh%M") 'TEST'"
+    echo $a
+    echo
+    echo
+    $a
+    return 1
+  fi
+
+  echo "Demande de sleep pour $1"
+  echo "message $2"
+  echo "pid $$"
+  echo
+  echo "Heure actuelle : " $(date "+%Hh%M")
+  echo
+
+  while :
+  do
+    local ma_date=$(date "+%Hh%M")
+    if [ "$1" == "$ma_date" ]; then
+      break
+    fi
+    printf "$ma_date != $1 - $2"\\r
+    sleep 30
+  done
+
+  echo
+  echo "$1 : $2"
+  notify-send --urgency=critical "$2" "\n $1 \n jobs : $$"
+}
+
+indefinitely() {
+# run a command, non stop
+#
+# example :
+# indefinitely npm run test:unit:simple
+
+i=0
+
+while true; do
+  i=$((i+1))
+  echo $i
+  $@
+done
+}
+
+untilfail() {
+# run a command until it fail
+#
+# example :
+# untilfail npm run test:unit:simple
+
+i=1
+
+while "$@"; do
+  i=$((i+1))
+  echo $i
+done
+
+echo
+echo "has fail at the : $i attempt"
+}
+
+untilworks() {
+# run a command until it works
+#
+# example :
+# untilworks npm run test:unit:simple
+
+i=1
+
+$@
+RESULT=$?
+
+while [[ $RESULT -gt 0 ]]; do
+  $@
+  RESULT=$?
+  i=$((i+1))
+  echo $i
+done
+
+echo $RESULT
+echo "has worked at the : $i attempt"
+}
+
+getJSON() {
+  tmpfile=$(mktemp /tmp/json.XXXXXX.js)
+
+  echo "// fetching $1 at $(date)" >> "$tmpfile"
+  echo -n "const a = " >> "$tmpfile"
+  curl -s "$1" >> "$tmpfile"
+  echo ';' >> "$tmpfile"
+  echo 'console.log(JSON.stringify(a, null, 2))' >> "$tmpfile"
+
+  node "$tmpfile"
+  echo "node $tmpfile"
+}
+
+# Call a psql table
+# output in json
+# extract line with sed
+# create a .js file
+# execute it
+function displaypsqltojson {
+  ## need $1 as numero_dossier
+  tmpfile=$(mktemp /tmp/XXXXXX)
+
+PGPASSWORD='changeThis' psql -h localhost -p 5433 -U changethisUSer -c \
+  "SELECT json_agg(t) from (
+  SELECT * FROM public.change_this
+  WHERE numero_dossier='$1'
+  ORDER BY numero_dossier
+  ASC LIMIT 100
+  ) t" > "$tmpfile"
+
+  sed -n '4,4p' "$tmpfile" > "$tmpfile.js"
+  sed -i '1ia = ' "$tmpfile.js"
+  echo "console.log(JSON.stringify(a, null, 2))" >> "$tmpfile.js"
+
+
+  echo "$tmpfile.js"
+  node "$tmpfile.js"
+}
+
+# display all comitter for a given file
+# $ committers src/file.js
+committers() {
+  git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
+}
+
+autologin ()
+{
+    echo "bernard.dupond@abcd.ef" | xclip -selection clipboard;
+    sleep 1;
+    echo "too_easy_password" | xclip -selection clipboard;
+}
+
+###### ANDROID ######
+
+
+if [ ! -z "${ANDROID_HOME+x}" ]
+then
+  function ooscreenshot {
+    local filename
+    local filepath
+    NAME=${1:-adb}
+    filename="$NAME-$(date +"%Y_%m_%d").png"
+    filepath="/home/tgauthier/Pictures/ecla/$filename"
+    adb shell screencap -p /sdcard/screen.png
+    adb pull "/sdcard/screen.png" "$filepath"
+    echo "xdg-open $filepath"
+    xdg-open "$filepath"
+  }
+
+function oorr {
+  adb shell input text "RR"
+}
+
+function ooreboot {
+  adb reboot bootloader
+}
+
+function oodevmenu {
+  adb shell input keyevent 82
+}
+
+function ooinput {
+  adb shell input text "$1"
+}
+
+function ooback {
+  adb shell input keyevent 4
+}
+
+function ooclear_app_and_permission {
+  adb shell pm clear fr.redbull.batallagallos
+}
+fi
+
+function meme {
+  # imagemagick, thanks to https://github.com/ddrscott/convert_meme
+  # meme input.jpg output.jpg "upper text" "bottom text"
+  src=$1
+  dest=$2
+  header=$3
+  footer=$4
+
+  font=Impact
+
+  width=$(identify -format %w "$src")
+  ((caption_height=width/8))
+  ((strokewidth=width/500))
+
+  convert "$src"       \
+    -background none   \
+    -font ${font}      \
+    -fill white        \
+    -stroke black      \
+    -strokewidth ${strokewidth}       \
+    -size "$width"x"$caption_height"  \
+    -gravity north caption:"${header}" -composite \
+    -gravity south caption:"${footer}" -composite \
+    "$dest"
+}
+
+function histosearch {
+  (cd ~/history_backups;
+  rg -M 240 --max-columns-preview --sort path "$@")
+}
+
+function rr {
+  rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" "$@" -p | less -RXF
+}
+
+
+# Tips
+#
+# Create a hotspot in ubuntu : https://github.com/oblique/create_ap
+# sudo create_ap wlp3s0 enp2s0 conserto-wifi-relou azertyazertylol &
+#
+# youtube-dl --extract-audio --audio-format mp3 'http://youtube'
+
+# couper 30 sec de chanson à partir de la 5 ieme minute
+# ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
+# If you wish to REMOVE the first 30 seconds (and keep the remainder) then use this:
+# ffmpeg -ss 30 -i inputfile.mp3 -acodec copy outputfile.mp3
+
+# Tips slowdown connection
+# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
+# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
+# 1 kbps
+# sudo tc qdisc add dev eth0 handle 1: root htb default 11
+# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
+# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
+
+##################################
+# git bisect example :
+# Taken from https://git-scm.com/docs/git-bisect
+# Run this way :
+# first, create your stash that change the code.
+# first go up one n commit :
+# git bisect start HEAD HEAD~100
+# then
+# git bisect run ~/test.sh
+
+# cat test.sh
+# !/bin/sh
+# # tweak the working tree by merging the hot-fix branch
+# # and then attempt a build
+# if git stash apply stash@{1} || git reset --hard && git stash apply stash@{0}
+# then
+#   mocha -R dot -r ./test/setup.js  -- test/unit/domain-models/pvr-ui-flow/PVRUIFlow.DomainModel.spec.js
+#   status=$?
+# else
+#   # tell the caller this is untestable
+#   status=125
+# fi
+
+# # undo the tweak to allow clean flipping to the next commit
+# git reset --hard
+# # return control
+# return $status
+##################################
+
+## exclude file in git diff show
+# git show --stat -- . ':(exclude)test'
+
+# Rename in file string -> newString
+# ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
+
+# compare two commit. And only the content :
+# v -d <(g show 11111111) <(g show 22222222)
+
+
+# Automatically mount virtualbox on bash startup :
+# You need to be in this group : (cf: https://stackoverflow.com/questions/26740113/virtualbox-shared-folder-permissions)
+# sudo adduser $USER vboxsf
+
+
+###############
+# imagemagick #
+###############
+
+# convert doc: http://www.imagemagick.org/Usage/basics/#convert
+#
+# Only keep the left part (here 643px) of an image
+# convert input.png -crop 643x+0+0 +repage output.png
+
+# resize : it will keep the best ratio. so output.png will not be 1000x1000
+#
+# example :
+# input  is  1920 x 1200
+# output is  1000 x  625
+# convert input.png -resize 1000x1000 output.png
+
+# get image size, use identify
+# identify test.png
+# test.png PNG 1000x625 1000x625+0+0 8-bit sRGB 74924B 0.000u 0:00.000
+
+######
+# Rename photo based on create exif tag
+# Will convert toto.jpg into 20190508_125833_toto.jpg
+#
+rename_based_on_tag() {
+#   exiftool -T -FileModifyDate -filename . | while read -r d t name
+# do
+  exiftool -T -createdate -filename . | while read -r d t name
+do
+  # echo "d: $d, t: $t, name: $name"
+
+  if [ -z "$name" ]
+  then
+    echo "d: $d, t: $t, name: $name \$name is empty ; no rename"
+    continue
+  fi
+
+  newname=$(echo "${d}_${t}_${name}" | sed 's/://g')
+  mv -v "$name"  "$newname"
+  # echo "$name" "->" "$newname"
+  done
+}
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Fix : VMWARE vers windows
+# permet de passer de texte enrichit
+# en texte brut pour paster sous windows
+a() {
+  echo $(pbpaste) | pbcopy
+}
+
+formatJSONInPbpaste() {
+  set -eu
+  tmpfile=$(mktemp /tmp/XXXXXX)
+  pbpaste > "$tmpfile"
+  jq '.' "$tmpfile" 
+  jq '.' "$tmpfile" | pbcopy
+  echo ""
+  echo "dans le press papier"
+}
+
+# to run java REPL
+function java_repl() {
+  (cd /c/Program\ Files/Java/jdk-19/bin && ./jshell.exe)
+}
+
+function git_all() {
+  echo "works only with git folder"
+
+  find "." -mindepth 1 -maxdepth 1 -type d  -print0 | while IFS= read -r -d '' folder; do
+      echo $folder
+      git -C "$folder" $@
+  done
+}
+
+alias gg=git_all
+
+function ggg() {
+  cd ..
+  git_all $@
+  cd -
+}
+
+
+# one line
+# exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
+
+# Find duplicates and delete only the last one
+# fdfind '.' | xargs -d '\n' md5sum > md5sum.txt
+# sort md5sum.txt | uniq -w 32 -d
+# sort md5sum.txt | uniq -w 32 -d | cut -d' ' -f3 | xargs -I{} sh -c 'rm -v {}'
+
+# Add midle click emulation :
+# xev | grep button
+# xinput list | grep -e Deat
+# xinput list-props 11 | grep Emul
+# libinput Middle Emulation Enabled (342):        0
+# sudo xinput --set-prop 11 342 1
+
+# Snap :
+
+# Refresh que le dernier samedi du mois :
+# sudo snap set system refresh.timer=sat5
+# snap refresh --time
+# sudo snap find emacs
+# sudo snap info emacs
+# sudo snap list emacs --all
+# sudo snap revert emacs --revision 1019
+# sudo snap refresh emacs --channel=latest/edge --classic
+# NE marche pas :
+# latest/edge:      28.0.50-native-comp-79b9a26 2021-01-13 (1029) 222MB classic
+# avant j avais la rev 1019 (a la place de (1029)) mais impossible de la re telecharger
+
+# install emacs 30 via apt
+# sudo add-apt-repository ppa:ubuntu-elisp/ppa; sudo apt-get update
+# sudo apt install emacs-snapshot emacs-snapshot-common emacs-snapshot-el
+
+# or
+
+# sudo add-apt-repository ppa:kelleyk/emacs
+# sudo apt update
+# sudo apt install emacs28-nativecomp
+
+# or
+# compile it, see
+# https://emacs.stackexchange.com/questions/75048/using-emacs-snapshot-from-ppaubuntu-elisp-ppa-on-22-04 
