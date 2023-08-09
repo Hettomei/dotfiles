@@ -1,0 +1,19 @@
+# FICHIER EXEMPLE; ne pas committer d info sensible
+
+# Avoir differente clef entre bitbucket et github :
+Host bitbucket.org
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/autre_id_ed123
+
+Host github.com
+  HostName github.com
+  PreferredAuthentications publickey
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_github_ed123456
+
+# se faciliter la vie :
+Host nom_alias_plus_simple
+  Hostname nom_reel
+  User user_reel
+  IdentityFile ~/.ssh/id_ed25519
+
