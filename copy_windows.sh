@@ -1,40 +1,20 @@
 #! /bin/bash
-
-set +e
+set -eu
 
 #get the dir where this script is launched
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 DIR="$CURRENT_DIR/${1:-windows}"
 
-mkdir -p "$DIR"
-echo "Copy file into" "$DIR"
 
-# File that start with a '.'
-for file_name in 'gitconfig' 'bashrcc' 'profilee' 'tmux.conf' 'bash_logout'
-do
-  cp -v "$HOME/.$file_name" "$DIR/$file_name"
-done
+cat <<-____HERE
 
-#### Emacs ####
-mkdir -p "$DIR/emacs.d"
+Ce script est à réécrire : 
+le but c'est qu'il prenne les dossier windows (donc \$APPDATA & co)
 
-cp "$APPDATA/.emacs.d/init.el" "$DIR/emacs.d/"
+et qu on fasse la separation msys de windows wui lui peut avoir une autre conf
 
-#### ensemble programming ####
-rm "$DIR/ensemble_programming_pull"
-rm "$DIR/ensemble_programming_push"
-cp -v "$HOME/bin/ensemble_programming_pull" "$DIR/ensemble_programming_pull"
-cp -v "$HOME/bin/ensemble_programming_push" "$DIR/ensemble_programming_push"
+____HERE
 
-#### Nvim ####
-mkdir -p "$DIR/nvim"
-
-cp -v "$HOME/.config/nvim/init.vim" "$DIR/nvim/init.vim"
-cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
-
-#### commit ####
-cd "$CURRENT_DIR"
-
-git add -p
-git status
+# git add -p
+# git status
