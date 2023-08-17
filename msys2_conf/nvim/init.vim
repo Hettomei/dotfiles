@@ -167,10 +167,10 @@ set directory=/tmp "dir: directory for temp files
 " }
 
 " colors {
-" let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
+let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
 " let g:solarized_termcolors=256
-set background=dark
 " set background=light
+set background=dark
 colorscheme solarized
 
 " stop syntax coloring after n columns
@@ -235,6 +235,11 @@ augroup END
 
 " unfold/fold everythings
 nnoremap ZA :set invfoldenable<CR>
+
+" Fix PlugUpdate that failed during merge
+set shellcmdflag=-c
+" Paths will use / instead of \
+set shellslash
 
 " If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
 " let g:vimsyn_folding='af'
@@ -972,18 +977,18 @@ nnoremap <Leader>B [{
 nnoremap <Leader>b ]}
 
 
-  let g:clipboard = {
-              \   'name': 'WslClipboard',
-              \   'copy': {
-              \      '+': 'clip.exe',
-              \      '*': 'clip.exe',
-              \    },
-              \   'paste': {
-              \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-              \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-              \   },
-              \   'cache_enabled': 0,
-              \ }
+let g:clipboard = {
+          \   'name': 'WslClipboard',
+          \   'copy': {
+          \      '+': 'clip.exe',
+          \      '*': 'clip.exe',
+          \    },
+          \   'paste': {
+          \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+          \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+          \   },
+          \   'cache_enabled': 0,
+          \ }
 
 
 " Tips and tricks {
