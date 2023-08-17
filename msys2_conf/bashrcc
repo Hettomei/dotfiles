@@ -491,7 +491,7 @@ formatJSONInPbpaste() {
   set -eu
   tmpfile=$(mktemp /tmp/XXXXXX)
   pbpaste > "$tmpfile"
-  jq '.' "$tmpfile" 
+  jq '.' "$tmpfile"
   jq '.' "$tmpfile" | pbcopy
   echo ""
   echo "dans le press papier"
@@ -561,4 +561,4 @@ function ggg() {
 
 # or
 # compile it, see
-# https://emacs.stackexchange.com/questions/75048/using-emacs-snapshot-from-ppaubuntu-elisp-ppa-on-22-04 
+# https://emacs.stackexchange.com/questions/75048/using-emacs-snapshot-from-ppaubuntu-elisp-ppa-on-22-04

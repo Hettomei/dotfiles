@@ -3,7 +3,9 @@ if [ -z "$TMUX" ]; then
   echo -ne   '\eP\e]11;#002B36\a'  # Background   -> base03
   echo -ne   '\eP\e]12;#DC322F\a'  # Cursor       -> red
   echo -ne  '\eP\e]4;0;#073642\a'  # black        -> Base02
-  echo -ne  '\eP\e]4;8;#002B36\a'  # bold black   -> Base03
+  # couleur invisible avec le backgroud
+  # echo -ne  '\eP\e]4;8;#002B36\a'  # bold black   -> Base03
+  echo -ne  '\eP\e]4;8;#8E8E8E\a'  # bold black   -> Base03
   echo -ne  '\eP\e]4;1;#DC322F\a'  # red          -> red
   echo -ne  '\eP\e]4;9;#CB4B16\a'  # bold red     -> orange
   echo -ne  '\eP\e]4;2;#859900\a'  # green        -> green
