@@ -4,7 +4,7 @@ set -eu
 #get the dir where this script is launched
 CURRENT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
-DIR="$CURRENT_DIR/msys2_config"
+DIR="$CURRENT_DIR/msys2_conf"
 
 cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 cp -v "$DIR/profilee" "$HOME/.profilee"
