@@ -19,7 +19,6 @@ Plug 'tpope/vim-projectionist' " Allow to use :A on any project
 Plug 'tpope/vim-characterize' " Add more display when press ga on a char
 Plug 'tpope/vim-vinegar' " better :Explore
 Plug 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
-Plug 'jremmen/vim-ripgrep'
 
 " Special map
 Plug 'tpope/vim-commentary' " use gcc
@@ -130,6 +129,13 @@ set backspace=indent,eol,start
 
 " file encoding {
 set autoread " Automatically reload changes if detected
+
+
+" Thanks to https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" It automatically reload file (like :e ) when change on windows
+autocmd CursorHold,CursorHoldI * checktime
+autocmd FocusGained,BufEnter * :checktime
+
 " The encoding displayed.
 set encoding=utf-8
 " The encoding written to file.
@@ -585,10 +591,14 @@ inoremap <silent> <C-R>/ <C-R>=Del_word_delims()<CR>
 cnoremap          <C-R>/ <C-R>=Del_word_delims()<CR>
 nnoremap          "/p "=Del_word_delims()<C-M>p
 
+" Needed to use rg
+set grepprg=rg\ --vimgrep
+set grepformat^=%f:%l:%c:%m
+
 " Like * but on all repo :)
 " Search what is inside register "/" only words
-nnoremap <silent> <Leader>* yiw:Rg -w "<C-R>""<CR>
-nnoremap <silent> <Leader>/ yiw:Rg "<C-R>""<CR>
+" ! says to not jump on first occurence.
+nnoremap <silent> <Leader>* yiw:silent Ggrep! "<C-R>""<CR>:copen<CR>
 " pour python
 nnoremap <silent> <Leader>j yiw:Rg "def .*<C-R>""<CR>
 
