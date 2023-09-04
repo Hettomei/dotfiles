@@ -7,5 +7,6 @@ pacman -S ucrt64/mingw-w64-ucrt-x86_64-neovim \
   ucrt64/mingw-w64-ucrt-x86_64-ripgrep
 
 pacman -S --noconfirm --needed mingw-w64-ucrt-x86_64-toolchain
+pacman -S clang
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
