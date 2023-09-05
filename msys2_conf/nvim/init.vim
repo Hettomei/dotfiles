@@ -625,21 +625,10 @@ augroup END
 
 " ctrlp {
 "https://github.com/kien/ctrlp.vim
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
 " display 30 results from top to bottom
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
 let g:ctrlp_lazy_update = 200
-
-" When starting up, CtrlP sets its local working directory according to this variable:
-" c - the directory of the current file.
-" a - like "c", but only applies when the current working directory outside of
-    " CtrlP isn't a direct ancestor of the directory of the current file.
-let g:ctrlp_working_path_mode = 'a'
-
 " }
 
 " spell {
