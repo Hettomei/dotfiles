@@ -941,7 +941,7 @@ nnoremap <expr> N  'nN'[v:searchforward]
 
 " take here : https://github.com/mhinz/vim-galore/blob/master/README.md#saner-ctrl-l
 " do: redraw!, de-highlighting search, fixing syntax highlighting, force updating the syntax highlighting in diff mode:
-nnoremap <Leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
+nnoremap <F5> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 
 " https://github.com/mhinz/vim-galore/blob/master/README.md#quickly-edit-your-macros
 " Simply edit your macro
