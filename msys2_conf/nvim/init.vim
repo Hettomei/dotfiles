@@ -8,8 +8,8 @@ set nomodeline
 call plug#begin('~/.config/nvim/bundle')
 
 Plug 'altercation/vim-colors-solarized'
-" Plug 'scrooloose/syntastic'
-" this replace syntastic. Keep here because I test ale
+Plug 'scrooloose/syntastic'
+" this replace syntastic. Keep here because I test ale. Doesn t work on windows + msys2
 " Plug 'dense-analysis/ale'
 
 " Special :Command
@@ -18,7 +18,6 @@ Plug 'tpope/vim-fugitive' " Gblame, Gremove .... fun
 Plug 'tpope/vim-projectionist' " Allow to use :A on any project
 Plug 'tpope/vim-characterize' " Add more display when press ga on a char
 Plug 'tpope/vim-vinegar' " better :Explore
-Plug 'airblade/vim-gitgutter' " look at gitgutter in this file to display how it works
 
 " Special map
 Plug 'tpope/vim-commentary' " use gcc
@@ -133,8 +132,8 @@ set autoread " Automatically reload changes if detected
 
 " Thanks to https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " It automatically reload file (like :e ) when change on windows
-autocmd CursorHold,CursorHoldI * checktime
-autocmd FocusGained,BufEnter * :checktime
+" autocmd CursorHold,CursorHoldI * checktime
+" autocmd FocusGained,BufEnter * :checktime
 
 " The encoding displayed.
 set encoding=utf-8
@@ -198,9 +197,6 @@ set statusline=%y%f%=%m%r%h%w\ %l\/%L\ \|\ %c
 " Status bar
 set laststatus=2
 set cursorline
-" https://github.com/mhinz/vim-galore/blob/master/README.md#smarter-cursorline
-" autocmd InsertLeave,WinEnter * set cursorline
-" autocmd InsertEnter,WinLeave * set nocursorline
 
 " Show (partial) command in the status line
 set showcmd
@@ -236,7 +232,7 @@ augroup change_file_fold
   autocmd!
   autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=5
   autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=6
-  autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee} setlocal foldmethod=indent
+  autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee,python} setlocal foldmethod=indent
 augroup END
 
 " unfold/fold everythings
@@ -244,8 +240,12 @@ nnoremap ZA :set invfoldenable<CR>
 
 " Fix PlugUpdate that failed during merge
 set shellcmdflag=-c
+" set shellquote="
+set shellxquote=(
+
 " Paths will use / instead of \
 set shellslash
+
 
 " If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
 " let g:vimsyn_folding='af'
@@ -664,6 +664,7 @@ set softtabstop=2 "sts: number of spaces that tabs insert
 " set smarttab "sta: helps with backspacing because of expandtab, A <BS> will delete a 'shiftwidth' worth of space at the start of the line.
 set nosmarttab
 set expandtab "et: uses spaces instead of tab characters
+set paste " ne cherche pas à indenter quand on fait un ctrl + v / shift-insert
 
 " make uses real tabs
 augroup tab_and_space
@@ -838,56 +839,62 @@ set splitright
 " }
 
 " syntastic {
-" if !v:shell_error && s:uname == "Linux"
-"   " let g:syntastic_mode_map = { 'mode': 'passive' }
-" else
-"   " let g:syntastic_ruby_exec = '/usr/local/opt/rbenv/versions/2.1.5/bin/ruby'
-" endif
-
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_error_symbol='✗'
-" let g:syntastic_warning_symbol='⚠'
-" let g:syntastic_style_error_symbol = '✗'
-" let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_python_checkers = ['pylint']
 " " Always open loc list
-" " let g:syntastic_auto_loc_list=1
-" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
 " let g:syntastic_javascript_checkers = ['eslint']
 " " let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
 " " need npm install -g eslint_d
 " let g:syntastic_javascript_eslint_exec = 'eslint_d'
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
+
+" Special for python
+" f for fix, t for test, w whitespace, l pour location list
+nnoremap <Leader>f mz:%!black - -q<CR>'z
+nnoremap <Leader>t :!python -m pytest src/<CR>
+nnoremap <Leader>w :FixWhitespace<CR>
+nnoremap <Leader>l :lnext<CR>
+nnoremap <Leader>L :lprevious<CR>
 " }
 
 
 " To open error list run :lopen
-let g:ale_linters = {
-\  'javascript': ['eslint'],
-\  'json': ['prettier'],
-\  'html': ['prettier'],
-\  'typescript': ['prettier'],
-\  'python': ['pylint'],
-\}
-let g:ale_fixers = {
-\  'javascript': ['prettier', 'eslint'],
-\  'css': ['prettier'],
-\  'json': ['prettier'],
-\  'html': ['prettier'],
-\  'typescript': ['prettier'],
-\  'python': ['black'],
-\}
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '>'
-let g:ale_fix_on_save= 1
-let g:ale_set_highlights = 0
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_insert_leave = 0
+" let g:ale_linters = {
+" \  'javascript': ['eslint'],
+" \  'json': ['prettier'],
+" \  'html': ['prettier'],
+" \  'typescript': ['prettier'],
+" \  'python': ['pylint'],
+" \}
+" let g:ale_fixers = {
+" \  'javascript': ['prettier', 'eslint'],
+" \  'css': ['prettier'],
+" \  'json': ['prettier'],
+" \  'html': ['prettier'],
+" \  'typescript': ['prettier'],
+" \  'python': ['black'],
+" \}
+" let g:ale_open_list = 1
+" let g:ale_python_black_executable = 'python -m black'
+" let g:ale_python_pylint_executable = 'python -m pylint'
+
+
+" let g:ale_sign_error = '>>'
+" let g:ale_sign_warning = '>'
+" let g:ale_fix_on_save= 1
+" let g:ale_set_highlights = 0
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_insert_leave = 0
 " always open
-let g:ale_open_list = 1
+" let g:ale_open_list = 1
 " let g:ale_sign_column_always = 1
-nnoremap <Leader>f :ALEFix<CR>
-nnoremap <Leader>w :FixWhitespace<CR>
 
 " sudo {
 " Allow saving of files as sudo when I forgot to start vim using sudo.
@@ -953,20 +960,6 @@ let g:netrw_silent=1
 if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
   set t_Co=16
 endif
-
-" gitgutter
-" start disabled
-let g:gitgutter_enabled = 0
-" to enable it ;
-" :GitGutterEnable
-" To compare current commit :
-" GitGutterEnable | let g:gitgutter_diff_base = 'HEAD~1' | e
-" let g:gitgutter_diff_base = 'abc521edfg' | e
-" default jump to next hunk : ]c
-" default jump to prev hunk : [c
-"nnoremap does not work
-nmap <Leader>n <Plug>GitGutterNextHunk
-nmap <Leader>N <Plug>GitGutterPrevHunk
 
 " Move to the previous {
 " Also works with ( using [(
