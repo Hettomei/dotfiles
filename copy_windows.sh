@@ -12,13 +12,10 @@ cp -v $USERPROFILE/.ideavimrc $DIR/ideavimrc
 mkdir -p "$DIR/emacs.d"
 cp "$APPDATA/.emacs.d/init.el" "$DIR/emacs.d/"
 
-cat <<-____HERE
+#### Nvim ####
+mkdir -p "$DIR/nvim"
 
-Ce script est pour les utilitaires windows
-
-Si c est de la conf "msys2" alors il faut utilsier copy_msys2
-
-____HERE
+cp -v "~/AppData/Local/nvim/init.vim" "$DIR/nvim/init.vim"
 
 git add -p
 git status

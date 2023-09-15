@@ -95,8 +95,6 @@ map <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(S
 map <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
 map <c-w>m <Action>(MaximizeEditorInSplit)
 map <leader>m <Action>(MaximizeEditorInSplit)
-" controle + enter, like Ctrl + b in intellig
-" map <c-cr> <Action>(GotoDeclaration)
 
 "map <c-t> <Action>(Terminal.OpenInTerminal)
 map <c-t> <Action>(ActivateTerminalToolWindow)
