@@ -1,7 +1,0 @@
-windows:
-  - name: server
-    root: ~/secheresse/poly-sech-front
-    layout: even-horizontal
-    focus: true
-    panes:
-      - yarn ng test

@@ -1,7 +1,0 @@
-windows:
-  - name: studio
-    root: ~/le-projet/front
-    layout: tiled
-    focus: true
-    panes:
-      - npm test
