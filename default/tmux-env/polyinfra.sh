@@ -4,13 +4,13 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/infracode/poly-jenkins-job-pgd-mep' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeinfra/poly-jenkins-job-pgd-mep' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/infracode/poly-jenkins-job-pgd-mep' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeinfra/poly-jenkins-job-pgd-mep' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/infracode/' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeinfra/' C-m \; \
   \
   new-window \; \
   send-keys 'cd /c/Users/Dev.PC-CONSERTO/programmes/apache-archiva-2.2.3' C-m \; \
