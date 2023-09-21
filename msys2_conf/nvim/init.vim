@@ -858,9 +858,11 @@ let g:syntastic_aggregate_errors = 1
 " f for fix, t for test, w whitespace, l pour location list
 nnoremap <Leader>f mz:%!black - -q<CR>'z
 nnoremap <Leader>t :!python -m pytest src/<CR>
+" si celle la est trop compliqué prendre celle en haut
+nnoremap <Leader>T :set makeprg=python\ -m\ pytest\ src/ <CR>:silent make<CR>:copen<CR>
 nnoremap <Leader>w :FixWhitespace<CR>
-nnoremap <Leader>l :lnext<CR>
-nnoremap <Leader>L :lprevious<CR>
+nnoremap <Leader>l :lafter<CR>
+nnoremap <Leader>L :lbefore<CR>
 " }
 
 
