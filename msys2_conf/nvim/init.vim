@@ -156,10 +156,11 @@ command! SourceVimrc source $MYVIMRC
 command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
+command! BashrccSecret :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
-command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\polycode\\poly-tim\\chiffrages.md")
-command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\polycode\\poly-tim\\notes.md")
-command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\polycode\\poly-tim\\tickets.md")
+command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\chiffrages.md")
+command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\notes.md")
+command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\tickets.md")
 command! Antonin :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\antonin\\notes.md")
 
 " }
