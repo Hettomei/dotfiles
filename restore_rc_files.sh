@@ -12,7 +12,7 @@ cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
 
-mkdir "$HOME/bin"
+mkdir -p "$HOME/bin"
 cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"
 cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
 chmod +x ~/bin/ensemble_programming_*

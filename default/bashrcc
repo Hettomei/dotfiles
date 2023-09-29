@@ -284,6 +284,11 @@ committers() {
   git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
 }
 
+committers2() {
+  git blame --line-porcelain  "$1" | grep author-mail | awk '{ count[$2]++ } END {for (word in count) print word, count[word]}'
+  git blame --line-porcelain  "$1" | grep author-mail | awk '{ print tolower($2) " " $1 }'
+}
+
 autologin ()
 {
     echo "bernard.dupond@abcd.ef" | xclip -selection clipboard;
