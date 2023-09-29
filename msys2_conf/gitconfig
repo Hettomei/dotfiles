@@ -49,10 +49,6 @@
   rom = rebase origin/master
   riom = rebase -i origin/master
   riod = rebase -i origin/develop
-  ror = rebase -i origin/release/1.61.0
-  rorc = rebase -i origin/release/1.61.0_RC01
-  cor = checkout release/1.61.0
-  corc = checkout release/1.61.0_RC01
   whatrebase = log origin/master..HEAD --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   # git ask to stop using whatchanged because it does not include merge. Everything can be done with log
   # More on this command : log -p --follow :
