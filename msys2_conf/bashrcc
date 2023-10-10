@@ -16,7 +16,6 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
-alias ee=emacs
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -515,7 +514,14 @@ function git_all() {
   done
 }
 
+function exec_all() {
+  find '.' -mindepth '1' -maxdepth '2' \
+       -name '.git' -type 'd' \
+       -execdir  bash -c "$*" ';'
+}
+
 alias gg=git_all
+alias ee=exec_all
 
 function ggg() {
   cd ..
