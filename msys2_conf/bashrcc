@@ -532,15 +532,29 @@ function ggg() {
 }
 
 function c(){
-  base_path="$1"
-  cd "/c/Users/Dev.PC-CONSERTO/code${base_path}/"
-
-  new_path="*${2}*"
-  if [[ -z "$new_path" ]]; then
+  cd "/c/Users/Dev.PC-CONSERTO"
+  if [[ -z "$1" ]]; then
     return 0
   fi
 
-  all_matches=$(find '.' -mindepth '1' -maxdepth '2' -type 'd' -name "$new_path")
+  base_path="*$1*"
+  all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "code${base_path}")
+  if [[ -z "$all_matches" ]]; then
+    return 0
+  fi
+  echo "$all_matches"
+  cd $(echo "$all_matches" | head -1)
+
+  if [[ -z "$2" ]]; then
+    return 0
+  fi
+
+  new_path="*${2}*"
+  all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "$new_path")
+  if [[ -z "$all_matches" ]]; then
+    return 0
+  fi
+  echo "-"
   echo "$all_matches"
   cd $(echo "$all_matches" | head -1)
 }
