@@ -506,12 +506,14 @@ function java_repl() {
 }
 
 function git_all() {
-  echo "works only with git folder"
+  find '.' -mindepth '1' -maxdepth '2' \
+       -name '.git' -type 'd' \
+       -execdir  bash -c "pwd && git $@" ';'
 
-  find "." -mindepth 1 -maxdepth 1 -type d  -print0 | while IFS= read -r -d '' folder; do
-      echo $folder
-      git -C "$folder" $@
-  done
+  # find "." -mindepth 1 -maxdepth 2 -name '.git'  -type d  -print0 | while IFS= read -r -d '' folder; do
+  #     echo $folder
+  #     git -C "$folder" $@
+  # done
 }
 
 function exec_all() {
@@ -527,6 +529,20 @@ function ggg() {
   cd ..
   git_all $@
   cd -
+}
+
+function c(){
+  base_path="$1"
+  cd "/c/Users/Dev.PC-CONSERTO/code${base_path}/"
+
+  new_path="*${2}*"
+  if [[ -z "$new_path" ]]; then
+    return 0
+  fi
+
+  all_matches=$(find '.' -mindepth '1' -maxdepth '2' -type 'd' -name "$new_path")
+  echo "$all_matches"
+  cd $(echo "$all_matches" | head -1)
 }
 
 # one line

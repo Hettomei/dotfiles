@@ -158,9 +158,11 @@ command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
-command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\chiffrages.md")
-command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\notes.md")
-command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepoly\\poly-tim\\tickets.md")
+command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\chiffrages.md")
+command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\notes.md")
+command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\tickets.md")
+command! Edi :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codeedi\\tim\\notes.md")
+command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codeedi\\poly-tim\\cr_reunion_transverses.md")
 command! Antonin :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\antonin\\notes.md")
 
 " }
@@ -602,6 +604,7 @@ set grepformat^=%f:%l:%c:%m
 nnoremap <silent> <Leader>* yiw:silent Ggrep! "<C-R>""<CR>:copen<CR>
 " pour python
 nnoremap <silent> <Leader>j yiw:Rg "def .*<C-R>""<CR>
+nnoremap <Leader>\ :s/\\/\//<CR>
 
 " Count selected search
 command! Count :%s///gn
@@ -970,7 +973,6 @@ nnoremap <Leader>B [{
 " Move to the closing }
 " Also works with ) using ])
 nnoremap <Leader>b ]}
-
 
 let g:clipboard = {
           \   'name': 'WslClipboard',
