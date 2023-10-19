@@ -2,8 +2,6 @@
 
 # when leaving the console clear the screen to increase privacy
 
-printf -v myDate '%(%Y-%m-%d_%Hh%Mm%S)T' -1
-history > "$HOME/history_backups/$myDate.log"
-
-# Je regarde voir si ca marche
-history >> "$HOME/history_backups/essai_2022.log"
+if [ "$SHLVL" = 1 ]; then
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+fi
