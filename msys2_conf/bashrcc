@@ -546,6 +546,7 @@ function c(){
   cd $(echo "$all_matches" | head -1)
 
   if [[ -z "$2" ]]; then
+    find '.' -mindepth '1' -maxdepth '1' -type 'd'
     return 0
   fi
 

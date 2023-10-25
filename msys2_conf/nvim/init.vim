@@ -162,7 +162,7 @@ command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codep
 command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\notes.md")
 command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\tickets.md")
 command! Edi :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codeedi\\tim\\notes.md")
-command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codeedi\\poly-tim\\cr_reunion_transverses.md")
+command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codepgd\\poly-tim\\cr_reunion_transverses.md")
 command! Antonin :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\antonin\\notes.md")
 
 " }
