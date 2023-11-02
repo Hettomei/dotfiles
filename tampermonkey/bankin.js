@@ -26,6 +26,8 @@ async function _waitForElement(selector, delay = 500) {
     return [];
 }
 
+const months_bankin_map = ['janv.', 'févr.', 'mars', 'avr.', 'mai','juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'dec.']
+
 function extractData(ulElement) {
     return Array.from(ulElement.children)
         .map(transaction => {
@@ -34,7 +36,25 @@ function extractData(ulElement) {
             const forGoogleDoc = content.replaceAll(/[^0-9,]/g, ""); // remove every space or nbsp or "-" or "€"
             const value = parseFloat(content.replaceAll(/[^0-9,-]/g, "").replace(",", ".")); // remove every thing to convert to a float, so weed need to keep the "-" sign
             const txtDate = transaction.querySelector("div.headerDate div").textContent; // "Hier" "Aujourd'hui" "jeudi 6 avr. 2023"
-            const date = txtDate.split(" ").splice(-2).join(" ")
+
+            // "Hier" -> "Hier"
+            // "Aujourd'hui" -> "Aujourd'hui'
+            // "jeudi 6 avr. 2023" -> "avr. 2023"
+            let date = txtDate.split(" ").splice(-2).join(" ")
+
+            // map "Aujourd'hui" vers "nov. 2023"
+            if (date == "Aujourd'hui") {
+                const current_month = (new Date()).getMonth()
+                date = months_bankin_map[current_month] + " " + (new Date()).getFullYear();
+                console.log("aujourd hui devient " + date);
+            }
+            // map "Hier" vers "oct. 2023"
+            else if (date == "Hier") {
+                const yesterday = new Date(Date.now() - 86400000); // remove 1day in millisec
+                const current_month = yesterday.getMonth()
+                date = months_bankin_map[current_month] + " " + yesterday.getFullYear();
+                console.log("hier devient " + date);
+            }
 
             return [content, forGoogleDoc, value, date];
 
@@ -51,7 +71,8 @@ function group_by_month(data) {
     let current_month = [];
 
     data.forEach(d => {
-        if (d[3] != "Hier" && d[3] != "Aujourd'hui" && d[3] != current_date) {
+        // if (d[3] != "Hier" && d[3] != "Aujourd'hui" && d[3] != current_date) { // hier et aujourd hui pas correctement gere
+        if (d[3] != current_date) {
             by_month.push([current_date, current_month]);
             current_date = d[3];
             current_month = [];
