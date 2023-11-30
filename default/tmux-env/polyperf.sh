@@ -4,13 +4,13 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeperf' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeperf' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeperf' C-m \; \
   \
   new-window \; \
   send-keys 'cd /c/Users/Dev.PC-CONSERTO/programmes/' C-m \; \

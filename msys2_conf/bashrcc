@@ -26,7 +26,7 @@ alias pps='ps aux | grep'
 
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuuuuu --ignore-case'
-alias f=fd
+alias f="fd --path-separator='//'"
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
@@ -506,14 +506,15 @@ function java_repl() {
 }
 
 function git_all() {
-  find '.' -mindepth '1' -maxdepth '2' \
-       -name '.git' -type 'd' \
-       -execdir  bash -c "pwd && git $@" ';'
+  # -> commenté car ne change pas reellement de branche
+  # find '.' -mindepth '1' -maxdepth '2' \
+  #      -name '.git' -type 'd' \
+  #      -execdir  bash -c "pwd && git $@" ';'
 
-  # find "." -mindepth 1 -maxdepth 2 -name '.git'  -type d  -print0 | while IFS= read -r -d '' folder; do
-  #     echo $folder
-  #     git -C "$folder" $@
-  # done
+  find "." -mindepth 1 -maxdepth 2 -name '.git'  -type d  -print0 | while IFS= read -r -d '' folder; do
+      echo $folder
+      git -C "${folder%"/.git"}" $@
+  done
 }
 
 function exec_all() {
@@ -602,3 +603,11 @@ function c(){
 # or
 # compile it, see
 # https://emacs.stackexchange.com/questions/75048/using-emacs-snapshot-from-ppaubuntu-elisp-ppa-on-22-04
+
+# function f() {
+  # fdfind on msys always return things with \
+  # So I manually remove this
+  # fd "$@" | sed "s/\\\/\//g"
+  # No, I am stupid, an option exists so I can add it to alias (see above)
+  # .... thank you fdfind committers
+# }
