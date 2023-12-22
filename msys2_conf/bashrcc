@@ -24,8 +24,8 @@ alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
 alias pps='ps aux | grep'
 
-alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
-alias rglarger='rg -uuuuuu --ignore-case'
+alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" --path-separator="//"'
+alias rglarger='rg -uuuuuu --ignore-case  --path-separator="//"'
 alias f="fd --path-separator='//'"
 
 ### git alias
@@ -514,6 +514,7 @@ function git_all() {
   find "." -mindepth 1 -maxdepth 2 -name '.git'  -type d  -print0 | while IFS= read -r -d '' folder; do
       echo $folder
       git -C "${folder%"/.git"}" $@
+      # Utiliser & pour tout paralelliser ne semble pas une bonne idée car le terminal se comporte mal
   done
 }
 
