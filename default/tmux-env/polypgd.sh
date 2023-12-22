@@ -4,10 +4,14 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-core' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/utilitaire/jboss_local' C-m \; \
+  split-window -v \; \
+  send-keys 'cd /d/Java' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-clientcommun' C-m \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-core' C-m \; \
+  split-window -h \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-client-commun' C-m \; \
   \
   new-window \; \
   send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/' C-m \; \
