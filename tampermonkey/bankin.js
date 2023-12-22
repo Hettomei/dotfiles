@@ -5,12 +5,12 @@
 // @version      0.1
 // @description  Copy all the amout for a given month
 // @author       Timothée
-// @match        https://app2.bankin.com/accounts/*
+// @match        https://app2.bankin.com/accounts*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=tampermonkey.net
 // @grant        GM_setClipboard
 // ==/UserScript==
 
-async function _waitForElement(selector, delay = 500) {
+async function _waitForElement(selector, delay = 1000) {
     let current = 0;
     let transactions = [];
 
@@ -26,7 +26,7 @@ async function _waitForElement(selector, delay = 500) {
     return [];
 }
 
-const months_bankin_map = ['janv.', 'févr.', 'mars', 'avr.', 'mai','juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'dec.']
+const months_bankin_map = ['janv.', 'févr.', 'mars', 'avr.', 'mai','juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 
 function extractData(ulElement) {
     return Array.from(ulElement.children)
@@ -134,6 +134,7 @@ function insertDataInPage(transactions_by_month) {
 (async function() {
     'use strict';
     console.log("Running bankin script");
+
     const ul_transactions = await _waitForElement("ul.transactionList");
     console.log(ul_transactions);
 
