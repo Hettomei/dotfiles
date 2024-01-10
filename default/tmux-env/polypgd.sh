@@ -11,6 +11,11 @@ tmux new-session \; \
   new-window \; \
   send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-core' C-m \; \
   split-window -h \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-gestion-dossiers' C-m \; \
+  split-window -v \; \
+  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-web-principal' C-m \; \
+  select-pane -t 0 \; \
+  split-window -v \; \
   send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-client-commun' C-m \; \
   \
   new-window \; \

@@ -27,7 +27,7 @@
   BD = branch -vv -D
   b  = br
   co  = checkout
-  cod = checkout --detach
+  cod = checkout develop
   com = checkout master
   c  = commit
   cm = commit -m
