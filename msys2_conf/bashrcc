@@ -27,6 +27,9 @@ alias pps='ps aux | grep'
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" --path-separator="//"'
 alias rglarger='rg -uuuuuu --ignore-case  --path-separator="//"'
 alias f="fd --path-separator='//'"
+# -I is for all gitignore -H is for all .hidden files like .git
+alias fglarger="fd --path-separator='//' -I --ignore-case"
+alias fglargerlarger="fd --path-separator='//' -I -H --ignore-case"
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'

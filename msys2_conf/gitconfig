@@ -50,6 +50,8 @@
   riom = rebase -i origin/master
   riod = rebase -i origin/develop
   whatrebase = log origin/master..HEAD --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
+  # Better git reflog with date :
+  reflogg= reflog --date=iso --pretty=short
   # git ask to stop using whatchanged because it does not include merge. Everything can be done with log
   # More on this command : log -p --follow :
   # be carefull, sometimes it can be misleading and show file as deleted
