@@ -4,22 +4,22 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/utilitaire/jboss_local' C-m \; \
+  send-keys 'cd /d/code/codepgd/utilitaire/jboss_local' C-m \; \
   split-window -v \; \
   send-keys 'cd /d/Java' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-core' C-m \; \
+  send-keys 'cd /d/code/codepgd/poly-pgd-core' C-m \; \
   split-window -h \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-gestion-dossiers' C-m \; \
+  send-keys 'cd /d/code/codepgd/poly-pgd-gestion-dossiers' C-m \; \
   split-window -v \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-web-principal' C-m \; \
+  send-keys 'cd /d/code/codepgd/poly-pgd-web-principal' C-m \; \
   select-pane -t 0 \; \
   split-window -v \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/poly-pgd-client-commun' C-m \; \
+  send-keys 'cd /d/code/codepgd/poly-pgd-client-commun' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codepgd/' C-m \; \
+  send-keys 'cd /d/code/codepgd/' C-m \; \
   \
   new-window \; \
   \

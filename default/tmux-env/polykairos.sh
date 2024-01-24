@@ -4,17 +4,18 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'npm start' \; \
-  split-window -v \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'npm test' \; \
+  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
+  send-keys 'nvm_run; npm start' \; \
+  split-window -h \; \
+  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
+  send-keys 'nvm_run; npm test' \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codekairos/poly-kairos-assure' C-m \; \
+  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
+  send-keys 'nvm_run' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codekairos/' C-m \; \
+  send-keys 'cd /d/code/codekairos/' C-m \; \
   \
   new-window \; \
   \

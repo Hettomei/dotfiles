@@ -4,16 +4,16 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
+  send-keys 'cd /d/code/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
+  send-keys 'cd /d/code/codeedi/poly-projets-edi/ServiceEdi' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codeedi/' C-m \; \
+  send-keys 'cd /d/code/codeedi/' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/programmes/' C-m \; \
+  send-keys 'cd /d/code/programmes/' C-m \; \
   \
   select-window -t 0 \; \
   select-pane -t 0 \;

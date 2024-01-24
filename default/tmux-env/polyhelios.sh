@@ -4,15 +4,15 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codehelios/poly-sech-front' C-m \; \
+  send-keys 'cd /d/code/codehelios/poly-sech-front' C-m \; \
   split-window -v \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codehelios/poly-sech-front' C-m \; \
+  send-keys 'cd /d/code/codehelios/poly-sech-front' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codehelios/poly-sech-front' C-m \; \
+  send-keys 'cd /d/code/codehelios/poly-sech-front' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /c/Users/Dev.PC-CONSERTO/codehelios/' C-m \; \
+  send-keys 'cd /d/code/codehelios/' C-m \; \
   \
   new-window \; \
   \

@@ -164,7 +164,6 @@ command! Todos :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\
 command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\tickets.md")
 command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\cr_reunion_transverses.md")
 command! Antonin :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\antonin.md")
-command! Edi :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\codeedi\\tim\\notes.md")
 
 " }
 

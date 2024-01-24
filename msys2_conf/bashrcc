@@ -478,13 +478,13 @@ do
   done
 }
 
-function run_nvm() {
+function nvm_run() {
   export NVM_DIR="$HOME/.config/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 # Disabled because too slow on windows, enable it when using node
-# run_nvm
+# nvm_run
 
 # Fix : VMWARE vers windows
 # permet de passer de texte enrichit
@@ -537,12 +537,13 @@ function ggg() {
 }
 
 function c(){
-  cd "/c/Users/Dev.PC-CONSERTO"
+  cd "/d/code"
   if [[ -z "$1" ]]; then
-    return 0
+    base_path="*$1*"
+  else
+    base_path="pgd"
   fi
 
-  base_path="*$1*"
   all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "code${base_path}")
   if [[ -z "$all_matches" ]]; then
     return 0
