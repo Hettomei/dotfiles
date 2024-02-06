@@ -21,7 +21,7 @@ alias g=git
 alias ll='ls -alh'
 
 alias bc="echo 'bc -l' && bc -l"
-alias rmDS='find . -name ".DS_Store" -depth -exec rm {} \;'
+alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
 
 alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" --path-separator="//"'
@@ -539,29 +539,34 @@ function ggg() {
 function c(){
   cd "/d/code"
   if [[ -z "$1" ]]; then
-    base_path="*$1*"
+    cd "codepgd"
+    echo "pas de second parametre, dossier par defaut"
+    return 0
   else
-    base_path="pgd"
+    base_path="*${1}*" # car "*$1*" fait un expand de *
   fi
 
-  all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "code${base_path}")
+  all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "${base_path}")
   if [[ -z "$all_matches" ]]; then
+    echo "rien trouvé avec $base_path"
     return 0
   fi
   echo "$all_matches"
   cd $(echo "$all_matches" | head -1)
 
   if [[ -z "$2" ]]; then
-    find '.' -mindepth '1' -maxdepth '1' -type 'd'
-    return 0
+    new_path='*'
+  else
+    new_path="*${2}*"
   fi
 
-  new_path="*${2}*"
+  echo "-"
+
   all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "$new_path")
   if [[ -z "$all_matches" ]]; then
+    echo "rien trouvé avec $new_path"
     return 0
   fi
-  echo "-"
   echo "$all_matches"
   cd $(echo "$all_matches" | head -1)
 }
