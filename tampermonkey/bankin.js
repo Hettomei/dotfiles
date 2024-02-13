@@ -10,6 +10,8 @@
 // @grant        GM_setClipboard
 // ==/UserScript==
 
+'use strict';
+
 async function _waitForElement(selector, delay = 1000) {
     let current = 0;
     let transactions = [];
@@ -27,6 +29,8 @@ async function _waitForElement(selector, delay = 1000) {
 }
 
 const months_bankin_map = ['janv.', 'févr.', 'mars', 'avr.', 'mai','juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
+const DATA_DIV_ID = 'tampermonkey-tim-1';
+let oldLocation = "http://old";
 
 function extractData(ulElement) {
     return Array.from(ulElement.children)
@@ -85,8 +89,16 @@ function group_by_month(data) {
     return by_month.reverse(); // on veut le mois en cours en premier.
 }
 
+function deleteDataInPage() {
+    const div = document.getElementById(DATA_DIV_ID);
+    if (div) {
+        div.remove();
+    }
+}
+
 function insertDataInPage(transactions_by_month) {
     const div = document.createElement("div");
+    div.setAttribute('id', DATA_DIV_ID);
     div.style.backgroundColor = "wheat";
     div.style.position = "fixed";
     div.style.width = "250px";
@@ -131,8 +143,7 @@ function insertDataInPage(transactions_by_month) {
     document.body.appendChild(div);
 }
 
-(async function() {
-    'use strict';
+async function searchData() {
     console.log("Running bankin script");
 
     const ul_transactions = await _waitForElement("ul.transactionList");
@@ -143,8 +154,25 @@ function insertDataInPage(transactions_by_month) {
 
     console.log(transactions);
     console.log(transactions_by_month);
+    deleteDataInPage();
     insertDataInPage(transactions_by_month);
 
 
     // GM_setClipboard("<ul><li>test1</li><li>test1</li><li>test3</li></ul>", "html");
-})();
+}
+
+setInterval(function() {
+    if(location.href != oldLocation) {
+        // do your action
+        oldLocation = location.href;
+        console.log("Changement d url ", oldLocation);
+
+        const regex = /\d+$/g;
+        const found = oldLocation.match(regex);
+        if (found) {
+            searchData();
+        } else {
+            deleteDataInPage();
+        }
+    }
+}, 1000);

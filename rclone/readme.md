@@ -60,6 +60,14 @@ je veux les recuperer
 
 # Restauration de GLACIER vers STANDARD
 
+https://www.scaleway.com/en/docs/storage/object/how-to/restore-an-object-from-glacier/
+
+installer s3cmd : 
+
+pip install s3cmd
+
+# Restauration de GLACIER vers STANDARD oldway
+
 https://www.scaleway.com/en/docs/object-storage-glacier/
 
 on ne peut pas faire en recursif, on fait fichier par fichier
