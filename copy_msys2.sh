@@ -16,10 +16,10 @@ cp -v "$HOME/.minttyrc" "$DIR/minttyrc"
 cp -v "$HOME/sol.dark" "$DIR/sol.dark"
 
 #### ensemble programming ####
-rm "$DIR/ensemble_programming_pull"
-rm "$DIR/ensemble_programming_push"
-cp -v "$HOME/bin/ensemble_programming_pull" "$DIR/ensemble_programming_pull"
-cp -v "$HOME/bin/ensemble_programming_push" "$DIR/ensemble_programming_push"
+# rm "$DIR/ensemble_programming_pull"
+# rm "$DIR/ensemble_programming_push"
+# cp -v "$HOME/bin/ensemble_programming_pull" "$DIR/ensemble_programming_pull"
+# cp -v "$HOME/bin/ensemble_programming_push" "$DIR/ensemble_programming_push"
 
 #### Nvim ####
 mkdir -p "$DIR/nvim"

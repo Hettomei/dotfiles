@@ -16,6 +16,7 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
+export XDG_CONFIG_HOME="$HOME/.config"
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -491,6 +492,11 @@ function nvm_run() {
 # en texte brut pour paster sous windows
 a() {
   echo $(pbpaste) | pbcopy
+}
+
+open() {
+# tablacus
+  /c/Users/tgauthier/programmes/te230913/TE64.exe "$(pwd)/${1}"
 }
 
 formatJSONInPbpaste() {

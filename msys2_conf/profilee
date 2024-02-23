@@ -10,7 +10,9 @@ export JAVA_HOME="/C/Program Files/Java/jdk1.8.0_202"
 export MAVEN_HOME="/C/Users/Dev.PC-CONSERTO/programmes/apache-maven-3.3.9"
 export GROOVY_HOME="/C/Program Files (x86)/Groovy/"
 
-PATH="$MAVEN_HOME/bin:$PATH"
+if [ -d "$MAVEN_HOME" ] ; then
+    PATH="$MAVEN_HOME/bin:$PATH"
+fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -52,13 +54,13 @@ if [ -d "$HOME/programmes/Android" ] ; then
   PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
 
-if [ "$(command -v yarn)" ]
-then
-  PATH="$(yarn global bin):$PATH"
-fi
+# already in .bashrc with a message... is it true ?
+# if [ -d "$HOME/.pyenv" ] ; then
+#   export PYENV_ROOT="$HOME/.pyenv"
+#   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#   eval "$(pyenv init -)"
+# fi
 
-if [ -d "$HOME/.pyenv" ] ; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
+if [ -d "/c/Users/tgauthier/programmes/Neovim" ] ; then
+    PATH="$PATH:/c/Users/tgauthier/programmes/Neovim/bin"
 fi
