@@ -1,8 +1,8 @@
-if [ -n "$TMUX" ];
-then
-  # Inside tmux, we don't want to reload this file
-  return 0
-fi
+# if [ -n "$TMUX" ];
+# then
+## Inside tmux, we don't want to reload this file
+#   return 0
+# fi
 # export LC_ALL=C
 # export LANG=fr_FR.UTF-8
 # export LC_MESSAGES=fr_FR.UTF-8
