@@ -496,7 +496,7 @@ a() {
 
 open() {
 # tablacus
-  /c/Users/tgauthier/programmes/te230913/TE64.exe "$(pwd)/${1}"
+  /home/dev/programmes/tablacus/TE64.exe "$(pwd)/${1}"
 }
 
 formatJSONInPbpaste() {

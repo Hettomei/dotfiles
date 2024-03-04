@@ -633,6 +633,7 @@ augroup END
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
 let g:ctrlp_lazy_update = 200
+let g:ctrlp_custom_ignore = './node_modules'
 " }
 
 " spell {

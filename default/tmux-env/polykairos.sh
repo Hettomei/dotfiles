@@ -8,7 +8,7 @@ tmux new-session \; \
   send-keys 'nvm_run; npm start' \; \
   split-window -h \; \
   send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'nvm_run; npm e2e' \; \
+  send-keys 'nvm_run; npm run e2e' \; \
   \
   new-window \; \
   send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
