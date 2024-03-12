@@ -51,6 +51,9 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
 nvim +PlugInstall
 nvim +PlugUpdate
 
+To have copy / paste in "+ or "* register : download win32yank at https://github.com/equalsraf/win32yank/releases/
+and copy paste win32yank.exe into /usr/local/bin of msys dir
+
 ---- TMUX ---
 to install tmux plugin :
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

@@ -505,6 +505,7 @@ nnoremap Y y$
 vnoremap p "_dp
 vnoremap P "_dP
 " replace current word with paste and do not save deleted word to register
+" do not use nnoremap <Leader>p "_diwP or _diwp because it is inconsistent when end of line
 nnoremap <Leader>p "_ciw<C-r>"<esc>
 "http://vim.wikia.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -979,19 +980,8 @@ nnoremap <Leader>B [{
 " Also works with ) using ])
 nnoremap <Leader>b ]}
 
-let g:clipboard = {
-          \   'name': 'WslClipboard',
-          \   'copy': {
-          \      '+': 'clip.exe',
-          \      '*': 'clip.exe',
-          \    },
-          \   'paste': {
-          \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-          \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-          \   },
-          \   'cache_enabled': 0,
-          \ }
-
+" Devenu inutile. Il suffit de mettre win32yank.exe dans /usr/local/bin et ca marche direct
+" let g:clipboard = { }
 
 " Tips and tricks {
 
