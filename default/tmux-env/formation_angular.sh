@@ -4,17 +4,16 @@
 # ./programmes/dotfiles/default/tmux-env/formation.sh
 
 tmux new-session \; \
-  send-keys 'cd ~/programmes/formation-angular/ ; nvm_run' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
   \
   split-window -h \; \
-  send-keys 'cd ~/programmes/formation-angular/cours ; nvm_run' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
   \
   new-window \; \
-  send-keys 'cd ~/programmes/formation-angular/app; nvm_run' C-m \; \
-  send-keys 'npx ng serve --open' \; \
+  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
   \
   new-window \; \
-  send-keys 'cd ~/programmes/formation-angular/app; nvm_run' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
   \
   new-window \; \
   \

@@ -4,15 +4,12 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux new-session \; \
-  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'nvm_run; npm start' \; \
+  send-keys 'cd /d/code/codekairos/kaiross-assure-front' C-m \; \
   split-window -h \; \
-  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'nvm_run; npm run e2e' \; \
+  send-keys 'cd /d/code/codekairos/kaiross-assure-front' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /d/code/codekairos/poly-kairos-assure' C-m \; \
-  send-keys 'nvm_run' C-m \; \
+  send-keys 'cd /d/code/codekairos/kaiross-assure-front' C-m \; \
   \
   new-window \; \
   send-keys 'cd /d/code/codekairos/' C-m \; \
