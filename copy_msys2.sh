@@ -27,6 +27,10 @@ mkdir -p "$DIR/nvim"
 cp -v "$HOME/.config/nvim/init.vim" "$DIR/nvim/init.vim"
 cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
 
+
+#### windows ####
+cp -v  "$USERPROFILE/AppData/Roaming/Code/User/settings.json" "$CURRENT_DIR/vscode/settings.json"
+
 #### commit ####
 git add -p
 git status

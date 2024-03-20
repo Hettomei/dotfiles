@@ -4,13 +4,13 @@
 # ./programmes/dotfiles/default/tmux-env/formation.sh
 
 tmux new-session \; \
-  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/formation_digital_angular/formation/consignes_tps/solution-complete/' C-m \; \
   \
   split-window -h \; \
-  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/formation_digital_angular/formation/consignes_tps/solution-complete/' C-m \; \
   \
   new-window \; \
-  send-keys 'cd ~/programmes/formation-angular/' C-m \; \
+  send-keys 'cd ~/programmes/formation-angular/formation_digital_angular/formation/consignes_tps/solution-complete/' C-m \; \
   \
   new-window \; \
   send-keys 'cd ~/programmes/formation-angular/' C-m \; \

@@ -28,7 +28,9 @@ Plug 'tpope/vim-repeat' " Allow to repeat custom map
 Plug 'tpope/vim-abolish' " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 Plug 'gorkunov/smartpairs.vim' " easy select with vv
 Plug 'jayflo/vim-skip' " press s and go in midle of line
-Plug 'msanders/snipmate.vim' " edit my_snippets to add
+Plug 'garbas/vim-snipmate' " edit snippets to add
+Plug 'MarcWeber/vim-addon-mw-utils' " for snippets
+" Plug 'honza/vim-snippets'
 Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plug 'mbbill/undotree' " do :UndotreeToggle
 Plug 'kien/ctrlp.vim' " open file ctrl p
@@ -63,6 +65,8 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for': 'yaml' } " go to key and press :Yaml
 
 " Markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+
+Plug 'github/copilot.vim'
 
 " Haxe
 " Plug 'jdonaldson/vaxe' " vim mode for Haxe
@@ -368,7 +372,7 @@ let g:rails_projections = {
 " }
 
 " snipmate {
-let g:snippets_dir=globpath(&runtimepath, 'my_snippets')
+" let g:snippets_dir=globpath(&runtimepath, 'snippets')
 " }
 
 " tabularize {
@@ -636,6 +640,10 @@ let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
 let g:ctrlp_lazy_update = 200
 let g:ctrlp_custom_ignore = './node_modules'
+" rechercher que dans le dossier :
+" let g:ctrlp_working_path_mode = ''
+" remettre :
+" let g:ctrlp_working_path_mode = 'ca'
 " }
 
 " spell {
@@ -979,6 +987,10 @@ nnoremap <Leader>B [{
 " Move to the closing }
 " Also works with ) using ])
 nnoremap <Leader>b ]}
+
+
+imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 " Devenu inutile. Il suffit de mettre win32yank.exe dans /usr/local/bin et ca marche direct
 " let g:clipboard = { }

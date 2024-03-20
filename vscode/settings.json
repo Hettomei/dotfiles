@@ -1,59 +1,61 @@
 {
-  "workbench.colorTheme": "Default Dark+",
-  "window.zoomLevel": 1,
-  "vim.useSystemClipboard": true,
-  "vim.incsearch": true,
-  "vim.hlsearch": true,
-  "vim.visualstar": true,
-  "vim.leader": "<space>",
-  "vim.highlightedyank.enable": true,
-  "vim.highlightedyank.duration": 100,
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": [
-        "leader",
-        "leader"
-      ],
-      "commands": [
-        "workbench.action.files.save",
-      ]
-    },
-    {
-      "before": [
-        "s",
-      ],
-      "commands": [
+    "workbench.colorTheme": "Default Light Modern",
+    "editor.minimap.enabled": false,
+    "extensions.ignoreRecommendations": true,
+    "vim.useSystemClipboard": true,
+    "vim.incsearch": true,
+    "vim.hlsearch": true,
+    "vim.visualstar": true,
+    "vim.leader": "<space>",
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.duration": 100,
+    "vim.normalModeKeyBindingsNonRecursive": [
         {
-          "command": "cursorMove",
-          "args": {
-            "to": "right",
-            "by": "halfLine"
-          }
-        }
-      ]
-    },
-    {
-      "before": [
-        "shift+s",
-      ],
-      "commands": [
+            "before": [
+                "leader",
+                "leader"
+            ],
+            "commands": [
+                "workbench.action.files.save",
+            ]
+        },
         {
-          "command": "cursorMove",
-          "args": {
-            "to": "left",
-            "by": "halfLine"
-          }
+            "before": [
+                "s",
+            ],
+            "commands": [
+                {
+                    "command": "cursorMove",
+                    "args": {
+                        "to": "right",
+                        "by": "halfLine"
+                    }
+                }
+            ]
+        },
+        {
+            "before": [
+                "shift+s",
+            ],
+            "commands": [
+                {
+                    "command": "cursorMove",
+                    "args": {
+                        "to": "left",
+                        "by": "halfLine"
+                    }
+                }
+            ]
+        },
+        {
+            "before": [
+                "ctrl+p"
+            ],
+            "commands": [
+                {
+                    "command": "workbench.action.quickOpen"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "before": [
-        "K"
-      ],
-      "commands": [
-        "lineBreakInsert"
-      ],
-      "silent": true
-    }
-  ],
+    ],
 }
