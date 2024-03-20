@@ -29,7 +29,21 @@ cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
 
 
 #### windows ####
-cp -v  "$USERPROFILE/AppData/Roaming/Code/User/settings.json" "$CURRENT_DIR/vscode/settings.json"
+WINDIR="$CURRENT_DIR/windows"
+LOCAL_APPDATA="$APPDATA/../Local"
+
+cp -v "$USERPROFILE/.ideavimrc" "$WINDIR/ideavimrc"
+
+mkdir -p "$WINDIR/vscode"
+cp -v "$APPDATA/Code/User/settings.json" "$WINDIR/vscode/settings.json"
+cp -rv "$APPDATA/Code/User/snippets" "$WINDIR/vscode/snippets"
+
+mkdir -p "$WINDIR/emacs.d"
+cp "$APPDATA/.emacs.d/init.el" "$WINDIR/emacs.d/"
+
+mkdir -p "$WINDIR/nvim"
+cp -v "$LOCAL_APPDATA/nvim/init.vim" "$WINDIR/nvim/init.vim"
+
 
 #### commit ####
 git add -p
