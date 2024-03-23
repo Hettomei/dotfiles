@@ -28,8 +28,8 @@ Plug 'tpope/vim-repeat' " Allow to repeat custom map
 Plug 'tpope/vim-abolish' " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 Plug 'gorkunov/smartpairs.vim' " easy select with vv
 Plug 'jayflo/vim-skip' " press s and go in midle of line
-Plug 'garbas/vim-snipmate' " edit snippets to add
-Plug 'MarcWeber/vim-addon-mw-utils' " for snippets
+" Plug 'garbas/vim-snipmate' " edit snippets to add
+" Plug 'MarcWeber/vim-addon-mw-utils' " for snippets
 " Plug 'honza/vim-snippets'
 Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plug 'mbbill/undotree' " do :UndotreeToggle
@@ -68,9 +68,6 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 Plug 'github/copilot.vim'
 
-" Haxe
-" Plug 'jdonaldson/vaxe' " vim mode for Haxe
-"
 call plug#end()
 " }
 
@@ -164,7 +161,7 @@ command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
 command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\chiffrages.md")
 command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\notes.md")
-command! Angular :call OpenInBufferOrVsplit("$HOME/programmes/formation-angular/formation_digital_angular/note_tim.md")
+command! Angular :call OpenInBufferOrVsplit("$HOME/programmes/formation-angular/notes/note_tim.md")
 command! Todos :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\todos.md")
 command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\tickets.md")
 command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\cr_reunion_transverses.md")
@@ -870,8 +867,6 @@ let g:syntastic_aggregate_errors = 1
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 
 " Special for python
-" f for fix, t for test, w whitespace, l pour location list
-" nnoremap <Leader>f mz:%!black - -q<CR>'z
 nnoremap <Leader>t :!python -m pytest src/<CR>
 " si celle la est trop compliqué prendre celle en haut
 nnoremap <Leader>T :set makeprg=python\ -m\ pytest\ src/ <CR>:silent make<CR>:copen<CR>
@@ -879,8 +874,12 @@ nnoremap <Leader>w :FixWhitespace<CR>
 nnoremap <Leader>l :lafter<CR>
 nnoremap <Leader>L :lbefore<CR>
 
+""" FORMATTING
 " special for formation
 nnoremap <Leader>f mz:%!npx prettier --no-color --stdin-filepath %<CR>'z
+
+" f for fix, t for test, w whitespace, l pour location list
+" nnoremap <Leader>f mz:%!black - -q<CR>'z
 " }
 
 
@@ -989,8 +988,8 @@ nnoremap <Leader>B [{
 nnoremap <Leader>b ]}
 
 
-imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
+" let g:copilot_no_tab_map = v:true
+" inoremap <silent><script><expr> <C-g> copilot#Accept("")
 
 " Devenu inutile. Il suffit de mettre win32yank.exe dans /usr/local/bin et ca marche direct
 " let g:clipboard = { }
