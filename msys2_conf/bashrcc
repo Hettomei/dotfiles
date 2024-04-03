@@ -425,7 +425,7 @@ function rr {
 # git show --stat -- . ':(exclude)test'
 
 # Rename in file string -> newString
-# ag -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
+# r -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
 
 # compare two commit. And only the content :
 # v -d <(g show 11111111) <(g show 22222222)

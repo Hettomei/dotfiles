@@ -66,7 +66,7 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for': 'yaml' } " go to key and press :Yaml
 " Markdown
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
 
 call plug#end()
 " }
@@ -876,10 +876,10 @@ nnoremap <Leader>L :lbefore<CR>
 
 """ FORMATTING
 " special for formation
-nnoremap <Leader>f mz:%!npx prettier --no-color --stdin-filepath %<CR>'z
+" nnoremap <Leader>f mz:%!npx prettier --no-color --stdin-filepath %<CR>'z
 
 " f for fix, t for test, w whitespace, l pour location list
-" nnoremap <Leader>f mz:%!black - -q<CR>'z
+nnoremap <Leader>f mz:%!black - -q<CR>'z
 " }
 
 
