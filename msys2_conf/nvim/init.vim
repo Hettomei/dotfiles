@@ -33,7 +33,7 @@ Plug 'jayflo/vim-skip' " press s and go in midle of line
 " Plug 'honza/vim-snippets'
 Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plug 'mbbill/undotree' " do :UndotreeToggle
-Plug 'kien/ctrlp.vim' " open file ctrl p
+Plug 'ctrlpvim/ctrlp.vim' " open file ctrl p
 Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selection too)
 
 " Javascript
@@ -604,9 +604,15 @@ set grepformat^=%f:%l:%c:%m
 " Like * but on all repo :)
 " Search what is inside register "/" only words
 " ! says to not jump on first occurence.
-nnoremap <silent> <Leader>* yiw:silent Ggrep! "<C-R>""<CR>:copen<CR>
+" -q says to not output stdout but open quickfix list
+nnoremap <silent> <Leader>* yiw:silent Ggrep! -q -w "<C-R>""<CR>
+" same as previous but no word boundaries
+nnoremap <silent> <Leader>/ yiw:silent Ggrep! -q "<C-R>""<CR>
+" same as previous on selection
+vnoremap <silent> <Leader>/ y:silent Ggrep! -q "<C-R>""<CR>
 " pour python
-nnoremap <silent> <Leader>j yiw:Rg "def .*<C-R>""<CR>
+nnoremap <silent> <Leader>j yiw:silent Ggrep! -q "def .*<C-R>""<CR>
+" replace \ with /
 nnoremap <Leader>\ :s/\\/\//<CR>
 
 " Count selected search
@@ -631,12 +637,14 @@ augroup END
 " }
 
 " ctrlp {
-"https://github.com/kien/ctrlp.vim
+" https://github.com/ctrlpvim/ctrlp.vim
 " display 30 results from top to bottom
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
 let g:ctrlp_lazy_update = 200
-let g:ctrlp_custom_ignore = './node_modules'
+" let g:ctrlp_user_command = 'fd %s -t f' " not working
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
 " rechercher que dans le dossier :
 " let g:ctrlp_working_path_mode = ''
 " remettre :
