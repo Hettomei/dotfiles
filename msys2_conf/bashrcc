@@ -569,11 +569,19 @@ function c(){
   echo "-"
 
   all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "$new_path")
+  echo "$all_matches"
+
   if [[ -z "$all_matches" ]]; then
     echo "rien trouvé avec $new_path"
     return 0
   fi
-  echo "$all_matches"
+
+  # nécessaire quand on veut seulement aller dans le dossier parent
+  # et pour pas qu il fasse entrer dans intellij
+  if [[ -z "$2" ]]; then
+    return 0
+  fi
+
   cd $(echo "$all_matches" | head -1)
 }
 

@@ -875,9 +875,9 @@ let g:syntastic_aggregate_errors = 1
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 
 " Special for python
-nnoremap <Leader>t :!python -m pytest src/<CR>
+nnoremap <Leader>t :!python -m pytest tests/<CR>
 " si celle la est trop compliqué prendre celle en haut
-nnoremap <Leader>T :set makeprg=python\ -m\ pytest\ src/ <CR>:silent make<CR>:copen<CR>
+nnoremap <Leader>T :set makeprg=python\ -m\ pytest\ tests/ <CR>:silent make<CR>:copen<CR>
 nnoremap <Leader>w :FixWhitespace<CR>
 nnoremap <Leader>l :lafter<CR>
 nnoremap <Leader>L :lbefore<CR>

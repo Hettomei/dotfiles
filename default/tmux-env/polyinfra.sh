@@ -3,7 +3,7 @@
 # juste le bash, puis faire
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
-tmux new-session \; \
+tmux -u new-session \; \
   send-keys 'cd /d/code/codeinfra/poly-jenkins-job-pgd-mep' C-m \; \
   \
   new-window \; \
