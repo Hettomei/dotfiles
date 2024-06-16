@@ -32,11 +32,11 @@ cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
 WINDIR="$CURRENT_DIR/windows"
 LOCAL_APPDATA="$APPDATA/../Local"
 
-cp -v "$USERPROFILE/.ideavimrc" "$WINDIR/ideavimrc"
+cp -v "$USERPROFILE/.ideavimrc" "$WINDIR/ideavimrc" || echo "no ideavimrc"
 
 mkdir -p "$WINDIR/vscode"
-cp -v "$APPDATA/Code/User/settings.json" "$WINDIR/vscode/settings.json"
-cp -rv "$APPDATA/Code/User/snippets" "$WINDIR/vscode/snippets"
+cp -v "$APPDATA/Code/User/settings.json" "$WINDIR/vscode/settings.json" || echo "no vscodesettings"
+cp -rv "$APPDATA/Code/User/snippets" "$WINDIR/vscode/snippets" || echo "no snippet"
 
 mkdir -p "$WINDIR/emacs.d"
 cp "$APPDATA/.emacs.d/init.el" "$WINDIR/emacs.d/"
