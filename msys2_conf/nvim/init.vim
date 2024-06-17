@@ -877,14 +877,19 @@ let g:syntastic_aggregate_errors = 1
 " let g:syntastic_javascript_eslint_args = "--no-eslintrc --config ~/.eslintrc"
 
 " Special for python
-" f for fix, t for test, w whitespace, l pour location list
-nnoremap <Leader>f mz:%!black - -q<CR>'z
-nnoremap <Leader>t :!python -m pytest src/<CR>
+nnoremap <Leader>t :!python -m pytest tests/<CR>
 " si celle la est trop compliqué prendre celle en haut
 nnoremap <Leader>T :set makeprg=python\ -m\ pytest\ tests/ <CR>:silent make<CR>:copen<CR>
 nnoremap <Leader>w :FixWhitespace<CR>
 nnoremap <Leader>l :lafter<CR>
 nnoremap <Leader>L :lbefore<CR>
+
+""" FORMATTING
+" special for formation
+" nnoremap <Leader>f mz:%!npx prettier --no-color --stdin-filepath %<CR>'z
+
+" f for fix, t for test, w whitespace, l pour location list
+nnoremap <Leader>f mz:%!black - -q<CR>'z
 " }
 
 
@@ -984,7 +989,6 @@ let g:netrw_silent=1
 if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
   set t_Co=16
 endif
-
 
 " Move to the previous {
 " Also works with ( using [(
