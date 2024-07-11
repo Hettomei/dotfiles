@@ -94,10 +94,11 @@ set viminfo=h,'50,<1000,s1000,/500,:2000
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 augroup change_file_type
   autocmd!
-  autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} set filetype=ruby
-  autocmd BufRead,BufNewFile {build.boot} set filetype=clojure
+  autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} setlocal filetype=ruby
+  autocmd BufRead,BufNewFile {build.boot} setlocal filetype=clojure
+  autocmd BufNewFile,BufRead Jenkinsfile* setlocal filetype=groovy expandtab
   " add json syntax highlighting
-  autocmd BufNewFile,BufRead *.hbs set filetype=html
+  autocmd BufNewFile,BufRead *.hbs setlocal filetype=html
 augroup END
 
 augroup change_txt_behavior
@@ -996,6 +997,18 @@ nnoremap <Leader>B [{
 " Move to the closing }
 " Also works with ) using ])
 nnoremap <Leader>b ]}
+
+" taken from https://vi.stackexchange.com/a/456
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+command! TrimWhitespace call TrimWhitespace()
+"noremap <Leader>w :call TrimWhitespace()<CR>
+
+
 
 
 " let g:copilot_no_tab_map = v:true
