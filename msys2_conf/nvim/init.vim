@@ -15,7 +15,7 @@ Plug 'scrooloose/syntastic'
 " Special :Command
 Plug 'godlygeek/tabular' " Make multiple things aligned
 Plug 'tpope/vim-fugitive' " Gblame, Gremove .... fun
-Plug 'tpope/vim-projectionist' " Allow to use :A on any project
+" Plug 'tpope/vim-projectionist' " Allow to use :A on any project
 Plug 'tpope/vim-characterize' " Add more display when press ga on a char
 Plug 'tpope/vim-vinegar' " better :Explore
 
