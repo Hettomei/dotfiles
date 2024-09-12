@@ -545,18 +545,24 @@ function ggg() {
 function c(){
   cd "/d/code"
   if [[ -z "$1" ]]; then
-    cd "codepgd"
+    cd "pgd"
     echo "pas de second parametre, dossier par defaut"
     return 0
   else
-    base_path="*${1}*" # car "*$1*" fait un expand de *
+    base_path="${1}*" # car "*$1*" fait un expand de *
   fi
 
   all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "${base_path}")
   if [[ -z "$all_matches" ]]; then
-    echo "rien trouvé avec $base_path"
-    return 0
+    # On ajoute une *
+    base_path="*${1}*" # car "*$1*" fait un expand de *
+    all_matches=$(find '.' -mindepth '1' -maxdepth '1' -type 'd' -name "${base_path}")
+    if [[ -z "$all_matches" ]]; then
+      echo "rien trouvé avec $base_path"
+      return 0
+    fi
   fi
+
   echo "$all_matches"
   cd $(echo "$all_matches" | head -1)
 

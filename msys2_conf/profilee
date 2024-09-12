@@ -7,7 +7,9 @@
 # export LANG=C.UTF-8
 # export LC_MESSAGES=C.UTF-8
 export LC_ALL=C.UTF-8
-export JAVA_HOME="/C/Program Files/Java/jdk1.8.0_202"
+# export JAVA_HOME="/c/Program Files/Java/jdk1.8.0_202" # it works
+export JAVA_HOME="/d/installs/jdk8u352-b08" # n a pas le package com.sun.jpg.codec
+# export JAVA_HOME="/d/installs/jdk-21.0.4.7-temurin"
 export MAVEN_HOME="/C/Users/Dev.PC-CONSERTO/programmes/apache-maven-3.3.9"
 export GROOVY_HOME="/C/Program Files (x86)/Groovy/"
 

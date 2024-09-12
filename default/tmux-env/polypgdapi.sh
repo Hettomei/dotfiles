@@ -4,15 +4,15 @@
 # ./programmes/dotfiles/default/tmux-env/polyinfra.sh
 
 tmux -u new-session \; \
-  send-keys 'cd /d/code/codemigration/poly-new-pgd-back' C-m \; \
+  send-keys 'cd /d/code/pgdapi/poly-new-pgd-back' C-m \; \
   split-window -h \; \
-  send-keys 'cd /d/code/codemigration/poly-pgd-api' C-m \; \
+  send-keys 'cd /d/code/pgdapi/poly-pgd-api' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /d/code/codemigration/poly-pgd-api' C-m \; \
+  send-keys 'cd /d/code/pgdapi/poly-pgd-api' C-m \; \
   \
   new-window \; \
-  send-keys 'cd /d/code/codemigration/' C-m \; \
+  send-keys 'cd /d/code/pgdapi/' C-m \; \
   \
   new-window \; \
   select-window -t 0 \; \
