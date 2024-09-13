@@ -179,7 +179,7 @@ set directory=/tmp "dir: directory for temp files
 
 " colors {
 let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
-" let g:solarized_termcolors=256
+let g:solarized_termcolors=256
 " set background=light
 set background=dark
 colorscheme solarized
@@ -987,9 +987,9 @@ let g:netrw_silent=1
 
 " More colors
 " taken from https://github.com/tpope/vim-sensible
-if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
-  set t_Co=16
-endif
+" if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
+"   set t_Co=16
+" endif
 
 " Move to the previous {
 " Also works with ( using [(

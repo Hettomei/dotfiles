@@ -30,36 +30,43 @@ cp -v "$DIR/emacs.d/init.el" "$APPDATA/.emacs.d/init.el"
 cat <<-____HERE
 
 --- FIRST INSTALL ---
-echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
-echo 'source \$HOME/.profilee' >> $HOME/.profile
-chmod +x ~/bin/ensemble_programming_*
+  echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
+  echo 'source \$HOME/.profilee' >> $HOME/.profile
+  chmod +x ~/bin/ensemble_programming_*
 
---- COULEUR DU TERMINAL ---
+--- DEPRECATED COULEUR DU TERMINAL ---
 copier les fichiers suivant : 
-cp $DIR/sol.dark $HOME
-cp $DIR/minttyrc $HOME/.minttyrc
+  cp $DIR/sol.dark $HOME
+  cp $DIR/minttyrc $HOME/.minttyrc
 
 --- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'
 If you want a user per project you can edit PROJECT_PATH/.git/config
 or you can run
-git config user.email 2079042+Hettomei@users.noreply.github.com
+  git config user.email 2079042+Hettomei@users.noreply.github.com
 
 ---- NVIM ---
 to install vim-plug see https://github.com/junegunn/vim-plug#installation
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +PlugInstall
-nvim +PlugUpdate
+  curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  nvim +PlugInstall
+  nvim +PlugUpdate
 
 To have copy / paste in "+ or "* register : download win32yank at https://github.com/equalsraf/win32yank/releases/
 and copy paste win32yank.exe into /usr/local/bin of msys dir
+or :
+  mkdir $HOME/tmp
+  cd $HOME/tmp
+  curl -fLo ./win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.1.1/win32yank-x64.zip
+  unzip win32yank.zip
+  mkdir -p /usr/local/bin
+  cp win32yank.exe /usr/local/bin
 
 ---- TMUX ---
 to install tmux plugin :
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-tmux kill-server
-open tmux, then prefix + I
-and again prefix + I
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  tmux kill-server
+  open tmux, then prefix + I
+  and again prefix + I
 
 to update tmux plugin :
 prefix + U

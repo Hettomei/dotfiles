@@ -12,8 +12,8 @@ cp -v "$HOME/.gitconfig" "$DIR/gitconfig"
 cp -v "$HOME/.bashrcc" "$DIR/bashrcc"
 cp -v "$HOME/.profilee" "$DIR/profilee"
 cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
-cp -v "$HOME/.minttyrc" "$DIR/minttyrc"
-cp -v "$HOME/sol.dark" "$DIR/sol.dark"
+# cp -v "$HOME/.minttyrc" "$DIR/minttyrc"
+# cp -v "$HOME/sol.dark" "$DIR/sol.dark"
 
 #### ensemble programming ####
 # rm "$DIR/ensemble_programming_pull"
@@ -42,7 +42,7 @@ mkdir -p "$WINDIR/emacs.d"
 cp "$APPDATA/.emacs.d/init.el" "$WINDIR/emacs.d/"
 
 mkdir -p "$WINDIR/nvim"
-cp -v "$LOCAL_APPDATA/nvim/init.vim" "$WINDIR/nvim/init.vim"
+cp -v "$LOCAL_APPDATA/nvim/init.vim" "$WINDIR/nvim/init.vim" || echo "no windows nvim"
 
 
 #### commit ####
