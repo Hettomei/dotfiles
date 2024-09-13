@@ -160,13 +160,11 @@ command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
-command! Chiffrage :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\chiffrages.md")
-command! Notes :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\notes.md")
 command! Angular :call OpenInBufferOrVsplit("$HOME/programmes/formation-angular/notes/note_tim.md")
-command! Todos :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\todos.md")
-command! Tickets :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\tickets.md")
-command! ReunionTransverse :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\cr_reunion_transverses.md")
-command! Antonin :call OpenInBufferOrVsplit("C:\\Users\\Dev.PC-CONSERTO\\poly-tim\\antonin.md")
+command! Chiffrage :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\chiffrages.md")
+command! Notes :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\notes.md")
+command! Todos :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\todos.md")
+command! Tickets :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\tickets.md")
 
 " }
 

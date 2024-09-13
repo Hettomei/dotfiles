@@ -496,7 +496,7 @@ a() {
 
 open() {
 # tablacus
-  /home/dev/programmes/tablacus/TE64.exe "$(pwd)/${1}"
+  "${HOME}/programmes/tablacus/TE64.exe" "$(pwd)/${1}"
 }
 
 formatJSONInPbpaste() {
@@ -543,7 +543,7 @@ function ggg() {
 }
 
 function c(){
-  cd "/d/code"
+  cd "/c/poly/code"
   if [[ -z "$1" ]]; then
     cd "pgd"
     echo "pas de second parametre, dossier par defaut"
