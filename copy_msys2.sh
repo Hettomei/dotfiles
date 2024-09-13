@@ -12,6 +12,7 @@ cp -v "$HOME/.gitconfig" "$DIR/gitconfig"
 cp -v "$HOME/.bashrcc" "$DIR/bashrcc"
 cp -v "$HOME/.profilee" "$DIR/profilee"
 cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
+# je test sans pour l instant :
 # cp -v "$HOME/.minttyrc" "$DIR/minttyrc"
 # cp -v "$HOME/sol.dark" "$DIR/sol.dark"
 
@@ -26,23 +27,6 @@ mkdir -p "$DIR/nvim"
 
 cp -v "$HOME/.config/nvim/init.vim" "$DIR/nvim/init.vim"
 cp -r "$HOME/.config/nvim/my_snippets" "$DIR/nvim/"
-
-
-#### windows ####
-WINDIR="$CURRENT_DIR/windows"
-LOCAL_APPDATA="$APPDATA/../Local"
-
-cp -v "$USERPROFILE/.ideavimrc" "$WINDIR/ideavimrc" || echo "no ideavimrc"
-
-mkdir -p "$WINDIR/vscode"
-cp -v "$APPDATA/Code/User/settings.json" "$WINDIR/vscode/settings.json" || echo "no vscodesettings"
-cp -rv "$APPDATA/Code/User/snippets" "$WINDIR/vscode/snippets" || echo "no snippet"
-
-mkdir -p "$WINDIR/emacs.d"
-cp "$APPDATA/.emacs.d/init.el" "$WINDIR/emacs.d/"
-
-mkdir -p "$WINDIR/nvim"
-cp -v "$LOCAL_APPDATA/nvim/init.vim" "$WINDIR/nvim/init.vim" || echo "no windows nvim"
 
 
 #### commit ####
