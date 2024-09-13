@@ -1,7 +1,7 @@
 #!/bin/sh
 # Pour démarrer cette session : ne pas lancer tmux.
 # juste le bash, puis faire
-# ./programmes/dotfiles/default/tmux-env/incub.sh
+# ./programmes/dotfiles/tmux-env/incub.sh
 
 tmux new-session \; \
   send-keys './demarrage.sh' \; \

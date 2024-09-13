@@ -69,6 +69,6 @@ prefix + U
 then type 'all'
 
 To start a tmux instance pre configured :
-./programmes/dotfiles/default/tmux-env/formation.sh
+./programmes/dotfiles/tmux-env/formation.sh
 
 ____HERE
