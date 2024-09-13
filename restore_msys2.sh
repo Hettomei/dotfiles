@@ -31,6 +31,7 @@ cat <<-____HERE
 
 --- FIRST INSTALL ---
   echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
+  echo 'source \$HOME/.bashrcc_secret' >> $HOME/.bashrc
   echo 'source \$HOME/.profilee' >> $HOME/.profile
   chmod +x ~/bin/ensemble_programming_*
 
@@ -69,7 +70,7 @@ to install tmux plugin :
   and again prefix + I
 
 to update tmux plugin :
-prefix + U
+  prefix + U
 then type 'all'
 
 To start a tmux instance pre configured :

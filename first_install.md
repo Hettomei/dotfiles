@@ -29,8 +29,6 @@ pacman -S unzip
 ## avec pacboy
 
 pacboy update
-pacboy -S neovim
-pacboy -S make ninja cmake
-pacboy -S autotools
+pacboy -S fd ripgrep neovim
+pacboy -S make ninja cmake autotools
 pacboy -S emacs
-
