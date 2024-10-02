@@ -160,11 +160,10 @@ command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
-command! Angular :call OpenInBufferOrVsplit("$HOME/programmes/formation-angular/notes/note_tim.md")
-command! Chiffrage :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\chiffrages.md")
-command! Notes :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\notes.md")
-command! Todos :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\todos.md")
-command! Tickets :call OpenInBufferOrVsplit("C:\\poly\\poly-tim\\tickets.md")
+command! Chiffrage :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/chiffrages.md")
+command! Notes :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/notes.md")
+command! Todos :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/todos.md")
+command! Tickets :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/tickets.md")
 
 " }
 
@@ -176,9 +175,10 @@ set directory=/tmp "dir: directory for temp files
 " }
 
 " colors {
-" let g:solarized_termtrans=1 " need to add this light to have a decent render on linux
-let g:solarized_termcolors=256
-" set background=light
+" see help solarized-options :
+let g:solarized_termtrans=1 " for transparent terminal capabilities
+let g:solarized_termcolors=256 " maximum for console nvim
+
 set background=dark
 colorscheme solarized
 

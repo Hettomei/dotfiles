@@ -36,7 +36,7 @@ cat <<-____HERE
   chmod +x ~/bin/ensemble_programming_*
 
 --- DEPRECATED COULEUR DU TERMINAL ---
-copier les fichiers suivant : 
+copier les fichiers suivant :
   cp $DIR/sol.dark $HOME
   cp $DIR/minttyrc $HOME/.minttyrc
 
