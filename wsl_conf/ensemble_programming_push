@@ -1,0 +1,23 @@
+#!/bin/bash
+# Il faut install fdfind
+# et entr
+# sudo apt install -y fdfind entr
+# S'utilise de la facon suivante:
+# ensemble_programming_push yaml "TIM WIP :"
+set -eu
+
+ensemble_commit() {
+  git add .
+  git commit -m "$1 $(date)"
+  # DISABLE JENKINS BEFORE
+  git push
+}
+
+export -f ensemble_commit
+
+# looks like "py"
+file_extension=$1
+# looks like "tim mob"
+start_commit_comment=$2
+
+fdfind "$file_extension" | entr -s "ensemble_commit '$start_commit_comment'"
