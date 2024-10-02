@@ -139,11 +139,11 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
 # fi
 
 # Must be executed at every session, so can't be in .profile
-if [ -d "$HOME/.pyenv" ] ; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
+# if [ -d "$HOME/.pyenv" ] ; then
+#   export PYENV_ROOT="$HOME/.pyenv"
+#   export PATH="$PYENV_ROOT/bin:$PATH"
+#   eval "$(pyenv init -)"
+# fi
 
 
 simplehttp(){
@@ -483,6 +483,9 @@ function nvm_run() {
   export NVM_DIR="$HOME/.config/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  nvm use --lts
+  # Load Angular CLI autocompletion.
+  source <(ng completion script)
 }
 # Disabled because too slow on windows, enable it when using node
 # nvm_run
@@ -511,7 +514,12 @@ formatJSONInPbpaste() {
 
 # to run java REPL
 function java_repl() {
-  (cd /c/Program\ Files/Java/jdk-19/bin && ./jshell.exe)
+  (cd /c/poly/java/jdk-17.0.12/bin && ./jshell.exe)
+  # (cd "$JAVA_HOME/bin" && ./jshell.exe)
+}
+
+function groovy_console() {
+  (cd "$GROOVY_HOME/bin" && ./groovyConsole)
 }
 
 function git_all() {

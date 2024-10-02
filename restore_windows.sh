@@ -10,6 +10,8 @@ DIR="$CURRENT_DIR/${1:-windows}"
 cp -v "$DIR/ideavimrc" "$USERPROFILE/.ideavimrc"
 cp -v "$DIR/vscode/settings.json" "$APPDATA/Code/User/settings.json"  || echo "no vscodesettings"
 cp -rv "$DIR/vscode/snippets" "$APPDATA/Code/User/snippets"  || echo "no snippet"
+mkdir -p "$APPDATA/.emacs.d"
+cp -v "$DIR/emacs.d/init.el" "$APPDATA/.emacs.d/init.el"
 
 cat <<-____HERE
 

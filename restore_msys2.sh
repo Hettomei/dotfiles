@@ -23,9 +23,7 @@ mkdir -p "$HOME/.config/nvim/my_snippets"
 cp -v -R "$DIR/nvim/my_snippets" "$HOME/.config/nvim/"
 
 mkdir -p "$HOME/.emacs.d/snippets"
-mkdir -p "$APPDATA/.emacs.d"
 cp -v "$DIR/emacs.d/init.el" "$HOME/.emacs.d/init.el"
-cp -v "$DIR/emacs.d/init.el" "$APPDATA/.emacs.d/init.el"
 
 cat <<-____HERE
 

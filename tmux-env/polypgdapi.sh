@@ -5,14 +5,8 @@
 
 tmux -u new-session \; \
   send-keys 'cd /c/poly/code/pgdapi/poly-pgd-api' C-m \; \
-  split-window -h \; \
-  send-keys 'cd /c/poly/code/pgdapi/poly-pgd-api' C-m \; \
-  \
   new-window \; \
   send-keys 'cd /c/poly/code/pgdapi/poly-pgd-api' C-m \; \
-  \
-  new-window \; \
-  send-keys 'cd /c/poly/code/pgdapi/' C-m \; \
   \
   new-window \; \
   select-window -t 0 \; \
