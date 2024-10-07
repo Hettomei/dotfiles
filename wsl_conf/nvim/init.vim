@@ -158,7 +158,7 @@ command! SourceVimrc source $MYVIMRC
 command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
-command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
+command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrc_secret")
 command! Profilee :call OpenInBufferOrVsplit("/home/tgauthier/.profilee")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
 command! Chiffrage :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/chiffrages.md")

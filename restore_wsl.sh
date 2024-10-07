@@ -31,7 +31,7 @@ cat <<-____HERE
 
 --- FIRST INSTALL ---
   echo 'source \$HOME/.bashrcc' >> $HOME/.bashrc
-  echo 'source \$HOME/.bashrcc_secret' >> $HOME/.bashrc
+  echo 'source \$HOME/.bashrc_secret' >> $HOME/.bashrc
   echo 'source \$HOME/.profilee' >> $HOME/.profile
   chmod +x ~/bin/ensemble_programming_*
 
