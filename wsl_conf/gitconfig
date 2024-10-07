@@ -1,7 +1,7 @@
 [gui]
 [user]
   name = Timothée Gauthier
-  email = t.gauthier.externe@alkera.fr
+  email = 2079042+Hettomei@users.noreply.github.com
 [core]
   editor = nvim
   # editor = emacs -nw

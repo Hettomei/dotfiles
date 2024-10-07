@@ -25,12 +25,12 @@ alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
 
-alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" --path-separator="//"'
-alias rglarger='rg -uuu --ignore-case  --path-separator="//"'
-alias f="fd --path-separator='//'"
+alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
+alias rglarger='rg -uuu --ignore-case'
+alias f="fdfind"
 # -I is for all gitignore -H is for all .hidden files like .git
-alias fglarger="fd --path-separator='//' -I --ignore-case"
-alias fglargerlarger="fd --path-separator='//' -I -H --ignore-case"
+alias fglarger="fdfind -I --ignore-case"
+alias fglargerlarger="fdfind -I -H --ignore-case"
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
@@ -137,14 +137,6 @@ command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init - bash)"
   # -m : allow multiple select
   # export FZF_DEFAULT_OPTS='-m --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all'
 # fi
-
-# Must be executed at every session, so can't be in .profile
-if [ -d "$HOME/.pyenv" ] ; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-
 
 simplehttp(){
   local command="python -m http.server 8000"
@@ -543,7 +535,7 @@ function ggg() {
 }
 
 function c(){
-  cd "/c/poly/code"
+  cd "$HOME/poly/code"
   if [[ -z "$1" ]]; then
     cd "pgd"
     echo "pas de second parametre, dossier par defaut"

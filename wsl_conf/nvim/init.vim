@@ -159,6 +159,7 @@ command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrcc_secret")
+command! Profilee :call OpenInBufferOrVsplit("/home/tgauthier/.profilee")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
 command! Chiffrage :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/chiffrages.md")
 command! Notes :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/notes.md")
@@ -640,11 +641,11 @@ augroup END
 " ctrlp {
 " https://github.com/ctrlpvim/ctrlp.vim
 " display 30 results from top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
+" let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
-let g:ctrlp_lazy_update = 200
+" let g:ctrlp_lazy_update = 200
 " let g:ctrlp_user_command = 'fd %s -t f' " not working
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " rechercher que dans le dossier :
 " let g:ctrlp_working_path_mode = ''
