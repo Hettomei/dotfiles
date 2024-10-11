@@ -7,47 +7,6 @@
 # export LANG=C.UTF-8
 # export LC_MESSAGES=C.UTF-8
 export LC_ALL=C.UTF-8
-# export JAVA_HOME="/c/Program Files/Java/jdk1.8.0_202" # it works
-export JAVA_HOME="/d/installs/jdk8u352-b08" # n a pas le package com.sun.jpg.codec
-# export JAVA_HOME="/d/installs/jdk-21.0.4.7-temurin"
-export MAVEN_HOME="/C/Users/Dev.PC-CONSERTO/programmes/apache-maven-3.3.9"
-export GROOVY_HOME="/C/Program Files (x86)/Groovy/"
-
-if [ -d "$MAVEN_HOME" ] ; then
-    PATH="$MAVEN_HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.emacs.d/bin" ] ; then
-    PATH="$HOME/.emacs.d/bin:$PATH"
-fi
-
-if [ -d "/home/linuxbrew/.linuxbrew/bin" ] ; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-    [[ -r "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh" ]] && . "/home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh"
-
-    # for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-    #   [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-    # done
-fi
-
-if [ -d "/home/linuxbrew/.linuxbrew/opt/openjdk/bin" ] ; then
-  export PATH="/home/linuxbrew/.linuxbrew/opt/openjdk/bin:$PATH"
-fi
-
-if [ -d "$HOME/.rbenv" ] ; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-fi
 
 if [ -d "$HOME/programmes/Android" ] ; then
   export ANDROID_HOME=$HOME/programmes/Android

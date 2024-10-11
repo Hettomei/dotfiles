@@ -96,6 +96,7 @@ augroup change_file_type
   autocmd!
   autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} setlocal filetype=ruby
   autocmd BufRead,BufNewFile {build.boot} setlocal filetype=clojure
+  autocmd BufRead,BufNewFile {.bashrcc,.bashrc_secret,.profilee} setlocal filetype=sh
   autocmd BufNewFile,BufRead Jenkinsfile* setlocal filetype=groovy expandtab
   " add json syntax highlighting
   autocmd BufNewFile,BufRead *.hbs setlocal filetype=html
@@ -159,12 +160,12 @@ command! Vimrc :call OpenInBufferOrVsplit("$MYVIMRC")
 command! Gvimrc :call OpenInBufferOrVsplit("$MYGVIMRC")
 command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrc_secret")
-command! Profilee :call OpenInBufferOrVsplit("/home/tgauthier/.profilee")
+command! Profilee :call OpenInBufferOrVsplit("$HOME/.profilee")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
-command! Chiffrage :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/chiffrages.md")
-command! Notes :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/notes.md")
-command! Todos :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/todos.md")
-command! Tickets :call OpenInBufferOrVsplit("/mnt/c/poly/poly-tim/tickets.md")
+command! Chiffrage :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/chiffrages.md")
+command! Notes :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/notes.md")
+command! Todos :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/todos.md")
+command! Tickets :call OpenInBufferOrVsplit("$POLY_HOMEly/poly-tim/tickets.md")
 
 " }
 

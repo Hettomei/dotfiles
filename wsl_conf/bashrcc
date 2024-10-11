@@ -503,7 +503,7 @@ formatJSONInPbpaste() {
 
 # to run java REPL
 function java_repl() {
-  (cd /c/Program\ Files/Java/jdk-19/bin && ./jshell.exe)
+  $POLY_HOME/java/jdk-17.0.12/bin/jshell.exe
 }
 
 function git_all() {
@@ -534,8 +534,17 @@ function ggg() {
   cd -
 }
 
-function c(){
+function cwsl(){
   cd "$HOME/poly/code"
+  goto_folder_quick "$@"
+}
+
+function c(){
+  cd "$POLY_HOME/code"
+  goto_folder_quick "$@"
+}
+
+function goto_folder_quick(){
   if [[ -z "$1" ]]; then
     cd "pgd"
     echo "pas de second parametre, dossier par defaut"
