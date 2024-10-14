@@ -6,7 +6,7 @@
   editor = nvim
   # editor = emacs -nw
   excludesfile = ~/.gitignore_global
-  # pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
 [color]
 [color "branch"]
   current = yellow reverse
@@ -95,10 +95,10 @@
   vvv = for-each-ref --sort=-committerdate --summary refs/remotes
 [push]
   default = simple
-	autoSetupRemote = true
+  autoSetupRemote = true
 [merge]
+  conflictstyle = diff3
   tool = vimdiff
-  ; conflictstyle = diff3
 [difftool]
   prompt = false
 [pager]
@@ -114,6 +114,13 @@
 [pull]
   rebase = false
 [interactive]
-  # diffFilter = diff-so-fancy --patch
+  diffFilter = delta --color-only
 [init]
   defaultBranch = master
+[delta]
+  navigate = true    # use n and N to move between diff sections
+
+  # delta detects terminal colors automatically; set one of these to disable auto-detection
+  dark = true
+[diff]
+  colorMoved = default

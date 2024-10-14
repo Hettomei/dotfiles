@@ -695,7 +695,7 @@ augroup tab_and_space
   autocmd FileType make setlocal noexpandtab
   " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
   autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=240 expandtab
-  autocmd FileType javascript,typescript,json,html,ps1,sh,groovy setlocal tabstop=2 shiftwidth=2 softtabstop=2 nosmarttab expandtab
+  autocmd FileType javascript,typescript,json,html,ps1,sh,groovy,gitconfig setlocal tabstop=2 shiftwidth=2 softtabstop=2 nosmarttab expandtab
 augroup END
 
 augroup for_projects
