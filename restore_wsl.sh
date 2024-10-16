@@ -76,4 +76,20 @@ then type 'all'
 To start a tmux instance pre configured :
 ./programmes/dotfiles/tmux-env/formation.sh
 
+---- WSL ---
+
+Il est possible que WSL telecharge lentement
+Pour le verifier :
+curl https://hil-speed.hetzner.com/100MB.bin -o 100MB.bin
+Si vous etes < à 10MO sec c'est que c est bridé
+PowerShell Admin >
+\$netadapter=Get-NetAdapter -IncludeHidden -Name "vEthernet (WSL*"
+New-NetFirewallRule -DisplayName "WSL" -Direction Inbound -InterfaceAlias \$netadapter.Name -Action Allow
+// relancer le curl
+
+Plus d info
+https://www.jetbrains.com/help/idea/how-to-use-wsl-development-environment-in-product.html#debugging_system_settings
+https://gist.github.com/pgorod/3484b7764e4575f8f3ee8c68bea52c30
+https://stackoverflow.com/questions/67116880/how-to-correctly-set-up-intellij-with-wsl2
+
 ____HERE
