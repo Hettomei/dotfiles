@@ -363,6 +363,16 @@ function rr {
   rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" "$@" -p | less -RXF
 }
 
+if [ -d "$MAVEN_HOME" ] ; then
+    PATH="$MAVEN_HOME/bin:$PATH"
+fi
+
+# Attention, les env windows influe sur $PATH, bien regarder ce qui arrive avant / apres
+# Il faut aussi appeler java.exe et non pas java
+if [ -d "$JAVA_HOME" ] ; then
+    export JAVA_TOOL_OPTIONS=-Duser.language=fr
+    PATH="$JAVA_HOME/bin:$PATH"
+fi
 
 # Tips
 #
@@ -534,12 +544,12 @@ function ggg() {
   cd -
 }
 
-function cwsl(){
+function c(){
   cd "$HOME/poly/code"
   goto_folder_quick "$@"
 }
 
-function c(){
+function cwin(){
   cd "$POLY_HOME/code"
   goto_folder_quick "$@"
 }

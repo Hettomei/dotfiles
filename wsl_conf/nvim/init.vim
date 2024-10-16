@@ -182,7 +182,9 @@ let g:solarized_termtrans=1 " for transparent terminal capabilities
 let g:solarized_termcolors=256 " maximum for console nvim
 
 set background=dark
-colorscheme solarized
+colorscheme desert
+" colorscheme slate
+" colorscheme solarized
 
 " stop syntax coloring after n columns
 set synmaxcol=400
