@@ -102,8 +102,8 @@
   defaultBranch = master
 [interactive]
   diffFilter = diff-so-fancy --patch
-; [color]
-;   ui = true
+[color]
+  ui = true
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -112,20 +112,7 @@
   added = yellow
   changed = green
   untracked = cyan
-; [color "diff-highlight"]
-;   oldNormal = red bold
-;   oldHighlight = red bold 52
-;   newNormal = green bold
-;   newHighlight = green bold 22
-; [color "diff"]
-;   meta = 11
-;   frag = magenta bold
-;   func = 146 bold
-;   commit = yellow bold
-;   old = red bold
-;   new = green bold
-;   whitespace = red reverse
 [diff-so-fancy]
-  markEmptyLines = false
+  markEmptyLines = true
   useUnicodeRuler = false
-  rulerWidth = 8
+  rulerWidth = 50
