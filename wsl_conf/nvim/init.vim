@@ -50,9 +50,6 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
 " Plug 'tpope/vim-rails', { 'for': 'yaml' }
 
-" Yaml
-Plug 'lmeijvogel/vim-yaml-helper', { 'for': 'yaml' } " go to key and press :YamlGetFullPath
-
 " Lisp :
 " Plug 'kovisoft/slimv'
 
@@ -666,7 +663,7 @@ augroup END
 " zw Mark the word as a wrong (bad) word.
 
 "spell check when writing commit logs
-autocmd filetype svn,*commit* setlocal spell spelllang=en
+" autocmd filetype svn,*commit* setlocal spell spelllang=en
 
 " go on top of file on commit
 autocmd FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
