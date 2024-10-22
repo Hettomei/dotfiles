@@ -76,9 +76,9 @@
   # Needed to remove the submodule in git status
   # seen at https://gist.github.com/gitaarik/8735255
   submoduleupdate = submodule update --init --recursive
-  hide = update-index --assume-unchanged
-  unhide = update-index --no-assume-unchanged
-  hidden = ! git ls-files -v | grep '^[a-z]'
+  hide = update-index --skip-worktree
+  unhide = update-index --no-skip-worktree
+  hidden = ! git ls-files -v | grep 'S '
 [push]
   default = simple
   autoSetupRemote = true
