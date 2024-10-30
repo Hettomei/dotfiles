@@ -1,0 +1,141 @@
+"" ====================== Info tips and all =====================
+"" Find a command :
+" press shift shift: then enable  "track action Ids"
+
+" IdeaVim uses 'a' for alt instead of Vim's 'm'
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+"" Thanks to https://gist.github.com/dewaka/ef947e52767bf453eaf77c852051eb7e
+"" https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
+"" https://gist.github.com/ericvanjohnson/079ae871e156054d3779e8f1efd8375d
+
+" Find more examples here: https://jb.gg/share-ideavimrc
+"" ====================== Info tips and all =====================
+
+""" Map leader ---------------------
+let mapleader=" "
+
+" Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-surround'
+" Plug 'vim-scripts/ReplaceWithRegister'
+" Plug 'vim-scripts/argtextobj.vim'
+
+""" Plugins  --------------------------------
+set surround
+set commentary
+set argtextobj
+set textobj-entire
+set ReplaceWithRegister
+set which-key
+"set sneak
+
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>,{:}"
+
+""" Common settings -------------------------
+set showmode
+set gdefault " always add g to %s///g
+" show lines up down
+set scrolloff=10
+" show char left right
+set sidescrolloff=20
+set incsearch
+set hlsearch
+set nowrapscan
+set number
+set clipboard+=unnamed
+set visualbell
+
+""" Idea specific settings ------------------
+set ideajoin
+set idearefactormode=keep
+
+""" Mappings --------------------------------
+nnoremap Y y$
+nnoremap x "_x
+nnoremap s 20l
+nnoremap S 10h
+" I can t use azerty
+" nnoremap £ *
+" nnoremap § +
+" nnoremap = -
+" /azerty problem
+
+nnoremap <leader>y yiw
+nnoremap <leader>d diw
+nnoremap <leader>r "_ciw
+nnoremap <leader>p "_diwP
+
+nnoremap <leader><leader> <Action>(SaveDocument)
+nnoremap <leader>R <Action>(RenameElement)
+nnoremap = <Action>(ReformatCode)
+vnoremap = <Action>(ReformatCode)
+" use ctrl + f normaly
+sethandler <c-f> a:ide
+sethandler <m-/> a:ide
+
+nnoremap <c-p> <Action>(GotoFile)
+nnoremap <leader>h <Action>(ToggleDistractionFreeMode)
+
+nnoremap <leader>j <Action>(FileStructurePopup)
+nnoremap <leader>q <Action>(CloseEditor)
+nnoremap <leader>/ <Action>(EditorSelectWord)<Action>(FindInPath)
+vnoremap v <Action>(EditorSelectWord)
+nnoremap <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)
+nnoremap <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
+nnoremap <c-w>m <Action>(MaximizeEditorInSplit)
+nnoremap <leader>m <Action>(MaximizeEditorInSplit)
+" controle + enter, like Ctrl + b in intellig
+" Map \b to toggle the breakpoint on the current line
+nnoremap <leader>b <Action>(ToggleLineBreakpoint)
+nnoremap <leader>tt <Action>(RunClass) " So it starts faster
+nnoremap <leader>t <Action>(DebugClass) " Need to wait after pressing t
+
+" Idea already map ctrl + + and ctrl + - to collapse expand
+"map <Tab> <Action>(ExpandRegion)
+nnoremap za <Action>(ExpandCollapseToggleAction)
+"map <S-Tab> <Action>(CollapseRegion)
+
+" Don't use Ex mode, use Q for formatting.
+nnoremap Q gq
+
+"" Window navigation
+sethandler <c-h> a:vim
+sethandler <c-l> a:vim
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+" create windows
+" nnoremap <c-k> <c-w>s <c-w>k
+" nnoremap <c-j> <c-w>s
+" nnoremap <c-h> <c-w>v <c-w>h
+" nnoremap <c-l> <c-w>v
+
+" move
+nnoremap <S-Up> <c-w>k
+nnoremap <S-Down> <c-w>j
+nnoremap <S-Left> <c-w>h
+nnoremap <S-Right> <c-w>l
+
+sethandler <C-A> a:vim
+sethandler <C-B> a:ide
+sethandler <C-C> a:vim
+sethandler <C-G> a:ide
+sethandler <C-N> a:vim
+sethandler <C-P> a:vim
+sethandler <C-R> a:ide
+sethandler <C-S> a:ide
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
+
+"""" tips
+" gd -> go to declaration

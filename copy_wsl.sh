@@ -12,12 +12,7 @@ cp -v "$HOME/.gitconfig" "$DIR/gitconfig"
 cp -v "$HOME/.bashrcc" "$DIR/bashrcc"
 cp -v "$HOME/.profilee" "$DIR/profilee"
 cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
-
-#### ensemble programming ####
-# rm "$DIR/ensemble_programming_pull"
-# rm "$DIR/ensemble_programming_push"
-# cp -v "$HOME/bin/ensemble_programming_pull" "$DIR/ensemble_programming_pull"
-# cp -v "$HOME/bin/ensemble_programming_push" "$DIR/ensemble_programming_push"
+cp -v "$WIN_HOME/.ideavimrc" "$DIR/ideavimrc" || echo "no ideavimrc"
 
 #### Nvim ####
 mkdir -p "$DIR/nvim"

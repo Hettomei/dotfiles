@@ -497,8 +497,8 @@ a() {
 }
 
 open() {
-# tablacus
-  "${HOME}/programmes/tablacus/TE64.exe" "$(pwd)/${1}"
+  local new_path=$(wslpath -a -w "${1-.}")
+  (set -x; "${WIN_HOME}/programmes/tablacus/TE64.exe" "$new_path" &)
 }
 
 formatJSONInPbpaste() {
@@ -513,7 +513,7 @@ formatJSONInPbpaste() {
 
 # to run java REPL
 function java_repl() {
-  $POLY_HOME/java/jdk-17.0.12/bin/jshell.exe
+  $HOME/java/jdk-17.0.13+11/bin/jshell
 }
 
 function git_all() {
@@ -547,6 +547,11 @@ function ggg() {
 function c(){
   cd "$HOME/poly/code"
   goto_folder_quick "$@"
+}
+
+function ca(){
+  cd "$HOME/poly/code"
+  goto_folder_quick "pgdapi" "api"
 }
 
 function cwin(){

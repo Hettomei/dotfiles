@@ -9,6 +9,7 @@ DIR="$CURRENT_DIR/wsl_conf"
 cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
+cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
 # cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"
 # cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
 
