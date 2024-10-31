@@ -429,12 +429,6 @@ nnoremap <F6> /#####page_de_slide$<CR>zz19<C-E>
 " new slide
 nnoremap <F9> i#########################page_de_slide<CR>slide n<esc>39o<esc>
 
-" format the entire file,
-" mf   -> mark line inside f,
-" gg=G -> reindent,
-" 'f   -> go to current line
-nnoremap <Leader>= mfgg=G'f
-
 "display cursor column
 nnoremap <Leader>col :set invcursorcolumn<CR>
 
@@ -889,7 +883,15 @@ nnoremap <Leader>L :lbefore<CR>
 " nnoremap <Leader>f mz:%!npx prettier --no-color --stdin-filepath %<CR>'z
 
 " f for fix, t for test, w whitespace, l pour location list
+" mf -> mark line at z
+" 'z -> go to z
 nnoremap <Leader>f mz:%!black - -q<CR>'z
+
+" format the entire file,
+" mf   -> mark line inside f,
+" gg=G -> reindent,
+" 'f   -> go to current line
+nnoremap <Leader>= mfgg=G'f
 " }
 
 

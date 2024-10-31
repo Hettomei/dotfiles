@@ -61,78 +61,80 @@ set ideajoin
 set idearefactormode=keep
 
 """ Mappings --------------------------------
-nnoremap Y y$
-nnoremap x "_x
-nnoremap s 20l
-nnoremap S 10h
+"--" map Y y$
+map x "_x
+map s 20l
+map S 10h
 " I can t use azerty
-" nnoremap £ *
-" nnoremap § +
-" nnoremap = -
+" map £ *
+" map § +
+" map = -
 " /azerty problem
 
-nnoremap <leader>y yiw
-nnoremap <leader>d diw
-nnoremap <leader>r "_ciw
-nnoremap <leader>p "_diwP
+" ne pas passer en map
+map <leader><leader> <Action>(SaveDocument)
+map <leader>y yiw
+map <leader>d diw
+map <leader>r "_ciw
+map <leader>p "_diwP
 
-nnoremap <leader><leader> <Action>(SaveDocument)
-nnoremap <leader>R <Action>(RenameElement)
-nnoremap = <Action>(ReformatCode)
+map <leader>R <Action>(RenameElement)
+map = <Action>(ReformatCode)
 vnoremap = <Action>(ReformatCode)
 " use ctrl + f normaly
 sethandler <c-f> a:ide
 sethandler <m-/> a:ide
 
-nnoremap <c-p> <Action>(GotoFile)
-nnoremap <leader>h <Action>(ToggleDistractionFreeMode)
+map <leader>h <Action>(ToggleDistractionFreeMode)
 
-nnoremap <leader>j <Action>(FileStructurePopup)
-nnoremap <leader>q <Action>(CloseEditor)
-nnoremap <leader>/ <Action>(EditorSelectWord)<Action>(FindInPath)
+map <leader>j <Action>(FileStructurePopup)
+map <leader>q <Action>(CloseEditor)
+map <leader>/ <Action>(EditorSelectWord)<Action>(FindInPath)
 vnoremap v <Action>(EditorSelectWord)
-nnoremap <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)
-nnoremap <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
-nnoremap <c-w>m <Action>(MaximizeEditorInSplit)
-nnoremap <leader>m <Action>(MaximizeEditorInSplit)
+map <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)
+map <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
+map <c-w>m <Action>(MaximizeEditorInSplit)
+map <leader>m <Action>(MaximizeEditorInSplit)
 " controle + enter, like Ctrl + b in intellig
 " Map \b to toggle the breakpoint on the current line
-nnoremap <leader>b <Action>(ToggleLineBreakpoint)
-nnoremap <leader>tt <Action>(RunClass) " So it starts faster
-nnoremap <leader>t <Action>(DebugClass) " Need to wait after pressing t
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>tt <Action>(RunClass) " So it starts faster
+map <leader>t <Action>(DebugClass) " Need to wait after pressing t
+map <c-p> <Action>(GotoFile)
+map <leader>s <Action>(Switcher)
 
 " Idea already map ctrl + + and ctrl + - to collapse expand
 "map <Tab> <Action>(ExpandRegion)
-nnoremap za <Action>(ExpandCollapseToggleAction)
+map za <Action>(ExpandCollapseToggleAction)
 "map <S-Tab> <Action>(CollapseRegion)
 
 " Don't use Ex mode, use Q for formatting.
-nnoremap Q gq
+map Q gq
 
 "" Window navigation
 sethandler <c-h> a:vim
 sethandler <c-l> a:vim
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
+sethandler <c-p> a:vim
 " create windows
-" nnoremap <c-k> <c-w>s <c-w>k
-" nnoremap <c-j> <c-w>s
-" nnoremap <c-h> <c-w>v <c-w>h
-" nnoremap <c-l> <c-w>v
+" map <c-k> <c-w>s <c-w>k
+" map <c-j> <c-w>s
+" map <c-h> <c-w>v <c-w>h
+" map <c-l> <c-w>v
 
 " move
-nnoremap <S-Up> <c-w>k
-nnoremap <S-Down> <c-w>j
-nnoremap <S-Left> <c-w>h
-nnoremap <S-Right> <c-w>l
+map <S-Up> <c-w>k
+map <S-Down> <c-w>j
+map <S-Left> <c-w>h
+map <S-Right> <c-w>l
 
 sethandler <C-A> a:vim
 sethandler <C-B> a:ide
 sethandler <C-C> a:vim
 sethandler <C-G> a:ide
 sethandler <C-N> a:vim
-sethandler <C-P> a:vim
-sethandler <C-R> a:ide
+sethandler <C-R> a:vim
 sethandler <C-S> a:ide
 sethandler <C-V> a:vim
 sethandler <C-W> a:vim
