@@ -7,6 +7,7 @@ CURRENT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null &&
 DIR="$CURRENT_DIR/wsl_conf"
 
 cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
+touch "$HOME/.bashrc_secret"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
 cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
