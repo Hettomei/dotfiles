@@ -8,14 +8,10 @@ set nomodeline
 call plug#begin('~/.config/nvim/bundle')
 
 Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/syntastic'
-" this replace syntastic. Keep here because I test ale. Doesn t work on windows + msys2
-" Plug 'dense-analysis/ale'
 
 " Special :Command
 Plug 'godlygeek/tabular' " Make multiple things aligned
 Plug 'tpope/vim-fugitive' " Gblame, Gremove .... fun
-" Plug 'tpope/vim-projectionist' " Allow to use :A on any project
 Plug 'tpope/vim-characterize' " Add more display when press ga on a char
 Plug 'tpope/vim-vinegar' " better :Explore
 
@@ -28,42 +24,11 @@ Plug 'tpope/vim-repeat' " Allow to repeat custom map
 Plug 'tpope/vim-abolish' " to snake_case (crs), to camelCase (crc) (like javascript), to ruby ModelName MixedCase (crm)
 Plug 'gorkunov/smartpairs.vim' " easy select with vv
 Plug 'jayflo/vim-skip' " press s and go in midle of line
-" Plug 'garbas/vim-snipmate' " edit snippets to add
-" Plug 'MarcWeber/vim-addon-mw-utils' " for snippets
-" Plug 'honza/vim-snippets'
 Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Leader> Enter
 Plug 'mbbill/undotree' " do :UndotreeToggle
 Plug 'ctrlpvim/ctrlp.vim' " open file ctrl p
 Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selection too)
-
-" Javascript
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-" Plug 'maxmellon/vim-jsx-pretty', { 'for': 'javascript' }
-" Plug 'mxw/vim-jsx'
-"
-" typescript
-" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-
-" Ruby
-" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-" Plug 'tpope/vim-bundler' " add gf on Gemfile to open gem source
-" Plug 'tpope/vim-rake' " Need vim-projectionist ta add a :A for alternative file
-" Plug 'tpope/vim-rails', { 'for': 'yaml' }
-
-" Lisp :
-" Plug 'kovisoft/slimv'
-
-" Clojure
-" Plug 'guns/vim-clojure-static'
-" Plug 'tpope/vim-salve'
-" Plug 'tpope/vim-dispatch'
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-" Plug 'kovisoft/paredit', { 'for': ['clojure', 'scheme'] }
-
-" Markdown
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-
-" Plug 'github/copilot.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " doc https://github.com/nvim-treesitter/nvim-treesitter
 
 call plug#end()
 " }
@@ -140,7 +105,7 @@ set encoding=utf-8
 " The encoding written to file.
 set fileencoding=utf-8
 " iso-8859-1 is latin1
-set fileencodings=utf-8,iso-8859-1
+" set fileencodings=utf-8,iso-8859-1
 " }
 
 " QuickLink to various file {
@@ -159,6 +124,7 @@ command! Bashrcc :call OpenInBufferOrVsplit("$HOME/.bashrcc")
 command! SecretBashrc :call OpenInBufferOrVsplit("$HOME/.bashrc_secret")
 command! Profilee :call OpenInBufferOrVsplit("$HOME/.profilee")
 command! Tmux :call OpenInBufferOrVsplit("$HOME/.tmux.conf")
+command! Ssh :call OpenInBufferOrVsplit("$HOME/.ssh/config")
 command! Chiffrage :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/chiffrages.md")
 command! Notes :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/notes.md")
 command! Todos :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/todos.md")
@@ -184,7 +150,7 @@ colorscheme slate
 " colorscheme solarized
 
 " stop syntax coloring after n columns
-set synmaxcol=400
+" set synmaxcol=400
 " }
 
 " CTags ctags {
@@ -226,69 +192,6 @@ set virtualedit=block
 set title
 " }
 
-" configure folding {
-if &diff
-  set foldmethod=diff
-else
-  set foldmethod=syntax foldlevel=10
-endif
-
-augroup change_file_fold
-  autocmd!
-  autocmd BufRead,BufNewFile *vimrc                        setlocal foldmethod=marker foldmarker={,} foldlevel=5
-  autocmd BufRead,BufNewFile *.scss,*.less                 setlocal foldmethod=marker foldmarker={,} foldlevel=6
-  autocmd BufRead,BufNewFile *.{yml,yaml,slim,haml,coffee,python} setlocal foldmethod=indent
-augroup END
-
-" unfold/fold everythings
-nnoremap ZA :set invfoldenable<CR>
-
-" Fix PlugUpdate that failed during merge
-set shellcmdflag=-c
-" set shellquote="
-set shellxquote=(
-
-" Paths will use / instead of \
-set shellslash
-
-
-" If you prefer that folds are only updated manually (pressing zuz) but not when saving the buffer
-" let g:vimsyn_folding='af'
-" let g:xml_syntax_folding = 1
-" let g:ruby_fold_enabled=1
-" let g:javascript_fold_enabled=1
-" }
-
-" configure ruby{
-" augroup config_ruby
-"   autocmd!
-  " Said it is a good practice to do -= then += but can't find link
-  " autocmd FileType ruby setlocal iskeyword-=?,! iskeyword+=?,!
-  " with @ as part of a word
-  " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
-" augroup END
-" }
-
-" configure clojure{
-" augroup config_clojure
-"   autocmd!
-  " Said it is a good practice to do -= then += but can't find link
-  " autocmd FileType clojure setlocal iskeyword-=:
-  " with @ as part of a word
-  " set iskeyword-=-,?,@-@ iskeyword+=-,?,@-@
-" augroup END
-" }
-
-augroup config_html_css_js_ruby
-  autocmd!
-  autocmd FileType html,javascript,javascript.jsx,eruby,css,scss setlocal iskeyword-=-,$ iskeyword+=-,$
-augroup END
-
-augroup config_clojure
-  autocmd!
-  autocmd FileType clojure setlocal iskeyword-=: iskeyword+=:
-augroup END
-
 " configure when open large_files {
 " http://vim.wikia.com/wiki/Faster_loading_of_large_files
 " Protect large files from sourcing and other overhead.
@@ -309,72 +212,6 @@ if !exists("auto_load_large_file")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload undolevels=-1 | else | set eventignore-=FileType | endif
   augroup END
 endif
-" }
-
-" For vim-rails {
-" help -> :help rails-projection
-let g:rails_projections = {
-      \ "app/decorators/*_decorator.rb": {
-      \   "command": "decorator",
-      \   "template":
-      \     "class %SDecorator < ApplicationDecorator\nend",
-      \   "test": [
-      \     "spec/decorators/%s_decorator_spec.rb"
-      \   ],
-      \   "alternate": 'app/models/%s.rb'
-      \ },
-      \ "spec/factories/*.rb": {
-      \   "command": "factory",
-      \   "template":
-      \     "FactoryGirl.define do\nfactory :%s, class: %S do\nend\nend",
-      \   "test": [
-      \     "spec/models/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/repositories/*_repository.rb": {
-      \   "command": "repository",
-      \   "template":
-      \     "class %SRepository\nend",
-      \   "test": [
-      \     "spec/repositories/%s_repository_spec.rb"
-      \   ],
-      \ },
-      \ "app/presenter/*.rb": {
-      \   "command": "presenter",
-      \   "template":
-      \     "class %S\nend",
-      \   "test": [
-      \     "spec/presenter/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/runner/*.rb": {
-      \   "command": "runner",
-      \   "template":
-      \     "class %S\nend",
-      \   "test": [
-      \     "spec/runner/%s_spec.rb"
-      \   ],
-      \ },
-      \ "app/forms/*_form.rb": {
-      \   "command": "form",
-      \   "template":
-      \     "class %Form\nend",
-      \   "test": [
-      \     "spec/forms/%s_form_spec.rb"
-      \   ],
-      \ },
-      \ "features/support/*.rb": {"command": "support"},
-      \ "features/support/env.rb": {"command": "support"}
-      \}
-" }
-
-" snipmate {
-" let g:snippets_dir=globpath(&runtimepath, 'snippets')
-" }
-
-" tabularize {
-" see .vim/after/plugin/my_tabular.vim
-" }
 
 " wildignore {
 " vim-scripts/gitignore update the list too
@@ -1011,12 +848,51 @@ command! TrimWhitespace call TrimWhitespace()
 
 
 
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = { 
+     "c", "lua", "vim", "vimdoc", "bash", "cpp",
+     "query", "markdown", "markdown_inline", "javascript", "python", "java", "clojure",
+     "git_config","git_rebase", "gitcommit", "gitignore"
+},
 
-" let g:copilot_no_tab_map = v:true
-" inoremap <silent><script><expr> <C-g> copilot#Accept("")
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
 
-" Devenu inutile. Il suffit de mettre win32yank.exe dans /usr/local/bin et ca marche direct
-" let g:clipboard = { }
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+
+    disable = function(lang, buf)
+        local max_filesize = 1000 * 1024 -- 1 MB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+  },
+  additional_vim_regex_highlighting = false,
+  indent = {
+    enable = true
+  },
+
+}
+EOF
+
+" configure folding {
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevelstart=5
+
+" unfold/fold everythings
+nnoremap ZA :set invfoldenable<CR>
+" }
+
+
 
 " Tips and tricks {
 

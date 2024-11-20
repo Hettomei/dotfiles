@@ -16,7 +16,6 @@ HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 shopt -s histappend histverify
 
 alias e='emacs -nw'
-export XDG_CONFIG_HOME="$HOME/.config"
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
@@ -275,11 +274,11 @@ PGPASSWORD='changeThis' psql -h localhost -p 5433 -U changethisUSer -c \
 
 # display all comitter for a given file
 # $ committers src/file.js
-committers() {
+function committers() {
   git blame --line-porcelain  "$1" | grep author-mail | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
 }
 
-autologin ()
+function autologin ()
 {
     echo "bernard.dupond@abcd.ef" | xclip -selection clipboard;
     sleep 1;
@@ -361,6 +360,15 @@ function histosearch {
 
 function rr {
   rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" "$@" -p | less -RXF
+}
+
+function watch() {
+  to_watch="$1";
+  shift;
+  while inotifywait -e modify -r $to_watch
+  do
+    $@
+  done;
 }
 
 if [ -d "$MAVEN_HOME" ] ; then
@@ -487,7 +495,7 @@ function nvm_run() {
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 }
 # Disabled because too slow on windows, enable it when using node
-# nvm_run
+nvm_run
 
 # Fix : VMWARE vers windows
 # permet de passer de texte enrichit
