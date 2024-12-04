@@ -24,7 +24,7 @@ alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
 
-alias r='rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git"'
+alias r='rg --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuu --ignore-case'
 alias f="fdfind"
 # -I is for all gitignore -H is for all .hidden files like .git
@@ -355,11 +355,11 @@ function meme {
 
 function histosearch {
   (cd ~/history_backups;
-  rg -M 240 --max-columns-preview --sort path "$@")
+  rg --sort path "$@")
 }
 
 function rr {
-  rg -M 240 --max-columns-preview --sort path --hidden --glob "!.git" "$@" -p | less -RXF
+  rg --sort path --hidden --glob "!.git" "$@" -p | less -RXF
 }
 
 function watch() {
@@ -525,16 +525,31 @@ function java_repl() {
 }
 
 function git_all() {
+  # Poiur afficher sur une ligne, setter ONE_LINE, regardez l exemple avec git_all_only_branch
+
   # -> commenté car ne change pas reellement de branche
   # find '.' -mindepth '1' -maxdepth '2' \
   #      -name '.git' -type 'd' \
   #      -execdir  bash -c "pwd && git $@" ';'
 
+  # Utiliser & pour tout paralelliser ne semble pas une bonne idée car le terminal se comporte mal
+
   find "." -mindepth 1 -maxdepth 2 -name '.git'  -type d  -print0 | while IFS= read -r -d '' folder; do
-      echo $folder
-      git -C "${folder%"/.git"}" $@
-      # Utiliser & pour tout paralelliser ne semble pas une bonne idée car le terminal se comporte mal
+      clean_folder="${folder%"/.git"}"
+      if [ -z ${ONE_LINE+x} ]; then
+        # ONE_LINE is unset
+        echo "$clean_folder "
+      else
+        # affiche sur la meme ligne le dossier et la réponse
+        printf '%-40s' "$clean_folder "
+      fi
+
+      git -C "$clean_folder" $@
   done
+}
+
+function git_all_only_branch() {
+  ONE_LINE="true" git_all "rev-parse --abbrev-ref HEAD"
 }
 
 function exec_all() {

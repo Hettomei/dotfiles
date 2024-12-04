@@ -32,7 +32,7 @@
   dicw  = diff --cached --color-words
   diffw = diff --color-words
   f = fetch --all --prune --prune-tags
-  p = pull --all --prune
+  p = !git fetch --all --prune --prune-tags && git pull
   undo-soft = reset --soft HEAD^
   ap = add -p
   rh = reset HEAD

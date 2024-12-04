@@ -7,6 +7,8 @@ set nomodeline
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.config/nvim/bundle')
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " doc https://github.com/nvim-treesitter/nvim-treesitter
+
 Plug 'altercation/vim-colors-solarized'
 
 " Special :Command
@@ -28,7 +30,11 @@ Plug 'yssl/QFEnter' " Open Quick Fix in previous clicked buffer by pressing <Lea
 Plug 'mbbill/undotree' " do :UndotreeToggle
 Plug 'ctrlpvim/ctrlp.vim' " open file ctrl p
 Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selection too)
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " doc https://github.com/nvim-treesitter/nvim-treesitter
+
+Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
+Plug 'echasnovski/mini.icons', { 'branch': 'stable' }
+
+Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 call plug#end()
 " }
@@ -145,9 +151,8 @@ let g:solarized_termtrans=1 " for transparent terminal capabilities
 let g:solarized_termcolors=256 " maximum for console nvim
 
 set background=dark
-" colorscheme desert
-colorscheme slate
-" colorscheme solarized
+" colorscheme slate
+colorscheme solarized
 
 " stop syntax coloring after n columns
 " set synmaxcol=400
@@ -188,8 +193,6 @@ set numberwidth=1
 set lazyredraw "lz: will not redraw the screen while running macros (goes faster)
 
 set virtualedit=block
-
-set title
 " }
 
 " configure when open large_files {
@@ -258,21 +261,12 @@ nnoremap <F3> a<C-R>=expand("%:t")<CR><esc>
 "taken from https://github.com/carlhuda/janus -> plugin/mappings.vim
 nnoremap <F4> :set invpaste<CR>:set paste?<CR>
 
-" slides à gauche
-" nnoremap <F5> ?#####page_de_slide$<CR>zz21<C-Y>
-nnoremap <F5> /#####page_de_slide$<CR>NNzz19<C-E>
-" slides à droite
-nnoremap <F6> /#####page_de_slide$<CR>zz19<C-E>
-" new slide
-nnoremap <F9> i#########################page_de_slide<CR>slide n<esc>39o<esc>
-
 "display cursor column
 nnoremap <Leader>col :set invcursorcolumn<CR>
 
 "Cut line where cursor is
 "Probleme when buffer is unmodifiable :/
 " nnoremap <ENTER> r<ENTER>
-
 
 " like gt (tab next) but with buffer
 nnoremap gb :bn<CR>
