@@ -88,10 +88,10 @@ export LESS='-R -X -F'
 __git_complete g __git_main
 
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) /'
+  git branch --show-current 2> /dev/null
 }
 
-PS1='\[\e[34m\]\w \[\e[31m\]`parse_git_branch`\[\e[33m\]\t\n\[\e[0m\]\$ '
+PS1='\[\e[34m\]\w \[\e[31m\]`parse_git_branch` \[\e[33m\]\t\n\[\e[0m\]'
 # display in title
 PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
 
