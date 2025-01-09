@@ -24,7 +24,13 @@ alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
 
-alias r='rg --sort path --hidden --glob "!.git"'
+r() {
+  # Par defaut, ripgrep n a pas de pager; on utilise less
+  rg --sort path --hidden --glob "!.git" --pretty "$@" | less -R
+}
+
+alias rr='rg --sort path --hidden --glob "!.git"'
+
 alias rglarger='rg -uuu --ignore-case'
 alias f="fdfind"
 # -I is for all gitignore -H is for all .hidden files like .git
@@ -358,10 +364,6 @@ function histosearch {
   rg --sort path "$@")
 }
 
-function rr {
-  rg --sort path --hidden --glob "!.git" "$@" -p | less -RXF
-}
-
 function watch() {
   to_watch="$1";
   shift;
@@ -577,9 +579,9 @@ function ca(){
   goto_folder_quick "pgdapi" "api"
 }
 
-function cwin(){
-  cd "$POLY_HOME/code"
-  goto_folder_quick "$@"
+function cp(){
+  cd "$HOME/poly/code"
+  goto_folder_quick "pgd" "$@"
 }
 
 function goto_folder_quick(){

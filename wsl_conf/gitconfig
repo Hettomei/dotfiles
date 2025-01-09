@@ -6,7 +6,9 @@
   editor = nvim
   # editor = emacs -nw
   excludesfile = ~/.gitignore_global
-  pager = diff-so-fancy | less --tabs=4 -RF
+  # pager = diff-so-fancy | less --tabs=4 -RF
+  pager = delta
+
 [alias]
   # edit config : open this file :)
   ec = config --global -e
@@ -26,8 +28,8 @@
   c  = commit
   cm = commit -m
   ca = commit --amend
-  ; not possible as git run in sub shell; si gg<TAB> in bashrc
-  ; root = !cd $(git rev-parse --show-toplevel)
+  # not possible as git run in sub shell; si gg<TAB> in bashrc
+  # root = !cd $(git rev-parse --show-toplevel)
   dic   = diff --cached
   dicw  = diff --cached --color-words
   diffw = diff --color-words
@@ -83,7 +85,8 @@
   default = simple
   autoSetupRemote = true
 [merge]
-  conflictstyle = diff3
+  ; conflictstyle = diff3
+  ; conflictstyle = zdiff3
   tool = vimdiff
 [difftool]
   prompt = false
@@ -96,7 +99,8 @@
 [init]
   defaultBranch = master
 [interactive]
-  diffFilter = diff-so-fancy --patch
+  # diffFilter = diff-so-fancy --patch
+  diffFilter = delta --color-only
 [color]
   ui = true
 [color "branch"]
@@ -107,7 +111,13 @@
   added = yellow
   changed = green
   untracked = cyan
-[diff-so-fancy]
-  markEmptyLines = true
-  useUnicodeRuler = false
-  rulerWidth = 50
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  true-color = always
+  line-numbers = true
+  max-syntax-highlighting-length = 1 # ne met pas de coloration de code, 0 ne marche pas
+  tabs = 2 # 2 de largeur, defaut 8
+; [diff-so-fancy]
+;   markEmptyLines = true
+;   useUnicodeRuler = false
+;   rulerWidth = 50
