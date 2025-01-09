@@ -11,6 +11,10 @@ touch "$HOME/.bashrc_secret"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
 cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
+
+mkdir -p "$HOME/history_backups"
+cp -v "$DIR/bash_logout" "$HOME/.bash_logout"
+
 # cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"
 # cp -v "$DIR/ensemble_programming_push" "$HOME/bin/ensemble_programming_push"
 
@@ -48,6 +52,12 @@ If you want a user per project you can edit PROJECT_PATH/.git/config
 or you can run
   git config user.email 2079042+Hettomei@users.noreply.github.com
 
+--- HISTORY ---
+there is a problem with history / HISTSIZE.... in ubuntu
+and you may need to update /etc/bash.bashrc
+I put a link on top of .bashrcc that explain it
+
+So there is a default/bash_logout that save history in ~/history_backups
 ---- NVIM ---
 to install vim-plug see https://github.com/junegunn/vim-plug#installation
   curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
