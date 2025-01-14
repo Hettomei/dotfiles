@@ -13,6 +13,8 @@ cp -v "$HOME/.bashrcc" "$DIR/bashrcc"
 cp -v "$HOME/.bash_logout" "$DIR/bash_logout"
 cp -v "$HOME/.profilee" "$DIR/profilee"
 cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
+cp -v "$HOME/.lesskey" "$DIR/lesskey"
+
 cp -v "$WIN_HOME/.ideavimrc" "$DIR/ideavimrc" || echo "no ideavimrc"
 
 #### Nvim ####

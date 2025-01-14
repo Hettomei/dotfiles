@@ -10,6 +10,7 @@ cp -v "$DIR/bashrcc" "$HOME/.bashrcc"
 touch "$HOME/.bashrc_secret"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
+cp -v "$DIR/lesskey" "$HOME/.lesskey"
 cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
 
 mkdir -p "$HOME/history_backups"

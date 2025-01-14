@@ -541,12 +541,12 @@ function git_all() {
       if [ -z ${ONE_LINE+x} ]; then
         # ONE_LINE is unset
         echo "$clean_folder "
+        git -C "$clean_folder" $@
       else
         # affiche sur la meme ligne le dossier et la réponse
-        printf '%-40s' "$clean_folder "
+        printf "%-50s %s\n" $clean_folder $(git -C "$clean_folder" $@)
       fi
 
-      git -C "$clean_folder" $@
   done
 }
 
@@ -579,7 +579,7 @@ function ca(){
   goto_folder_quick "pgdapi" "api"
 }
 
-function cp(){
+function cpp(){
   cd "$HOME/poly/code"
   goto_folder_quick "pgd" "$@"
 }
@@ -630,6 +630,54 @@ function goto_folder_quick(){
   fi
 
   cd $(echo "$all_matches" | head -1)
+}
+
+
+# Pour un fichier de log du type : foo.log
+# 2025-01-13 14:49:50,844 INFO  log 1
+# 2025-01-13 14:49:50,846 INFO  log 2
+# 2025-01-13 14:49:51,847 INFO  log 3
+# 2025-01-13 14:50:02,934 INFO  log 4
+# 2025-01-13 14:50:01,944 INFO  log 5
+# 2025-01-13 14:52:11,800 INFO  log 6
+# 2025-01-13 14:52:12,901 INFO  log 7
+# affichera :
+# gap_in_log foo.log
+# 11 seconds --- 2025-01-13 14:49:50,847 INFO  log 3 ::: 2025-01-13 14:50:01,934 INFO  log 4
+# 130 seconds --- 2025-01-13 14:50:01,944 INFO  log 5 ::: 2025-01-13 14:52:11,800 INFO  log 6
+function gap_in_log() {
+  if [ -z "$1" ]; then
+      echo "Error: Parameter 1 (log file) is required."
+      return 1
+  fi
+  LOG_FILE=$1
+
+  # par default, affichera les ligne a 10 secondes ou +
+  awk -v threshold="${2:-10}" '
+  function to_seconds(time) {
+      split(time, t, ":")
+      return t[1] * 3600 + t[2] * 60 + t[3]
+  }
+  NR > 1 {
+      prev_time = to_seconds(last_time)
+      curr_time = to_seconds($2)
+      gap = curr_time - prev_time
+      if (gap >= threshold) {
+          print "" gap " seconds; " last_time " -> " $2 " --- " previous_line " ::: " $0
+          # print previous_line
+          # print $0
+      }
+  }
+  {
+      last_time = $2
+      previous_line = $0
+  }
+  ' "$LOG_FILE"
+}
+
+function gap_in_log_sorted() {
+  # less -S -> keep one line
+  gap_in_log "$@" | sort -n
 }
 
 # one line
