@@ -659,13 +659,15 @@ function gap_in_log() {
       return t[1] * 3600 + t[2] * 60 + t[3]
   }
   NR > 1 {
+      new_time = $2
       prev_time = to_seconds(last_time)
-      curr_time = to_seconds($2)
+      curr_time = to_seconds(new_time)
       gap = curr_time - prev_time
       if (gap >= threshold) {
-          print "" gap " seconds; " last_time " -> " $2 " --- " previous_line " ::: " $0
+          current_line = $0
+          print "" gap " seconds; " last_time " -> " new_time " --- " previous_line " ::: " current_line
           # print previous_line
-          # print $0
+          # print current_line
       }
   }
   {
