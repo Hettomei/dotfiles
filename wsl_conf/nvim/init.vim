@@ -880,7 +880,7 @@ EOF
 " configure folding {
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set foldlevelstart=5
+set foldlevelstart=50
 
 " unfold/fold everythings
 nnoremap ZA :set invfoldenable<CR>

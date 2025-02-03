@@ -34,8 +34,7 @@ alias rr='rg --sort path --hidden --glob "!.git"'
 alias rglarger='rg -uuu --ignore-case'
 alias f="fdfind"
 # -I is for all gitignore -H is for all .hidden files like .git
-alias fglarger="fdfind -I --ignore-case"
-alias fglargerlarger="fdfind -I -H --ignore-case"
+alias fglarger="fdfind -I -H --ignore-case"
 
 ### git alias
 # Why start with 'gg' to simulate 'g command'
