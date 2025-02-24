@@ -465,17 +465,11 @@ augroup END
 
 " ctrlp {
 " https://github.com/ctrlpvim/ctrlp.vim
-" display 30 results from top to bottom
-" let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'
 " Do not update on every key, wait 200 ms
-" let g:ctrlp_lazy_update = 200
-" let g:ctrlp_user_command = 'fd %s -t f' " not working
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-" rechercher que dans le dossier :
-" let g:ctrlp_working_path_mode = ''
-" remettre :
-" let g:ctrlp_working_path_mode = 'ca'
+let g:ctrlp_lazy_update = 200
+" en mode regex et non pas full lazy
+let g:ctrlp_regexp = 1
+let g:ctrlp_line_prefix = '  '
 " }
 
 " spell {
@@ -846,9 +840,9 @@ lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = { 
-     "c", "lua", "vim", "vimdoc", "bash", "cpp",
-     "query", "markdown", "markdown_inline", "javascript", "python", "java", "clojure",
-     "git_config","git_rebase", "gitcommit", "gitignore"
+     "c", "lua", "vim", "vimdoc", "bash", "cpp", "java", "clojure",
+     "query", "markdown", "markdown_inline", "javascript", "python",
+     "json", "git_config","git_rebase", "gitcommit", "gitignore"
 },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
