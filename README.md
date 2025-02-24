@@ -55,3 +55,21 @@ ensemble_programming_push . "WIP new feature"
 # surveille les fichiers avec "py"
 ensemble_programming_push py "WIP new feature"
 ```
+
+# PowerShell tips
+
+```
+$me=Get-LocalUser TimotheeGauthier
+$pass = Read-Host -AsSecureString
+[Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass))
+
+$me | Set-LocalUser -Password $pass
+
+$pass = ConvertTo-SecureString "TopSecretPassword" -AsPlainText -Force
+$Env:UserName
+$Env:UserDomain
+$Env:ComputerName
+[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+
+$me | Set-LocalUser -UserMayChangePassword $true -PasswordNeverExpires $true
+```
