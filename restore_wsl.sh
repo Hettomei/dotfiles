@@ -42,11 +42,6 @@ cat <<-____HERE
   echo 'source \$HOME/.profilee' >> $HOME/.profile
   chmod +x ~/bin/ensemble_programming_*
 
---- DEPRECATED COULEUR DU TERMINAL ---
-copier les fichiers suivant :
-  cp $DIR/sol.dark $HOME
-  cp $DIR/minttyrc $HOME/.minttyrc
-
 --- GIT ---
 Also, read  ~/.gitconfig to ensure 'user'
 If you want a user per project you can edit PROJECT_PATH/.git/config
@@ -59,6 +54,7 @@ and you may need to update /etc/bash.bashrc
 I put a link on top of .bashrcc that explain it
 
 So there is a default/bash_logout that save history in ~/history_backups
+
 ---- NVIM ---
 to install vim-plug see https://github.com/junegunn/vim-plug#installation
   curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
@@ -104,5 +100,11 @@ Plus d info
 https://www.jetbrains.com/help/idea/how-to-use-wsl-development-environment-in-product.html#debugging_system_settings
 https://gist.github.com/pgorod/3484b7764e4575f8f3ee8c68bea52c30
 https://stackoverflow.com/questions/67116880/how-to-correctly-set-up-intellij-with-wsl2
+
+---- GIT DELTA ----
+
+go to https://github.com/dandavison/delta/releases
+prendre git-delta_0.18.2_amd64.deb ou version superieur
+sudo dpkg -i git-delta_0.18.2_amd64.deb
 
 ____HERE

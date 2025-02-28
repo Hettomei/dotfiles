@@ -1,3 +1,0 @@
-set guioptions+=b
-set bg=light
-set guifont=consolas:h10
