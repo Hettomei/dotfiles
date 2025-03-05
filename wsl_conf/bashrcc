@@ -681,6 +681,17 @@ function gap_in_log_sorted() {
   gap_in_log "$@" | sort -n
 }
 
+
+function tips_bash() {
+  rglarger "$@" $HOME/.bashrc
+  rglarger "$@" $HOME/.bashrcc
+  rglarger "$@" $HOME/.bashrc_secret
+}
+
+function tips_pgd() {
+  rglarger "$@" $HOME/poly/poly-tim/*.md
+}
+
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
 

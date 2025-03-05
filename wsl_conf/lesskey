@@ -1,2 +1,2 @@
 #env
-LESS = -S -X -F
+LESS = --no-init --chop-long-lines --quit-if-one-screen
