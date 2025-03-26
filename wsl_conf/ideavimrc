@@ -78,6 +78,9 @@ nmap <leader>d diw
 nmap <leader>r "_ciw
 nmap <leader>p "_diwP
 
+imap <C-n> <Action>(HippieCompletion)
+imap <C-p> <Action>(HippieBackwardCompletion)
+
 nmap <leader>R <Action>(RenameElement)
 nmap = <Action>(ReformatCode)
 vmap = <Action>(ReformatCode)

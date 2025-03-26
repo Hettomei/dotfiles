@@ -65,7 +65,7 @@ augroup change_file_type
   autocmd BufRead,BufNewFile {Gemfile,CustomGemfile,Rakefile,Vagrantfile,Thorfile,config.ru,Guardfile} setlocal filetype=ruby
   autocmd BufRead,BufNewFile {build.boot} setlocal filetype=clojure
   autocmd BufRead,BufNewFile {.bashrcc,.bashrc_secret,.profilee} setlocal filetype=sh
-  autocmd BufNewFile,BufRead Jenkinsfile* setlocal filetype=groovy expandtab
+  autocmd BufNewFile,BufRead {Jenkinsfile*,*.jenkinsfile} setlocal filetype=groovy expandtab
   " add json syntax highlighting
   autocmd BufNewFile,BufRead *.hbs setlocal filetype=html
 augroup END
