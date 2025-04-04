@@ -60,10 +60,13 @@ ensemble_programming_push py "WIP new feature"
 
 ```
 $me=Get-LocalUser TimotheeGauthier
+$me | Get-LocalUser  | Select *
+
+# set and see pass
 $pass = Read-Host -AsSecureString
 [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($pass))
-
 $me | Set-LocalUser -Password $pass
+$me | Set-LocalUser -UserMayChangePassword $false -PasswordNeverExpires $true
 
 $pass = ConvertTo-SecureString "TopSecretPassword" -AsPlainText -Force
 $Env:UserName
@@ -71,5 +74,4 @@ $Env:UserDomain
 $Env:ComputerName
 [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
-$me | Set-LocalUser -UserMayChangePassword $true -PasswordNeverExpires $true
 ```

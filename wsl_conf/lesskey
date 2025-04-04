@@ -1,2 +1,4 @@
 #env
 LESS = --no-init --chop-long-lines --quit-if-one-screen
+LESSHISTFILE = $HOME/.lesshst
+LESSHISTSIZE = 500
