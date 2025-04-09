@@ -569,17 +569,17 @@ function ggg() {
 }
 
 function c(){
-  cd "$HOME/poly/code"
+  cd "$HOME/polywsl/code"
   goto_folder_quick "$@"
 }
 
 function ca(){
-  cd "$HOME/poly/code"
+  cd "$HOME/polywsl/code"
   goto_folder_quick "pgdapi" "api"
 }
 
 function cpp(){
-  cd "$HOME/poly/code"
+  cd "$HOME/polywsl/code"
   goto_folder_quick "pgd" "$@"
 }
 
@@ -689,7 +689,7 @@ function tips_bash() {
 }
 
 function tips_pgd() {
-  rglarger "$@" $HOME/poly/poly-tim/*.md
+  rglarger "$@" $HOME/polywsl/poly-tim/*.md
 }
 
 # one line
