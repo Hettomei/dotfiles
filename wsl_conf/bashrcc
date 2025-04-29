@@ -358,9 +358,32 @@ function meme {
     "$dest"
 }
 
-function histosearch {
-  (cd ~/history_backups;
-  rg --sort path "$@")
+# on recherche la string dans tous les fichiers
+# on compte dans awk
+# on affiche la plus grosse recherche en dernier
+function historysearch {
+  (
+  cd ~/history_backups;
+  set -x;
+  rg --color never --no-line-number --no-filename --  "-Dtest" | \
+     awk '{ $1=""; $2=""; $3=""; a[$0]++ } END {for (i in a) printf("%d %s\n", a[i], i)}' | \
+     sort -h;
+  )
+}
+
+# on met un _ pour que ce soit plus simple pour autocomplete quand je veux historysearch
+function history_stats {
+  (
+  cd ~/history_backups;
+  echo "20 commandes les plus utilisées :"
+  rg --color never --no-line-number --no-filename --  "" | \
+     awk '{ $1=""; $2=""; $3=""; a[$0]++ } END {for (i in a) printf("%d %s\n", a[i], i)}' | \
+     sort -rh | head -20;
+
+  echo ""
+  echo "total line : "
+  rg --color never --no-line-number --no-filename --  "" | wc -l
+  )
 }
 
 function watch() {
