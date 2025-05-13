@@ -365,7 +365,7 @@ function historysearch {
   (
   cd ~/history_backups;
   set -x;
-  rg --color never --no-line-number --no-filename --  "-Dtest" | \
+  rg --color never --no-line-number --no-filename --  "$@" | \
      awk '{ $1=""; $2=""; $3=""; a[$0]++ } END {for (i in a) printf("%d %s\n", a[i], i)}' | \
      sort -h;
   )
@@ -431,8 +431,8 @@ fi
 # Taken from https://git-scm.com/docs/git-bisect
 # Run this way :
 # first, create your stash that change the code.
-# first go up one n commit :
-# git bisect start HEAD HEAD~100
+# first go up for 5 parent commit of merge : (more at https://stackoverflow.com/a/2222920/1614763)
+# git bisect start HEAD HEAD~5
 # then
 # git bisect run ~/test.sh
 
