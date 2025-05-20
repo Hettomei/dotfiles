@@ -61,7 +61,7 @@ set ideajoin
 set idearefactormode=keep
 
 """ Mappings --------------------------------
-"--" map Y y$
+nmap Y y$
 nnoremap x "_x
 nmap s 20l
 nmap S 10h
