@@ -34,7 +34,7 @@ Plug 'bronson/vim-trailing-whitespace' " call :FixWhitespace (works with selecti
 Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
 Plug 'echasnovski/mini.icons', { 'branch': 'stable' }
 
-Plug 'MeanderingProgrammer/render-markdown.nvim'
+" Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 call plug#end()
 " }
@@ -271,6 +271,9 @@ nnoremap <Leader>col :set invcursorcolumn<CR>
 " like gt (tab next) but with buffer
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
+
+" pratique dans les markdown / readme.md
+nnoremap ù o```<esc>
 
 " }
 
@@ -711,6 +714,8 @@ nnoremap <Leader>L :lbefore<CR>
 " mf -> mark line at z
 " 'z -> go to z
 nnoremap <Leader>f mz:%!black - -q<CR>'z
+" quand on veut un bete formatage via vim et non python :
+nnoremap <Leader>f mzgg=G'z
 
 " format the entire file,
 " mf   -> mark line inside f,

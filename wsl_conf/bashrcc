@@ -406,6 +406,10 @@ if [ -d "$JAVA_HOME" ] ; then
     PATH="$JAVA_HOME/bin:$PATH"
 fi
 
+if [ -d "$GROOVY_HOME" ] ; then
+    PATH="$GROOVY_HOME/bin:$PATH"
+fi
+
 # Tips
 #
 # Create a hotspot in ubuntu : https://github.com/oblique/create_ap
@@ -598,12 +602,7 @@ function c(){
 
 function ca(){
   cd "$HOME/polywsl/code"
-  goto_folder_quick "pgdapi" "api"
-}
-
-function cpp(){
-  cd "$HOME/polywsl/code"
-  goto_folder_quick "pgd" "$@"
+  goto_folder_quick "pgdapi" "poly-pgd-api"
 }
 
 function goto_folder_quick(){

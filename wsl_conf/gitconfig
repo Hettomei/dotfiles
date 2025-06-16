@@ -19,7 +19,7 @@
   ba = branch -vv -a
   bd = branch -vv -d
   # from https://thoughtbot.com/blog/dumpster-diving-through-dotfiles-git-branches
-  branches = for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(color:white)%(refname:short)     %(color:cyan)%(authoremail) %(color:reset)%(contents:subject)' refs/remotes
+  branches = for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(align:30)%(color:white)%(refname:short)%(end) %(align:25)%(color:cyan)%(authoremail:localpart)%(end) %(color:reset)%(contents:subject)' refs/remotes
   bdremote = push origin --delete
   pushhh = push --force
   deleteremotebranch = bdremote
