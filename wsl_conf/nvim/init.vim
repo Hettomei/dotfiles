@@ -184,7 +184,7 @@ set noshowmode
 " To stop that : set invlist
 set list
 "Display &nbsp and trailing space : , works only when set list
-set listchars=nbsp:•,trail:¬,tab:→→
+set listchars=nbsp:•,trail:¬,tab:..
 
 " line number
 set number

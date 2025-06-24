@@ -19,7 +19,7 @@
   ba = branch -vv -a
   bd = branch -vv -d
   # from https://thoughtbot.com/blog/dumpster-diving-through-dotfiles-git-branches
-  branches = for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(align:30)%(color:white)%(refname:short)%(end) %(align:25)%(color:cyan)%(authoremail:localpart)%(end) %(color:reset)%(contents:subject)' refs/remotes
+  branches = for-each-ref --sort=-committerdate --format='%(color:red)%(objectname:short) %(color:green)%(committerdate:iso8601) %(align:40)%(color:white)%(refname:short)%(end) %(align:25)%(color:cyan)%(authoremail:localpart)%(end) %(color:reset)%(contents:subject)' refs/remotes
   bdremote = push origin --delete
   pushhh = push --force
   deleteremotebranch = bdremote
@@ -40,11 +40,11 @@
   ap = add -p
   rh = reset HEAD
   rhall = !git reset HEAD . && git status
-  l   = log     --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
-  ll  = log -10 --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
-  lll = log -25 --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
+  l   = log     --format='%C(red)%h %C(green)%ci %C(blue)%<(17,trunc)%al%C(yellow)%d%Creset %s'
+  ll  = log -10 --format='%C(red)%h %C(green)%ci %C(blue)%<(17,trunc)%al%C(yellow)%d%Creset %s'
+  lll = log -25 --format='%C(red)%h %C(green)%ci %C(blue)%<(17,trunc)%al%C(yellow)%d%Creset %s'
   # Print current branch graph
-  lg  = log --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s' --graph
+  lg  = log --format='%C(red)%h %C(green)%ci %C(blue)%al%C(yellow)%d%Creset %s' --graph
   # Print all branch all graph
   lgall = log --graph --decorate --oneline --all
   riom = rebase -i origin/master
