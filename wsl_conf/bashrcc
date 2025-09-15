@@ -362,23 +362,18 @@ function meme {
 # on compte dans awk
 # on affiche la plus grosse recherche en dernier
 function historysearch {
-  (
-  cd ~/history_backups;
-  set -x;
-  rg --color never --no-line-number --no-filename --  "$@" | \
-     awk '{ $1=""; $2=""; $3=""; a[$0]++ } END {for (i in a) printf("%d %s\n", a[i], i)}' | \
-     sort -h;
-  )
+  rg --color never --no-line-number --no-filename -- "$@" ~/history_backups | uniq -c | sort -h;
 }
 
 # on met un _ pour que ce soit plus simple pour autocomplete quand je veux historysearch
 function history_stats {
   (
-  cd ~/history_backups;
-  echo "20 commandes les plus utilisées :"
+  # c est pas totalement vrai, il y a bcp de repetition a cause du fonctionnement de .bash_logout
+  cd ~/history_stats;
+  echo "50 commandes les plus utilisées :"
   rg --color never --no-line-number --no-filename --  "" | \
      awk '{ $1=""; $2=""; $3=""; a[$0]++ } END {for (i in a) printf("%d %s\n", a[i], i)}' | \
-     sort -rh | head -20;
+     sort -rh | head -50;
 
   echo ""
   echo "total line : "

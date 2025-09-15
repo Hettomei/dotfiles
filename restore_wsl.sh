@@ -14,6 +14,7 @@ cp -v "$DIR/lesskey" "$HOME/.lesskey"
 cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
 
 mkdir -p "$HOME/history_backups"
+mkdir -p "$HOME/history_stats"
 cp -v "$DIR/bash_logout" "$HOME/.bash_logout"
 
 # cp -v "$DIR/ensemble_programming_pull" "$HOME/bin/ensemble_programming_pull"

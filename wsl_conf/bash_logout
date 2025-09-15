@@ -2,7 +2,9 @@
 
 # Ajout tim
 printf -v TODAY '%(%Y-%m-%d)T' -1
-history >> "$HOME/history_backups/tim_histo_${TODAY}.log"
+# si je veux faire des stats precises
+history >> "$HOME/history_stats/tim_histo_stats_${TODAY}.log"
+history | awk '{for(i=4;i<=NF;++i) printf "%s ", $i; print ""}' | sort >> "$HOME/history_backups/tim_histo_${TODAY}.log"
 
 # deja présent
 # when leaving the console clear the screen to increase privacy
