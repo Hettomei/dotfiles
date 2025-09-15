@@ -605,6 +605,13 @@ function ca(){
   goto_folder_quick "pgdapi" "poly-pgd-api"
 }
 
+alias cawin="cd /mnt/c/Users/AdminConsertoTemp/polywin/code/poly-pgd-api"
+
+function caproperties(){
+  cd "$HOME/polywsl/code"
+  goto_folder_quick "pgdapi" "polyclientcommun.properties"
+}
+
 function goto_folder_quick(){
   if [[ -z "$1" ]]; then
     echo "pas de second parametre"

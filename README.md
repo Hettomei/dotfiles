@@ -76,5 +76,6 @@ $pass = ConvertTo-SecureString "TopSecretPassword" -AsPlainText -Force
 $Env:UserName
 $Env:UserDomain
 $Env:ComputerName
-[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$MyId = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+$MyId
 ```

@@ -49,6 +49,9 @@
   lgall = log --graph --decorate --oneline --all
   riom = rebase -i origin/master
   riod = rebase -i origin/develop
+  # use it like git log-merge f0e7c44 ; le commit est un commit de type "Merged in ..."
+  log-merge = "!f() { git log --stat \"$1^..$1\"; }; f"
+  log-merge-p = "!f() { git log --stat \"$1^..$1\" -p; }; f"
   whatrebase = log origin/master..HEAD --format='%Cred%h %Cgreen%ci %C(bold blue)%an%Creset%C(yellow)%d%Creset %s'
   # Better git reflog with date :
   reflogg = reflog --date=iso --pretty=short
