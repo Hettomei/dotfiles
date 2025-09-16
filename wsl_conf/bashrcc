@@ -583,6 +583,7 @@ function exec_all() {
 
 alias gg=git_all
 alias ee=exec_all
+alias chrono="python ~/programmes/time-left/main.py -a '$POLY_HOME/poly-tim/chiffrages.md'"
 
 function ggg() {
   cd ..
@@ -593,18 +594,6 @@ function ggg() {
 function c(){
   cd "$HOME/polywsl/code"
   goto_folder_quick "$@"
-}
-
-function ca(){
-  cd "$HOME/polywsl/code"
-  goto_folder_quick "pgdapi" "poly-pgd-api"
-}
-
-alias cawin="cd /mnt/c/Users/AdminConsertoTemp/polywin/code/poly-pgd-api"
-
-function caproperties(){
-  cd "$HOME/polywsl/code"
-  goto_folder_quick "pgdapi" "polyclientcommun.properties"
 }
 
 function goto_folder_quick(){

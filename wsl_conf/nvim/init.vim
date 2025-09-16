@@ -134,7 +134,7 @@ command! Ssh :call OpenInBufferOrVsplit("$HOME/.ssh/config")
 command! Chiffrage :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/chiffrages.md")
 command! Notes :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/notes.md")
 command! Todos :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/todos.md")
-command! Tickets :call OpenInBufferOrVsplit("$POLY_HOMEly/poly-tim/tickets.md")
+command! Tickets :call OpenInBufferOrVsplit("$POLY_HOME/poly-tim/tickets.md")
 
 " }
 
