@@ -19,6 +19,7 @@ alias e='emacs -nw'
 alias v=nvim
 alias g=git
 alias ll='ls -alh'
+alias lll='ls -alhS'
 
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
@@ -397,7 +398,7 @@ fi
 # Attention, les env windows influe sur $PATH, bien regarder ce qui arrive avant / apres
 # Il faut aussi appeler java.exe et non pas java
 if [ -d "$JAVA_HOME" ] ; then
-    export JAVA_TOOL_OPTIONS=-Duser.language=fr
+    # export JAVA_TOOL_OPTIONS=-Duser.language=fr # devenu inutile, projet bien configuré
     PATH="$JAVA_HOME/bin:$PATH"
 fi
 
@@ -529,7 +530,7 @@ a() {
 
 open() {
   local new_path=$(wslpath -a -w "${1-.}")
-  (set -x; "${WIN_HOME}/programmes/tablacus/TE64.exe" "$new_path" &)
+  explorer.exe "${new_path}"
 }
 
 formatJSONInPbpaste() {
