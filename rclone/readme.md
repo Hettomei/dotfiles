@@ -45,7 +45,7 @@ Des exemples de fichiers de conf se trouve dans ce dossier.
 Ex, j'ai ce dossier :
 
 ```
-rclone lsd s:tim/photos/2020
+rclone lsd sg:tim/photos/2020
            0 2021-04-10 17:54:31        -1 angie-2020-07
            0 2021-04-10 17:54:31        -1 angie-2020-08
            0 2021-04-10 17:54:31        -1 angie-2020-09
@@ -136,7 +136,7 @@ $ rclone lsd sg:tim
 
 
  ```
-$ rclone lsd s:tim/documents
+$ rclone lsd sg:tim/documents
            0 2020-04-06 14:14:39        -1 cours
            0 2020-04-06 14:14:39        -1 travail
  ```
@@ -152,7 +152,7 @@ rclone check - Check if the files in the source and destination match.
 Par exemple, pour telecharger tout le contenu de 'remote documents' vers 'local documents':
 
 ```
-rclone copy s:documents ./documents
+rclone copy sg:documents ./documents
 ```
 
 lorsque les docs sont frozen, on peut parfois voir :
@@ -166,7 +166,7 @@ On peut relancer la commande tant qu'on veut, la date ne change pas.
 Par exemple, pour uploader tout le contenu de 'local documents' vers 'remote documents':
 
 ```
-rclone copy ./documents s:documents
+rclone copy ./documents sg:documents
 ```
 
 # Copy et destination
@@ -181,7 +181,7 @@ documents
 Si je fait
 
 ```
-rclone copy --progress s:documents ./
+rclone copy --progress sg:documents ./
 ```
 
 rclone NE VA PAS CREER le dossier `documents` donc `1.txt` et `2.txt` seront directement `dans ./`
@@ -189,19 +189,19 @@ rclone NE VA PAS CREER le dossier `documents` donc `1.txt` et `2.txt` seront dir
 Si je fait
 
 ```
-rclone copy s:documents ./documents
+rclone copy sg:documents ./documents
 ```
 
 rclone va CRÉER le dossier `documents` qui copy remote:documents
 
 ## Delete some file in remote
 
-Suppose we want to delete all .DS_Store in 's:documents'
+Suppose we want to delete all .DS_Store in 'sg:documents'
 
 Ensure both source / dest match (using `rclone check` )
 
 ```
-$ rclone check s:documents ./documents
+$ rclone check sg:documents ./documents
 2020/04/07 08:13:20 ERROR : travail/amazon/fdcr: Entry doesn't belong in directory "travail/amazon/fdcr" (too short) - ignoring
 2020/04/07 08:13:32 NOTICE: Local file system at /home/tgauthier/documents: 0 differences found
 2020/04/07 08:13:32 NOTICE: Local file system at /home/tgauthier/documents: 296 matching files
@@ -219,34 +219,34 @@ then
 ```
 rclone sync - Make source and dest identical, modifying destination only.
 rclone sync -P source dest
-rclone sync -P ./documents s:documents
+rclone sync -P ./documents sg:documents
 ```
 
 # Delete a full path (folder and file)
 
 ```
-rclone delete -vvvv s:"photos/folder with file"
+rclone delete -vvvv sg:"photos/folder with file"
 ```
 
 # déplacer un dossier
 
 ```
-rclone move --progress s:wrong-name/sub-folder s:sub-folder
+rclone move --progress sg:wrong-name/sub-folder sg:sub-folder
 ```
 
 # commands
 
 ```
 # Filter
-rclone --include "IMG_201708*" move -P s:photos/nexus-2017 s:photos/nexus-2017-08
-rclone --dry-run --include "IMG_201708*" move -P s:photos/nexus-2017 s:photos/nexus-2017-08
-rclone size s:a/b/c
-rclone move -P s:a/b s:a/c
-rclone delete -P s:a/b
-rclone tree s:a/b
+rclone --include "IMG_201708*" move -P sg:photos/nexus-2017 sg:photos/nexus-2017-08
+rclone --dry-run --include "IMG_201708*" move -P sg:photos/nexus-2017 sg:photos/nexus-2017-08
+rclone size sg:a/b/c
+rclone move -P sg:a/b sg:a/c
+rclone delete -P sg:a/b
+rclone tree sg:a/b
 ```
 
-# Du telephone vers s :
+# Du telephone vers sg :
 
 ```
 rclone --include '*202007*' copy -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/' ./need_sync/tim-2020-07
@@ -254,7 +254,7 @@ rclone --include '*202007*' copy -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3
 cd `VERY LONG PATH TO google camera`
 rclone --include '*_202008*' copy -P ./ ~/Documents/perso/need_sync/tim-2020-08
 
-rclone copy -P need_sync/tim-2020-06 s:photos/2020/tim-2020-07
+rclone copy -P need_sync/tim-2020-07 sg:photos/2020/tim-2020-07
 rclone --include '*_202007*' delete -P '/run/user/1000/gvfs/mtp:host=Google_Pixel_3a_XL_939AX07UDE/Espace de stockage interne partagé/DCIM/Camera/'
 
 rclone --include '*_202008??_*' ls ./
@@ -262,16 +262,24 @@ rclone --include '*_202008??_*' delete ./
 
 ```
 
-# De s vers s:
+# De sg vers sg:
 
 ```
-rclone --include "*_201712??_*" move -P s:photos/angie-2017-12--2018-08 s:photos/2017/angie-2017-12
+rclone --include "*_201712??_*" move -P sg:photos/angie-2017-12--2018-08 sg:photos/2017/angie-2017-12
 ```
 
 # tl;dr
 
-cd '/media/tgauthier/3809E1F82A15E1BA/sync_to_all/'
+cd '/mnt/c/Users/tgauthier/partial_sync'
 rclone sync -P ./documents sg:tim/documents
 rclone sync -P ./photos sg:tim/photos
+rclone sync -P photos/2025 sg:tim/photos/2025
 
 jdupes -r .
+
+# Compresser grosse video
+
+
+```
+ffmpeg -i PXL_20250619_165921680.TS.mp4 -c:v libx264 -crf 18 -preset veryfast output.mp4
+```
