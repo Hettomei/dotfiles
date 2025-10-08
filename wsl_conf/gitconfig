@@ -6,7 +6,6 @@
   editor = nvim
   # editor = emacs -nw
   excludesfile = ~/.gitignore_global
-  # pager = diff-so-fancy | less --tabs=4 -RF
   pager = delta
 
 [alias]
@@ -103,7 +102,6 @@
 [init]
   defaultBranch = master
 [interactive]
-  # diffFilter = diff-so-fancy --patch
   diffFilter = delta --color-only
 [color]
   ui = true
@@ -116,12 +114,11 @@
   changed = green
   untracked = cyan
 [delta]
+; Retrouver la doc ici : https://github.com/dandavison/delta/
+; L'installation ubuntu se fait via https://github.com/dandavison/delta/releases 
+; j ai la version du 11 sept 2024 - tjrs la derniere en octobre 2025
   navigate = true  # use n and N to move between diff sections
   true-color = always
   line-numbers = true
   max-syntax-highlighting-length = 1 # ne met pas de coloration de code, 0 ne marche pas
   tabs = 2 # 2 de largeur, defaut 8
-; [diff-so-fancy]
-;   markEmptyLines = true
-;   useUnicodeRuler = false
-;   rulerWidth = 50

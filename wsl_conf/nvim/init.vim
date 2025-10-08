@@ -7,6 +7,7 @@ set nomodeline
 " https://github.com/junegunn/vim-plug {
 call plug#begin('~/.config/nvim/bundle')
 
+Plug 'LunarVim/bigfile.nvim' " evite les probleme des gros fichiers
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " doc https://github.com/nvim-treesitter/nvim-treesitter
 
 Plug 'altercation/vim-colors-solarized'
