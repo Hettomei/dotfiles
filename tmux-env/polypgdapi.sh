@@ -1,12 +1,11 @@
-#!/bin/sh
 # Pour démarrer cette session : ne pas lancer tmux.
 # juste le bash, puis faire
-# ./programmes/dotfiles/tmux-env/polyinfra.sh
+# ./programmes/dotfiles/tmux-env/polypgdapi.sh
 
 tmux -u new-session \; \
-  send-keys 'cd /c/poly/code/pgdapi/poly-pgd-api' C-m \; \
+  send-keys 'cd $HOME/polywsl/code/pgdapi/poly-pgd-api' C-m \; \
   new-window \; \
-  send-keys 'cd /c/poly/code/pgdapi/poly-pgd-api' C-m \; \
+  send-keys 'cd $HOME/polywsl/code/pgdapi/poly-pgd-api' C-m \; \
   \
   new-window \; \
   select-window -t 0 \; \

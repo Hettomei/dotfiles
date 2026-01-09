@@ -585,6 +585,7 @@ function exec_all() {
 alias gg=git_all
 alias ee=exec_all
 alias chrono="python ~/programmes/time-left/main.py -a '$POLY_HOME/poly-tim/chiffrages.md'"
+alias demarrage="$HOME/programmes/dotfiles/demarrage.sh"
 
 function ggg() {
   cd ..
