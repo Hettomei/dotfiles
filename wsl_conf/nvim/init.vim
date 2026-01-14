@@ -40,6 +40,42 @@ Plug 'echasnovski/mini.icons', { 'branch': 'stable' }
 call plug#end()
 " }
 
+lua << EOF
+require'nvim-treesitter'.setup {
+  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = { 
+     "c", "lua", "vim", "vimdoc", "bash", "cpp", "java", "clojure",
+     "query", "markdown", "markdown_inline", "javascript", "python",
+     "json", "git_config","git_rebase", "gitcommit", "gitignore"
+},
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+
+    disable = function(lang, buf)
+        local max_filesize = 1000 * 1024 -- 1 MB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+  },
+  additional_vim_regex_highlighting = false,
+  indent = {
+    enable = true
+  },
+
+}
+EOF
+
+
 let g:mapleader = "\<Space>"
 
 " setup var to know wich enironnement is running
@@ -841,41 +877,6 @@ command! TrimWhitespace call TrimWhitespace()
 "noremap <Leader>w :call TrimWhitespace()<CR>
 
 
-
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { 
-     "c", "lua", "vim", "vimdoc", "bash", "cpp", "java", "clojure",
-     "query", "markdown", "markdown_inline", "javascript", "python",
-     "json", "git_config","git_rebase", "gitcommit", "gitignore"
-},
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    enable = true,
-
-    disable = function(lang, buf)
-        local max_filesize = 1000 * 1024 -- 1 MB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-  },
-  additional_vim_regex_highlighting = false,
-  indent = {
-    enable = true
-  },
-
-}
-EOF
 
 " configure folding {
 set foldmethod=expr
