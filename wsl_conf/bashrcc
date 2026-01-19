@@ -533,7 +533,7 @@ open() {
   explorer.exe "${new_path}"
 }
 
-formatJSONInPbpaste() {
+formatJSONInPbpaste() (
   set -eu
   tmpfile=$(mktemp /tmp/XXXXXX)
   pbpaste > "$tmpfile"
@@ -541,7 +541,7 @@ formatJSONInPbpaste() {
   jq '.' "$tmpfile" | pbcopy
   echo ""
   echo "dans le press papier"
-}
+)
 
 # to run java REPL
 function java_repl() {
@@ -584,7 +584,9 @@ function exec_all() {
 
 alias gg=git_all
 alias ee=exec_all
-alias chrono="python ~/programmes/time-left/main.py -a '$POLY_HOME/poly-tim/chiffrages.md'"
+alias chrono="python ~/programmes/time-left/src/main.py -a '$POLY_HOME/poly-tim/chiffrages.md'"
+alias ch=chrono
+alias cc="nvim +Chiffrage +Todo -c 'wincmd h' +10000"
 alias demarrage="$HOME/programmes/dotfiles/demarrage.sh"
 
 function ggg() {
