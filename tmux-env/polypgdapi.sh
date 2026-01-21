@@ -4,7 +4,7 @@
 
 tmux -u new-session \; \
   send-keys 'cd $HOME/polywsl/code/pgdapi/poly-pgd-api' C-m \; \
-  send-keys 'everyday_health && everyday_download_localhostaccess' \; \
+  send-keys 'everyday_health ; everyday_download_localhostaccess ; ~/polywsl/code/batch/poly-pgd-precalcul-toutes-taches/scripts/suivi_getapil_prod.sh ' \; \
   new-window \; \
   send-keys 'cd $HOME/polywsl/code/pgdapi/poly-pgd-api' C-m \; \
   \

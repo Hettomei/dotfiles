@@ -103,6 +103,7 @@
 [init]
   defaultBranch = master
 [interactive]
+  ; quand on utilise git add -p
   diffFilter = delta --color-only
 [color]
   ui = true
@@ -116,10 +117,23 @@
   untracked = cyan
 [delta]
 ; Retrouver la doc ici : https://github.com/dandavison/delta/
-; L'installation ubuntu se fait via https://github.com/dandavison/delta/releases 
+; L'installation ubuntu se fait via https://github.com/dandavison/delta/releases
 ; j ai la version du 11 sept 2024 - tjrs la derniere en octobre 2025
   navigate = true  # use n and N to move between diff sections
   true-color = always
-  line-numbers = true
   max-syntax-highlighting-length = 1 # ne met pas de coloration de code, 0 ne marche pas
+  minus-style='red bold'
+  plus-style='green bold'
+  zero-style='normal'
   tabs = 2 # 2 de largeur, defaut 8
+
+  features = unobtrusive-line-numbers
+
+[delta "unobtrusive-line-numbers"]
+  line-numbers = true
+  line-numbers-minus-style = "#444444"
+  line-numbers-zero-style = "#444444"
+  line-numbers-plus-style = "#444444"
+  line-numbers-left-format = "{nm:>1} "
+  line-numbers-right-format = "{np:>1} "
+  line-numbers-right-style = "#444444"
