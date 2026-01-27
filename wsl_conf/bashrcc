@@ -709,6 +709,50 @@ function tips_pgd() {
   rglarger "$@" $HOME/polywsl/poly-tim/*.md
 }
 
+
+function jira_clock() (
+  set -eu
+  local ISSUE="$1"
+  local ROOT_TMP_DIR="/tmp/jira"
+  mkdir -p "$ROOT_TMP_DIR"
+  local STATE_FILE="$ROOT_TMP_DIR/clock_${ISSUE}.state"
+  local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
+
+  local need_start=0
+  if [[ ! -f "$STATE_FILE" ]]; then
+    need_start=1
+  else
+    local last_line=$(tail -n 1 "$STATE_FILE")
+    if [[ "$last_line" == stopped* ]]; then
+      need_start=1
+    fi
+  fi
+
+  # Premier appel : start_timer
+  if [[ $need_start -eq 1 ]]; then
+    curl -s "https://api.clockwork.report/v1/start_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$STATE_FILE"
+    echo "started $(date +%s) - $(date) - $URL" >> "$STATE_FILE"
+    tail -n 1 "$STATE_FILE"
+  else
+    local start_time=$(tail -n 1 "$STATE_FILE" | awk '{print $2}')
+
+    # Deuxième appel : stop_timer
+    curl -s "https://api.clockwork.report/v1/stop_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$STATE_FILE"
+
+    local stop_time=$(date +%s)
+    local duration=$((stop_time - start_time))
+    local hours=$((duration / 3600))
+    local minutes=$(( (duration % 3600) / 60 ))
+    local seconds=$((duration % 60))
+    printf "stopped $stop_time - $(date) - duree %02d:%02d:%02d - $URL\n" "$hours" "$minutes" "$seconds" >> "$STATE_FILE"
+    tail -n 1 "$STATE_FILE"
+  fi
+)
+
+alias jira_reunion="jira_clock SDTHP-14"
+alias jira_incident="jira_clock SDTHP-7"
+alias jira_monitoring="jira_clock SDTHP-18"
+
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
 
