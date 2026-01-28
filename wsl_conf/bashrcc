@@ -710,48 +710,122 @@ function tips_pgd() {
 }
 
 
-function jira_clock() (
+function jira_start() (
+# jira start,
+# attend un id comme PGD-123
+# ca met tout dans $DEBUG_FILE -> lui on y touche jamais
+#
+# Chaque ligne importante aura la forme suivante :
+# echo "$ISSUE ; $URL ; $(date) ; la suite" >> "$DEBUG_FILE"
+# pourra etre lu avec
+# a=$(awk -F' ; ' 'END {print $1, $2, $3, $4}' fichier.txt)
+
   set -eu
   local ISSUE="$1"
-  local ROOT_TMP_DIR="/tmp/jira"
-  mkdir -p "$ROOT_TMP_DIR"
-  local STATE_FILE="$ROOT_TMP_DIR/clock_${ISSUE}.state"
   local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
+  local ROOT_TMP_DIR="/tmp/jira"
+  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
+  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
+  mkdir -p "$ROOT_TMP_DIR"
+  touch "$EN_COURS_FILE";
 
-  local need_start=0
-  if [[ ! -f "$STATE_FILE" ]]; then
-    need_start=1
-  else
-    local last_line=$(tail -n 1 "$STATE_FILE")
-    if [[ "$last_line" == stopped* ]]; then
-      need_start=1
-    fi
+  echo "$ISSUE ; $URL ; $(date) ; run jira_start" >> "$DEBUG_FILE"
+
+  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  # si il n y a rien on est en mode stopped
+  if [ -z "$last_status" ]; then
+    last_status="stopped"
   fi
 
-  # Premier appel : start_timer
-  if [[ $need_start -eq 1 ]]; then
-    curl -s "https://api.clockwork.report/v1/start_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$STATE_FILE"
-    echo "started $(date +%s) - $(date) - $URL" >> "$STATE_FILE"
-    tail -n 1 "$STATE_FILE"
-  else
-    local start_time=$(tail -n 1 "$STATE_FILE" | awk '{print $2}')
-
-    # Deuxième appel : stop_timer
-    curl -s "https://api.clockwork.report/v1/stop_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$STATE_FILE"
-
-    local stop_time=$(date +%s)
-    local duration=$((stop_time - start_time))
-    local hours=$((duration / 3600))
-    local minutes=$(( (duration % 3600) / 60 ))
-    local seconds=$((duration % 60))
-    printf "stopped $stop_time - $(date) - duree %02d:%02d:%02d - $URL\n" "$hours" "$minutes" "$seconds" >> "$STATE_FILE"
-    tail -n 1 "$STATE_FILE"
+  if [[ "$last_status" == 'started' ]]; then
+    jira_status
+    echo "faire jira_stop d abord"
+    exit 1
   fi
+
+  curl --fail -s "https://api.clockwork.report/v1/start_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$DEBUG_FILE"
+  # grace a set -e, on ne verra pas ce message si il y a un pb
+  echo "curl : OK"
+
+  echo "$ISSUE ; $URL ; $(date) ; started ; $(date +%s)" >> "$EN_COURS_FILE"
+  awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
 )
 
-alias jira_reunion="jira_clock SDTHP-14"
-alias jira_incident="jira_clock SDTHP-7"
-alias jira_monitoring="jira_clock SDTHP-18"
+function jira_stop() (
+  set -eu
+  local ROOT_TMP_DIR="/tmp/jira"
+  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
+  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
+  mkdir -p "$ROOT_TMP_DIR"
+  touch "$EN_COURS_FILE";
+
+  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  if [ -z "$last_status" ]; then
+    last_status="stopped"
+  fi
+
+  if [[ "$last_status" == 'stopped' ]]; then
+    jira_status
+    echo "faire jira_start d abord"
+    exit 1
+  fi
+
+  # find ISSUE
+  local ISSUE=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
+  local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
+
+  echo "$ISSUE ; $URL ; $(date) ; run jira_stop" >> "$DEBUG_FILE"
+  curl --fail -s "https://api.clockwork.report/v1/stop_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$DEBUG_FILE"
+  # grace a set -e, on ne verra pas ce message si il y a un pb
+  echo "curl : OK"
+
+  local start_time=$(awk -F' ; ' 'END {print $5}' "$EN_COURS_FILE")
+  local stop_time=$(date +%s)
+  local duration=$((stop_time - start_time))
+  local hours=$((duration / 3600))
+  local minutes=$(( (duration % 3600) / 60 ))
+  local seconds=$((duration % 60))
+  printf "$ISSUE ; $URL ; $(date) ; stopped ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$DEBUG_FILE"
+  printf "$ISSUE ; $URL ; $(date) ; stopped ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$EN_COURS_FILE"
+  awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
+)
+
+function jira_status() (
+  set -eu
+
+  local ROOT_TMP_DIR="/tmp/jira"
+  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
+  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
+
+  echo "debug: $DEBUG_FILE"
+  echo "suivi: $EN_COURS_FILE"
+  echo
+  tail -n 2 "$EN_COURS_FILE"
+
+  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  if [ -z "$last_status" ]; then
+    last_status="stopped"
+  fi
+
+  if [[ "$last_status" == 'stopped' ]]; then
+    exit 0
+  fi
+
+  local start_time=$(awk -F' ; ' 'END {print $5}' "$EN_COURS_FILE")
+  local stop_time=$(date +%s)
+  local duration=$((stop_time - start_time))
+  local hours=$((duration / 3600))
+  local minutes=$(( (duration % 3600) / 60 ))
+  local seconds=$((duration % 60))
+  printf "si vous faites jira_stop maintenant, duree : %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds"
+)
+
+alias jira_reunion="jira_start SDTHP-14"
+alias jira_incident="jira_start SDTHP-7"
+alias jira_monitoring="jira_start SDTHP-18"
+alias jira_supervision="jira_monitoring"
+alias jira_courant="jira_start PPL-342"
+alias jira_dujour="jira_courant"
 
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
