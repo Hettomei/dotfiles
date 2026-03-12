@@ -716,7 +716,7 @@ function jira_start() (
 # ca met tout dans $DEBUG_FILE -> lui on y touche jamais
 #
 # Chaque ligne importante aura la forme suivante :
-# echo "$ISSUE ; $URL ; $(date) ; la suite" >> "$DEBUG_FILE"
+# echo "$ETAT ; $ISSUE ; $URL ; $MAPPING ; $(date) ; la suite" >> "$DEBUG_FILE"
 # pourra etre lu avec
 # a=$(awk -F' ; ' 'END {print $1, $2, $3, $4}' fichier.txt)
 
@@ -731,7 +731,7 @@ function jira_start() (
 
   echo "$ISSUE ; $URL ; $(date) ; run jira_start" >> "$DEBUG_FILE"
 
-  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
   # si il n y a rien on est en mode stopped
   if [ -z "$last_status" ]; then
     last_status="stopped"
@@ -747,7 +747,7 @@ function jira_start() (
   # grace a set -e, on ne verra pas ce message si il y a un pb
   echo "curl : OK"
 
-  echo "$ISSUE ; $URL ; $(date) ; started ; $(date +%s)" >> "$EN_COURS_FILE"
+  echo "started ; $ISSUE ; $URL ; $(jira_mapping $ISSUE) ; $(date) ; $(date +%s)" >> "$EN_COURS_FILE"
   awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
 )
 
@@ -759,7 +759,7 @@ function jira_stop() (
   mkdir -p "$ROOT_TMP_DIR"
   touch "$EN_COURS_FILE";
 
-  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
   if [ -z "$last_status" ]; then
     last_status="stopped"
   fi
@@ -771,7 +771,7 @@ function jira_stop() (
   fi
 
   # find ISSUE
-  local ISSUE=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
+  local ISSUE=$(awk -F' ; ' 'END {print $2}' "$EN_COURS_FILE")
   local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
 
   echo "$ISSUE ; $URL ; $(date) ; run jira_stop" >> "$DEBUG_FILE"
@@ -779,14 +779,14 @@ function jira_stop() (
   # grace a set -e, on ne verra pas ce message si il y a un pb
   echo "curl : OK"
 
-  local start_time=$(awk -F' ; ' 'END {print $5}' "$EN_COURS_FILE")
+  local start_time=$(awk -F' ; ' 'END {print $6}' "$EN_COURS_FILE")
   local stop_time=$(date +%s)
   local duration=$((stop_time - start_time))
   local hours=$((duration / 3600))
   local minutes=$(( (duration % 3600) / 60 ))
   local seconds=$((duration % 60))
   printf "$ISSUE ; $URL ; $(date) ; stopped ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$DEBUG_FILE"
-  printf "$ISSUE ; $URL ; $(date) ; stopped ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$EN_COURS_FILE"
+  printf "stopped ; $ISSUE ; $URL ;  ; $(jira_mapping $ISSUE) ; $(date) ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$EN_COURS_FILE"
   awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
 )
 
@@ -800,9 +800,9 @@ function jira_status() (
   echo "debug: $DEBUG_FILE"
   echo "suivi: $EN_COURS_FILE"
   echo
-  tail -n 2 "$EN_COURS_FILE"
+  tail -n 6 "$EN_COURS_FILE"
 
-  local last_status=$(awk -F' ; ' 'END {print $4}' "$EN_COURS_FILE")
+  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
   if [ -z "$last_status" ]; then
     last_status="stopped"
   fi
@@ -811,7 +811,7 @@ function jira_status() (
     exit 0
   fi
 
-  local start_time=$(awk -F' ; ' 'END {print $5}' "$EN_COURS_FILE")
+  local start_time=$(awk -F' ; ' 'END {print $6}' "$EN_COURS_FILE")
   local stop_time=$(date +%s)
   local duration=$((stop_time - start_time))
   local hours=$((duration / 3600))
@@ -820,9 +820,22 @@ function jira_status() (
   printf "si vous faites jira_stop maintenant, duree : %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds"
 )
 
+function jira_mapping() (
+  set -eu
+  declare -A messages=(
+    [SDTHP-14]="Reunion"
+    [SDTHP-7]="Incident en prod"
+    [SDTHP-18]="monitoring supervision"
+    [SDTHP-17]="support tech"
+    [PPL-342]="faille secu helios upload"
+  )
+  echo -n "${messages[$1]:-Valeur inconnue : $1}"
+)
+
 alias jira_reunion="jira_start SDTHP-14"
 alias jira_incident="jira_start SDTHP-7"
 alias jira_monitoring="jira_start SDTHP-18"
+alias jira_support="jira_start SDTHP-17"
 alias jira_supervision="jira_monitoring"
 alias jira_courant="jira_start PPL-342"
 alias jira_dujour="jira_courant"
