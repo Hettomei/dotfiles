@@ -587,7 +587,7 @@ alias ee=exec_all
 alias chrono="python ~/programmes/time-left/src/main.py -a '$POLY_HOME/poly-tim/chiffrages.md'"
 alias ch=chrono
 alias cc="nvim +Chiffrage +Todo -c 'wincmd h' +10000"
-alias demarrage="$HOME/programmes/dotfiles/demarrage.sh"
+alias demarre_tmux="$HOME/programmes/dotfiles/demarrage.sh"
 
 function ggg() {
   cd ..
