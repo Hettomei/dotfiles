@@ -363,7 +363,7 @@ function meme {
 # on compte dans awk
 # on affiche la plus grosse recherche en dernier
 function historysearch {
-  rg --color never --no-line-number --no-filename -- "$@" ~/history_backups | uniq -c | sort -h;
+  rg --color never --no-line-number --no-filename -- "$@" ~/history_backups | sort | uniq -c | sort -h;
 }
 
 # on met un _ pour que ce soit plus simple pour autocomplete quand je veux historysearch
