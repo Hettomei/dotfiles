@@ -30,7 +30,10 @@ r() {
   rg --sort path --hidden --glob "!.git" --pretty "$@" | less -R
 }
 
-alias rr='rg --sort path --hidden --glob "!.git"'
+alias rr_pas_pretty='rg --sort path --hidden --glob "!.git"'
+# Pour ne pas avoir les ligne
+alias rr_sans_les_num_de_lignes='rg --sort path --hidden --glob "!.git" --no-column -I --no-heading -N'
+alias rr_larger='rg -uuu --ignore-case'
 
 alias rglarger='rg -uuu --ignore-case'
 alias f="fdfind"
@@ -406,89 +409,6 @@ if [ -d "$GROOVY_HOME" ] ; then
     PATH="$GROOVY_HOME/bin:$PATH"
 fi
 
-# Tips
-#
-# Create a hotspot in ubuntu : https://github.com/oblique/create_ap
-# sudo create_ap wlp3s0 enp2s0 conserto-wifi-relou azertyazertylol &
-#
-# youtube-dl --extract-audio --audio-format mp3 'http://youtube'
-
-# couper 30 sec de chanson à partir de la 5 ieme minute
-# ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
-# If you wish to REMOVE the first 30 seconds (and keep the remainder) then use this:
-# ffmpeg -ss 30 -i inputfile.mp3 -acodec copy outputfile.mp3
-
-# Tips slowdown connection
-# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
-# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
-# 1 kbps
-# sudo tc qdisc add dev eth0 handle 1: root htb default 11
-# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
-# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
-
-##################################
-# git bisect example :
-# Taken from https://git-scm.com/docs/git-bisect
-# Run this way :
-# first, create your stash that change the code.
-# first go up for 5 parent commit of merge : (more at https://stackoverflow.com/a/2222920/1614763)
-# git bisect start HEAD HEAD~5
-# then
-# git bisect run ~/test.sh
-
-# cat test.sh
-# !/bin/sh
-# # tweak the working tree by merging the hot-fix branch
-# # and then attempt a build
-# if git stash apply stash@{1} || git reset --hard && git stash apply stash@{0}
-# then
-#   mocha -R dot -r ./test/setup.js  -- test/unit/domain-models/pvr-ui-flow/PVRUIFlow.DomainModel.spec.js
-#   status=$?
-# else
-#   # tell the caller this is untestable
-#   status=125
-# fi
-
-# # undo the tweak to allow clean flipping to the next commit
-# git reset --hard
-# # return control
-# return $status
-##################################
-
-## exclude file in git diff show
-# git show --stat -- . ':(exclude)test'
-
-# Rename in file string -> newString
-# r -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
-
-# compare two commit. And only the content :
-# v -d <(g show 11111111) <(g show 22222222)
-
-
-# Automatically mount virtualbox on bash startup :
-# You need to be in this group : (cf: https://stackoverflow.com/questions/26740113/virtualbox-shared-folder-permissions)
-# sudo adduser $USER vboxsf
-
-
-###############
-# imagemagick #
-###############
-
-# convert doc: http://www.imagemagick.org/Usage/basics/#convert
-#
-# Only keep the left part (here 643px) of an image
-# convert input.png -crop 643x+0+0 +repage output.png
-
-# resize : it will keep the best ratio. so output.png will not be 1000x1000
-#
-# example :
-# input  is  1920 x 1200
-# output is  1000 x  625
-# convert input.png -resize 1000x1000 output.png
-
-# get image size, use identify
-# identify test.png
-# test.png PNG 1000x625 1000x625+0+0 8-bit sRGB 74924B 0.000u 0:00.000
 
 ######
 # Rename photo based on create exif tag
@@ -709,136 +629,104 @@ function tips_pgd() {
   rglarger "$@" $HOME/polywsl/poly-tim/*.md
 }
 
+replace_in_files() {
+  local search="$1"
+  local replace="$2"
 
-function jira_start() (
-# jira start,
-# attend un id comme PGD-123
-# ca met tout dans $DEBUG_FILE -> lui on y touche jamais
+  while IFS= read -r file; do
+    echo "##################### $file"
+    rg --fixed-strings "$search" "$file"
+    echo "==="
+
+    sed -i "s|${search}|${replace}|g" "$file"
+
+    rg --fixed-strings "$replace" "$file"
+  done < <(rg -l --fixed-strings "$search")
+}
+
+# Tips
 #
-# Chaque ligne importante aura la forme suivante :
-# echo "$ETAT ; $ISSUE ; $URL ; $MAPPING ; $(date) ; la suite" >> "$DEBUG_FILE"
-# pourra etre lu avec
-# a=$(awk -F' ; ' 'END {print $1, $2, $3, $4}' fichier.txt)
+# Create a hotspot in ubuntu : https://github.com/oblique/create_ap
+# sudo create_ap wlp3s0 enp2s0 conserto-wifi-relou azertyazertylol &
+#
+# youtube-dl --extract-audio --audio-format mp3 'http://youtube'
 
-  set -eu
-  local ISSUE="$1"
-  local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
-  local ROOT_TMP_DIR="/tmp/jira"
-  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
-  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
-  mkdir -p "$ROOT_TMP_DIR"
-  touch "$EN_COURS_FILE";
+# couper 30 sec de chanson à partir de la 5 ieme minute
+# ffmpeg -t 30 -ss 00:05:00.000 -i in.mp3 -acodec copy out.mp3
+# If you wish to REMOVE the first 30 seconds (and keep the remainder) then use this:
+# ffmpeg -ss 30 -i inputfile.mp3 -acodec copy outputfile.mp3
 
-  echo "$ISSUE ; $URL ; $(date) ; run jira_start" >> "$DEBUG_FILE"
+# Tips slowdown connection
+# http://mark.koli.ch/slowdown-throttle-bandwidth-linux-network-interface
+# sudo tc qdisc add dev eth0 root netem delay 500ms # just le delay avant CO
+# 1 kbps
+# sudo tc qdisc add dev eth0 handle 1: root htb default 11
+# sudo tc class add dev eth0 parent 1: classid 1:1 htb rate 1kbps
+# sudo tc class add dev eth0 parent 1:1 classid 1:11 htb rate 1kbps
 
-  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
-  # si il n y a rien on est en mode stopped
-  if [ -z "$last_status" ]; then
-    last_status="stopped"
-  fi
+##################################
+# git bisect example :
+# Taken from https://git-scm.com/docs/git-bisect
+# Run this way :
+# first, create your stash that change the code.
+# first go up for 5 parent commit of merge : (more at https://stackoverflow.com/a/2222920/1614763)
+# git bisect start HEAD HEAD~5
+# then
+# git bisect run ~/test.sh
 
-  if [[ "$last_status" == 'started' ]]; then
-    jira_status
-    echo "faire jira_stop d abord"
-    exit 1
-  fi
+# cat test.sh
+# !/bin/sh
+# # tweak the working tree by merging the hot-fix branch
+# # and then attempt a build
+# if git stash apply stash@{1} || git reset --hard && git stash apply stash@{0}
+# then
+#   mocha -R dot -r ./test/setup.js  -- test/unit/domain-models/pvr-ui-flow/PVRUIFlow.DomainModel.spec.js
+#   status=$?
+# else
+#   # tell the caller this is untestable
+#   status=125
+# fi
 
-  curl --fail -s "https://api.clockwork.report/v1/start_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$DEBUG_FILE"
-  # grace a set -e, on ne verra pas ce message si il y a un pb
-  echo "curl : OK"
+# # undo the tweak to allow clean flipping to the next commit
+# git reset --hard
+# # return control
+# return $status
+##################################
 
-  echo "started ; $ISSUE ; $URL ; $(jira_mapping $ISSUE) ; $(date) ; $(date +%s)" >> "$EN_COURS_FILE"
-  awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
-)
+## exclude file in git diff show
+# git show --stat -- . ':(exclude)test'
 
-function jira_stop() (
-  set -eu
-  local ROOT_TMP_DIR="/tmp/jira"
-  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
-  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
-  mkdir -p "$ROOT_TMP_DIR"
-  touch "$EN_COURS_FILE";
+# Rename in file string -> newString
+# r -l getAsyncApps | xargs sed -i 's/oldString/newString/g'
 
-  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
-  if [ -z "$last_status" ]; then
-    last_status="stopped"
-  fi
+# compare two commit. And only the content :
+# v -d <(g show 11111111) <(g show 22222222)
 
-  if [[ "$last_status" == 'stopped' ]]; then
-    jira_status
-    echo "faire jira_start d abord"
-    exit 1
-  fi
 
-  # find ISSUE
-  local ISSUE=$(awk -F' ; ' 'END {print $2}' "$EN_COURS_FILE")
-  local URL="https://polyexpert-sas.atlassian.net/browse/$ISSUE"
+# Automatically mount virtualbox on bash startup :
+# You need to be in this group : (cf: https://stackoverflow.com/questions/26740113/virtualbox-shared-folder-permissions)
+# sudo adduser $USER vboxsf
 
-  echo "$ISSUE ; $URL ; $(date) ; run jira_stop" >> "$DEBUG_FILE"
-  curl --fail -s "https://api.clockwork.report/v1/stop_timer" --data "issue_key=${ISSUE}" --header "Authorization: Token $JIRA_CLOCKWORK_PRO_TOKEN" | jq >> "$DEBUG_FILE"
-  # grace a set -e, on ne verra pas ce message si il y a un pb
-  echo "curl : OK"
 
-  local start_time=$(awk -F' ; ' 'END {print $6}' "$EN_COURS_FILE")
-  local stop_time=$(date +%s)
-  local duration=$((stop_time - start_time))
-  local hours=$((duration / 3600))
-  local minutes=$(( (duration % 3600) / 60 ))
-  local seconds=$((duration % 60))
-  printf "$ISSUE ; $URL ; $(date) ; stopped ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$DEBUG_FILE"
-  printf "stopped ; $ISSUE ; $URL ;  ; $(jira_mapping $ISSUE) ; $(date) ; duree %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds" >> "$EN_COURS_FILE"
-  awk -F' ; ' 'END {print $0}' "$EN_COURS_FILE"
-)
+###############
+# imagemagick #
+###############
 
-function jira_status() (
-  set -eu
+# convert doc: http://www.imagemagick.org/Usage/basics/#convert
+#
+# Only keep the left part (here 643px) of an image
+# convert input.png -crop 643x+0+0 +repage output.png
 
-  local ROOT_TMP_DIR="/tmp/jira"
-  local DEBUG_FILE="$ROOT_TMP_DIR/clock_debug.state"
-  local EN_COURS_FILE="$ROOT_TMP_DIR/clock_en_cours.state"
+# resize : it will keep the best ratio. so output.png will not be 1000x1000
+#
+# example :
+# input  is  1920 x 1200
+# output is  1000 x  625
+# convert input.png -resize 1000x1000 output.png
 
-  echo "debug: $DEBUG_FILE"
-  echo "suivi: $EN_COURS_FILE"
-  echo
-  tail -n 6 "$EN_COURS_FILE"
-
-  local last_status=$(awk -F' ; ' 'END {print $1}' "$EN_COURS_FILE")
-  if [ -z "$last_status" ]; then
-    last_status="stopped"
-  fi
-
-  if [[ "$last_status" == 'stopped' ]]; then
-    exit 0
-  fi
-
-  local start_time=$(awk -F' ; ' 'END {print $6}' "$EN_COURS_FILE")
-  local stop_time=$(date +%s)
-  local duration=$((stop_time - start_time))
-  local hours=$((duration / 3600))
-  local minutes=$(( (duration % 3600) / 60 ))
-  local seconds=$((duration % 60))
-  printf "si vous faites jira_stop maintenant, duree : %02d:%02d:%02d\n" "$hours" "$minutes" "$seconds"
-)
-
-function jira_mapping() (
-  set -eu
-  declare -A messages=(
-    [SDTHP-14]="Reunion"
-    [SDTHP-7]="Incident en prod"
-    [SDTHP-18]="monitoring supervision"
-    [SDTHP-17]="support tech"
-    [PPL-342]="faille secu helios upload"
-  )
-  echo -n "${messages[$1]:-Valeur inconnue : $1}"
-)
-
-alias jira_reunion="jira_start SDTHP-14"
-alias jira_incident="jira_start SDTHP-7"
-alias jira_monitoring="jira_start SDTHP-18"
-alias jira_support="jira_start SDTHP-17"
-alias jira_supervision="jira_monitoring"
-alias jira_courant="jira_start PPL-342"
-alias jira_dujour="jira_courant"
+# get image size, use identify
+# identify test.png
+# test.png PNG 1000x625 1000x625+0+0 8-bit sRGB 74924B 0.000u 0:00.000
 
 # one line
 # exiftool -T -model -filename . | sort | grep L30  | while read -r v1 v2 v3 name; do mv $name "lll/$name"; done
