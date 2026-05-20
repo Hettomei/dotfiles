@@ -103,7 +103,7 @@
 [init]
   defaultBranch = master
 [interactive]
-  ; quand on utilise git add -p
+  ; quand on utilise git add -p; pas le choix que de laisser cette conf
   diffFilter = delta --color-only
 [color]
   ui = true
@@ -121,17 +121,31 @@
 ; prendre git-delta amd64.deb (curl -L 'lien_github_release_asset' -o name.deb)
 ; puis sudo dpkg -i git-delta_0.19.2_amd64.deb
 ; j ai la version 0.19.2 du 28 mars 2026
-  navigate = true  # use n and N to move between diff sections
+  ; navigate = true  # use n and N to move between diff sections
+  file-modified-label=:::
+  file-removed-label=:::
+  file-renamed-label=:::
+  file-renamed-label=:::
+  hunk-label=:::
+  pager = less
+  dark=true
   true-color = always
-  max-syntax-highlighting-length = 1 # ne met pas de coloration de code, 0 ne marche pas
-  minus-style='red bold'
-  plus-style='green bold'
+  ; max-syntax-highlighting-length = 1 # ne met pas de coloration de code, 0 ne marche pas
+  minus-style='red'
+  minus-emph-style='normal red'
+  plus-style='green'
+  plus-emph-style='normal green'
+  file-style='yellow'
+  hunk-header-decoration-style='blue box'
+  hunk-header-line-number-style='white'
+  hunk-header-style='omit' # essai de detecter les class; j enleve
   zero-style='normal'
+  max-line-distance=0.8 # Trouve plus de correspondance pour afficher du surligner, entre 0 et 1. Defaut 0.6
   tabs = 2 # 2 de largeur, defaut 8
 
-  features = unobtrusive-line-numbers
+  features = perfect-line-numbers # voir si dessous
 
-[delta "unobtrusive-line-numbers"]
+[delta "perfect-line-numbers"]
   line-numbers = true
   line-numbers-minus-style = "#444444"
   line-numbers-zero-style = "#444444"
