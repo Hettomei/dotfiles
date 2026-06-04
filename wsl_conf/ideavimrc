@@ -114,6 +114,7 @@ nmap Q gq
 
 " use ctrl + f normaly
 sethandler <c-f> a:ide
+sethandler <c-e> a:ide
 sethandler <m-/> a:ide
 "" Window navigation
 sethandler <c-h> a:vim

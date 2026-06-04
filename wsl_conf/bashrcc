@@ -24,6 +24,7 @@ alias lll='ls -alhS'
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
+alias idea="nohup $HOME/.local/share/JetBrains/Toolbox/scripts/idea -Dsun.awt.wl.Shadow=false > $HOME/.intellijlog 2>&1 &"
 
 r() {
   # Par defaut, ripgrep n a pas de pager; on utilise less
