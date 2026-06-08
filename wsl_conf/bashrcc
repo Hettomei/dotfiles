@@ -24,7 +24,15 @@ alias lll='ls -alhS'
 alias bc="echo 'bc -l' && bc -l"
 alias rmDS='find . -name ".DS_Store" -exec rm {} \;'
 alias pps='ps aux | grep'
-alias idea="nohup $HOME/.local/share/JetBrains/Toolbox/scripts/idea -Dsun.awt.wl.Shadow=false > $HOME/.intellijlog 2>&1 &"
+
+# Je passe par là car il y a un autre idea sous wsl que windows a installé et que je ne souhaite pas toucher par peur.
+idea() {
+  local suffixe="$(date '+%Y%m%d_%H%M%S').log"
+  local log_file="$(mktemp -t intellijlog_XXX --suffix=$suffixe)"
+  echo "Log : $log_file"
+  echo "params : " "$@"
+  nohup "$HOME/.local/share/JetBrains/Toolbox/scripts/idea" "-Dsun.awt.wl.Shadow=false" "$@" > "$log_file" 2>&1 &
+}
 
 r() {
   # Par defaut, ripgrep n a pas de pager; on utilise less

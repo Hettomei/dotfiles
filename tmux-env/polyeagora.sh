@@ -4,7 +4,7 @@
 
 tmux -u new-session \; \
   send-keys 'cd $HOME/polywsl/code/eagora/poly-eagora-back' C-m \; \
-  send-keys 'idea; everyday_health ; everyday_download_localhostaccess ;' \; \
+  send-keys 'idea ; everyday_health ; everyday_download_localhostaccess ;' \; \
   new-window \; \
   send-keys 'cd $HOME/polywsl/code/eagora/poly-eagora-back' C-m \; \
   \

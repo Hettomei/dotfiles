@@ -11,7 +11,8 @@ touch "$HOME/.bashrc_secret"
 cp -v "$DIR/profilee" "$HOME/.profilee"
 cp -v "$DIR/gitconfig" "$HOME/.gitconfig"
 cp -v "$DIR/lesskey" "$HOME/.lesskey"
-cp -v "$DIR/ideavimrc" "$WIN_HOME/.ideavimrc"
+cp -v "$DIR/ideavimrc_wsl" "$HOME/.ideavimrc"
+cp -v "$DIR/ideavimrc_win" "$WIN_HOME/.ideavimrc"
 
 mkdir -p "$HOME/history_backups"
 mkdir -p "$HOME/history_stats"
@@ -104,8 +105,6 @@ https://stackoverflow.com/questions/67116880/how-to-correctly-set-up-intellij-wi
 
 ---- GIT DELTA ----
 
-go to https://github.com/dandavison/delta/releases
-prendre git-delta_0.18.2_amd64.deb ou version superieur
-sudo dpkg -i git-delta_0.18.2_amd64.deb
+Lire ce qu'il faut faire dans .gitconfig
 
 ____HERE

@@ -1,0 +1,157 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+
+"" Find a command :
+" press shift shift: then enable  "track action Ids"
+
+" IdeaVim uses 'a' for alt instead of Vim's 'm'
+
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+" Mappings to <Action> don't work with noremap
+
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+" Thanks to https://gist.github.com/dewaka/ef947e52767bf453eaf77c852051eb7e
+" https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
+" https://gist.github.com/ericvanjohnson/079ae871e156054d3779e8f1efd8375d
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+"" ====================== Info tips and all =====================
+
+" gd -> go to declaration
+
+""" Map leader ---------------------
+let mapleader=" "
+
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+" Plug 'vim-scripts/ReplaceWithRegister'
+" Plug 'vim-scripts/argtextobj.vim'
+
+""" Plugins  --------------------------------
+set surround
+set commentary
+set argtextobj
+set textobj-entire
+set ReplaceWithRegister
+set which-key
+"set sneak
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>,{:}"
+
+""" Common settings -------------------------
+set showmode
+set gdefault " always add g to %s///g
+" show lines up down
+set scrolloff=10
+" show char left right
+set sidescrolloff=20
+set incsearch
+set hlsearch
+set nowrapscan
+set nowrap
+set number
+set clipboard+=unnamed
+set clipboard+=ideaput
+set visualbell
+
+""" Idea specific settings ------------------
+set ideajoin
+set idearefactormode=keep
+
+""" Mappings --------------------------------
+nmap Y y$
+nnoremap x "_x
+nmap s 20l
+nmap S 10h
+" I can t use azerty
+" map £ *
+" map § +
+" map = -
+" /azerty problem
+
+" ne pas passer en nnoremap
+nmap <leader><leader> <Action>(SaveDocument)
+nmap <leader>y yiw
+nmap <leader>d diw
+nmap <leader>r "_ciw
+nmap <leader>R <Action>(RenameElement)
+nmap <leader>s <Action>(SelectInProjectView)
+nmap <leader>p "_diwP
+
+imap <C-n> <Action>(HippieCompletion)
+imap <C-p> <Action>(HippieBackwardCompletion)
+
+nmap = <Action>(ReformatCode)
+vmap = <Action>(ReformatCode)
+
+nmap <leader>h <Action>(ToggleDistractionFreeMode)
+
+nmap <leader>j <Action>(FileStructurePopup)
+nmap <leader>q <Action>(CloseEditor)
+nmap <leader>/ <Action>(EditorSelectWord)<Action>(FindInPath)
+nmap <leader>* <Action>(EditorSelectWord)<Action>(FindInPath)
+vmap v <Action>(EditorSelectWord)
+nmap <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(StretchSplitToRight)
+nmap <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
+nmap <c-w>m <Action>(MaximizeEditorInSplit)
+nmap <leader>m <Action>(MaximizeEditorInSplit)
+" controle + enter, like Ctrl + b in intellig
+" Map \b to toggle the breakpoint on the current line
+nmap <leader>b <Action>(ToggleLineBreakpoint)
+nmap <leader>t <Action>(GotoRelated)
+nmap <c-p> <Action>(GotoFile)
+map <leader>g <Action>(FindInPath)
+map <leader>b <Action>(Switcher)
+nmap <leader>s <Action>(RecentFiles)
+nmap <leader>e <Action>(GotoNextError)
+nmap <leader>E <Action>(GotoPreviousError)
+
+" Idea already map ctrl + + and ctrl + - to collapse expand
+"map <Tab> <Action>(ExpandRegion)
+nmap za <Action>(ExpandCollapseToggleAction)
+"map <S-Tab> <Action>(CollapseRegion)
+
+" Don't use Ex mode, use Q for formatting.
+nmap Q gq
+
+" use ctrl + f normaly
+sethandler <c-f> a:ide
+sethandler <c-e> a:ide
+sethandler <a-/> a:ide
+
+"" Window navigation
+sethandler <c-h> a:vim
+sethandler <c-l> a:vim
+sethandler <c-j> a:vim
+sethandler <c-k> a:vim
+sethandler <c-p> a:vim
+" create windows
+" map <c-k> <c-w>s <c-w>k
+" map <c-j> <c-w>s
+" map <c-h> <c-w>v <c-w>h
+" map <c-l> <c-w>v
+
+" move
+nmap <S-Up> <c-w>k
+nmap <S-Down> <c-w>j
+nmap <S-Left> <c-w>h
+nmap <S-Right> <c-w>l
+
+sethandler <C-A> a:vim
+sethandler <C-B> a:ide
+sethandler <C-C> a:vim
+sethandler <C-G> a:ide
+sethandler <C-N> a:vim
+sethandler <C-R> a:vim
+sethandler <C-S> a:ide
+" block C-v mode normal pour passer en visual colone. Mais important de copier coller
+"sethandler <C-V> a:ide
+nmap <C-v> <Action>($Paste)
+imap <C-v> <Action>($Paste)
+sethandler <C-W> a:vim

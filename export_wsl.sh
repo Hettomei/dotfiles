@@ -14,8 +14,9 @@ cp -v "$HOME/.bash_logout" "$DIR/bash_logout"
 cp -v "$HOME/.profilee" "$DIR/profilee"
 cp -v "$HOME/.tmux.conf" "$DIR/tmux.conf"
 cp -v "$HOME/.lesskey" "$DIR/lesskey"
+cp -v "$HOME/.ideavimrc" "$DIR/ideavimrc_wsl" || echo "no ideavimrc wsl"
 
-cp -v "$WIN_HOME/.ideavimrc" "$DIR/ideavimrc" || echo "no ideavimrc"
+cp -v "$WIN_HOME/.ideavimrc" "$DIR/ideavimrc_win" || echo "no ideavimrc win"
 
 #### Nvim ####
 mkdir -p "$DIR/nvim"
