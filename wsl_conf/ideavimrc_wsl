@@ -12,6 +12,9 @@
 "" Map <leader>d to start debug
 "map <leader>d <Action>(Debug)
 
+" Map \b to toggle the breakpoint on the current line
+"nmap <leader>b <Action>(ToggleLineBreakpoint)
+
 " Mappings to <Action> don't work with noremap
 
 " You can find a list of commands here: https://jb.gg/h38q75
@@ -67,8 +70,10 @@ set idearefactormode=keep
 """ Mappings --------------------------------
 nmap Y y$
 nnoremap x "_x
-nmap s 20l
-nmap S 10h
+" Part à droite de moitié
+nmap <expr> s (col('$') - col('.') > 1) ? (col('$') - col('.')) / 2 . 'l' : ''
+" Part à gauche de moitié
+nmap <expr> S (col('.') > 1) ? (col('.') - 1) / 2 . 'h' : ''
 " I can t use azerty
 " map £ *
 " map § +
@@ -101,12 +106,8 @@ nmap <c-w>§ <Action>(StretchSplitToRight)<Action>(StretchSplitToRight)<Action>(
 nmap <c-w>= <Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)<Action>(StretchSplitToLeft)
 nmap <c-w>m <Action>(MaximizeEditorInSplit)
 nmap <leader>m <Action>(MaximizeEditorInSplit)
-" controle + enter, like Ctrl + b in intellig
-" Map \b to toggle the breakpoint on the current line
-nmap <leader>b <Action>(ToggleLineBreakpoint)
 nmap <leader>t <Action>(GotoRelated)
 nmap <c-p> <Action>(GotoFile)
-map <leader>g <Action>(FindInPath)
 map <leader>b <Action>(Switcher)
 nmap <leader>s <Action>(RecentFiles)
 nmap <leader>e <Action>(GotoNextError)
